@@ -8,6 +8,7 @@ public final class ZmhRegistries {
 
     public static void register(IEventBus modEventBus) {
         ZmhBlocks.register(modEventBus);
+        ZmhBlockEntityTypes.register(modEventBus);
         ZmhCreativeTabs.register(modEventBus);
     }
 }

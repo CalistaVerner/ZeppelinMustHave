@@ -1,0 +1,7 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "zeppelin_must_have:block/industrial_airship_burner" }
+    }
+  ]
+}

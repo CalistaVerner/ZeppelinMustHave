@@ -1,10 +1,8 @@
 # Zeppelin Must Have Architecture
 
-## Objective
+## Platform
 
-Zeppelin Must Have is not a generic airship abstraction. It is an add-on for the current Minecraft 1.21.1 NeoForge stack formed by Create, Sable, Create Simulated, and Create Aeronautics.
-
-## Required platform
+Zeppelin Must Have is an add-on for the Minecraft 1.21.1 NeoForge stack formed by Create, Sable, Create Simulated, and Create Aeronautics.
 
 ```text
 Create kinetic systems
@@ -22,17 +20,7 @@ Create Aeronautics lift and flight machinery
 Zeppelin Must Have zeppelin control and service systems
 ```
 
-These dependencies are required in both Gradle and `neoforge.mods.toml`. `SimulatedStack` imports the Simulated and Aeronautics entrypoints at compile time and verifies all four upstream mod IDs during initialization.
-
-## Subsystem model
-
-`ZeppelinSubsystem` defines five stable domains:
-
-- `CONTROL` — pilot commands, steering, mode selection, and safety interlocks.
-- `BUOYANCY` — ballast state, lift demand, trim, and vertical equilibrium.
-- `PROPULSION` — thrust producers, vectoring, power availability, and stress demand.
-- `NAVIGATION` — altitude, vertical speed, heading, and instrumentation.
-- `MOORING` — anchors, winches, docking constraints, and ground handling.
+These dependencies are mandatory in both Gradle and `neoforge.mods.toml`.
 
 ## Runtime boundaries
 
@@ -50,54 +38,122 @@ Zeppelin subsystem controller
             └── client telemetry synchronization
 ```
 
-The integration package isolates upstream API calls from gameplay blocks. This is not intended to make Aeronautics optional; it limits API churn when the Simulated Project changes internal packages between releases.
+Upstream API calls remain concentrated in the `integration` package. Aeronautics is not optional; the boundary exists to contain package and API churn between Simulated Project releases.
 
-## Implementation sequence
+## Airship Helm
 
-### Phase 1 — Platform foundation
+### Containing-vessel discovery
 
-- NeoForge 1.21.1 and Java 21 build.
-- Mandatory Create, Sable, Simulated, and Aeronautics dependencies.
+`AeronauticsFlightStateReader` resolves the vessel using:
+
+```java
+Sable.HELPER.getContaining(level, blockPos)
+```
+
+Only a `ServerSubLevel` is accepted as an attached airship. A Helm placed in the parent world reports a detached state.
+
+### Physics telemetry
+
+For an attached sub-level the reader captures:
+
+- persistent sub-level UUID;
+- optional sub-level name;
+- projected global Helm position;
+- heading, pitch, and roll from `logicalPose().orientation()`;
+- global linear velocity from `RigidBodyHandle`;
+- global angular velocity from `RigidBodyHandle`;
+- mass from the sub-level mass tracker.
+
+### Aeronautics telemetry
+
+`BalloonMap.MAP` is scanned for Aeronautics balloons whose controller positions resolve to the same Sable sub-level. The reader aggregates:
+
+- balloon count;
+- enclosed capacity;
+- currently filled lifting-gas volume;
+- target lifting-gas volume;
+- total raw lift.
+
+### Synchronization
+
+`AirshipHelmBlockEntity` samples every five server ticks. `AirshipFlightSnapshot.materiallyDiffersFrom` applies per-field epsilon thresholds to prevent unnecessary packet updates. A forced synchronization occurs once per second.
+
+The client receives telemetry through the standard block entity update tag and never authors flight state.
+
+## Airship burner family
+
+### Integration model
+
+`AirshipBurnerBlockEntity` extends Aeronautics `HotAirBurnerBlockEntity`. This retains the established balloon discovery, flood-fill, gas type, client effects, and `BlockEntityLiftingGasProvider` contract while adding Zeppelin Must Have fuel storage and tier behaviour.
+
+### Tiers
+
+| Tier | Gas output | Fuel use | Capacity | Cast range |
+|---|---:|---:|---:|---:|
+| Standard | `1.0×` | `1.0 fuel tick/tick` | 12,000 ticks | 16 blocks |
+| Forced draft | `2.25×` | `1.6 fuel ticks/tick` | 24,000 ticks | 32 blocks |
+| Industrial | `4.5×` | `3.0 fuel ticks/tick` | 48,000 ticks | 64 blocks |
+
+Fuel consumption is multiplied by `redstoneSignal / 15`, so partial redstone input provides proportional throttling.
+
+### Fuel resolution
+
+Fuel is resolved in this order:
+
+1. Creative Blaze Cake — infinite operation.
+2. Create superheated Blaze Burner fuel data map.
+3. Create regular Blaze Burner fuel data map.
+4. Vanilla/NeoForge furnace burn time.
+
+Superheated fuel multiplies gas output by `1.5`.
+
+### Safety and lifecycle
+
+- No fuel or zero redstone signal means zero gas output.
+- Fuel state is persisted in NBT.
+- The `lit` block state follows actual gas-producing status, not merely redstone power.
+- Fuel exhaustion immediately removes the provider from its current balloon.
+- Comparator output represents remaining fuel percentage.
+- The burner is server-authoritative; the client only receives synchronized fuel state and normal Aeronautics effects.
+
+## Subsystem model
+
+`ZeppelinSubsystem` defines five stable domains:
+
+- `CONTROL` — pilot commands, steering, mode selection, and safety interlocks.
+- `BUOYANCY` — burners, ballast, lift demand, trim, and vertical equilibrium.
+- `PROPULSION` — thrust producers, vectoring, power availability, and stress demand.
+- `NAVIGATION` — altitude, vertical speed, heading, and instrumentation.
+- `MOORING` — anchors, winches, docking constraints, and ground handling.
+
+## Implementation state
+
+### Completed
+
+- Mandatory Create/Sable/Simulated/Aeronautics platform.
 - Permanent mod identity and Java namespace.
-- Base blocks, item forms, creative tab, models, and localisation.
-- Compile-time integration boundary and dependency verification.
+- Airship Helm containing-sub-level discovery.
+- Server-side physics and Aeronautics telemetry snapshot.
+- Material-change block entity synchronization.
+- Three fuel-driven Aeronautics lifting-gas burners.
+- Recipes, block drops, localisation, comparator fuel output, and creative-tab registration.
+- Successful NeoForge build and datagen-runtime platform initialization.
 
-### Phase 2 — Aeronautics-aware instrumentation
+### Next
 
-- Directional Airship Helm block.
-- Altitude Gauge block entity and client renderer.
-- Detection of the containing Simulated/Sable sub-level.
-- Aeronautics flight-state telemetry.
-- Server-authoritative telemetry snapshot and packet codecs.
-
-### Phase 3 — Create kinetic machinery
-
-- Mooring Winch as a Create kinetic block.
-- Vertical Thruster integrated with Aeronautics force production.
-- RPM-to-thrust conversion and stress impact.
-- Rotation direction, shaft connectivity, and failure behaviour.
-
-### Phase 4 — Buoyancy and trim
-
-- Ballast Tank fluid or mass storage.
-- Integration with Aeronautics lifting-gas and buoyancy calculations.
-- Centre-of-mass and trim contribution model.
-- Safety limits, venting, and failure states.
-
-### Phase 5 — Zeppelin control system
-
-- Per-sub-level subsystem graph.
-- Helm command aggregation.
-- Vertical trim controller.
-- Mooring constraints through Sable physics.
-- Persistence across assembly/disassembly and world reloads.
-- Ponder scenes and in-game diagnostics.
+1. Helm menu and continuous cockpit HUD.
+2. Server-bound pilot input packets.
+3. Per-sub-level Helm ownership and conflict resolution.
+4. Vertical trim controller combining burners, ballast, and thrusters.
+5. Create kinetic stress integration for forced-draft and industrial burners.
+6. Production Blockbench models, flame renderer integration, and Ponder scenes.
+7. GameTests for attachment, telemetry, fueling, and balloon association.
 
 ## Invariants
 
-1. Sable, Simulated, and Aeronautics are mandatory, never soft integrations.
-2. Simulation changes execute on the logical server or the authoritative Sable physics callback.
-3. Client code renders synchronized state but never owns authoritative flight state.
+1. Sable, Simulated, and Aeronautics are mandatory dependencies.
+2. Simulation changes execute on the logical server or authoritative Sable physics callback.
+3. Client code renders synchronized state but never owns flight state.
 4. Registry names introduced in `0.1.0` are persistent save-format identifiers.
-5. Create RPM and stress are converted through explicit configuration; no hidden multipliers live in block classes.
-6. Calls into upstream APIs are concentrated in the integration package rather than distributed through every block.
+5. Create RPM, stress, gas output, and fuel use are explicit parameters rather than hidden block-class constants.
+6. Calls into upstream APIs remain concentrated in integration and subsystem boundaries.

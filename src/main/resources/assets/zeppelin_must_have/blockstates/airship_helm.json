@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "zeppelin_must_have:block/airship_helm" }
+    "facing=north": { "model": "zeppelin_must_have:block/airship_helm" },
+    "facing=east":  { "model": "zeppelin_must_have:block/airship_helm", "y": 90 },
+    "facing=south": { "model": "zeppelin_must_have:block/airship_helm", "y": 180 },
+    "facing=west":  { "model": "zeppelin_must_have:block/airship_helm", "y": 270 }
   }
 }

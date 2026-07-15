@@ -21,6 +21,9 @@ public final class ZmhCreativeTabs {
                     .icon(() -> ZmhBlocks.AIRSHIP_HELM_ITEM.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(ZmhBlocks.AIRSHIP_HELM_ITEM.get());
+                        output.accept(ZmhBlocks.AIRSHIP_BURNER_ITEM.get());
+                        output.accept(ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER_ITEM.get());
+                        output.accept(ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER_ITEM.get());
                         output.accept(ZmhBlocks.BALLAST_TANK_ITEM.get());
                         output.accept(ZmhBlocks.MOORING_WINCH_ITEM.get());
                         output.accept(ZmhBlocks.ALTITUDE_GAUGE_ITEM.get());

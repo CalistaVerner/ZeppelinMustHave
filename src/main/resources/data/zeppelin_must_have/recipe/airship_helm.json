@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "GAG",
+    "PWP",
+    "BCB"
+  ],
+  "key": {
+    "A": { "item": "simulated:altitude_sensor" },
+    "B": { "item": "create:brass_sheet" },
+    "C": { "item": "create:brass_casing" },
+    "G": { "item": "simulated:gimbal_sensor" },
+    "P": { "item": "create:precision_mechanism" },
+    "W": { "item": "simulated:steering_wheel" }
+  },
+  "result": {
+    "id": "zeppelin_must_have:airship_helm",
+    "count": 1
+  }
+}

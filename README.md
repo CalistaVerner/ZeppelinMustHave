@@ -21,34 +21,74 @@ Create 6.0.10
         │
         ▼
 Sable 2.0.0
-interactive sub-levels + Rapier physics pipeline
         │
         ▼
 Create Simulated 1.3.0
-assembly, redstone, interaction with simulated contraptions
         │
         ▼
 Create Aeronautics 1.3.0
-lift, propellers, airborne contraptions
         │
         ▼
-Zeppelin Must Have 0.1.0
-zeppelin-specific systems
+Zeppelin Must Have 0.2.0
 ```
 
-`Create Simulated` is the core module of the Simulated Project. `Create Aeronautics` is the flight module built on top of it. Both are mandatory compile-time and runtime dependencies of this repository; Sable is mandatory as their moving-block physics layer.
+Create, Sable, Create Simulated, and Create Aeronautics are mandatory compile-time and runtime dependencies.
 
-## Design scope
+## Implemented in 0.2.0
 
-| Subsystem | Initial equipment | Intended responsibility |
+### Airship Helm
+
+`zeppelin_must_have:airship_helm` is now a functional, server-authoritative telemetry block.
+
+The Helm:
+
+- detects its containing Sable `ServerSubLevel` using `Sable.HELPER.getContaining`;
+- reads the persistent sub-level UUID and optional vessel name;
+- reads global position and logical pose;
+- reads linear and angular velocity through `RigidBodyHandle`;
+- reads current sub-level mass;
+- aggregates all Create Aeronautics balloons belonging to the same sub-level;
+- exposes balloon count, capacity, filled volume, target volume, fill ratio, and total lift;
+- samples every five ticks and synchronizes materially changed state to clients;
+- prints the current telemetry when right-clicked with an empty hand.
+
+The Helm is currently read-only. Pilot commands, menus, packet-driven controls, autopilot modes, and force requests are subsequent stages.
+
+### Airship burner family
+
+The new burners implement Aeronautics `BlockEntityLiftingGasProvider` through the existing Hot Air Burner block entity architecture. Their output enters real `ServerBalloon` simulation and therefore appears automatically in Helm telemetry.
+
+| Block | Registry ID | Gas multiplier | Full-power fuel use | Envelope range |
+|---|---|---:|---:|---:|
+| Airship Burner | `airship_burner` | `1.0×` | `1.0×` | 16 blocks |
+| Forced-Draft Airship Burner | `forced_draft_airship_burner` | `2.25×` | `1.6×` | 32 blocks |
+| Industrial Airship Burner | `industrial_airship_burner` | `4.5×` | `3.0×` | 64 blocks |
+
+Burner behaviour:
+
+- accepts vanilla furnace fuel;
+- accepts Create regular and superheated Blaze Burner fuels through Create data maps;
+- supports Creative Blaze Cake as infinite fuel;
+- consumes fuel proportionally to redstone signal strength;
+- emits lifting gas only when fueled and redstone-powered;
+- supports the Aeronautics fire and soul-fire burner variants;
+- reports remaining fuel, fuel grade, current gas output, and cast range on empty-hand interaction;
+- exposes remaining fuel through comparator output;
+- saves fuel state in block entity NBT;
+- immediately disconnects from its balloon when fuel is exhausted.
+
+The current burner bodies are placeholder block models. Functional flame particles, sound, light emission, fuel logic, and Aeronautics gas simulation are implemented; dedicated production models are still required.
+
+## Complete equipment scope
+
+| Subsystem | Equipment | Status |
 |---|---|---|
-| Control | Airship Helm | Pilot input, steering demand, subsystem status |
-| Buoyancy | Ballast Tank | Controlled mass, lift balance, and vertical trim |
-| Propulsion | Vertical Thruster | Low-speed vertical positioning and manoeuvring |
-| Navigation | Altitude Gauge | Altitude, vertical speed, and flight instrumentation |
-| Mooring | Mooring Winch | Docking, anchoring, and ground handling |
-
-The first revision establishes permanent registry IDs, localisations, loadable placeholder models, dependency metadata, CI, and subsystem boundaries. Functional block entities, kinetic behaviour, networking, Ponder scenes, and Sable/Aeronautics contraption integration are implemented in subsequent stages.
+| Control | Airship Helm | Telemetry implemented; control output pending |
+| Buoyancy | Airship burner family | Fuel and Aeronautics gas output implemented |
+| Buoyancy | Ballast Tank | Registry shell |
+| Propulsion | Vertical Thruster | Registry shell |
+| Navigation | Altitude Gauge | Registry shell |
+| Mooring | Mooring Winch | Registry shell |
 
 ## Version matrix
 
@@ -64,7 +104,7 @@ The first revision establishes permanent registry IDs, localisations, loadable p
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.1.0` |
+| Zeppelin Must Have | `0.2.0` |
 
 ## Development
 
@@ -78,15 +118,15 @@ Open the repository root as a Gradle project. NeoForge run configurations are ge
 
 ```powershell
 # Full verification and mod JAR
-gradlew.bat build
+gradlew.bat clean build
 
-# Development client with Create, Sable, Simulated, and Aeronautics
+# Development client with the complete required stack
 gradlew.bat runClient
 
 # Dedicated development server
 gradlew.bat runServer
 
-# Data generation using resources from all required mods
+# Data-generation runtime
 gradlew.bat runData
 ```
 
@@ -97,17 +137,26 @@ Linux and macOS use `./gradlew`.
 ```text
 src/main/java/us/kayla/zeppelinmusthave/
 ├── ZeppelinMustHave.java
+├── content/
+│   ├── burner/
+│   │   ├── AirshipBurnerBlock.java
+│   │   ├── AirshipBurnerBlockEntity.java
+│   │   └── AirshipBurnerTier.java
+│   └── helm/
+│       ├── AirshipFlightSnapshot.java
+│       ├── AirshipHelmBlock.java
+│       └── AirshipHelmBlockEntity.java
 ├── integration/
+│   ├── AeronauticsFlightStateReader.java
 │   └── SimulatedStack.java
 ├── registry/
+│   ├── ZmhBlockEntityTypes.java
 │   ├── ZmhBlocks.java
 │   ├── ZmhCreativeTabs.java
 │   └── ZmhRegistries.java
 └── zeppelin/
     └── ZeppelinSubsystem.java
 ```
-
-`SimulatedStack` is the explicit integration boundary. It imports the public `Create Simulated` and `Create Aeronautics` entrypoints at compile time and validates the complete required stack at runtime.
 
 ## Identity
 
@@ -119,17 +168,6 @@ src/main/java/us/kayla/zeppelinmusthave/
 | Java package | `us.kayla.zeppelinmusthave` |
 | Maven group | `us.kayla.zeppelinmusthave` |
 | Author | `us.Kayla` |
-
-## Dependency policy
-
-The following runtime dependencies are mandatory:
-
-- Create `[6.0.10,6.1.0)`
-- Sable `[2.0.0,3.0.0)`
-- Create Simulated `[1.3.0,2.0.0)`
-- Create Aeronautics `[1.3.0,2.0.0)`
-
-All dependency versions are centralized in `gradle.properties`. Gradle resolves the public NeoForge artifacts from the Create and RyanHCode Maven repositories.
 
 ## License
 

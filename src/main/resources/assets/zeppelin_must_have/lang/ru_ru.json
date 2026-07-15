@@ -1,8 +1,24 @@
 {
   "itemGroup.zeppelin_must_have.main": "Zeppelin Must Have",
+
   "block.zeppelin_must_have.airship_helm": "Штурвал дирижабля",
+  "block.zeppelin_must_have.airship_burner": "Дирижабельная горелка",
+  "block.zeppelin_must_have.forced_draft_airship_burner": "Дирижабельная горелка с принудительной тягой",
+  "block.zeppelin_must_have.industrial_airship_burner": "Промышленная дирижабельная горелка",
   "block.zeppelin_must_have.ballast_tank": "Балластный резервуар",
   "block.zeppelin_must_have.mooring_winch": "Швартовочная лебёдка",
   "block.zeppelin_must_have.altitude_gauge": "Высотомер",
-  "block.zeppelin_must_have.vertical_thruster": "Вертикальный движитель"
+  "block.zeppelin_must_have.vertical_thruster": "Вертикальный движитель",
+
+  "message.zeppelin_must_have.helm.detached": "Штурвал: Sable sub-level не обнаружен. Сначала соберите дирижабль.",
+  "message.zeppelin_must_have.helm.identity": "Воздушное судно: %s | Sub-level: %s",
+  "message.zeppelin_must_have.helm.motion": "Высота: %s м | Скорость: %s м/с | Вертикальная: %s м/с | Курс: %s° | Тангаж: %s° | Крен: %s°",
+  "message.zeppelin_must_have.helm.physics": "Масса: %s | Угловая скорость: X %s, Y %s, Z %s рад/с",
+  "message.zeppelin_must_have.helm.aeronautics": "Aeronautics: баллонов %s | Объём: %s м³ | Заполнено: %s м³ (%s%%) | Подъёмная сила: %s",
+
+  "message.zeppelin_must_have.burner.status": "%s | Топливо: %s (%s) | Подача газа: %s м³ | Дальность до оболочки: %s блоков",
+  "message.zeppelin_must_have.burner.infinite": "бесконечно",
+  "message.zeppelin_must_have.burner.fuel.none": "нет топлива",
+  "message.zeppelin_must_have.burner.fuel.normal": "обычный нагрев",
+  "message.zeppelin_must_have.burner.fuel.superheated": "сверхнагрев"
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "STS",
+    "PAP",
+    "STS"
+  ],
+  "key": {
+    "A": { "item": "zeppelin_must_have:forced_draft_airship_burner" },
+    "P": { "item": "create:precision_mechanism" },
+    "S": { "item": "create:sturdy_sheet" },
+    "T": { "item": "create:fluid_tank" }
+  },
+  "result": {
+    "id": "zeppelin_must_have:industrial_airship_burner",
+    "count": 1
+  }
+}

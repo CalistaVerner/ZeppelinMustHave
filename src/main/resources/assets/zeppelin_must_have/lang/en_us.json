@@ -1,8 +1,24 @@
 {
   "itemGroup.zeppelin_must_have.main": "Zeppelin Must Have",
+
   "block.zeppelin_must_have.airship_helm": "Airship Helm",
+  "block.zeppelin_must_have.airship_burner": "Airship Burner",
+  "block.zeppelin_must_have.forced_draft_airship_burner": "Forced-Draft Airship Burner",
+  "block.zeppelin_must_have.industrial_airship_burner": "Industrial Airship Burner",
   "block.zeppelin_must_have.ballast_tank": "Ballast Tank",
   "block.zeppelin_must_have.mooring_winch": "Mooring Winch",
   "block.zeppelin_must_have.altitude_gauge": "Altitude Gauge",
-  "block.zeppelin_must_have.vertical_thruster": "Vertical Thruster"
+  "block.zeppelin_must_have.vertical_thruster": "Vertical Thruster",
+
+  "message.zeppelin_must_have.helm.detached": "Airship Helm: no Sable sub-level detected. Assemble the zeppelin first.",
+  "message.zeppelin_must_have.helm.identity": "Airship: %s | Sub-level: %s",
+  "message.zeppelin_must_have.helm.motion": "Altitude: %s m | Speed: %s m/s | Vertical: %s m/s | Heading: %s° | Pitch: %s° | Roll: %s°",
+  "message.zeppelin_must_have.helm.physics": "Mass: %s | Angular velocity: X %s, Y %s, Z %s rad/s",
+  "message.zeppelin_must_have.helm.aeronautics": "Aeronautics: %s balloon(s) | Capacity: %s m³ | Filled: %s m³ (%s%%) | Lift: %s",
+
+  "message.zeppelin_must_have.burner.status": "%s | Fuel: %s (%s) | Gas output: %s m³ | Envelope range: %s blocks",
+  "message.zeppelin_must_have.burner.infinite": "infinite",
+  "message.zeppelin_must_have.burner.fuel.none": "no fuel",
+  "message.zeppelin_must_have.burner.fuel.normal": "regular heat",
+  "message.zeppelin_must_have.burner.fuel.superheated": "superheated"
 }
