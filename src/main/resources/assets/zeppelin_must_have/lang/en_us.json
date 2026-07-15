@@ -1,0 +1,8 @@
+{
+  "itemGroup.zeppelin_must_have.main": "Zeppelin Must Have",
+  "block.zeppelin_must_have.airship_helm": "Airship Helm",
+  "block.zeppelin_must_have.ballast_tank": "Ballast Tank",
+  "block.zeppelin_must_have.mooring_winch": "Mooring Winch",
+  "block.zeppelin_must_have.altitude_gauge": "Altitude Gauge",
+  "block.zeppelin_must_have.vertical_thruster": "Vertical Thruster"
+}

@@ -1,0 +1,56 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="[${neo_version},)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="create"
+type="required"
+reason="Zeppelin Must Have extends Create's kinetic systems."
+versionRange="${create_version_range}"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="sable"
+type="required"
+reason="Sable provides interactive moving sub-levels and the physics pipeline."
+versionRange="${sable_version_range}"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="simulated"
+type="required"
+reason="Create Simulated provides assembly and interaction with simulated contraptions."
+versionRange="${simulated_version_range}"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="aeronautics"
+type="required"
+reason="Create Aeronautics provides the flying contraption systems extended by this add-on."
+versionRange="${aeronautics_version_range}"
+ordering="AFTER"
+side="BOTH"

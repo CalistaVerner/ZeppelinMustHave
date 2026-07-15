@@ -1,0 +1,8 @@
+{
+  "itemGroup.zeppelin_must_have.main": "Zeppelin Must Have",
+  "block.zeppelin_must_have.airship_helm": "Штурвал дирижабля",
+  "block.zeppelin_must_have.ballast_tank": "Балластный резервуар",
+  "block.zeppelin_must_have.mooring_winch": "Швартовочная лебёдка",
+  "block.zeppelin_must_have.altitude_gauge": "Высотомер",
+  "block.zeppelin_must_have.vertical_thruster": "Вертикальный движитель"
+}
