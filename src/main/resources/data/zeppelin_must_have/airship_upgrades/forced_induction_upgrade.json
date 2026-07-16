@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "targets": ["airship_burner"],
+  "slot": "airflow",
+  "exclusive_group": "burner_airflow_path",
+  "conflicts": [],
+  "modifiers": {
+    "gas_output_multiplier": 1.30,
+    "fuel_use_multiplier": 1.22,
+    "fuel_capacity_multiplier": 1.0,
+    "cast_range_add": 8,
+    "superheated_output_multiplier": 1.05,
+    "throttle_exponent_multiplier": 1.0
+  }
+}

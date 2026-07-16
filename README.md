@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.5.0
+Zeppelin Must Have 0.6.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -113,6 +113,18 @@ The add-on does not create a parallel heat network. `BalloonHeatAggregate` obser
 
 Detailed design: `docs/HEAT_SYSTEM.md`.
 
+### Upgrade sockets
+
+Every burner now provides three persistent sockets:
+
+- **Thermal** — Heat Recuperator for endurance and reservoir capacity;
+- **Airflow** — Forced Induction for higher output and envelope range;
+- **Control** — Precision Regulator for finer low-power redstone control.
+
+Modules install by right-clicking the burner. Sneak-use the Create Wrench to remove the most recently occupied socket; breaking the burner drops all modules. Definitions, compatibility, conflicts, and numerical modifiers are loaded from `data/*/airship_upgrades/*.json`, so server packs can add or rebalance upgrades without Java changes.
+
+Documentation: `docs/UPGRADES.md`.
+
 ### Engineer's Goggles
 
 Burner goggles preserve the standard Aeronautics balloon section and append:
@@ -123,7 +135,8 @@ Burner goggles preserve the standard Aeronautics balloon section and append:
 - individual gas output;
 - active and connected balloon heat sources;
 - combined gas output of the native Aeronautics heater collection;
-- profile ID, capacity, range, and current consumption.
+- profile ID, capacity, range, and current consumption;
+- installed upgrade modules and their aggregated effective modifiers.
 
 Extended diagnostics appear while sneaking. The resolved profile and heat-network aggregate are synchronized from the server, so clients do not need the server data pack installed.
 
@@ -134,7 +147,7 @@ The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Sy
 Implemented scenes:
 
 - **Airship Helm Telemetry** — Sable sub-level detection, physics telemetry, Aeronautics balloon aggregation, and empty-hand inspection;
-- **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, and native Aeronautics aggregation of multiple burner providers.
+- **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, native Aeronautics aggregation, and installation/removal of the three upgrade socket types.
 
 Scene structures are stored at:
 
@@ -199,7 +212,7 @@ The Ballast Tank, Mooring Winch, Altitude Gauge, and Vertical Thruster currently
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.5.0` |
+| Zeppelin Must Have | `0.6.0` |
 
 ## Development
 

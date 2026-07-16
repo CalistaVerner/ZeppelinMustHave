@@ -15,16 +15,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import us.kayla.zeppelinmusthave.data.ZmhLang;
 import us.kayla.zeppelinmusthave.integration.BalloonHeatAggregate;
+import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeDefinitions;
+import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeModifiers;
+import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSet;
+import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSlot;
+import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeTarget;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
     private final AirshipHeatReservoir heatReservoir = new AirshipHeatReservoir();
+    private final AirshipUpgradeSet upgrades = new AirshipUpgradeSet();
 
+    private AirshipBurnerProfile baseProfile;
     private AirshipBurnerProfile activeProfile;
+    private AirshipUpgradeModifiers activeUpgradeModifiers = AirshipUpgradeModifiers.IDENTITY;
     private long observedProfileRevision = Long.MIN_VALUE;
+    private long observedUpgradeDefinitionRevision = Long.MIN_VALUE;
+    private long observedUpgradeSetRevision = Long.MIN_VALUE;
     private BlockPos castPositionBridge;
     private BalloonHeatAggregate clientBalloonHeat = BalloonHeatAggregate.EMPTY;
 
@@ -34,7 +45,8 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             BlockState state
     ) {
         super(type, pos, state);
-        this.activeProfile = AirshipBurnerProfile.unresolved(profileIdFor(state));
+        this.baseProfile = AirshipBurnerProfile.unresolved(profileIdFor(state));
+        this.activeProfile = this.baseProfile;
     }
 
     @Override
@@ -270,6 +282,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         if (isPlayerSneaking) {
             this.addReservoirDiagnostics(tooltip, metrics);
         }
+        this.addUpgradeTooltip(tooltip, isPlayerSneaking);
         return true;
     }
 
@@ -353,6 +366,87 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
                 .forGoggles(tooltip, 2);
     }
 
+    public AirshipUpgradeSet.InstallResult tryInstallUpgrade(
+            ItemStack stack,
+            boolean simulate
+    ) {
+        AirshipUpgradeSet.InstallResult result = this.upgrades.install(
+                stack,
+                AirshipUpgradeTarget.AIRSHIP_BURNER,
+                simulate
+        );
+        if (result.installed() && !simulate) {
+            this.refreshProfile(true);
+        }
+        return result;
+    }
+
+    public ItemStack removeLastUpgrade() {
+        ItemStack removed = this.upgrades.removeLast();
+        if (!removed.isEmpty()) {
+            this.refreshProfile(true);
+        }
+        return removed;
+    }
+
+    public List<ItemStack> extractAllUpgrades() {
+        return this.upgrades.removeAll();
+    }
+
+    public Map<AirshipUpgradeSlot, ItemStack> getInstalledUpgradeSlots() {
+        return this.upgrades.slotSnapshot();
+    }
+
+    private void addUpgradeTooltip(List<Component> tooltip, boolean detailed) {
+        Map<AirshipUpgradeSlot, ItemStack> installed = this.upgrades.slotSnapshot();
+        if (installed.isEmpty()) {
+            return;
+        }
+
+        ZmhLang.emptyLine(tooltip);
+        ZmhLang.translate("goggles.upgrades.title").forGoggles(tooltip, 1);
+        installed.forEach((slot, stack) -> ZmhLang.translate(
+                        "goggles.upgrades.slot",
+                        ZmhLang.translate(slot.translationKey()).component(),
+                        stack.getHoverName()
+                )
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 2));
+
+        if (!detailed) {
+            return;
+        }
+
+        ZmhLang.translate(
+                        "goggles.upgrades.output_multiplier",
+                        Component.literal(decimal(this.activeUpgradeModifiers.gasOutputMultiplier(), 2) + "x")
+                                .withStyle(ChatFormatting.AQUA)
+                )
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 2);
+        ZmhLang.translate(
+                        "goggles.upgrades.fuel_multiplier",
+                        Component.literal(decimal(this.activeUpgradeModifiers.fuelUseMultiplier(), 2) + "x")
+                                .withStyle(ChatFormatting.GOLD)
+                )
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 2);
+        ZmhLang.translate(
+                        "goggles.upgrades.capacity_multiplier",
+                        Component.literal(decimal(this.activeUpgradeModifiers.fuelCapacityMultiplier(), 2) + "x")
+                                .withStyle(ChatFormatting.GREEN)
+                )
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 2);
+        ZmhLang.translate(
+                        "goggles.upgrades.range_add",
+                        Component.literal(String.format(Locale.ROOT, "%+d", this.activeUpgradeModifiers.castRangeAdd()))
+                                .withStyle(ChatFormatting.DARK_AQUA)
+                )
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 2);
+    }
+
     @Override
     public ItemStack getIcon(boolean isPlayerSneaking) {
         return new ItemStack(this.getBlockState().getBlock().asItem());
@@ -394,11 +488,16 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             boolean clientPacket
     ) {
         this.heatReservoir.write(tag);
+        this.upgrades.write(tag, registries);
 
         if (clientPacket) {
             CompoundTag profileTag = new CompoundTag();
             this.activeProfile.writeClientSnapshot(profileTag);
             tag.put("ResolvedBurnerProfile", profileTag);
+
+            CompoundTag modifierTag = new CompoundTag();
+            this.activeUpgradeModifiers.write(modifierTag);
+            tag.put("ResolvedUpgradeModifiers", modifierTag);
 
             CompoundTag networkTag = new CompoundTag();
             BalloonHeatAggregate.from(this.getBalloon()).write(networkTag);
@@ -415,10 +514,16 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             boolean clientPacket
     ) {
         this.heatReservoir.read(tag);
+        this.upgrades.read(tag, registries);
 
         if (clientPacket && tag.contains("ResolvedBurnerProfile")) {
             this.activeProfile = AirshipBurnerProfile.readClientSnapshot(
                     tag.getCompound("ResolvedBurnerProfile")
+            );
+        }
+        if (clientPacket && tag.contains("ResolvedUpgradeModifiers")) {
+            this.activeUpgradeModifiers = AirshipUpgradeModifiers.read(
+                    tag.getCompound("ResolvedUpgradeModifiers")
             );
         }
         if (clientPacket && tag.contains("BalloonHeatAggregate")) {
@@ -448,17 +553,34 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             return;
         }
 
-        long currentRevision = AirshipBurnerProfiles.INSTANCE.revision();
-        if (!forceSync && currentRevision == this.observedProfileRevision) {
+        long profileRevision = AirshipBurnerProfiles.INSTANCE.revision();
+        long definitionRevision = AirshipUpgradeDefinitions.INSTANCE.revision();
+        long upgradeRevision = this.upgrades.localRevision();
+        if (!forceSync
+                && profileRevision == this.observedProfileRevision
+                && definitionRevision == this.observedUpgradeDefinitionRevision
+                && upgradeRevision == this.observedUpgradeSetRevision) {
             return;
         }
 
-        AirshipBurnerProfile next = AirshipBurnerProfiles.INSTANCE.resolve(this.getTier());
-        boolean changed = !next.equals(this.activeProfile);
-        this.activeProfile = next;
-        this.observedProfileRevision = currentRevision;
-        boolean reservoirChanged = this.heatReservoir.clampToCapacity(next.fuelCapacityTicks());
+        AirshipBurnerProfile nextBase = AirshipBurnerProfiles.INSTANCE.resolve(this.getTier());
+        AirshipUpgradeModifiers nextModifiers = this.upgrades.modifiers(
+                AirshipUpgradeTarget.AIRSHIP_BURNER
+        );
+        AirshipBurnerProfile nextEffective = nextModifiers.apply(nextBase);
 
+        boolean changed = !nextEffective.equals(this.activeProfile)
+                || !nextModifiers.equals(this.activeUpgradeModifiers);
+        this.baseProfile = nextBase;
+        this.activeProfile = nextEffective;
+        this.activeUpgradeModifiers = nextModifiers;
+        this.observedProfileRevision = profileRevision;
+        this.observedUpgradeDefinitionRevision = definitionRevision;
+        this.observedUpgradeSetRevision = upgradeRevision;
+
+        boolean reservoirChanged = this.heatReservoir.clampToCapacity(
+                nextEffective.fuelCapacityTicks()
+        );
         if (!changed && !reservoirChanged && !forceSync) {
             return;
         }

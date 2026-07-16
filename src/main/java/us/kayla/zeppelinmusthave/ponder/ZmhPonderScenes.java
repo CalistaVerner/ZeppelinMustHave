@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
 import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
+import us.kayla.zeppelinmusthave.registry.ZmhItems;
 
 public final class ZmhPonderScenes {
     private ZmhPonderScenes() {
@@ -324,5 +325,70 @@ public final class ZmhPonderScenes {
                 .pointAt(Vec3.atCenterOf(burnerPos))
                 .placeNearTarget();
         scene.idle(90);
+
+        scene.overlay().showText(75)
+                .text("Every Airship Burner has Thermal, Airflow, and Control upgrade sockets; each socket accepts one compatible data-driven module")
+                .attachKeyFrame()
+                .colored(PonderPalette.INPUT)
+                .pointAt(Vec3.atCenterOf(burnerPos))
+                .placeNearTarget();
+        scene.idle(90);
+
+        scene.overlay().showControls(
+                        util.vector().blockSurface(burnerPos, Direction.NORTH),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(ZmhItems.HEAT_RECUPERATOR_UPGRADE.get().getDefaultInstance())
+                .rightClick();
+        scene.overlay().showText(70)
+                .text("The Heat Recuperator trades a little peak output for lower fuel use and a larger shared heat reserve")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(burnerPos))
+                .placeNearTarget();
+        scene.idle(85);
+
+        scene.overlay().showControls(
+                        util.vector().blockSurface(burnerPos, Direction.EAST),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(ZmhItems.FORCED_INDUCTION_UPGRADE.get().getDefaultInstance())
+                .rightClick();
+        scene.overlay().showText(70)
+                .text("Forced Induction raises gas output and envelope range, but increases fuel demand")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(burnerPos))
+                .placeNearTarget();
+        scene.idle(85);
+
+        scene.overlay().showControls(
+                        util.vector().blockSurface(burnerPos, Direction.WEST),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(ZmhItems.PRECISION_REGULATOR_UPGRADE.get().getDefaultInstance())
+                .rightClick();
+        scene.overlay().showText(70)
+                .text("The Precision Regulator reshapes the redstone throttle curve for finer low-power control")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(burnerPos))
+                .placeNearTarget();
+        scene.idle(85);
+
+        scene.overlay().showControls(
+                        util.vector().blockSurface(burnerPos, Direction.SOUTH),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(AllItems.WRENCH.asStack())
+                .rightClick()
+                .whileSneaking();
+        scene.overlay().showText(70)
+                .text("Sneak-use the Create Wrench to remove the most recently occupied upgrade socket before dismantling the burner")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(burnerPos))
+                .placeNearTarget();
+        scene.idle(85);
     }
 }

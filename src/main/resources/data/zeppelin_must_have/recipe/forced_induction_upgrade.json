@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "BFB",
+    "PAP",
+    "BFB"
+  ],
+  "key": {
+    "A": { "item": "create:andesite_casing" },
+    "B": { "item": "create:brass_sheet" },
+    "F": { "item": "create:encased_fan" },
+    "P": { "item": "create:precision_mechanism" }
+  },
+  "result": {
+    "id": "zeppelin_must_have:forced_induction_upgrade",
+    "count": 1
+  }
+}

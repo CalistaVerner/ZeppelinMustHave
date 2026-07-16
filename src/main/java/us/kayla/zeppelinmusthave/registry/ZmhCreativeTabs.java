@@ -24,6 +24,9 @@ public final class ZmhCreativeTabs {
                         output.accept(ZmhBlocks.AIRSHIP_BURNER_ITEM.get());
                         output.accept(ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER_ITEM.get());
                         output.accept(ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER_ITEM.get());
+                        output.accept(ZmhItems.HEAT_RECUPERATOR_UPGRADE.get());
+                        output.accept(ZmhItems.FORCED_INDUCTION_UPGRADE.get());
+                        output.accept(ZmhItems.PRECISION_REGULATOR_UPGRADE.get());
                         output.accept(ZmhBlocks.BALLAST_TANK_ITEM.get());
                         output.accept(ZmhBlocks.MOORING_WINCH_ITEM.get());
                         output.accept(ZmhBlocks.ALTITUDE_GAUGE_ITEM.get());

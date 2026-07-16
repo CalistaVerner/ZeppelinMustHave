@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "targets": ["airship_burner"],
+  "slot": "thermal",
+  "exclusive_group": "burner_thermal_path",
+  "conflicts": [],
+  "modifiers": {
+    "gas_output_multiplier": 0.92,
+    "fuel_use_multiplier": 0.70,
+    "fuel_capacity_multiplier": 1.25,
+    "cast_range_add": 0,
+    "superheated_output_multiplier": 1.0,
+    "throttle_exponent_multiplier": 1.0
+  }
+}

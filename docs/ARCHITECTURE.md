@@ -138,9 +138,32 @@ The server update tag contains:
 
 Persistent saves store the reservoir but not a copied profile. Clients therefore display actual server tuning without becoming another source of truth.
 
+### Upgrade composition
+
+`AirshipUpgradeSet` stores one ItemStack per typed socket. Upgrade items are markers; their slot, targets, conflicts, exclusivity, and numerical effects come from `AirshipUpgradeDefinitions`, another server resource reload listener.
+
+```text
+Base AirshipBurnerProfile
+        │
+        ▼
+AirshipUpgradeModifiers from installed definitions
+        │
+        ▼
+Effective AirshipBurnerProfile
+        │
+        ├── reservoir capacity clamp
+        ├── output and consumption
+        ├── throttle curve
+        └── Aeronautics cast range
+```
+
+Definitions are combined in stable socket order. The block entity observes burner-profile revision, upgrade-definition revision, and local installed-set revision. Any change recomputes the effective profile and synchronizes the client.
+
+Installation uses normal block interaction. Sneak-wrenching removes one module before delegating to Create's normal block-removal behaviour. `onRemove` drops remaining modules.
+
 ### Create Engineer's Goggles
 
-The subclass first invokes Aeronautics' standard balloon section, then appends reservoir layers, active heat grade, redstone throttle, individual output, source counts, combined output, profile ID, capacity, range, and consumption. Sneaking exposes the detailed regular/superheated split.
+The subclass first invokes Aeronautics' standard balloon section, then appends reservoir layers, active heat grade, redstone throttle, individual output, source counts, combined output, profile ID, capacity, range, consumption, installed modules, and aggregated upgrade modifiers. Sneaking exposes the detailed regular/superheated and modifier split.
 
 ## Ponder
 
@@ -183,9 +206,10 @@ Recipe resources use normal Minecraft shaped crafting and Create Mechanical Craf
 2. Simulation mutations occur only on the logical server or authoritative Sable/Aeronautics callbacks.
 3. Clients render synchronized state and do not author flight or profile data.
 4. Registry IDs introduced in `0.1.0` remain save-compatible.
-5. Gameplay tuning lives in data-pack profiles, not tier enums or Ponder scenes.
+5. Gameplay tuning lives in data-pack burner profiles and upgrade definitions, not tier enums or Ponder scenes.
 6. Invalid data fails closed locally and does not disable upstream machinery.
-7. Create and Aeronautics UI, rendering, fuel, and balloon contracts are reused before new systems are introduced.
+7. Upgrade ItemStacks persist independently from their current data definitions and are never silently converted into other modules.
+8. Create and Aeronautics UI, rendering, fuel, wrench, and balloon contracts are reused before new systems are introduced.
 
 ## Next functional stages
 

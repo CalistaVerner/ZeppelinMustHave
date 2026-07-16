@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CPC",
+    "FTF",
+    "CPC"
+  ],
+  "key": {
+    "C": { "item": "create:copper_sheet" },
+    "F": { "item": "create:fluid_pipe" },
+    "P": { "item": "create:precision_mechanism" },
+    "T": { "item": "create:fluid_tank" }
+  },
+  "result": {
+    "id": "zeppelin_must_have:heat_recuperator_upgrade",
+    "count": 1
+  }
+}
