@@ -1,0 +1,156 @@
+{
+  "credit": "Zeppelin Must Have / us.Kayla",
+  "ambientocclusion": false,
+  "gui_light": "front",
+  "textures": {
+    "particle": "#black",
+    "brass": "zeppelin_must_have:block/zmh/brass",
+    "bright_brass": "zeppelin_must_have:block/zmh/bright_brass",
+    "copper": "zeppelin_must_have:block/zmh/copper",
+    "dark_copper": "zeppelin_must_have:block/zmh/dark_copper",
+    "steel": "zeppelin_must_have:block/zmh/steel",
+    "dark_steel": "zeppelin_must_have:block/zmh/dark_steel",
+    "oxidized": "zeppelin_must_have:block/zmh/oxidized",
+    "wood": "zeppelin_must_have:block/zmh/wood",
+    "grille": "zeppelin_must_have:block/zmh/grille",
+    "rope": "zeppelin_must_have:block/zmh/rope",
+    "fan": "zeppelin_must_have:block/zmh/fan",
+    "gauge_altitude": "zeppelin_must_have:block/zmh/gauge_altitude",
+    "gauge_pressure": "zeppelin_must_have:block/zmh/gauge_pressure",
+    "liquid_gauge": "zeppelin_must_have:block/zmh/liquid_gauge",
+    "flame": "zeppelin_must_have:block/zmh/flame",
+    "soul_flame": "zeppelin_must_have:block/zmh/soul_flame",
+    "black": "zeppelin_must_have:block/zmh/black"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        225,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.72,
+        0.72,
+        0.72
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        5,
+        0.15
+      ],
+      "to": [
+        12,
+        11,
+        0.45
+      ],
+      "faces": {
+        "north": {
+          "texture": "#flame"
+        },
+        "south": {
+          "texture": "#flame"
+        },
+        "east": {
+          "texture": "#flame"
+        },
+        "west": {
+          "texture": "#flame"
+        },
+        "up": {
+          "texture": "#flame"
+        },
+        "down": {
+          "texture": "#flame"
+        }
+      },
+      "shade": false
+    }
+  ]
+}

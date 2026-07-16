@@ -29,12 +29,12 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.2.0
+Zeppelin Must Have 0.3.0
 ```
 
 Create, Sable, Create Simulated, and Create Aeronautics are mandatory compile-time and runtime dependencies.
 
-## Implemented in 0.2.0
+## Implemented in 0.3.0
 
 ### Airship Helm
 
@@ -79,6 +79,21 @@ Burner behaviour:
 
 The current burner bodies are placeholder block models. Functional flame particles, sound, light emission, fuel logic, and Aeronautics gas simulation are implemented; dedicated production models are still required.
 
+## Production Minecraft models and textures
+
+Version `0.3.0` replaces the temporary `cube_all` assets with custom multi-element Minecraft models.
+
+Implemented model assets:
+
+- Airship Helm with a wood-and-steel console, brass framing, wheel spokes, levers, and pressure instrument;
+- three visually distinct burner tiers with separate combustion chambers, chimneys, forced-draft fans, and industrial piping;
+- Ballast Tank with pressure gauge, liquid sight glass, reinforcement bands, and top valve;
+- Mooring Winch with wooden deck base, rope drum, supports, gearbox, and crank;
+- Altitude Gauge with dedicated 64×64 dial texture and three-dimensional needle;
+- Vertical Thruster with ducted-fan texture, structural supports, grille, and thrust hub.
+
+The resource pack contains 17 original pixel textures for brass, copper, oxidized metal, steel, wood, rope, fan blades, grilles, gauges, liquid level, and animated normal/soul flames. Burner blockstates compose the base body with a lit flame overlay selected by the Aeronautics burner variant. Item models inherit the full block geometry and include dedicated GUI, hand, ground, and fixed display transforms.
+
 ## Complete equipment scope
 
 | Subsystem | Equipment | Status |
@@ -104,7 +119,7 @@ The current burner bodies are placeholder block models. Functional flame particl
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.2.0` |
+| Zeppelin Must Have | `0.3.0` |
 
 ## Development
 

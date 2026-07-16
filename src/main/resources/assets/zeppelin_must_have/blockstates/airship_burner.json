@@ -1,7 +1,27 @@
 {
   "multipart": [
     {
-      "apply": { "model": "zeppelin_must_have:block/airship_burner" }
+      "apply": {
+        "model": "zeppelin_must_have:block/airship_burner"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "variant": "fire"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/airship_burner_flame"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "variant": "soulful"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/airship_burner_soul_flame"
+      }
     }
   ]
 }
