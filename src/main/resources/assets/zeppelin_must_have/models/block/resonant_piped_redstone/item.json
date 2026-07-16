@@ -1,0 +1,9 @@
+{
+  "parent": "zeppelin_must_have:block/piped_redstone/item",
+  "textures": {
+    "casing": "create:block/industrial_iron_block",
+    "insulation": "zeppelin_must_have:block/zmh/piped_redstone_resonant_insulation",
+    "signal": "zeppelin_must_have:block/zmh/piped_redstone_resonant_signal",
+    "port": "zeppelin_must_have:block/zmh/piped_redstone_resonant_port"
+  }
+}

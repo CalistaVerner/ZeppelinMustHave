@@ -1,0 +1,39 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "SQRQS",
+    "ETPTE",
+    "RPBPR",
+    "ETPTE",
+    "SQRQS"
+  ],
+  "key": {
+    "S": {
+      "item": "create:sturdy_sheet"
+    },
+    "Q": {
+      "item": "create:polished_rose_quartz"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "T": {
+      "item": "create:brass_sheet"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "B": {
+      "item": "zeppelin_must_have:brass_piped_redstone"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:resonant_piped_redstone",
+    "count": 8
+  }
+}

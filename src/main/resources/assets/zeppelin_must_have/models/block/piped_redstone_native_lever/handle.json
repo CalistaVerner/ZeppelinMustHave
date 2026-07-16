@@ -1,0 +1,106 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "zeppelin_must_have:block/zmh/piped_redstone_native_lever_handle",
+    "native": "zeppelin_must_have:block/zmh/piped_redstone_native_lever_handle"
+  },
+  "elements": [
+    {
+      "from": [
+        7.25,
+        1,
+        7.25
+      ],
+      "to": [
+        8.75,
+        9.75,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#native"
+        },
+        "east": {
+          "texture": "#native"
+        },
+        "south": {
+          "texture": "#native"
+        },
+        "west": {
+          "texture": "#native"
+        },
+        "up": {
+          "texture": "#native"
+        },
+        "down": {
+          "texture": "#native"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        8.75,
+        6.5
+      ],
+      "to": [
+        9.5,
+        11.75,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#native"
+        },
+        "east": {
+          "texture": "#native"
+        },
+        "south": {
+          "texture": "#native"
+        },
+        "west": {
+          "texture": "#native"
+        },
+        "up": {
+          "texture": "#native"
+        },
+        "down": {
+          "texture": "#native"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        9.25,
+        7
+      ],
+      "to": [
+        9,
+        11.25,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#native"
+        },
+        "east": {
+          "texture": "#native"
+        },
+        "south": {
+          "texture": "#native"
+        },
+        "west": {
+          "texture": "#native"
+        },
+        "up": {
+          "texture": "#native"
+        },
+        "down": {
+          "texture": "#native"
+        }
+      }
+    }
+  ]
+}

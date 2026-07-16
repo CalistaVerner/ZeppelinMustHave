@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "propagation_delay_ticks": 4,
+  "max_signal_distance": 32
+}

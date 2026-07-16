@@ -8,6 +8,11 @@
     "zeppelin_must_have:ballast_tank",
     "zeppelin_must_have:mooring_winch",
     "zeppelin_must_have:altitude_gauge",
-    "zeppelin_must_have:vertical_thruster"
+    "zeppelin_must_have:vertical_thruster",
+    "zeppelin_must_have:copper_piped_redstone",
+    "zeppelin_must_have:brass_piped_redstone",
+    "zeppelin_must_have:resonant_piped_redstone",
+    "zeppelin_must_have:piped_redstone_repeater",
+    "zeppelin_must_have:piped_redstone_native_lever"
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "zeppelin_must_have:copper_piped_redstone"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "zeppelin_must_have:blocks/copper_piped_redstone"
+}

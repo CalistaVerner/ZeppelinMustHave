@@ -1,0 +1,42 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "zeppelin_must_have:block/zmh/piped_redstone_native_lever_indicator",
+    "native": "zeppelin_must_have:block/zmh/piped_redstone_native_lever_indicator"
+  },
+  "elements": [
+    {
+      "from": [
+        4.75,
+        1.75,
+        7
+      ],
+      "to": [
+        5.5,
+        3.25,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#native"
+        },
+        "east": {
+          "texture": "#native"
+        },
+        "south": {
+          "texture": "#native"
+        },
+        "west": {
+          "texture": "#native"
+        },
+        "up": {
+          "texture": "#native"
+        },
+        "down": {
+          "texture": "#native"
+        }
+      }
+    }
+  ]
+}

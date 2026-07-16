@@ -1,0 +1,62 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/core"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/arm"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/arm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/arm",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/arm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/arm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/copper_piped_redstone/arm",
+        "x": 90
+      }
+    }
+  ]
+}

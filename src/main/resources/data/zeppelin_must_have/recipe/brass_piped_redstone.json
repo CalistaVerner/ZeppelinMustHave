@@ -1,0 +1,28 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "BTB",
+    "PCP",
+    "BTB"
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "C": {
+      "item": "zeppelin_must_have:copper_piped_redstone"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:brass_piped_redstone",
+    "count": 8
+  }
+}

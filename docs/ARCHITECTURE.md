@@ -165,6 +165,80 @@ Installation uses normal block interaction. Sneak-wrenching removes one module b
 
 The subclass first invokes Aeronautics' standard balloon section, then appends reservoir layers, active heat grade, redstone throttle, individual output, source counts, combined output, profile ID, capacity, range, consumption, installed modules, and aggregated upgrade modifiers. Sneaking exposes the detailed regular/superheated and modifier split.
 
+## Piped Redstone
+
+### Explicit topology
+
+`PipedRedstoneBlock` extends vanilla `PipeBlock` and stores six independent boolean ports plus analog power and waterlogging in blockstate.
+
+Topology is never inferred from adjacency. `PipedRedstoneNetworkManager` traverses only reciprocal enabled ports:
+
+```text
+A.east == true
+B.west == true
+A is west of B
+```
+
+Both conditions are required. This permits neighboring and crossing lines without accidental electrical coupling.
+
+The Create Wrench toggles the selected face and mirrors that change to an adjacent Piped Redstone conduit when present.
+
+### Event-driven network solver
+
+Network rebuilds are requested after placement, removal, explicit port changes, or external redstone neighbor updates. One scheduled tick is attached to the canonical lowest-position anchor of the connected component.
+
+The solver performs:
+
+1. reciprocal-port component discovery;
+2. weakest-link profile aggregation;
+3. temporary removal of conduit output to avoid reading its own previous state;
+4. external analog source collection;
+5. priority traversal by strongest power and shortest path;
+6. blockstate power application and notification of non-conduit neighbors.
+
+Power remains in the vanilla `0..15` range and is not attenuated per conduit. Paths beyond `max_signal_distance` are not energized.
+
+Mixed tiers use:
+
+```text
+delay = max(all segment delays)
+range = min(all segment ranges)
+```
+
+Components larger than 8192 blocks fail closed.
+
+### Profiles
+
+`PipedRedstoneProfiles` is a server resource-reload listener for:
+
+```text
+data/<namespace>/piped_redstone_profiles/*.json
+```
+
+`PipedRedstoneTier` contains only stable profile IDs. Copper, Brass, and Resonant defaults are data-pack resources rather than Java tuning constants.
+
+### Native conduit control
+
+`PipedRedstoneNativeLeverBlock` extends `FaceAttachedHorizontalDirectionalBlock` and accepts only a `PipedRedstoneBlock` as its supporting block. Placement opens the matching pipe port and toggling requests a rebuild of only that connected conduit component.
+
+The lever emits weak and direct power only when the queried redstone side matches its support direction. It therefore cannot energize adjacent unrelated blocks.
+
+`PipedRedstoneNativeLeverBlockEntity` stores no authoritative signal state. The blockstate remains the source of truth; the block entity owns only a client-side `LerpedFloat` used by `PipedRedstoneNativeLeverRenderer` for smooth handle rotation and indicator interpolation.
+
+### Waterproof repeater
+
+`PipedRedstoneRepeaterBlock` is directional, waterloggable, preserves analog strength, and starts a new conduit-distance segment. Its `BlockStateProperties.DELAY` value mirrors vanilla repeater semantics:
+
+```text
+1..4 redstone ticks = 2..8 game ticks
+```
+
+Ordinary right-click cycles the setting. The selected position is represented by a separate multipart model indicator.
+
+### Verification
+
+`PipedRedstoneGameTests` runs on the NeoForge GameTest server and verifies isolation, Copper range, waterlogged operation, and the fastest/slowest repeater settings.
+
 ## Ponder
 
 `ZmhPonderPlugin` implements `PonderPlugin` directly. It does not inherit Create's restore hooks or index exclusions.
@@ -173,7 +247,8 @@ The plugin registers:
 
 - category: `zeppelin_must_have:zeppelin_systems`;
 - scene: `helm/telemetry`;
-- scene: `burner/operation`.
+- scene: `burner/operation`;
+- scene: `redstone/conduits`.
 
 Storyboards resolve to matching compressed structure templates under `assets/zeppelin_must_have/ponder`.
 

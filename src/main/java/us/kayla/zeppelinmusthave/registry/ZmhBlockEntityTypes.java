@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlockEntity;
+import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlockEntity;
 
 public final class ZmhBlockEntityTypes {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
@@ -35,6 +36,15 @@ public final class ZmhBlockEntityTypes {
                     ).build(null)
             );
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PipedRedstoneNativeLeverBlockEntity>> PIPED_REDSTONE_NATIVE_LEVER =
+            BLOCK_ENTITY_TYPES.register(
+                    "piped_redstone_native_lever",
+                    () -> BlockEntityType.Builder.of(
+                            ZmhBlockEntityTypes::createPipedRedstoneNativeLever,
+                            ZmhBlocks.PIPED_REDSTONE_NATIVE_LEVER.get()
+                    ).build(null)
+            );
+
     private ZmhBlockEntityTypes() {
     }
 
@@ -44,6 +54,17 @@ public final class ZmhBlockEntityTypes {
 
     private static AirshipBurnerBlockEntity createAirshipBurner(BlockPos pos, BlockState state) {
         return new AirshipBurnerBlockEntity(AIRSHIP_BURNER.get(), pos, state);
+    }
+
+    private static PipedRedstoneNativeLeverBlockEntity createPipedRedstoneNativeLever(
+            BlockPos pos,
+            BlockState state
+    ) {
+        return new PipedRedstoneNativeLeverBlockEntity(
+                PIPED_REDSTONE_NATIVE_LEVER.get(),
+                pos,
+                state
+        );
     }
 
     static void register(IEventBus modEventBus) {

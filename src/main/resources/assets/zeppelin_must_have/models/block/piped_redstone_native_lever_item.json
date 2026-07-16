@@ -1,0 +1,19 @@
+{
+  "loader": "neoforge:composite",
+  "parent": "zeppelin_must_have:block/templates/equipment_display",
+  "textures": {
+    "particle": "create:block/brass_casing"
+  },
+  "children": {
+    "base": {
+      "parent": "zeppelin_must_have:block/piped_redstone_native_lever/base"
+    },
+    "handle": {
+      "parent": "zeppelin_must_have:block/piped_redstone_native_lever/handle_item"
+    },
+    "indicator": {
+      "parent": "zeppelin_must_have:block/piped_redstone_native_lever/indicator"
+    }
+  },
+  "item_render_order": ["base", "handle", "indicator"]
+}

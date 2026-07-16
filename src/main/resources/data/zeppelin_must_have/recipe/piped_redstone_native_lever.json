@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " B ",
+    "ELE",
+    " P "
+  ],
+  "key": {
+    "B": {"item": "create:brass_sheet"},
+    "E": {"item": "create:electron_tube"},
+    "L": {"item": "minecraft:lever"},
+    "P": {"item": "zeppelin_must_have:copper_piped_redstone"}
+  },
+  "result": {
+    "id": "zeppelin_must_have:piped_redstone_native_lever",
+    "count": 1
+  }
+}

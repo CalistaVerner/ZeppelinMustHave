@@ -8,6 +8,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
+import us.kayla.zeppelinmusthave.client.renderer.PipedRedstoneNativeLeverRenderer;
 import us.kayla.zeppelinmusthave.ponder.ZmhPonderPlugin;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
@@ -23,6 +24,10 @@ public final class ZeppelinMustHaveClient {
         event.registerBlockEntityRenderer(
                 ZmhBlockEntityTypes.AIRSHIP_BURNER.get(),
                 context -> (BlockEntityRenderer) new HotAirBurnerRenderer(context)
+        );
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.PIPED_REDSTONE_NATIVE_LEVER.get(),
+                PipedRedstoneNativeLeverRenderer::new
         );
     }
 }

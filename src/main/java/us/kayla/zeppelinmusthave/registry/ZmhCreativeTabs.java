@@ -27,6 +27,11 @@ public final class ZmhCreativeTabs {
                         output.accept(ZmhItems.HEAT_RECUPERATOR_UPGRADE.get());
                         output.accept(ZmhItems.FORCED_INDUCTION_UPGRADE.get());
                         output.accept(ZmhItems.PRECISION_REGULATOR_UPGRADE.get());
+                        output.accept(ZmhBlocks.COPPER_PIPED_REDSTONE_ITEM.get());
+                        output.accept(ZmhBlocks.BRASS_PIPED_REDSTONE_ITEM.get());
+                        output.accept(ZmhBlocks.RESONANT_PIPED_REDSTONE_ITEM.get());
+                        output.accept(ZmhBlocks.PIPED_REDSTONE_NATIVE_LEVER_ITEM.get());
+                        output.accept(ZmhBlocks.PIPED_REDSTONE_REPEATER_ITEM.get());
                         output.accept(ZmhBlocks.BALLAST_TANK_ITEM.get());
                         output.accept(ZmhBlocks.MOORING_WINCH_ITEM.get());
                         output.accept(ZmhBlocks.ALTITUDE_GAUGE_ITEM.get());

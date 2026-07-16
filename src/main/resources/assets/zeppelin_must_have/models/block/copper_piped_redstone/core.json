@@ -1,0 +1,9 @@
+{
+  "parent": "zeppelin_must_have:block/piped_redstone/core",
+  "textures": {
+    "casing": "create:block/copper_casing",
+    "insulation": "zeppelin_must_have:block/zmh/piped_redstone_insulation",
+    "signal": "zeppelin_must_have:block/zmh/piped_redstone_signal",
+    "port": "zeppelin_must_have:block/zmh/piped_redstone_port"
+  }
+}

@@ -5,7 +5,7 @@
 [![Create](https://img.shields.io/badge/Create-6.0.10-5C8D89?style=flat-square)](https://github.com/Creators-of-Create/Create)
 [![Aeronautics](https://img.shields.io/badge/Create_Aeronautics-1.3.0-7696D2?style=flat-square)](https://modrinth.com/mod/create-aeronautics)
 [![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square)](https://adoptium.net/)
-[![Build](https://img.shields.io/github/actions/workflow/status/WorldOfKayla/ZeppelinMustHave/build.yml?branch=main&style=flat-square&label=build)](https://github.com/WorldOfKayla/ZeppelinMustHave/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/CalistaVerner/ZeppelinMustHave/build.yml?branch=main&style=flat-square&label=build)](https://github.com/CalistaVerner/ZeppelinMustHave/actions)
 
 **Zeppelin Must Have** is a Java add-on for **Create Aeronautics** on Minecraft 1.21.1 NeoForge. It develops the existing Create, Sable, Create Simulated, and Aeronautics systems with zeppelin-specific control, telemetry, buoyancy, propulsion, navigation, and mooring equipment.
 
@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.6.0
+Zeppelin Must Have 0.7.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -140,6 +140,31 @@ Burner goggles preserve the standard Aeronautics balloon section and append:
 
 Extended diagnostics appear while sneaking. The resolved profile and heat-network aggregate are synchronized from the server, so clients do not need the server data pack installed.
 
+
+## Piped Redstone
+
+Piped Redstone provides protected analog redstone routing for airships and dense Create machinery.
+
+Its connections are explicit six-sided ports rather than automatic adjacency. Use the Create Wrench on a selected face to open or close that port. Two conduits may therefore run in neighboring blocks, cross beside one another, or pass through the same machinery compartment without merging unless reciprocal ports are deliberately enabled.
+
+The conduits are solid, waterloggable blocks. Water and flowing liquids do not wash them away or interrupt their signal.
+
+Holding another conduit and using it on an existing straight run activates Create Placement Assist: the far end is extended like a Shaft, the axis ports are preserved, and the normal placement-assist/Extendo Grip range applies.
+
+| Tier | Data-pack profile | Propagation delay | Repeater-free distance |
+|---|---|---:|---:|
+| Copper | `zeppelin_must_have:copper` | 4 game ticks | 32 edges |
+| Brass | `zeppelin_must_have:brass` | 2 game ticks | 64 edges |
+| Resonant | `zeppelin_must_have:resonant` | 1 game tick | 128 edges |
+
+The complete analog value `0..15` is preserved without per-block attenuation until the tier distance limit. Mixed-tier components use the greatest delay and shortest distance present in the connected network.
+
+The Piped Redstone Native Lever mounts directly to a conduit face, automatically opens that port, and emits `0/15` only into the attached isolated line. Its physical handle rotates smoothly through a block-entity renderer and it remains usable while waterlogged.
+
+The waterproof Piped Redstone Repeater preserves analog strength and starts a new distance segment. Ordinary right-click cycles the same four delay settings as a vanilla repeater: `1..4` redstone ticks, or `2/4/6/8` game ticks.
+
+Profiles are loaded from `data/*/piped_redstone_profiles/*.json`. Detailed mechanics, recipes, and automated tests are documented in `docs/PIPED_REDSTONE.md`.
+
 ## Ponder
 
 The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Systems**.
@@ -147,13 +172,15 @@ The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Sy
 Implemented scenes:
 
 - **Airship Helm Telemetry** — Sable sub-level detection, physics telemetry, Aeronautics balloon aggregation, and empty-hand inspection;
-- **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, native Aeronautics aggregation, and installation/removal of the three upgrade socket types.
+- **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, native Aeronautics aggregation, and installation/removal of the three upgrade socket types;
+- **Protected Redstone for Airships** — explicit non-merging ports, waterlogging, three conduit tiers, adjustable repeater delay, and weakest-link mixed-tier behaviour.
 
 Scene structures are stored at:
 
 ```text
 assets/zeppelin_must_have/ponder/helm/telemetry.nbt
 assets/zeppelin_must_have/ponder/burner/operation.nbt
+assets/zeppelin_must_have/ponder/redstone/conduits.nbt
 ```
 
 Ponder preview state is applied through the burner block entity rather than by faking only its blockstate.
@@ -183,7 +210,7 @@ The asset pass follows Create's visual grammar:
 
 ## Crafting progression
 
-All eight registered blocks have recipes and block drops.
+All registered equipment blocks and upgrade modules have production recipes; every block has a loot table.
 
 | Equipment | Production path |
 |---|---|
@@ -191,6 +218,11 @@ All eight registered blocks have recipes and block drops.
 | Airship Burner | Create Blaze Burner upgraded with copper sheets and andesite alloy |
 | Forced-Draft Burner | Airship Burner, Encased Fans, brass sheets, and precision mechanisms |
 | Industrial Burner | 5×5 Create Mechanical Crafting recipe using the forced-draft tier, fluid tanks, fans, sturdy sheets, brass sheets, and precision mechanisms |
+| Copper Piped Redstone | Copper Sheets, Create Fluid Pipes, and redstone dust; produces eight conduits |
+| Brass Piped Redstone | Mechanical Crafting upgrade using Copper conduits, Brass Sheets, Electron Tubes, and Precision Mechanisms |
+| Resonant Piped Redstone | 5×5 Mechanical Crafting with Brass conduits, Sturdy Sheets, Polished Rose Quartz, Electron Tubes, and Precision Mechanisms |
+| Piped Redstone Native Lever | Copper conduit, vanilla Lever, Brass Sheet, and Electron Tubes |
+| Piped Redstone Repeater | Copper conduit, Brass Sheets, Electron Tubes, and a Comparator |
 | Ballast Tank | Create fluid tanks, fluid valve, smart pipe, copper sheets, and precision mechanism |
 | Mooring Winch | Create Rope Pulley, large cogwheels, shafts, brass casing, and chain |
 | Altitude Gauge | Simulated altitude sensor, Create speedometer, precision mechanisms, brass sheets, and compass |
@@ -212,7 +244,7 @@ The Ballast Tank, Mooring Winch, Altitude Gauge, and Vertical Thruster currently
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.6.0` |
+| Zeppelin Must Have | `0.7.0` |
 
 ## Development
 
@@ -228,6 +260,9 @@ The Ballast Tank, Mooring Winch, Altitude Gauge, and Vertical Thruster currently
 
 # Data-generation runtime
 ./gradlew.bat runData
+
+# Automated NeoForge GameTests
+./gradlew.bat runGameTestServer
 ```
 
 Linux and macOS use `./gradlew`.
