@@ -1,26 +1,26 @@
 {
-  "credit": "Zeppelin Must Have / us.Kayla",
+  "credit": "Zeppelin Must Have / us.Kayla \u2014 Create-compatible visual pass",
   "ambientocclusion": true,
-  "gui_light": "front",
+  "gui_light": "side",
   "textures": {
-    "particle": "#dark_steel",
-    "brass": "zeppelin_must_have:block/zmh/brass",
-    "bright_brass": "zeppelin_must_have:block/zmh/bright_brass",
-    "copper": "zeppelin_must_have:block/zmh/copper",
-    "dark_copper": "zeppelin_must_have:block/zmh/dark_copper",
-    "steel": "zeppelin_must_have:block/zmh/steel",
-    "dark_steel": "zeppelin_must_have:block/zmh/dark_steel",
-    "oxidized": "zeppelin_must_have:block/zmh/oxidized",
-    "wood": "zeppelin_must_have:block/zmh/wood",
-    "grille": "zeppelin_must_have:block/zmh/grille",
-    "rope": "zeppelin_must_have:block/zmh/rope",
-    "fan": "zeppelin_must_have:block/zmh/fan",
-    "gauge_altitude": "zeppelin_must_have:block/zmh/gauge_altitude",
-    "gauge_pressure": "zeppelin_must_have:block/zmh/gauge_pressure",
-    "liquid_gauge": "zeppelin_must_have:block/zmh/liquid_gauge",
-    "flame": "zeppelin_must_have:block/zmh/flame",
-    "soul_flame": "zeppelin_must_have:block/zmh/soul_flame",
-    "black": "zeppelin_must_have:block/zmh/black"
+    "particle": "#andesite",
+    "andesite": "create:block/andesite_casing",
+    "brass": "create:block/brass_casing",
+    "copper": "create:block/copper_casing",
+    "industrial": "create:block/industrial_iron_block",
+    "dark": "create:block/dark_metal_block",
+    "axis": "create:block/axis",
+    "gearbox": "create:block/gearbox",
+    "brass_gearbox": "create:block/brass_gearbox",
+    "fan_casing": "create:block/fan_casing",
+    "brazier": "create:block/blaze_heater_brazier",
+    "fluid_tank": "create:block/fluid_tank",
+    "fluid_window": "create:block/fluid_tank_window_single",
+    "rope": "create:block/pulley_rope",
+    "helm_panel": "zeppelin_must_have:block/zmh/helm_panel",
+    "altimeter": "zeppelin_must_have:block/zmh/altimeter",
+    "ballast_indicator": "zeppelin_must_have:block/zmh/ballast_indicator",
+    "burner_panel": "zeppelin_must_have:block/zmh/burner_panel"
   },
   "display": {
     "thirdperson_righthand": {
@@ -87,10 +87,15 @@
         225,
         0
       ],
+      "translation": [
+        0,
+        -0.25,
+        0
+      ],
       "scale": [
-        0.72,
-        0.72,
-        0.72
+        0.68,
+        0.68,
+        0.68
       ]
     },
     "ground": {
@@ -132,108 +137,44 @@
       ],
       "faces": {
         "north": {
-          "texture": "#dark_steel"
-        },
-        "south": {
-          "texture": "#dark_steel"
+          "texture": "#andesite"
         },
         "east": {
-          "texture": "#dark_steel"
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
         },
         "west": {
-          "texture": "#dark_steel"
+          "texture": "#andesite"
         },
         "up": {
-          "texture": "#dark_steel"
+          "texture": "#andesite"
         },
         "down": {
-          "texture": "#dark_steel"
+          "texture": "#andesite"
         }
       }
     },
     {
       "from": [
-        1.5,
-        0,
-        2.5
-      ],
-      "to": [
-        3,
-        15,
-        4
-      ],
-      "faces": {
-        "north": {
-          "texture": "#brass"
-        },
-        "south": {
-          "texture": "#brass"
-        },
-        "east": {
-          "texture": "#brass"
-        },
-        "west": {
-          "texture": "#brass"
-        },
-        "up": {
-          "texture": "#brass"
-        },
-        "down": {
-          "texture": "#brass"
-        }
-      }
-    },
-    {
-      "from": [
-        13,
-        0,
-        2.5
-      ],
-      "to": [
-        14.5,
-        15,
-        4
-      ],
-      "faces": {
-        "north": {
-          "texture": "#brass"
-        },
-        "south": {
-          "texture": "#brass"
-        },
-        "east": {
-          "texture": "#brass"
-        },
-        "west": {
-          "texture": "#brass"
-        },
-        "up": {
-          "texture": "#brass"
-        },
-        "down": {
-          "texture": "#brass"
-        }
-      }
-    },
-    {
-      "from": [
+        1,
         2,
-        13,
-        2.5
+        1
       ],
       "to": [
-        14,
         15,
+        13,
         4
       ],
       "faces": {
         "north": {
           "texture": "#brass"
         },
-        "south": {
+        "east": {
           "texture": "#brass"
         },
-        "east": {
+        "south": {
           "texture": "#brass"
         },
         "west": {
@@ -250,71 +191,77 @@
     {
       "from": [
         3,
-        3,
-        1.2
+        4,
+        0.5
       ],
       "to": [
         13,
-        13,
-        3.2
+        12,
+        2
       ],
       "faces": {
         "north": {
-          "texture": "#gauge_altitude"
-        },
-        "south": {
-          "texture": "#brass"
+          "texture": "#altimeter",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
-          "texture": "#brass"
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
         },
         "west": {
-          "texture": "#brass"
+          "texture": "#dark"
         },
         "up": {
-          "texture": "#brass"
+          "texture": "#dark"
         },
         "down": {
-          "texture": "#brass"
+          "texture": "#dark"
         }
       }
     },
     {
       "from": [
-        7.65,
-        5.5,
-        0.8
+        7.5,
+        5.2,
+        0.1
       ],
       "to": [
-        8.35,
-        11,
-        1.4
+        8.5,
+        10.5,
+        0.7
       ],
       "faces": {
         "north": {
-          "texture": "#bright_brass"
-        },
-        "south": {
-          "texture": "#bright_brass"
+          "texture": "#dark"
         },
         "east": {
-          "texture": "#bright_brass"
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
         },
         "west": {
-          "texture": "#bright_brass"
+          "texture": "#dark"
         },
         "up": {
-          "texture": "#bright_brass"
+          "texture": "#dark"
         },
         "down": {
-          "texture": "#bright_brass"
+          "texture": "#dark"
         }
       },
       "rotation": {
         "origin": [
           8,
           8,
-          1.1
+          0.4
         ],
         "axis": "z",
         "angle": -22.5,
@@ -323,65 +270,97 @@
     },
     {
       "from": [
-        4.5,
-        0.8,
-        1.5
+        7,
+        7,
+        0
       ],
       "to": [
-        11.5,
-        2.5,
-        3.5
+        9,
+        9,
+        1
       ],
       "faces": {
         "north": {
-          "texture": "#grille"
-        },
-        "south": {
-          "texture": "#grille"
+          "texture": "#brass"
         },
         "east": {
-          "texture": "#grille"
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
         },
         "west": {
-          "texture": "#grille"
+          "texture": "#brass"
         },
         "up": {
-          "texture": "#grille"
+          "texture": "#brass"
         },
         "down": {
-          "texture": "#grille"
+          "texture": "#brass"
         }
       }
     },
     {
       "from": [
-        5.5,
+        4,
         14,
-        7
+        6
       ],
       "to": [
-        10.5,
+        12,
         16,
         12
       ],
       "faces": {
         "north": {
-          "texture": "#wood"
-        },
-        "south": {
-          "texture": "#wood"
+          "texture": "#brass"
         },
         "east": {
-          "texture": "#wood"
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
         },
         "west": {
-          "texture": "#wood"
+          "texture": "#brass"
         },
         "up": {
-          "texture": "#wood"
+          "texture": "#brass"
         },
         "down": {
-          "texture": "#wood"
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        5,
+        7
+      ],
+      "to": [
+        16,
+        9,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass_gearbox"
+        },
+        "east": {
+          "texture": "#brass_gearbox"
+        },
+        "south": {
+          "texture": "#brass_gearbox"
+        },
+        "west": {
+          "texture": "#brass_gearbox"
+        },
+        "up": {
+          "texture": "#brass_gearbox"
+        },
+        "down": {
+          "texture": "#brass_gearbox"
         }
       }
     }

@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "gas_output_multiplier": 2.25,
+  "fuel_use_per_tick_at_full_power": 1.6,
+  "fuel_capacity_ticks": 24000,
+  "cast_range": 32,
+  "superheated_output_multiplier": 1.5,
+  "throttle_exponent": 1.0
+}

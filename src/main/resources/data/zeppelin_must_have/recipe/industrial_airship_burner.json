@@ -1,16 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "redstone",
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
   "pattern": [
-    "STS",
-    "PAP",
-    "STS"
+    "STSTS",
+    "PFDFP",
+    "TFAFT",
+    "PFDFP",
+    "STSTS"
   ],
   "key": {
     "A": { "item": "zeppelin_must_have:forced_draft_airship_burner" },
+    "D": { "item": "create:fluid_tank" },
+    "F": { "item": "create:encased_fan" },
     "P": { "item": "create:precision_mechanism" },
     "S": { "item": "create:sturdy_sheet" },
-    "T": { "item": "create:fluid_tank" }
+    "T": { "item": "create:brass_sheet" }
   },
   "result": {
     "id": "zeppelin_must_have:industrial_airship_burner",

@@ -1,40 +1,26 @@
 package us.kayla.zeppelinmusthave.content.burner;
 
+import net.minecraft.resources.ResourceLocation;
+import us.kayla.zeppelinmusthave.ZeppelinMustHave;
+
+/**
+ * Stable registry-to-profile mapping.
+ *
+ * <p>The enum deliberately contains no gameplay tuning. All numerical values
+ * are supplied by the corresponding data-pack profile.</p>
+ */
 public enum AirshipBurnerTier {
-    STANDARD(1.0, 1.0, 12_000, 16),
-    FORCED_DRAFT(2.25, 1.6, 24_000, 32),
-    INDUSTRIAL(4.5, 3.0, 48_000, 64);
+    STANDARD("standard"),
+    FORCED_DRAFT("forced_draft"),
+    INDUSTRIAL("industrial");
 
-    private final double gasOutputMultiplier;
-    private final double fuelUsePerTickAtFullPower;
-    private final int fuelCapacityTicks;
-    private final int castRange;
+    private final ResourceLocation profileId;
 
-    AirshipBurnerTier(
-            double gasOutputMultiplier,
-            double fuelUsePerTickAtFullPower,
-            int fuelCapacityTicks,
-            int castRange
-    ) {
-        this.gasOutputMultiplier = gasOutputMultiplier;
-        this.fuelUsePerTickAtFullPower = fuelUsePerTickAtFullPower;
-        this.fuelCapacityTicks = fuelCapacityTicks;
-        this.castRange = castRange;
+    AirshipBurnerTier(String profilePath) {
+        this.profileId = ZeppelinMustHave.id(profilePath);
     }
 
-    public double gasOutputMultiplier() {
-        return this.gasOutputMultiplier;
-    }
-
-    public double fuelUsePerTickAtFullPower() {
-        return this.fuelUsePerTickAtFullPower;
-    }
-
-    public int fuelCapacityTicks() {
-        return this.fuelCapacityTicks;
-    }
-
-    public int castRange() {
-        return this.castRange;
+    public ResourceLocation profileId() {
+        return this.profileId;
     }
 }

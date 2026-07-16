@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " P ",
+    "FGF",
+    " C "
+  ],
+  "key": {
+    "P": { "item": "aeronautics:andesite_propeller" },
+    "F": { "item": "create:encased_fan" },
+    "G": { "item": "aeronautics:gyroscopic_propeller_bearing" },
+    "C": { "item": "create:brass_casing" }
+  },
+  "result": {
+    "id": "zeppelin_must_have:vertical_thruster",
+    "count": 1
+  }
+}
