@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "sample_interval_ticks": 2,
+  "vertical_speed_full_scale": 6.0,
+  "hold_deadband_blocks": 0.35,
+  "hold_proportional_gain": 1.25,
+  "hold_vertical_damping_gain": 2.0,
+  "hold_maximum_correction": 7.0,
+  "maximum_signal_step": 2
+}

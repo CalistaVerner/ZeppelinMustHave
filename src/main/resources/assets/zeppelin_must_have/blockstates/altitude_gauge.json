@@ -1,5 +1,29 @@
 {
-  "variants": {
-    "": { "model": "zeppelin_must_have:block/altitude_gauge" }
-  }
+  "multipart": [
+    {
+      "when": {"facing": "north"},
+      "apply": {"model": "zeppelin_must_have:block/altitude_gauge"}
+    },
+    {
+      "when": {"facing": "east"},
+      "apply": {
+        "model": "zeppelin_must_have:block/altitude_gauge",
+        "y": 90
+      }
+    },
+    {
+      "when": {"facing": "south"},
+      "apply": {
+        "model": "zeppelin_must_have:block/altitude_gauge",
+        "y": 180
+      }
+    },
+    {
+      "when": {"facing": "west"},
+      "apply": {
+        "model": "zeppelin_must_have:block/altitude_gauge",
+        "y": 270
+      }
+    }
+  ]
 }

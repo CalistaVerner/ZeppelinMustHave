@@ -165,6 +165,86 @@ Installation uses normal block interaction. Sneak-wrenching removes one module b
 
 The subclass first invokes Aeronautics' standard balloon section, then appends reservoir layers, active heat grade, redstone throttle, individual output, source counts, combined output, profile ID, capacity, range, consumption, installed modules, and aggregated upgrade modifiers. Sneaking exposes the detailed regular/superheated and modifier split.
 
+## Automatic Altitude Control
+
+### Directional control surface
+
+`AltitudeGaugeBlock` is a directional analog redstone device:
+
+```text
+rear face  = trim input
+front face = telemetry or controlled output
+```
+
+The block keeps the save-compatible registry ID `zeppelin_must_have:altitude_gauge`; only its implementation changes from a static block to an `IBE<AltitudeGaugeBlockEntity>`.
+
+### Server-authoritative telemetry
+
+`AltitudeGaugeBlockEntity` reuses `AeronauticsFlightStateReader`, so the Helm and controller share one authoritative Sable/Aeronautics telemetry boundary. The gauge never estimates position or velocity client-side.
+
+It samples:
+
+- projected global altitude;
+- Sable vertical velocity;
+- Aeronautics balloon fill ratio;
+- rear analog trim input.
+
+The client receives the current snapshot and controller state only through the normal block-entity update tag.
+
+### Control modes
+
+`AltitudeGaugeMode` defines four stable modes:
+
+1. altitude telemetry;
+2. vertical-speed telemetry;
+3. balloon-fill telemetry;
+4. altitude hold.
+
+The first three modes are pure sensors. Altitude Hold is an inline proportional-derivative controller around an operator-supplied trim signal:
+
+```text
+output = trim
+       + altitude_error × proportional_gain
+       - vertical_speed × damping_gain
+```
+
+Correction and final output are bounded to vanilla analog redstone `0..15`.
+
+### Stability and failure behaviour
+
+`AltitudeControlMath` centralizes all calculations used by gameplay and tests. The controller adds:
+
+- altitude deadband;
+- bounded correction;
+- vertical damping;
+- per-sample signal slew limiting.
+
+When detached, output fails to zero. When Altitude Hold is selected but not armed, the rear trim passes through unchanged. Missing profiles use a deliberately slow, low-gain fallback rather than affecting upstream physics.
+
+### Data-pack profile
+
+`AltitudeControlProfiles` loads:
+
+```text
+data/<namespace>/altitude_control_profiles/*.json
+```
+
+The bundled controller resolves `zeppelin_must_have:default`. Numerical controller tuning is not stored in the block or mode enum.
+
+### Integration path
+
+The intended automation path is:
+
+```text
+Native Lever → Altitude Gauge → Piped Redstone → Airship Burner
+```
+
+No force, balloon, pressure, or mass state is mutated by the controller. Aeronautics receives only ordinary redstone throttle changes through its existing burner implementation.
+
+### Verification
+
+`AltitudeControlGameTests` verifies telemetry scaling, deadband behaviour, proportional correction, vertical damping, and slew limiting independently of rendering or Ponder.
+
 ## Piped Redstone
 
 ### Explicit topology

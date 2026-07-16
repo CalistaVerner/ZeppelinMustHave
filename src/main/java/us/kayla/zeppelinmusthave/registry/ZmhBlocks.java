@@ -12,6 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerTier;
+import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlock;
@@ -106,8 +107,14 @@ public final class ZmhBlocks {
     public static final DeferredBlock<Block> MOORING_WINCH = registerMetalBlock("mooring_winch");
     public static final DeferredItem<BlockItem> MOORING_WINCH_ITEM = registerBlockItem("mooring_winch", MOORING_WINCH);
 
-    public static final DeferredBlock<Block> ALTITUDE_GAUGE = registerMetalBlock("altitude_gauge");
-    public static final DeferredItem<BlockItem> ALTITUDE_GAUGE_ITEM = registerBlockItem("altitude_gauge", ALTITUDE_GAUGE);
+    public static final DeferredBlock<AltitudeGaugeBlock> ALTITUDE_GAUGE = BLOCKS.register(
+            "altitude_gauge",
+            () -> new AltitudeGaugeBlock(altitudeGaugeProperties())
+    );
+    public static final DeferredItem<BlockItem> ALTITUDE_GAUGE_ITEM = registerBlockItem(
+            "altitude_gauge",
+            ALTITUDE_GAUGE
+    );
 
     public static final DeferredBlock<Block> VERTICAL_THRUSTER = registerMetalBlock("vertical_thruster");
     public static final DeferredItem<BlockItem> VERTICAL_THRUSTER_ITEM = registerBlockItem("vertical_thruster", VERTICAL_THRUSTER);
@@ -163,6 +170,12 @@ public final class ZmhBlocks {
         return metalProperties()
                 .strength(3.0F, 6.0F)
                 .lightLevel(PipedRedstoneRepeaterBlock::getLightPower)
+                .noOcclusion();
+    }
+
+    private static BlockBehaviour.Properties altitudeGaugeProperties() {
+        return metalProperties()
+                .lightLevel(AltitudeGaugeBlock::getLightPower)
                 .noOcclusion();
     }
 }

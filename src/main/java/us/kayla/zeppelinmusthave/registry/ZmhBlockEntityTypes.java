@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
+import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlockEntity;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlockEntity;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlockEntity;
 
@@ -45,6 +46,16 @@ public final class ZmhBlockEntityTypes {
                     ).build(null)
             );
 
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AltitudeGaugeBlockEntity>> ALTITUDE_GAUGE =
+            BLOCK_ENTITY_TYPES.register(
+                    "altitude_gauge",
+                    () -> BlockEntityType.Builder.of(
+                            ZmhBlockEntityTypes::createAltitudeGauge,
+                            ZmhBlocks.ALTITUDE_GAUGE.get()
+                    ).build(null)
+            );
+
     private ZmhBlockEntityTypes() {
     }
 
@@ -65,6 +76,14 @@ public final class ZmhBlockEntityTypes {
                 pos,
                 state
         );
+    }
+
+
+    private static AltitudeGaugeBlockEntity createAltitudeGauge(
+            BlockPos pos,
+            BlockState state
+    ) {
+        return new AltitudeGaugeBlockEntity(ALTITUDE_GAUGE.get(), pos, state);
     }
 
     static void register(IEventBus modEventBus) {

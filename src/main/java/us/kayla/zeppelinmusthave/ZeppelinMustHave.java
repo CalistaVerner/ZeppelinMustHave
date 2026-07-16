@@ -7,6 +7,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerProfiles;
+import us.kayla.zeppelinmusthave.content.control.AltitudeControlProfiles;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneProfiles;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeDefinitions;
 import us.kayla.zeppelinmusthave.integration.SimulatedStack;
@@ -25,6 +26,7 @@ public final class ZeppelinMustHave {
         ZmhRegistries.register(modEventBus);
         AirshipBurnerProfiles.register();
         AirshipUpgradeDefinitions.register();
+        AltitudeControlProfiles.register();
         PipedRedstoneProfiles.register();
 
         LOGGER.info(

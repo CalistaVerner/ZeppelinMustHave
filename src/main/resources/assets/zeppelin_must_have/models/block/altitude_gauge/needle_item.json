@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "create:block/dark_metal_block",
+    "dark": "create:block/dark_metal_block",
+    "brass": "create:block/brass_casing"
+  },
+  "elements": [
+    {
+      "from": [7.5, 5.2, 0.1],
+      "to": [8.5, 10.5, 0.7],
+      "rotation": {
+        "origin": [8, 8, 0.4],
+        "axis": "z",
+        "angle": -22.5,
+        "rescale": true
+      },
+      "faces": {
+        "north": {"texture": "#dark"},
+        "east": {"texture": "#dark"},
+        "south": {"texture": "#dark"},
+        "west": {"texture": "#dark"},
+        "up": {"texture": "#brass"},
+        "down": {"texture": "#dark"}
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have / us.Kayla \u2014 Create-compatible visual pass",
+  "credit": "Zeppelin Must Have / us.Kayla — Create-compatible visual pass",
   "textures": {
     "particle": "#andesite",
     "andesite": "create:block/andesite_casing",
@@ -121,48 +121,6 @@
         "down": {
           "texture": "#dark"
         }
-      }
-    },
-    {
-      "from": [
-        7.5,
-        5.2,
-        0.1
-      ],
-      "to": [
-        8.5,
-        10.5,
-        0.7
-      ],
-      "faces": {
-        "north": {
-          "texture": "#dark"
-        },
-        "east": {
-          "texture": "#dark"
-        },
-        "south": {
-          "texture": "#dark"
-        },
-        "west": {
-          "texture": "#dark"
-        },
-        "up": {
-          "texture": "#dark"
-        },
-        "down": {
-          "texture": "#dark"
-        }
-      },
-      "rotation": {
-        "origin": [
-          8,
-          8,
-          0.4
-        ],
-        "axis": "z",
-        "angle": -22.5,
-        "rescale": true
       }
     },
     {

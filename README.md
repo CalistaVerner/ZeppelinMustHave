@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.7.0
+Zeppelin Must Have 0.8.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -165,6 +165,38 @@ The waterproof Piped Redstone Repeater preserves analog strength and starts a ne
 
 Profiles are loaded from `data/*/piped_redstone_profiles/*.json`. Detailed mechanics, recipes, and automated tests are documented in `docs/PIPED_REDSTONE.md`.
 
+
+## Automatic Altitude Control
+
+The existing Altitude Gauge is now a functional directional flight sensor and inline burner controller.
+
+It provides four Create-Wrench-selectable analog modes:
+
+- **Altitude telemetry** — maps global Sable altitude across the dimension build range;
+- **Vertical-speed telemetry** — maps descent and climb around neutral signal `8`;
+- **Balloon-fill telemetry** — exposes the native Aeronautics fill ratio as `0..15`;
+- **Altitude Hold** — adds proportional altitude correction and vertical-speed damping to a rear trim input.
+
+A practical control chain is:
+
+```text
+Piped Redstone Native Lever
+        │ base burner trim
+        ▼
+Altitude Gauge rear input
+        │ stabilized output
+        ▼
+Piped Redstone
+        ▼
+Airship Burners
+```
+
+Sneak-right-click with an empty hand captures the current altitude and arms the controller. Sneak-right-click again disables it; while disabled, trim passes through unchanged. Output slew limiting and a configurable deadband reduce oscillation.
+
+All controller gains, sampling rate, damping, and slew limits are data-pack driven through `data/*/altitude_control_profiles/*.json`.
+
+Documentation: `docs/ALTITUDE_CONTROL.md`.
+
 ## Ponder
 
 The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Systems**.
@@ -173,7 +205,8 @@ Implemented scenes:
 
 - **Airship Helm Telemetry** — Sable sub-level detection, physics telemetry, Aeronautics balloon aggregation, and empty-hand inspection;
 - **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, native Aeronautics aggregation, and installation/removal of the three upgrade socket types;
-- **Protected Redstone for Airships** — explicit non-merging ports, waterlogging, three conduit tiers, adjustable repeater delay, and weakest-link mixed-tier behaviour.
+- **Protected Redstone for Airships** — explicit non-merging ports, waterlogging, three conduit tiers, adjustable repeater delay, and weakest-link mixed-tier behaviour;
+- **Automatic Altitude Control** — trim input, four sensor/controller modes, target capture, damping, and burner output routing.
 
 Scene structures are stored at:
 
@@ -181,6 +214,7 @@ Scene structures are stored at:
 assets/zeppelin_must_have/ponder/helm/telemetry.nbt
 assets/zeppelin_must_have/ponder/burner/operation.nbt
 assets/zeppelin_must_have/ponder/redstone/conduits.nbt
+assets/zeppelin_must_have/ponder/control/altitude_hold.nbt
 ```
 
 Ponder preview state is applied through the burner block entity rather than by faking only its blockstate.
@@ -228,7 +262,7 @@ All registered equipment blocks and upgrade modules have production recipes; eve
 | Altitude Gauge | Simulated altitude sensor, Create speedometer, precision mechanisms, brass sheets, and compass |
 | Vertical Thruster | Aeronautics propeller and gyroscopic bearing with Create Encased Fans and brass casing |
 
-The Ballast Tank, Mooring Winch, Altitude Gauge, and Vertical Thruster currently have production assets and recipes; their functional block entities are subsequent implementation stages.
+The Ballast Tank, Mooring Winch, and Vertical Thruster currently have production assets and recipes; their functional block entities are subsequent implementation stages. The Altitude Gauge is fully functional as of `0.8.0`.
 
 ## Version matrix
 
@@ -244,7 +278,7 @@ The Ballast Tank, Mooring Winch, Altitude Gauge, and Vertical Thruster currently
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.7.0` |
+| Zeppelin Must Have | `0.8.0` |
 
 ## Development
 

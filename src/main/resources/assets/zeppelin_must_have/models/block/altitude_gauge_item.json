@@ -1,0 +1,16 @@
+{
+  "loader": "neoforge:composite",
+  "parent": "zeppelin_must_have:block/templates/equipment_display",
+  "textures": {
+    "particle": "create:block/andesite_casing"
+  },
+  "children": {
+    "body": {
+      "parent": "zeppelin_must_have:block/altitude_gauge"
+    },
+    "needle": {
+      "parent": "zeppelin_must_have:block/altitude_gauge/needle_item"
+    }
+  },
+  "item_render_order": ["body", "needle"]
+}
