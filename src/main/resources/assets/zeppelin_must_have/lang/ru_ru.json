@@ -63,5 +63,14 @@
   "zeppelin_must_have.goggles.helm.sublevel": "UUID sub-level: %s",
   "zeppelin_must_have.goggles.helm.position": "Глобальная позиция: %s",
   "zeppelin_must_have.goggles.helm.angular_velocity": "Угловая скорость: %s",
-  "zeppelin_must_have.goggles.helm.sample_age": "Возраст телеметрии: %s"
+  "zeppelin_must_have.goggles.helm.sample_age": "Возраст телеметрии: %s",
+  "message.zeppelin_must_have.burner.network": "Тепловая сеть Aeronautics: активных источников %s из %s, суммарная подача %s м³",
+  "zeppelin_must_have.goggles.burner.heat_reservoir": "Тепловой резервуар",
+  "zeppelin_must_have.goggles.burner.heat_network": "Тепловая сеть Aeronautics",
+  "zeppelin_must_have.goggles.burner.sources": "Источники: активно %s из %s",
+  "zeppelin_must_have.goggles.burner.combined_output": "Суммарная подача газа: %s",
+  "zeppelin_must_have.goggles.burner.regular_heat": "Запас обычного тепла: %s",
+  "zeppelin_must_have.goggles.burner.superheated_heat": "Запас сверхнагрева: %s",
+  "zeppelin_must_have.ponder.airship_burners.text_8": "Каждая горелка остаётся отдельным источником Aeronautics, а баллон объединяет все подключённые источники в своей штатной коллекции нагревателей",
+  "zeppelin_must_have.ponder.airship_burners.text_9": "Инженерные очки показывают резервуар выбранной горелки и суммарную подачу всех источников, подключённых к баллону"
 }

@@ -1,5 +1,7 @@
 package us.kayla.zeppelinmusthave.ponder;
 
+import com.simibubi.create.AllItems;
+
 import dev.eriksonn.aeronautics.content.blocks.hot_air.hot_air_burner.HotAirBurnerBlock;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
@@ -113,7 +115,9 @@ public final class ZmhPonderScenes {
             SceneBuildingUtil util
     ) {
         BlockPos burnerPos = util.grid().at(3, 1, 3);
-        BlockPos leverPos = util.grid().at(2, 1, 3);
+        BlockPos leftBurnerPos = util.grid().at(2, 1, 3);
+        BlockPos rightBurnerPos = util.grid().at(4, 1, 3);
+        BlockPos leverPos = util.grid().at(1, 1, 3);
         BlockPos envelopeCenter = util.grid().at(3, 5, 3);
 
         scene.title("airship_burners", "Supplying Lift with Airship Burners");
@@ -261,5 +265,64 @@ public final class ZmhPonderScenes {
                 .pointAt(Vec3.atCenterOf(burnerPos))
                 .placeNearTarget();
         scene.idle(85);
+
+        scene.world().setBlock(
+                leftBurnerPos,
+                ZmhBlocks.AIRSHIP_BURNER.get().defaultBlockState()
+                        .setValue(HotAirBurnerBlock.POWERED, true)
+                        .setValue(AirshipBurnerBlock.LIT, true),
+                true
+        );
+        scene.world().setBlock(
+                rightBurnerPos,
+                ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER.get().defaultBlockState()
+                        .setValue(HotAirBurnerBlock.POWERED, true)
+                        .setValue(AirshipBurnerBlock.LIT, true),
+                true
+        );
+        scene.world().modifyBlockEntity(
+                leftBurnerPos,
+                AirshipBurnerBlockEntity.class,
+                burner -> burner.configurePonderPreview(8, false)
+        );
+        scene.world().modifyBlockEntity(
+                burnerPos,
+                AirshipBurnerBlockEntity.class,
+                burner -> burner.configurePonderPreview(15, true)
+        );
+        scene.world().modifyBlockEntity(
+                rightBurnerPos,
+                AirshipBurnerBlockEntity.class,
+                burner -> burner.configurePonderPreview(12, false)
+        );
+        scene.idle(20);
+
+        scene.overlay().showText(80)
+                .text("Each burner remains an independent Aeronautics provider; the balloon combines every connected source in its native heater collection")
+                .attachKeyFrame()
+                .colored(PonderPalette.BLUE)
+                .pointAt(Vec3.atCenterOf(envelopeCenter))
+                .placeNearTarget();
+        scene.overlay().showOutline(
+                PonderPalette.BLUE,
+                "combined_heat_sources",
+                util.select().fromTo(leftBurnerPos, rightBurnerPos),
+                80
+        );
+        scene.idle(95);
+
+        scene.overlay().showControls(
+                        util.vector().blockSurface(burnerPos, Direction.NORTH),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(AllItems.GOGGLES.asStack());
+        scene.idle(10);
+        scene.overlay().showText(75)
+                .text("Engineer's Goggles show both the selected burner reservoir and the combined output of all sources connected to the balloon")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(burnerPos))
+                .placeNearTarget();
+        scene.idle(90);
     }
 }

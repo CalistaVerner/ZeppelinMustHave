@@ -63,5 +63,14 @@
   "zeppelin_must_have.goggles.helm.sublevel": "UUID sub-levelu: %s",
   "zeppelin_must_have.goggles.helm.position": "Pozycja globalna: %s",
   "zeppelin_must_have.goggles.helm.angular_velocity": "Prędkość kątowa: %s",
-  "zeppelin_must_have.goggles.helm.sample_age": "Wiek telemetrii: %s"
+  "zeppelin_must_have.goggles.helm.sample_age": "Wiek telemetrii: %s",
+  "message.zeppelin_must_have.burner.network": "Sieć cieplna Aeronautics: %s aktywnych z %s podłączonych źródeł, łączna produkcja %s m³",
+  "zeppelin_must_have.goggles.burner.heat_reservoir": "Zbiornik ciepła",
+  "zeppelin_must_have.goggles.burner.heat_network": "Sieć cieplna Aeronautics",
+  "zeppelin_must_have.goggles.burner.sources": "Źródła: %s aktywnych / %s podłączonych",
+  "zeppelin_must_have.goggles.burner.combined_output": "Łączna produkcja gazu: %s",
+  "zeppelin_must_have.goggles.burner.regular_heat": "Zapas zwykłego ciepła: %s",
+  "zeppelin_must_have.goggles.burner.superheated_heat": "Zapas przegrzanego ciepła: %s",
+  "zeppelin_must_have.ponder.airship_burners.text_8": "Każdy palnik pozostaje niezależnym źródłem Aeronautics, a balon łączy wszystkie podłączone źródła w swojej natywnej kolekcji ogrzewaczy",
+  "zeppelin_must_have.ponder.airship_burners.text_9": "Gogle inżynierskie pokazują zbiornik wybranego palnika oraz łączną wydajność wszystkich źródeł podłączonych do balonu"
 }

@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "create:block/copper_casing",
+    "andesite": "create:block/andesite_casing",
+    "brass": "create:block/brass_casing",
+    "copper": "create:block/copper_casing",
+    "industrial": "create:block/industrial_iron_block",
+    "dark": "create:block/dark_metal_block",
+    "axis": "create:block/axis",
+    "brass_gearbox": "create:block/brass_gearbox",
+    "fan_casing": "create:block/fan_casing",
+    "brazier": "create:block/blaze_heater_brazier",
+    "fluid_tank": "create:block/fluid_tank",
+    "burner_panel": "zeppelin_must_have:block/zmh/burner_panel",
+    "heat_chamber": "zeppelin_must_have:block/zmh/heat_chamber",
+    "heat_manifold": "zeppelin_must_have:block/zmh/heat_manifold"
+  }
+}

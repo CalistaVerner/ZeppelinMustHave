@@ -18,7 +18,7 @@ The built-in tiers reference these IDs:
 | Forced draft | `zeppelin_must_have:forced_draft` |
 | Industrial | `zeppelin_must_have:industrial` |
 
-A data pack overrides a built-in profile by supplying the same resource ID at a higher pack priority. `/reload` updates already placed burner block entities on their next server tick, clamps stored fuel to the new capacity, refreshes comparator output, resynchronizes clients, and reconnects or disconnects the Aeronautics balloon provider as required.
+A data pack overrides a built-in profile by supplying the same resource ID at a higher pack priority. `/reload` updates already placed burner block entities on their next server tick, clamps the combined regular/superheated heat reservoir to the new capacity, refreshes comparator output, resynchronizes clients, and reconnects or disconnects the Aeronautics balloon provider as required.
 
 ## Schema version 1
 
@@ -62,6 +62,8 @@ fuel_use_per_tick =
 
 The add-on does not replace Aeronautics balloon construction, airtight-block checks, gas types, air-pressure calculations, fill interpolation, or lift simulation. It supplies an additional `BlockEntityLiftingGasProvider` implementation using the existing public contract.
 
+The profile does not decide which item is a fuel. `AirshipHeatSources` delegates classification to Create fuel data maps and NeoForge furnace burn time. Accepted contributions are combined by `AirshipHeatReservoir`; regular and superheated layers share the configured `fuel_capacity_ticks`.
+
 ## Validation and failure behaviour
 
 Profiles are validated during resource reload:
@@ -78,6 +80,8 @@ An absent or invalid required profile fails closed: the affected burner produces
 The server remains authoritative. The resolved profile snapshot is included in the burner block-entity update tag so that:
 
 - Create Engineer's Goggles display the actual server configuration;
+- reservoir diagnostics use the same synchronized profile as gameplay;
+- the native Aeronautics heater aggregate can be shown without introducing a second heat network;
 - clients do not need the server's data pack installed locally;
 - Ponder and rendering do not calculate gameplay values independently.
 

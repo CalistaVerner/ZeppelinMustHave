@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.4.0
+Zeppelin Must Have 0.5.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -96,29 +96,36 @@ docs/DATA_PACK_PROFILES.md
 docs/templates/airship_burner_profile.template.json
 ```
 
-### Fuel integration
+### Unified heat-source system
 
-Burners accept:
+`AirshipHeatSources` normalizes existing upstream fuel mechanisms into one heat-source contract:
 
 - vanilla and NeoForge furnace fuels;
 - regular Create Blaze Burner fuels;
 - superheated Create Blaze Burner fuels;
 - Creative Blaze Cake for infinite operation.
 
-Fuel classification uses current Create data maps. Superheated output, capacity, consumption, range, and throttle curve come from the resolved server profile.
+`AirshipHeatReservoir` stores regular and superheated contributions in separate layers. Both grades may be inserted in any order; superheated heat is consumed first and the burner falls back to the regular reserve automatically. Existing 0.4.x fuel NBT is migrated during block-entity loading.
+
+### Combining multiple burners
+
+The add-on does not create a parallel heat network. `BalloonHeatAggregate` observes the native Aeronautics `Balloon.getHeaters()` collection and reports connected sources, active sources, and combined gas output. Every burner remains an independent `BlockEntityLiftingGasProvider`; Aeronautics remains responsible for combining providers, filling the envelope, pressure, and lift.
+
+Detailed design: `docs/HEAT_SYSTEM.md`.
 
 ### Engineer's Goggles
 
 Burner goggles preserve the standard Aeronautics balloon section and append:
 
-- stored fuel and heat grade;
+- total, regular, and superheated heat reserves;
+- active heat grade;
 - redstone strength and calculated throttle;
-- current gas output;
-- profile ID;
-- configured capacity and envelope range;
-- current fuel-consumption rate.
+- individual gas output;
+- active and connected balloon heat sources;
+- combined gas output of the native Aeronautics heater collection;
+- profile ID, capacity, range, and current consumption.
 
-Extended profile diagnostics appear while sneaking. The resolved profile is synchronized from the server, so clients do not need the server data pack installed.
+Extended diagnostics appear while sneaking. The resolved profile and heat-network aggregate are synchronized from the server, so clients do not need the server data pack installed.
 
 ## Ponder
 
@@ -127,7 +134,7 @@ The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Sy
 Implemented scenes:
 
 - **Airship Helm Telemetry** — Sable sub-level detection, physics telemetry, Aeronautics balloon aggregation, and empty-hand inspection;
-- **Airship Burner Operation** — fuel insertion, redstone throttling, airtight envelopes, tier progression, and soul-fire appearance.
+- **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, and native Aeronautics aggregation of multiple burner providers.
 
 Scene structures are stored at:
 
@@ -155,9 +162,11 @@ The asset pass follows Create's visual grammar:
 
 - native Create andesite, brass, copper, industrial iron, fan, fluid-tank, pulley, axis, and gearbox textures;
 - compact block silhouettes and restrained detailing;
-- four custom 16×16 functional textures only: Helm panel, altimeter, ballast indicator, and burner service panel;
+- one shared item-display template for GUI, hand, ground, and fixed transforms;
+- NeoForge `neoforge:composite` burner models built from reusable core, fan, source-manifold, and auxiliary modules;
+- six custom 16×16 functional textures: Helm panel, altimeter, ballast indicator, burner panel, heat chamber, and heat manifold;
 - native Aeronautics hot-air burner renderer for flame and redstone indication;
-- full block geometry inherited by item models with GUI, hand, ground, and fixed transforms.
+- single, dual, and triple combustion layouts that visibly converge into common collectors.
 
 ## Crafting progression
 
@@ -190,7 +199,7 @@ The Ballast Tank, Mooring Winch, Altitude Gauge, and Vertical Thruster currently
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.4.0` |
+| Zeppelin Must Have | `0.5.0` |
 
 ## Development
 

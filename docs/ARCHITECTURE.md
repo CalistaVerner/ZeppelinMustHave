@@ -81,54 +81,66 @@ Normal view shows flight and Aeronautics telemetry. Sneaking adds diagnostic UUI
 
 ### Upstream extension
 
-`AirshipBurnerBlockEntity` extends Aeronautics `HotAirBurnerBlockEntity`. This preserves:
+`AirshipBurnerBlockEntity` extends Aeronautics `HotAirBurnerBlockEntity`. Native value behaviour, airtight-envelope discovery, balloon ownership, gas type, pressure, fill simulation, particles, sound, rendering, and the Aeronautics goggle section remain upstream responsibilities.
 
-- native value behaviour for selected hot-air output;
-- airtight-envelope raycast semantics;
-- balloon creation and joining;
-- lifting-gas type;
-- server fill simulation and air-pressure handling;
-- Aeronautics particles, sound, renderer, and balloon goggle section.
+### Heat-source pipeline
 
-Zeppelin Must Have adds only stored fuel, profile-based tier scaling, comparator fuel output, and additional diagnostics.
+Fuel handling is split into reusable components:
+
+```text
+AirshipHeatSources
+  ordered adapters over Create and NeoForge fuel APIs
+        │
+        ▼
+AirshipHeatSource
+  immutable normalized contribution
+        │
+        ▼
+AirshipHeatReservoir
+  regular + superheated layers, persistence, migration, consumption
+```
+
+`AirshipHeatSources` resolves Creative Blaze Cake, Create superheated fuel data, Create regular fuel data, and NeoForge furnace burn time. It does not define another fuel registry.
+
+The reservoir allows regular and superheated contributions to coexist. The superheated layer is consumed first; output automatically falls back to regular heat when that layer is exhausted. A finite source cannot replace active infinite creative heat.
+
+0.4.x NBT is migrated into the new reservoir during load.
 
 ### Data-driven profiles
 
-`AirshipBurnerTier` contains stable profile IDs only. It contains no numerical tuning.
-
-`AirshipBurnerProfiles` is a `SimpleJsonResourceReloadListener` registered through `AddReloadListenerEvent`. It loads:
+`AirshipBurnerTier` contains stable profile IDs only. `AirshipBurnerProfiles` reloads immutable profile data from:
 
 ```text
 data/<namespace>/airship_burner_profiles/*.json
 ```
 
-The registry publishes an immutable map and monotonically increasing revision. Existing burner block entities resolve a new profile on the next tick after `/reload`, clamp fuel capacity, update comparator consumers, synchronize clients, and refresh balloon membership.
+The profile owns capacity, output scaling, consumption, throttle curve, and cast range. The reservoir owns stored energy. `AirshipBurnerMetrics` derives shared values once for status chat, Engineer's Goggles, and diagnostics.
 
 Missing or invalid profiles fail closed without affecting Create or Aeronautics blocks.
 
-### Profile synchronization
+### Native multi-source aggregation
 
-The server's resolved profile is serialized only into the client update tag. It is not persisted as a second source of truth. This guarantees:
+Multiple burners are not joined by a Zeppelin Must Have network. Aeronautics already associates providers with a balloon through:
 
-- server data packs remain authoritative;
-- clients do not need matching data packs;
-- Engineer's Goggles show actual server tuning;
-- persistent worlds re-resolve current profile data after load.
+```java
+Balloon.getHeaters()
+```
 
-### Fuel resolution
+`BalloonHeatAggregate` is a read-only snapshot of that native collection. It reports connected providers, active providers, and combined gas output. It never mutates balloon membership or lift simulation.
 
-Fuel acceptance delegates to established APIs in this order:
+### Synchronization
 
-1. Creative Blaze Cake;
-2. Create superheated Blaze Burner fuel data map;
-3. Create regular Blaze Burner fuel data map;
-4. NeoForge item-stack furnace burn time.
+The server update tag contains:
 
-No custom fuel registry competes with Create.
+- resolved burner profile snapshot;
+- heat reservoir state;
+- read-only balloon heat aggregate.
+
+Persistent saves store the reservoir but not a copied profile. Clients therefore display actual server tuning without becoming another source of truth.
 
 ### Create Engineer's Goggles
 
-The subclass first invokes Aeronautics' standard goggle section. It then appends stored fuel, grade, redstone throttle, output, profile ID, capacity, range, and current consumption. Sneaking exposes extended profile diagnostics.
+The subclass first invokes Aeronautics' standard balloon section, then appends reservoir layers, active heat grade, redstone throttle, individual output, source counts, combined output, profile ID, capacity, range, and consumption. Sneaking exposes the detailed regular/superheated split.
 
 ## Ponder
 
@@ -144,16 +156,20 @@ Storyboards resolve to matching compressed structure templates under `assets/zep
 
 Burner scenes update both blockstate and `AirshipBurnerBlockEntity` preview state through `WorldInstructions.modifyBlockEntity`. Preview block entities are explicitly marked virtual, so Ponder cannot join or alter real Aeronautics balloons.
 
-Scene text explains profile-driven behaviour without embedding default tuning numbers.
+The scene places three independent virtual providers beneath one envelope and explains that Aeronautics combines them through the balloon's native heater collection. Scene text contains no profile tuning constants.
 
 ## Assets
 
-Models use native Create texture resources for casing, fan, fluid-tank, pulley, axis, gearbox, copper, brass, and industrial iron surfaces. Four custom 16×16 textures represent only information unique to this add-on:
+Models use native Create texture resources for casing, fan, fluid-tank, pulley, axis, gearbox, copper, brass, and industrial iron surfaces.
 
-- Helm panel;
-- altimeter dial;
-- ballast indicator;
-- burner service panel.
+A single `templates/equipment_display.json` owns GUI, hand, ground, and fixed transforms for every equipment item. Burners use NeoForge's `neoforge:composite` loader and reusable parts:
+
+- common core;
+- single, dual, and triple heat-source manifolds;
+- shared forced-draft fans;
+- industrial auxiliary tanks and piping.
+
+Six custom 16×16 textures represent information unique to this add-on: Helm panel, altimeter, ballast indicator, burner service panel, heat chamber, and heat manifold.
 
 Airship burners use the native Aeronautics `HotAirBurnerRenderer` rather than a parallel JSON flame implementation.
 

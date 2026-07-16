@@ -63,5 +63,14 @@
   "zeppelin_must_have.goggles.helm.sublevel": "UUID del sub-level: %s",
   "zeppelin_must_have.goggles.helm.position": "Posizione globale: %s",
   "zeppelin_must_have.goggles.helm.angular_velocity": "Velocità angolare: %s",
-  "zeppelin_must_have.goggles.helm.sample_age": "Età della telemetria: %s"
+  "zeppelin_must_have.goggles.helm.sample_age": "Età della telemetria: %s",
+  "message.zeppelin_must_have.burner.network": "Rete termica Aeronautics: %s sorgenti attive su %s collegate, produzione combinata %s m³",
+  "zeppelin_must_have.goggles.burner.heat_reservoir": "Serbatoio termico",
+  "zeppelin_must_have.goggles.burner.heat_network": "Rete termica Aeronautics",
+  "zeppelin_must_have.goggles.burner.sources": "Sorgenti: %s attive / %s collegate",
+  "zeppelin_must_have.goggles.burner.combined_output": "Produzione di gas combinata: %s",
+  "zeppelin_must_have.goggles.burner.regular_heat": "Riserva termica normale: %s",
+  "zeppelin_must_have.goggles.burner.superheated_heat": "Riserva surriscaldata: %s",
+  "zeppelin_must_have.ponder.airship_burners.text_8": "Ogni bruciatore resta un fornitore Aeronautics indipendente; il pallone combina tutte le sorgenti collegate nella propria raccolta nativa di riscaldatori",
+  "zeppelin_must_have.ponder.airship_burners.text_9": "Gli occhiali da ingegnere mostrano sia il serbatoio del bruciatore selezionato sia la produzione combinata di tutte le sorgenti collegate al pallone"
 }
