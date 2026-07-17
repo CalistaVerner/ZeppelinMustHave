@@ -20,7 +20,7 @@ final class AirshipBurnerPresentation {
 
     static void sendStatusTo(AirshipBurnerBlockEntity burner, Player player) {
         AirshipBurnerMetrics metrics = burner.captureMetrics();
-        AirshipHeatReservoir.Snapshot heat = metrics.reservoir();
+        AirshipHeatSnapshot heat = metrics.reservoir();
 
         player.displayClientMessage(
                 Component.translatable(
@@ -64,7 +64,7 @@ final class AirshipBurnerPresentation {
         }
 
         AirshipBurnerMetrics metrics = burner.captureMetrics();
-        AirshipHeatReservoir.Snapshot heat = metrics.reservoir();
+        AirshipHeatSnapshot heat = metrics.reservoir();
 
         ZmhLang.translate("goggles.burner.heat_reservoir").forGoggles(tooltip, 1);
         Component fuelValue = heat.infinite()
@@ -97,7 +97,7 @@ final class AirshipBurnerPresentation {
                 .forGoggles(tooltip, 2);
         ZmhLang.translate(
                         "goggles.burner.output",
-                        Component.literal(decimal(metrics.individualGasOutput(), 2) + " mВі")
+                        Component.literal(decimal(metrics.individualGasOutput(), 2) + " m³")
                                 .withStyle(ChatFormatting.AQUA)
                 )
                 .style(ChatFormatting.GRAY)
@@ -132,7 +132,7 @@ final class AirshipBurnerPresentation {
                 .forGoggles(tooltip, 2);
         ZmhLang.translate(
                         "goggles.burner.combined_output",
-                        Component.literal(decimal(network.combinedGasOutput(), 2) + " mВі")
+                        Component.literal(decimal(network.combinedGasOutput(), 2) + " m³")
                                 .withStyle(ChatFormatting.AQUA)
                 )
                 .style(ChatFormatting.GRAY)
@@ -143,7 +143,7 @@ final class AirshipBurnerPresentation {
             List<Component> tooltip,
             AirshipBurnerMetrics metrics
     ) {
-        AirshipHeatReservoir.Snapshot heat = metrics.reservoir();
+        AirshipHeatSnapshot heat = metrics.reservoir();
 
         ZmhLang.emptyLine(tooltip);
         ZmhLang.translate("goggles.burner.profile").forGoggles(tooltip, 1);

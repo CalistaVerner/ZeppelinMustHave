@@ -5,30 +5,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import us.kayla.zeppelinmusthave.integration.BalloonHeatAggregate;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeModifiers;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSet;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSlot;
-import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeTarget;
+import us.kayla.zeppelinmusthave.integration.BalloonHeatAggregate;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
-    private final AirshipHeatReservoir heatReservoir = new AirshipHeatReservoir();
-    private final AirshipUpgradeSet upgrades = new AirshipUpgradeSet();
-
-    private final AirshipBurnerConfiguration configuration;
+    private final AirshipBurnerRuntimeState runtimeState;
     private BlockPos castPositionBridge;
-    private BalloonHeatAggregate clientBalloonHeat = BalloonHeatAggregate.EMPTY;
 
     public AirshipBurnerBlockEntity(
             BlockEntityType<?> type,
@@ -36,14 +28,14 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             BlockState state
     ) {
         super(type, pos, state);
-        this.configuration = new AirshipBurnerConfiguration(profileIdFor(state));
+        this.runtimeState = new AirshipBurnerRuntimeState(profileIdFor(state));
     }
 
     @Override
     public void initialize() {
         super.initialize();
         this.refreshProfile(true);
-        this.updateLitState();
+        AirshipBurnerWorldEffects.updateLitState(this);
     }
 
     @Override
@@ -54,17 +46,14 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         }
 
         this.refreshProfile(false);
-        if (this.heatReservoir.isInfinite()
-                || !this.heatReservoir.hasHeat()
+        if (this.runtimeState.isInfinite()
+                || !this.runtimeState.hasHeat()
                 || this.signalStrength <= 0) {
-            this.updateLitState();
+            AirshipBurnerWorldEffects.updateLitState(this);
             return;
         }
 
-        AirshipHeatReservoir.ConsumptionResult consumption = this.heatReservoir.consume(
-                this.configuration.profile().fuelUsePerTickAtFullPower()
-                        * this.configuration.profile().throttleForSignal(this.signalStrength)
-        );
+        AirshipHeatConsumptionResult consumption = this.runtimeState.consume(this.signalStrength);
         if (!consumption.changed()) {
             return;
         }
@@ -72,47 +61,32 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         this.setChanged();
         if (consumption.depleted()) {
             this.removeFromBalloon();
-            this.level.playSound(
-                    null,
-                    this.worldPosition,
-                    SoundEvents.FIRE_EXTINGUISH,
-                    SoundSource.BLOCKS,
-                    0.35F,
-                    0.8F
-            );
-            this.publishState(true);
+            AirshipBurnerWorldEffects.playDepleted(this);
+            AirshipBurnerWorldEffects.publish(this, true);
             return;
         }
 
         if (consumption.gradeChanged() || this.level.getGameTime() % 20L == 0L) {
-            this.publishState(true);
+            AirshipBurnerWorldEffects.publish(this, true);
         }
     }
 
     @Override
     public void updateSignal() {
         super.updateSignal();
-        this.updateLitState();
+        AirshipBurnerWorldEffects.updateLitState(this);
     }
 
     public boolean tryInsertFuel(ItemStack stack, boolean simulate) {
-        Optional<AirshipHeatSource> resolved = AirshipHeatSources.resolve(stack);
-        if (resolved.isEmpty() || !this.profileAllowsOperation()) {
-            return false;
-        }
-
-        AirshipHeatSource source = resolved.get();
-        AirshipHeatReservoir.InsertionResult result = this.heatReservoir.insert(
-                source,
-                this.configuration.profile().fuelCapacityTicks(),
+        AirshipBurnerRuntimeState.FuelInsertion insertion = this.runtimeState.tryInsertFuel(
+                stack,
                 simulate
         );
-        if (!result.accepted()) {
+        if (!insertion.accepted()) {
             return false;
         }
-
         if (!simulate) {
-            this.onHeatInserted(source);
+            this.onHeatInserted(insertion.source());
         }
         return true;
     }
@@ -122,20 +96,11 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             return;
         }
 
-        boolean superheated = source.grade().isSuperheated();
-        this.level.playSound(
-                null,
-                this.worldPosition,
-                superheated ? SoundEvents.BLAZE_SHOOT : SoundEvents.FIRECHARGE_USE,
-                SoundSource.BLOCKS,
-                0.35F,
-                superheated ? 1.15F : 0.9F
-        );
-
+        AirshipBurnerWorldEffects.playFuelInserted(this, source);
         if (!this.level.isClientSide && !this.isVirtual() && this.canOutputGas()) {
             this.tickBalloonLogic();
         }
-        this.publishState(true);
+        AirshipBurnerWorldEffects.publish(this, true);
     }
 
     @Override
@@ -149,19 +114,18 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             return 0.0D;
         }
 
+        AirshipBurnerProfile profile = this.runtimeState.profile();
         double aeronauticsSelectedOutput = super.getGasOutput() / linearThrottle;
         return aeronauticsSelectedOutput
-                * this.configuration.profile().throttleForSignal(this.signalStrength)
-                * this.configuration.profile().outputMultiplier(
-                        this.heatReservoir.activeGrade().isSuperheated()
-                );
+                * profile.throttleForSignal(this.signalStrength)
+                * profile.outputMultiplier(this.runtimeState.activeGrade().isSuperheated());
     }
 
     @Override
     public boolean canOutputGas() {
-        boolean profileAvailable = this.isVirtual() || this.profileAllowsOperation();
+        boolean profileAvailable = this.isVirtual() || this.runtimeState.profileAllowsOperation();
         return this.signalStrength > 0
-                && this.heatReservoir.hasHeat()
+                && this.runtimeState.hasHeat()
                 && profileAvailable
                 && !this.isRemoved();
     }
@@ -172,7 +136,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         this.castPositionBridge = this.getRaycastedPosition(
                 this.level,
                 Vec3.upFromBottomCenterOf(pos, 1.0D),
-                Vec3.upFromBottomCenterOf(pos, 1.0D + this.configuration.profile().castRange())
+                Vec3.upFromBottomCenterOf(pos, 1.0D + this.runtimeState.profile().castRange())
         );
     }
 
@@ -182,7 +146,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
     }
 
     public int getFuelComparatorSignal() {
-        return this.heatReservoir.comparatorSignal(this.configuration.profile().fuelCapacityTicks());
+        return this.runtimeState.comparatorSignal();
     }
 
     public void sendStatusTo(Player player) {
@@ -191,24 +155,16 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        boolean upstreamInformation = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
         return AirshipBurnerPresentation.addToGoggleTooltip(
                 this,
                 tooltip,
                 isPlayerSneaking,
-                upstreamInformation
+                super.addToGoggleTooltip(tooltip, isPlayerSneaking)
         );
     }
 
-    public AirshipUpgradeSet.InstallResult tryInstallUpgrade(
-            ItemStack stack,
-            boolean simulate
-    ) {
-        AirshipUpgradeSet.InstallResult result = this.upgrades.install(
-                stack,
-                AirshipUpgradeTarget.AIRSHIP_BURNER,
-                simulate
-        );
+    public AirshipUpgradeSet.InstallResult tryInstallUpgrade(ItemStack stack, boolean simulate) {
+        AirshipUpgradeSet.InstallResult result = this.runtimeState.tryInstallUpgrade(stack, simulate);
         if (result.installed() && !simulate) {
             this.refreshProfile(true);
         }
@@ -216,7 +172,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
     }
 
     public ItemStack removeLastUpgrade() {
-        ItemStack removed = this.upgrades.removeLast();
+        ItemStack removed = this.runtimeState.removeLastUpgrade();
         if (!removed.isEmpty()) {
             this.refreshProfile(true);
         }
@@ -224,15 +180,15 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
     }
 
     public List<ItemStack> extractAllUpgrades() {
-        return this.upgrades.removeAll();
+        return this.runtimeState.extractAllUpgrades();
     }
 
     public Map<AirshipUpgradeSlot, ItemStack> getInstalledUpgradeSlots() {
-        return this.upgrades.slotSnapshot();
+        return this.runtimeState.installedUpgradeSlots();
     }
 
     AirshipUpgradeModifiers activeUpgradeModifiers() {
-        return this.configuration.modifiers();
+        return this.runtimeState.modifiers();
     }
 
     @Override
@@ -240,33 +196,29 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         return new ItemStack(this.getBlockState().getBlock().asItem());
     }
 
-    /**
-     * Configures a virtual block entity for a Ponder scene without joining or
-     * mutating an actual Aeronautics balloon.
-     */
     public void configurePonderPreview(int signal, boolean superheated) {
         this.markVirtual();
         this.setSignalStrength(Math.clamp(signal, 0, 15));
         this.powered = signal > 0;
-        this.heatReservoir.configureInfinitePreview(
+        this.runtimeState.configureInfinitePreview(
                 superheated ? AirshipHeatGrade.SUPERHEATED : AirshipHeatGrade.REGULAR
         );
     }
 
     public AirshipBurnerProfile getActiveProfile() {
-        return this.configuration.profile();
+        return this.runtimeState.profile();
     }
 
     public int getRemainingFuelTicks() {
-        return this.heatReservoir.totalTicks();
+        return this.runtimeState.totalFuelTicks();
     }
 
     public double getFuelRatio() {
-        return this.heatReservoir.fillRatio(this.configuration.profile().fuelCapacityTicks());
+        return this.runtimeState.fuelRatio();
     }
 
-    public AirshipHeatReservoir.Snapshot getHeatSnapshot() {
-        return this.heatReservoir.snapshot(this.configuration.profile().fuelCapacityTicks());
+    public AirshipHeatSnapshot getHeatSnapshot() {
+        return this.runtimeState.heatSnapshot();
     }
 
     @Override
@@ -278,15 +230,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         BalloonHeatAggregate network = clientPacket
                 ? BalloonHeatAggregate.from(this.getBalloon())
                 : BalloonHeatAggregate.EMPTY;
-        AirshipBurnerStateCodec.write(
-                tag,
-                registries,
-                clientPacket,
-                this.heatReservoir,
-                this.upgrades,
-                this.configuration,
-                network
-        );
+        this.runtimeState.write(tag, registries, clientPacket, network);
         super.write(tag, registries, clientPacket);
     }
 
@@ -296,25 +240,15 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             HolderLookup.Provider registries,
             boolean clientPacket
     ) {
-        this.clientBalloonHeat = AirshipBurnerStateCodec.read(
-                tag,
-                registries,
-                clientPacket,
-                this.heatReservoir,
-                this.upgrades,
-                this.configuration,
-                this.clientBalloonHeat
-        );
+        this.runtimeState.read(tag, registries, clientPacket);
         super.read(tag, registries, clientPacket);
     }
 
     AirshipBurnerMetrics captureMetrics() {
         BalloonHeatAggregate aggregate = this.level != null && !this.level.isClientSide
                 ? BalloonHeatAggregate.from(this.getBalloon())
-                : this.clientBalloonHeat;
-        return AirshipBurnerMetrics.capture(
-                this.configuration.profile(),
-                this.heatReservoir,
+                : this.runtimeState.clientBalloonHeat();
+        return this.runtimeState.captureMetrics(
                 this.signalStrength,
                 this.getGasOutput(),
                 aggregate
@@ -326,19 +260,11 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             return;
         }
 
-        AirshipBurnerConfiguration.RefreshResult refresh = this.configuration.refresh(
+        AirshipBurnerRuntimeState.RefreshResult refresh = this.runtimeState.refresh(
                 this.getTier(),
-                this.upgrades,
                 forceSync
         );
-        if (!refresh.evaluated()) {
-            return;
-        }
-
-        boolean reservoirChanged = this.heatReservoir.clampToCapacity(
-                this.configuration.profile().fuelCapacityTicks()
-        );
-        if (!refresh.changed() && !reservoirChanged && !forceSync) {
+        if (!refresh.evaluated() || !refresh.changed()) {
             return;
         }
 
@@ -347,52 +273,18 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         } else if (!this.isVirtual()) {
             this.tickBalloonLogic();
         }
-        this.publishState(true);
+        AirshipBurnerWorldEffects.publish(this, true);
     }
 
     private AirshipBurnerTier getTier() {
-        if (this.getBlockState().getBlock() instanceof AirshipBurnerBlock burner) {
-            return burner.tier();
-        }
-        return AirshipBurnerTier.STANDARD;
-    }
-
-    private boolean profileAllowsOperation() {
-        return this.configuration.profile().gasOutputMultiplier() > 0.0D;
-    }
-
-    private void publishState(boolean synchronizeClient) {
-        this.updateLitState();
-        this.setChanged();
-        if (synchronizeClient) {
-            this.sendData();
-        }
-        if (this.level != null) {
-            this.level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
-        }
-    }
-
-    private void updateLitState() {
-        if (this.level == null || this.level.isClientSide) {
-            return;
-        }
-
-        BlockState state = this.getBlockState();
-        if (!state.hasProperty(AirshipBurnerBlock.LIT)) {
-            return;
-        }
-
-        boolean lit = this.canOutputGas();
-        if (state.getValue(AirshipBurnerBlock.LIT) != lit) {
-            this.level.setBlock(this.worldPosition, state.setValue(AirshipBurnerBlock.LIT, lit), 3);
-        }
+        return this.getBlockState().getBlock() instanceof AirshipBurnerBlock burner
+                ? burner.tier()
+                : AirshipBurnerTier.STANDARD;
     }
 
     private static net.minecraft.resources.ResourceLocation profileIdFor(BlockState state) {
-        if (state.getBlock() instanceof AirshipBurnerBlock burner) {
-            return burner.tier().profileId();
-        }
-        return AirshipBurnerTier.STANDARD.profileId();
+        return state.getBlock() instanceof AirshipBurnerBlock burner
+                ? burner.tier().profileId()
+                : AirshipBurnerTier.STANDARD.profileId();
     }
-
 }

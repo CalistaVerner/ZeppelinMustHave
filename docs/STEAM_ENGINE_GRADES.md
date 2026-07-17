@@ -16,7 +16,7 @@ The engines preserve Create's native powered-shaft, rotation-direction, boiler-e
 A graded engine must be attached directly to a Zeppelin Must Have graded boiler tank. It uses the normal Create Steam Engine placement rules and drives a standard Create shaft two blocks away.
 
 ```text
-Graded Boiler Tank в”Ђ Graded Steam Engine в”Ђ air в”Ђ Create Shaft
+Graded Boiler Tank ─ Graded Steam Engine ─ air ─ Create Shaft
 ```
 
 Vanilla Create Fluid Tanks intentionally do not accept graded engines. Create's native `BoilerData` only recognizes `create:steam_engine`; restricting the new engines to `BoilerGradeBlockEntity` keeps water, heat, engine-count, and efficiency calculations authoritative and prevents free generation.
@@ -25,13 +25,13 @@ Vanilla Create Fluid Tanks intentionally do not accept graded engines. Create's 
 
 | Grade | Stress capacity | Boiler load | Cylinders | Crank phasing |
 |---|---:|---:|---:|---|
-| Copper вЂ” I | 1024 SU | 1 engine unit | 1 | single cylinder |
-| Brass вЂ” II | 2560 SU | 2 engine units | 2 | 180В° opposed |
-| Industrial вЂ” III | 4608 SU | 3 engine units | 3 | 120В° evenly phased |
+| Copper — I | 1024 SU | 1 engine unit | 1 | single cylinder |
+| Brass — II | 2560 SU | 2 engine units | 2 | 180° opposed |
+| Industrial — III | 4608 SU | 3 engine units | 3 | 120° evenly phased |
 
 The actual generated capacity remains multiplied by Create's boiler efficiency. A dry, undersized, or underheated boiler still reduces or stops the engine.
 
-All grades retain Create's native 16вЂ“64 RPM efficiency curve. Higher grades increase stress capacity and mechanical smoothness, not the maximum shaft speed.
+All grades retain Create's native 16–64 RPM efficiency curve. Higher grades increase stress capacity and mechanical smoothness, not the maximum shaft speed.
 
 ## Animation
 
@@ -40,14 +40,14 @@ All grades retain Create's native 16вЂ“64 RPM efficiency curve. Higher grade
 For cylinder `i`:
 
 ```text
-phase_i = 2ПЂ Г— i / cylinder_count
+phase_i = 2π × i / cylinder_count
 ```
 
 The piston position uses the same slider-crank geometry as Create, parameterized by the grade profile:
 
 ```text
-piston = r Г— sin(angle)
-       - sqrt(LВІ - rВІ Г— cosВІ(angle))
+piston = r × sin(angle)
+       - sqrt(L² - r² × cos²(angle))
 ```
 
 where:
@@ -94,15 +94,15 @@ Schema version 1:
 
 ## Crafting progression
 
-### Grade I вЂ” Copper
+### Grade I — Copper
 
 A shaped upgrade from Create's native Steam Engine using Copper Sheets, a Precision Mechanism, Shafts, and an Andesite Casing.
 
-### Grade II вЂ” Brass
+### Grade II — Brass
 
 Create Mechanical Crafting using the Copper grade, Brass Sheets, an Electron Tube, a Brass Casing, and Precision Mechanisms.
 
-### Grade III вЂ” Industrial
+### Grade III — Industrial
 
 A five-by-five Mechanical Crafting recipe using the Brass grade, Sturdy Sheets, Flywheels, Brass Casings, Electron Tubes, Brass Sheets, and Precision Mechanisms.
 

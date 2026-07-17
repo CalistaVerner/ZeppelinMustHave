@@ -35,6 +35,7 @@ public final class ZeppelinMustHaveClient {
         SteamEngineGradePartialModels.init();
         VerticalThrusterPartialModels.init();
         MooringWinchPartialModels.init();
+        ZeppelinPartTooltip.register();
         PonderIndex.addPlugin(new ZmhPonderPlugin());
         modEventBus.addListener(this::registerRenderers);
         modEventBus.addListener(this::modifyBakedModels);

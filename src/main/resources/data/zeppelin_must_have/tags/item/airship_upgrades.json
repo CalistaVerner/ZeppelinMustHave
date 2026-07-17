@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "zeppelin_must_have:heat_recuperator_upgrade",
-    "zeppelin_must_have:forced_induction_upgrade",
-    "zeppelin_must_have:precision_regulator_upgrade"
+    "#zeppelin_must_have:zeppelin_parts/upgrade"
   ]
 }

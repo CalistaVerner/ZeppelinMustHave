@@ -8,6 +8,23 @@ The mod is built for players and servers that want airships to feel like enginee
 
 ---
 
+## Zeppelin Parts — Complete Coverage
+
+Version `0.11.0` catalogues every public block and item as a Zeppelin Part: **19 functional block parts and 3 burner upgrades**.
+
+The Zeppelin Parts catalog provides:
+
+- a dedicated creative tab;
+- subsystem and role tooltips on every item;
+- full Ponder category membership, including direct Ponder access from upgrade items;
+- public root and category item/block tags for modpack integration;
+- complete pickaxe and stone-tool coverage for every metal block;
+- automatic registry and tag coverage tests.
+
+The public root tags are `#zeppelin_must_have:zeppelin_parts` for items and blocks. Category tags cover flight control, lift, steam power, protected redstone, ballast, mooring, propulsion, and upgrades.
+
+---
+
 ## Main Features
 
 ### Airship Helm
@@ -203,7 +220,7 @@ Engineer’s Goggles provide live information for:
 - graded steam-engine capacity and mechanism data;
 - Altitude Gauge sensor/controller state.
 
-The **Zeppelin Systems** Ponder category includes scenes for:
+The **Zeppelin Parts** Ponder category includes scenes for:
 
 - Airship Helm telemetry;
 - burner operation and upgrade sockets;
@@ -254,7 +271,7 @@ Zeppelin Must Have is an add-on, not a standalone mod. Install every required de
 | Create Simulated | `1.3.0` to `< 2.0.0` |
 | Create Aeronautics | `1.3.0` to `< 2.0.0` |
 
-The current Zeppelin Must Have release is **0.10.0**.
+The current Zeppelin Must Have release is **0.11.0**.
 
 ---
 
@@ -263,7 +280,7 @@ The current Zeppelin Must Have release is **0.10.0**.
 1. Install **Java 21**.
 2. Install **NeoForge for Minecraft 1.21.1**.
 3. Install Create, Sable, Create Simulated, and Create Aeronautics using compatible versions.
-4. Place `zeppelin_must_have-0.10.0.jar` into the `mods` folder.
+4. Place `zeppelin_must_have-0.11.0.jar` into the `mods` folder.
 5. Install the same mod and dependency versions on the server and every connecting client.
 
 ---
@@ -287,7 +304,7 @@ Create, Sable, Create Simulated, and Create Aeronautics remain authoritative for
 
 ## Current Development Status
 
-Fully functional systems in version `0.10.0`:
+Fully functional systems in version `0.11.0`:
 
 - Airship Helm telemetry;
 - three Airship Burner grades;

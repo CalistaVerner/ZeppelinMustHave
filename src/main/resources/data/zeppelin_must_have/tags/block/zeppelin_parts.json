@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#zeppelin_must_have:zeppelin_parts/flight_control",
+    "#zeppelin_must_have:zeppelin_parts/lift",
+    "#zeppelin_must_have:zeppelin_parts/steam_power",
+    "#zeppelin_must_have:zeppelin_parts/redstone_control",
+    "#zeppelin_must_have:zeppelin_parts/ballast",
+    "#zeppelin_must_have:zeppelin_parts/mooring",
+    "#zeppelin_must_have:zeppelin_parts/propulsion"
+  ]
+}

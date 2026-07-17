@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "zeppelin_must_have:copper_boiler_base",
+    "zeppelin_must_have:brass_boiler_base",
+    "zeppelin_must_have:industrial_boiler_base",
+    "zeppelin_must_have:copper_steam_engine",
+    "zeppelin_must_have:brass_steam_engine",
+    "zeppelin_must_have:industrial_steam_engine"
+  ]
+}

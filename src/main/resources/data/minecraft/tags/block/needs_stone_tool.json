@@ -2,20 +2,23 @@
   "replace": false,
   "values": [
     "zeppelin_must_have:airship_helm",
+    "zeppelin_must_have:altitude_gauge",
     "zeppelin_must_have:airship_burner",
     "zeppelin_must_have:forced_draft_airship_burner",
     "zeppelin_must_have:industrial_airship_burner",
     "zeppelin_must_have:copper_boiler_base",
     "zeppelin_must_have:brass_boiler_base",
     "zeppelin_must_have:industrial_boiler_base",
-    "zeppelin_must_have:ballast_tank",
-    "zeppelin_must_have:mooring_winch",
-    "zeppelin_must_have:altitude_gauge",
-    "zeppelin_must_have:vertical_thruster",
+    "zeppelin_must_have:copper_steam_engine",
+    "zeppelin_must_have:brass_steam_engine",
+    "zeppelin_must_have:industrial_steam_engine",
     "zeppelin_must_have:copper_piped_redstone",
     "zeppelin_must_have:brass_piped_redstone",
     "zeppelin_must_have:resonant_piped_redstone",
+    "zeppelin_must_have:piped_redstone_native_lever",
     "zeppelin_must_have:piped_redstone_repeater",
-    "zeppelin_must_have:piped_redstone_native_lever"
+    "zeppelin_must_have:ballast_tank",
+    "zeppelin_must_have:mooring_winch",
+    "zeppelin_must_have:vertical_thruster"
   ]
 }

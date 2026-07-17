@@ -7,6 +7,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
+import us.kayla.zeppelinmusthave.content.parts.ZeppelinPartCatalog;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineStressRegistration;
 import us.kayla.zeppelinmusthave.content.thruster.VerticalThrusterStressRegistration;
 import us.kayla.zeppelinmusthave.data.ZmhDataReloaders;
@@ -39,8 +40,14 @@ public final class ZeppelinMustHave {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ZeppelinPartCatalog.validateRegistryCoverage();
             SteamEngineStressRegistration.registerAll();
             VerticalThrusterStressRegistration.register();
+            LOGGER.info(
+                    "Validated complete Zeppelin Parts coverage for {} items and {} blocks",
+                    ZeppelinPartCatalog.all().size(),
+                    ZeppelinPartCatalog.blocks().size()
+            );
         });
     }
 

@@ -68,7 +68,7 @@ Shared registration primitives
     RegisteredBlock<B, I>
 ```
 
-`ZmhBlockRegistrar` is the only block-and-block-item creation path. `ZmhBlocks` remains a stable public facade for existing source references but owns no construction logic. Creative-tab ordering is declared separately by `ZmhCreativeContents`.
+`ZmhBlockRegistrar` is the only block-and-block-item creation path. `ZmhBlocks` remains a stable public facade for existing source references but owns no construction logic. Creative ordering, public part identity, category tags, and coverage validation are owned by `ZeppelinPartCatalog`.
 
 Runtime classes delegate non-lifecycle responsibilities to focused collaborators:
 
@@ -77,6 +77,20 @@ Runtime classes delegate non-lifecycle responsibilities to focused collaborators
 - `PipedRedstoneTopology`, `PipedRedstonePlacement`, `PipedRedstoneNetworkDiscovery`, and `PipedRedstoneSignalSolver`.
 
 Ponder registration follows the same boundary: `ZmhPonderScenes` delegates to domain-specific storyboard classes. The complete internal map is documented in `docs/REFACTORING.md`.
+
+## Zeppelin Parts coverage
+
+`ZeppelinPartCatalog` is the canonical manifest for every public item and block. It contains 22 ordered item definitions, of which 19 are block parts. Common setup validates exact equality between the catalog and all `zeppelin_must_have` registry entries.
+
+The catalog drives:
+
+- creative-tab ordering;
+- localized item tooltips;
+- Ponder tag membership;
+- root and subsystem item/block tags;
+- coverage GameTests.
+
+Detailed public API and category tags are documented in `docs/ZEPPELIN_PARTS.md`.
 
 ## Airship Helm
 
@@ -329,12 +343,12 @@ Because Sable applies force at the physical mounting point, offset thrusters gen
 
 ```text
 BoilerGradeBlock / BoilerGradeBlockEntity
-        в”‚
-        в”њв”Ђв”Ђ Create ConnectivityHandler
-        в”њв”Ђв”Ђ inherited fluid tank and capability forwarding
-        в”њв”Ђв”Ђ inherited BoilerData lifecycle
-        в”њв”Ђв”Ђ inherited engine/whistle discovery
-        в””в”Ђв”Ђ grade profile applied only during temperature sampling
+        │
+        ├── Create ConnectivityHandler
+        ├── inherited fluid tank and capability forwarding
+        ├── inherited BoilerData lifecycle
+        ├── inherited engine/whistle discovery
+        └── grade profile applied only during temperature sampling
 ```
 
 Create's `ConnectivityHandler` accepts parts with the same exact `BlockEntityType`. `ZmhBlockEntityTypes` consequently registers one type per grade. This makes grade compatibility a structural invariant: equal grades merge through the normal Create algorithm, while mixed grades remain independent controllers without custom graph traversal.
@@ -343,13 +357,13 @@ Create's `ConnectivityHandler` accepts parts with the same exact `BlockEntityTyp
 
 ```text
 BoilerData.tick
-        в”‚
-        в–ј
+        │
+        ▼
 GradedBoilerData.updateTemperature
-        в”‚
-        в”њв”Ђв”Ђ BoilerHeater.findHeat(column below)
-        в”њв”Ђв”Ђ preserve NO_HEAT / PASSIVE_HEAT
-        в””в”Ђв”Ђ transform active heat by grade profile
+        │
+        ├── BoilerHeater.findHeat(column below)
+        ├── preserve NO_HEAT / PASSIVE_HEAT
+        └── transform active heat by grade profile
 ```
 
 All downstream calculations remain Create-owned: shared fluid capacity, water-input sampling, boiler size, Steam Engine efficiency, Stress Unit output, whistles, comparator output, and maximum boiler level.
@@ -366,14 +380,14 @@ Create's native `SteamEngineBlockEntity` contains identity checks for `create:st
 
 ```text
 Graded BoilerData efficiency
-        в”‚
-        в–ј
+        │
+        ▼
 SteamEngineGradeBlockEntity
-        в”‚
-        в–ј
+        │
+        ▼
 Create PoweredShaftBlockEntity
-        в”‚
-        в–ј
+        │
+        ▼
 Create kinetic network
 ```
 

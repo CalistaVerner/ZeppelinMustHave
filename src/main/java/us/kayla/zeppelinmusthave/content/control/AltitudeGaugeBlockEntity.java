@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import us.kayla.zeppelinmusthave.content.helm.AirshipFlightSnapshot;
 import us.kayla.zeppelinmusthave.integration.AeronauticsFlightStateReader;
@@ -25,21 +26,11 @@ import java.util.List;
 public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
         implements IHaveGoggleInformation {
     private final LerpedFloat clientNeedle = LerpedFloat.linear();
-    private AltitudeGaugeMode mode = AltitudeGaugeMode.ALTITUDE;
-    private boolean altitudeHoldEnabled;
-    private double targetAltitude;
-    private int trimInput;
-    private int outputSignal;
-    private int ticksUntilSample;
-
-    private AirshipFlightSnapshot snapshot = AirshipFlightSnapshot.detached(0L);
-    private AltitudeControlProfile activeProfile = AltitudeControlProfile.unresolved(
-            AltitudeControlProfiles.DEFAULT_ID
-    );
-    private long observedProfileRevision = Long.MIN_VALUE;
+    private final AltitudeGaugeRuntimeState runtimeState = new AltitudeGaugeRuntimeState();
+    private final AltitudeGaugeConfiguration configuration = new AltitudeGaugeConfiguration();
 
     public AltitudeGaugeBlockEntity(
-            net.minecraft.world.level.block.entity.BlockEntityType<?> type,
+            BlockEntityType<?> type,
             BlockPos pos,
             BlockState state
     ) {
@@ -53,8 +44,8 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
     @Override
     public void initialize() {
         super.initialize();
-        this.clientNeedle.startWithValue(this.outputSignal);
-        this.ticksUntilSample = 0;
+        this.clientNeedle.startWithValue(this.runtimeState.outputSignal());
+        this.configuration.resetSampling();
         this.refreshProfile(true);
     }
 
@@ -64,54 +55,33 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
         if (this.level == null) {
             return;
         }
-
         if (this.level.isClientSide) {
-            this.clientNeedle.chase(this.outputSignal, 0.22F, Chaser.EXP);
+            this.clientNeedle.chase(this.runtimeState.outputSignal(), 0.22F, Chaser.EXP);
             this.clientNeedle.tickChaser();
             return;
         }
 
         this.refreshProfile(false);
-        if (this.ticksUntilSample > 0) {
-            this.ticksUntilSample--;
-            return;
+        if (this.configuration.shouldSample()) {
+            this.sampleAndUpdate();
         }
-        this.ticksUntilSample = Math.max(0, this.activeProfile.sampleIntervalTicks() - 1);
-        this.sampleAndUpdate();
     }
 
     public void cycleMode(Player player) {
-        this.mode = this.mode.next();
-        if (this.mode != AltitudeGaugeMode.ALTITUDE_HOLD) {
-            this.altitudeHoldEnabled = false;
-        }
+        this.runtimeState.cycleMode();
         this.sampleAndUpdate();
-        this.setChanged();
-        this.sendData();
+        this.publishState();
         AltitudeGaugePresentation.notifyMode(this, player);
     }
 
     public void captureOrToggleAltitudeHold(Player player) {
-        if (!this.snapshot.attached()) {
+        if (!this.runtimeState.toggleHoldAtCurrentAltitude()) {
             AltitudeGaugePresentation.notifyDetached(player, true);
             return;
         }
 
-        if (this.mode != AltitudeGaugeMode.ALTITUDE_HOLD) {
-            this.mode = AltitudeGaugeMode.ALTITUDE_HOLD;
-            this.altitudeHoldEnabled = true;
-            this.targetAltitude = this.snapshot.worldY();
-        } else if (this.altitudeHoldEnabled) {
-            this.altitudeHoldEnabled = false;
-        } else {
-            this.altitudeHoldEnabled = true;
-            this.targetAltitude = this.snapshot.worldY();
-        }
-
         this.sampleAndUpdate();
-        this.setChanged();
-        this.sendData();
-
+        this.publishState();
         if (this.level != null) {
             this.level.playSound(
                     null,
@@ -119,7 +89,7 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
                     SoundEvents.COMPARATOR_CLICK,
                     SoundSource.BLOCKS,
                     0.35F,
-                    this.altitudeHoldEnabled ? 1.15F : 0.75F
+                    this.runtimeState.altitudeHoldEnabled() ? 1.15F : 0.75F
             );
         }
         AltitudeGaugePresentation.notifyHoldState(this, player);
@@ -130,10 +100,7 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
     }
 
     @Override
-    public boolean addToGoggleTooltip(
-            List<Component> tooltip,
-            boolean isPlayerSneaking
-    ) {
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         return AltitudeGaugePresentation.addToGoggleTooltip(this, tooltip, isPlayerSneaking);
     }
 
@@ -143,15 +110,15 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
     }
 
     public AltitudeGaugeMode getMode() {
-        return this.mode;
+        return this.runtimeState.mode();
     }
 
     public int getOutputSignal() {
-        return this.outputSignal;
+        return this.runtimeState.outputSignal();
     }
 
     public int getTrimInput() {
-        return this.trimInput;
+        return this.runtimeState.trimInput();
     }
 
     public float getNeedleSignal(float partialTicks) {
@@ -159,15 +126,15 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
     }
 
     public boolean isAltitudeHoldEnabled() {
-        return this.altitudeHoldEnabled;
+        return this.runtimeState.altitudeHoldEnabled();
     }
 
     public double getTargetAltitude() {
-        return this.targetAltitude;
+        return this.runtimeState.targetAltitude();
     }
 
     AirshipFlightSnapshot snapshot() {
-        return this.snapshot;
+        return this.runtimeState.snapshot();
     }
 
     private void sampleAndUpdate() {
@@ -175,58 +142,48 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
             return;
         }
 
+        AirshipFlightSnapshot previousSnapshot = this.runtimeState.snapshot();
         AirshipFlightSnapshot nextSnapshot = AeronauticsFlightStateReader.read(
                 this.level,
                 this.worldPosition
         );
-        boolean telemetryChanged = nextSnapshot.materiallyDiffersFrom(this.snapshot);
-        this.snapshot = nextSnapshot;
+        this.runtimeState.setSnapshot(nextSnapshot);
 
-        int previousTrim = this.trimInput;
-        this.trimInput = this.readTrimInput();
+        int previousTrim = this.runtimeState.trimInput();
+        this.runtimeState.setTrimInput(this.readTrimInput());
 
-        int desiredOutput = this.calculateDesiredOutput();
+        int desiredOutput = AltitudeGaugeController.desiredOutput(
+                this.runtimeState.mode(),
+                this.runtimeState.altitudeHoldEnabled(),
+                this.runtimeState.trimInput(),
+                this.runtimeState.targetAltitude(),
+                nextSnapshot,
+                this.configuration.profile(),
+                this.level.getMinBuildHeight(),
+                this.level.getMaxBuildHeight()
+        );
         int nextOutput = AltitudeControlMath.slew(
-                this.outputSignal,
+                this.runtimeState.outputSignal(),
                 desiredOutput,
-                this.activeProfile.maximumSignalStep()
+                this.configuration.profile().maximumSignalStep()
         );
         boolean outputChanged = this.applyOutput(nextOutput);
-        boolean periodicSync = this.level.getGameTime() % 20L == 0L;
+        boolean synchronize = nextSnapshot.materiallyDiffersFrom(previousSnapshot)
+                || previousTrim != this.runtimeState.trimInput()
+                || outputChanged
+                || this.level.getGameTime() % 20L == 0L;
 
         this.setChanged();
-        if (telemetryChanged
-                || previousTrim != this.trimInput
-                || outputChanged
-                || periodicSync) {
+        if (synchronize) {
             this.sendData();
         }
     }
 
-    private int calculateDesiredOutput() {
-        if (this.level == null) {
-            return 0;
-        }
-        return AltitudeGaugeController.desiredOutput(
-                this.mode,
-                this.altitudeHoldEnabled,
-                this.trimInput,
-                this.targetAltitude,
-                this.snapshot,
-                this.activeProfile,
-                this.level.getMinBuildHeight(),
-                this.level.getMaxBuildHeight()
-        );
-    }
-
     private int readTrimInput() {
-        if (this.level == null) {
-            return 0;
-        }
         Direction outputDirection = this.getBlockState().getValue(AltitudeGaugeBlock.FACING);
         Direction inputDirection = outputDirection.getOpposite();
         BlockPos inputPos = this.worldPosition.relative(inputDirection);
-        return this.level.getSignal(inputPos, inputDirection);
+        return this.level == null ? 0 : this.level.getSignal(inputPos, inputDirection);
     }
 
     private boolean applyOutput(int power) {
@@ -236,15 +193,14 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
 
         int clamped = Math.clamp(power, 0, 15);
         BlockState state = this.getBlockState();
-        if (this.outputSignal == clamped
+        if (this.runtimeState.outputSignal() == clamped
                 && state.getValue(AltitudeGaugeBlock.POWER) == clamped) {
             return false;
         }
 
-        this.outputSignal = clamped;
+        this.runtimeState.setOutputSignal(clamped);
         BlockState nextState = state.setValue(AltitudeGaugeBlock.POWER, clamped);
         this.level.setBlock(this.worldPosition, nextState, Block.UPDATE_CLIENTS);
-
         Direction outputDirection = nextState.getValue(AltitudeGaugeBlock.FACING);
         this.level.neighborChanged(
                 this.worldPosition.relative(outputDirection),
@@ -255,16 +211,14 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
     }
 
     private void refreshProfile(boolean force) {
-        if (this.level == null || this.level.isClientSide) {
-            return;
+        if (this.level != null && !this.level.isClientSide) {
+            this.configuration.refresh(force);
         }
-        long revision = AltitudeControlProfiles.INSTANCE.revision();
-        if (!force && revision == this.observedProfileRevision) {
-            return;
-        }
-        this.activeProfile = AltitudeControlProfiles.INSTANCE.resolveDefault();
-        this.observedProfileRevision = revision;
-        this.ticksUntilSample = 0;
+    }
+
+    private void publishState() {
+        this.setChanged();
+        this.sendData();
     }
 
     @Override
@@ -273,18 +227,11 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
             HolderLookup.Provider registries,
             boolean clientPacket
     ) {
-        tag.putString("Mode", this.mode.name());
-        tag.putBoolean("AltitudeHoldEnabled", this.altitudeHoldEnabled);
-        tag.putDouble("TargetAltitude", this.targetAltitude);
-        tag.putInt("TrimInput", this.trimInput);
-        tag.putInt("OutputSignal", this.outputSignal);
-
-        if (clientPacket) {
-            CompoundTag telemetry = new CompoundTag();
-            this.snapshot.write(telemetry);
-            tag.put("FlightTelemetry", telemetry);
-        }
-
+        AltitudeGaugeStateCodec.write(
+                tag,
+                this.runtimeState.persistentState(),
+                clientPacket
+        );
         super.write(tag, registries, clientPacket);
     }
 
@@ -294,20 +241,16 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
             HolderLookup.Provider registries,
             boolean clientPacket
     ) {
-        this.mode = AltitudeGaugeMode.parse(tag.getString("Mode"));
-        this.altitudeHoldEnabled = tag.getBoolean("AltitudeHoldEnabled");
-        this.targetAltitude = tag.getDouble("TargetAltitude");
-        this.trimInput = Math.clamp(tag.getInt("TrimInput"), 0, 15);
-        this.outputSignal = Math.clamp(tag.getInt("OutputSignal"), 0, 15);
+        this.runtimeState.restore(
+                AltitudeGaugeStateCodec.read(
+                        tag,
+                        this.runtimeState.snapshot(),
+                        clientPacket
+                )
+        );
         if (clientPacket) {
-            this.clientNeedle.chase(this.outputSignal, 0.22F, Chaser.EXP);
+            this.clientNeedle.chase(this.runtimeState.outputSignal(), 0.22F, Chaser.EXP);
         }
-
-        if (clientPacket && tag.contains("FlightTelemetry")) {
-            this.snapshot = AirshipFlightSnapshot.read(tag.getCompound("FlightTelemetry"));
-        }
-
         super.read(tag, registries, clientPacket);
     }
-
 }

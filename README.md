@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.10.0
+Zeppelin Must Have 0.11.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -149,7 +149,7 @@ The add-on provides three pressure-vessel grades implemented as direct descendan
 ```text
 Copper / Brass / Industrial Boiler blocks
 Copper / Brass / Industrial Boiler blocks
-        в”‚
+        │
 Blaze Burner or another registered BoilerHeater
 ```
 
@@ -157,13 +157,13 @@ Blocks of one grade merge through Create's native tank connectivity, share fluid
 
 | Grade | Normal active heat | Superheated heat | Maximum per heater column |
 |---|---:|---:|---:|
-| Copper вЂ” Grade I | 2 | 3 | 3 |
-| Brass вЂ” Grade II | 3 | 5 | 5 |
-| Industrial вЂ” Grade III | 5 | 8 | 8 |
+| Copper — Grade I | 2 | 3 | 3 |
+| Brass — Grade II | 3 | 5 | 5 |
+| Industrial — Grade III | 5 | 8 | 8 |
 
 Passive heat remains passive and absent heat remains absent. Create remains authoritative for multiblock dimensions, fluid storage, water requirements, attached engines, efficiency, boiler level, comparator output, and generated Stress Units.
 
-EngineerвЂ™s Goggles append the resolved grade profile to Create's native tank/boiler information. Tuning is data-driven through `data/*/boiler_grade_profiles/*.json`.
+Engineer’s Goggles append the resolved grade profile to Create's native tank/boiler information. Tuning is data-driven through `data/*/boiler_grade_profiles/*.json`.
 
 Same-grade boiler blocks render as one continuous pressure vessel. Connected textures remove the 1×1 block grid and keep structural rims only on the outer perimeter.
 
@@ -177,9 +177,9 @@ The graded boiler family now has matching Steam Engines. Every grade inherits Cr
 
 | Grade | Capacity | Boiler load | Animated mechanism |
 |---|---:|---:|---|
-| Copper вЂ” I | 1024 SU | 1 unit | one cylinder |
-| Brass вЂ” II | 2560 SU | 2 units | two cylinders, 180В° opposed |
-| Industrial вЂ” III | 4608 SU | 3 units | three cylinders, 120В° phased |
+| Copper — I | 1024 SU | 1 unit | one cylinder |
+| Brass — II | 2560 SU | 2 units | two cylinders, 180° opposed |
+| Industrial — III | 4608 SU | 3 units | three cylinders, 120° phased |
 
 Higher-grade engines remain bounded by Create's boiler size, heat, water supply, and efficiency. They must be attached to a Zeppelin Must Have graded boiler; vanilla Create Fluid Tanks continue using the native Create Steam Engine.
 
@@ -269,9 +269,39 @@ Create Wrench interaction reverses thrust or flips the unit between upward and d
 
 Documentation: `docs/VERTICAL_THRUSTER.md`.
 
+## Zeppelin Parts Catalog
+
+Version `0.11.0` defines every public block and item through one canonical Zeppelin Parts catalog:
+
+```text
+19 functional block parts
+ 3 burner upgrade parts
+22 catalogued item entries
+```
+
+The catalog now drives creative-tab ordering, item tooltips, Ponder category membership, public tags, startup validation, and automated coverage tests. Every part displays its subsystem and gameplay role in English, Russian, Italian, and Polish.
+
+Public integration tags:
+
+```text
+#zeppelin_must_have:zeppelin_parts
+#zeppelin_must_have:zeppelin_parts/flight_control
+#zeppelin_must_have:zeppelin_parts/lift
+#zeppelin_must_have:zeppelin_parts/steam_power
+#zeppelin_must_have:zeppelin_parts/redstone_control
+#zeppelin_must_have:zeppelin_parts/ballast
+#zeppelin_must_have:zeppelin_parts/mooring
+#zeppelin_must_have:zeppelin_parts/propulsion
+#zeppelin_must_have:zeppelin_parts/upgrade
+```
+
+Every block part is covered by the pickaxe and stone-tool mining tags. The release audit fixed missing mining coverage for all three graded Steam Engines.
+
+Complete manifest and extension checklist: [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). Release notes: [`CHANGELOG.md`](CHANGELOG.md). Cumulative `0.9.0 → 0.11.0` patch notes: [`docs/PATCH_NOTES_0.9.0_TO_0.11.0.md`](docs/PATCH_NOTES_0.9.0_TO_0.11.0.md).
+
 ## Ponder
 
-The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Systems**.
+The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Parts**.
 
 Implemented scenes:
 
@@ -362,13 +392,13 @@ The Ballast Tank, Mooring Winch, Vertical Thruster, and Altitude Gauge are fully
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.10.0` |
+| Zeppelin Must Have | `0.11.0` |
 
 ## Internal code organization
 
 Registration and runtime responsibilities are split by domain. `ZmhBlocks` remains the stable public facade, while construction is delegated to the airship, steam-power, and redstone catalogs through a shared typed registrar. Large runtime classes delegate presentation, configuration, persistence, topology, graph discovery, and signal solving to focused collaborators.
 
-See [`docs/REFACTORING.md`](docs/REFACTORING.md) for the complete internal module map and compatibility invariants.
+See [`docs/REFACTORING.md`](docs/REFACTORING.md) for the complete internal module map and compatibility invariants. The complete public parts manifest is documented in [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). The complete public parts manifest is documented in [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). The latest class-cohesion review is documented in [`docs/MONOLITH_AUDIT.md`](docs/MONOLITH_AUDIT.md).
 
 ## Development
 

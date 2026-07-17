@@ -5,6 +5,7 @@ import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
+import us.kayla.zeppelinmusthave.content.parts.ZeppelinPartCatalog;
 import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
 
 public final class ZmhPonderTags {
@@ -21,29 +22,11 @@ public final class ZmhPonderTags {
 
         helper.registerTag(ZEPPELIN_SYSTEMS)
                 .item(ZmhBlocks.AIRSHIP_HELM_ITEM.get())
-                .title("Zeppelin Systems")
-                .description("Control, lift, navigation, steam power, propulsion, protected redstone, and service equipment for Create Aeronautics zeppelins")
+                .title("Zeppelin Parts")
+                .description("Complete control, lift, steam power, propulsion, protected redstone, upgrades, and service equipment for engineered zeppelins")
                 .register();
 
-        itemHelper.addToTag(ZEPPELIN_SYSTEMS)
-                .add(ZmhBlocks.AIRSHIP_HELM_ITEM.get())
-                .add(ZmhBlocks.AIRSHIP_BURNER_ITEM.get())
-                .add(ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER_ITEM.get())
-                .add(ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER_ITEM.get())
-                .add(ZmhBlocks.COPPER_BOILER_BASE_ITEM.get())
-                .add(ZmhBlocks.BRASS_BOILER_BASE_ITEM.get())
-                .add(ZmhBlocks.INDUSTRIAL_BOILER_BASE_ITEM.get())
-                .add(ZmhBlocks.COPPER_STEAM_ENGINE_ITEM.get())
-                .add(ZmhBlocks.BRASS_STEAM_ENGINE_ITEM.get())
-                .add(ZmhBlocks.INDUSTRIAL_STEAM_ENGINE_ITEM.get())
-                .add(ZmhBlocks.COPPER_PIPED_REDSTONE_ITEM.get())
-                .add(ZmhBlocks.BRASS_PIPED_REDSTONE_ITEM.get())
-                .add(ZmhBlocks.RESONANT_PIPED_REDSTONE_ITEM.get())
-                .add(ZmhBlocks.PIPED_REDSTONE_NATIVE_LEVER_ITEM.get())
-                .add(ZmhBlocks.PIPED_REDSTONE_REPEATER_ITEM.get())
-                .add(ZmhBlocks.BALLAST_TANK_ITEM.get())
-                .add(ZmhBlocks.MOORING_WINCH_ITEM.get())
-                .add(ZmhBlocks.ALTITUDE_GAUGE_ITEM.get())
-                .add(ZmhBlocks.VERTICAL_THRUSTER_ITEM.get());
+        var tag = itemHelper.addToTag(ZEPPELIN_SYSTEMS);
+        ZeppelinPartCatalog.all().forEach(part -> tag.add(part.item().get()));
     }
 }

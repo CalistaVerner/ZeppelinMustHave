@@ -21,7 +21,7 @@ A boiler is assembled exactly like a Create Fluid Tank:
 ```text
 matching graded boiler blocks
 matching graded boiler blocks
-        в”‚
+        │
 registered Create BoilerHeater
 ```
 
@@ -65,7 +65,7 @@ For active heat:
 
 ```text
 transferred_heat = clamp(
-    round(source_heat Г— heat_multiplier + additive_heat),
+    round(source_heat × heat_multiplier + additive_heat),
     1,
     maximum_heat_output
 )
@@ -129,15 +129,15 @@ The boiler pressure gauge is also grade-aware. Copper, Brass, and Industrial ves
 
 ## Crafting progression
 
-### Grade I вЂ” Copper Boiler
+### Grade I — Copper Boiler
 
 Shaped crafting upgrades one Create Fluid Tank using Copper Sheets, a Fluid Pipe, and an Andesite Casing. Output: one Copper Boiler.
 
-### Grade II вЂ” Brass Boiler
+### Grade II — Brass Boiler
 
 Create Mechanical Crafting upgrades one Copper Boiler using Brass Sheets, an Electron Tube, a Brass Casing, and Precision Mechanisms. Output: one Brass Boiler.
 
-### Grade III вЂ” Industrial Boiler
+### Grade III — Industrial Boiler
 
 A five-by-five Create Mechanical Crafting recipe upgrades one Brass Boiler using Sturdy Sheets, additional Fluid Tanks, Electron Tubes, Copper and Brass Sheets, and Precision Mechanisms. Output: one Industrial Boiler.
 

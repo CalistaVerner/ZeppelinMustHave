@@ -3,13 +3,7 @@ package us.kayla.zeppelinmusthave.content.burner;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 
-/**
- * A single stratified heat reservoir shared by every supported fuel source.
- *
- * <p>Regular and superheated contributions may be inserted in any order. The
- * hotter layer is consumed first; when it is exhausted, operation falls back
- * to regular heat without discarding previously inserted fuel.</p>
- */
+/** Mutable stratified heat state. Persistence and transfer DTOs live separately. */
 public final class AirshipHeatReservoir {
     private int regularTicks;
     private int superheatedTicks;
@@ -17,32 +11,30 @@ public final class AirshipHeatReservoir {
     private boolean infinite;
     private AirshipHeatGrade infiniteGrade = AirshipHeatGrade.SUPERHEATED;
 
-    public InsertionResult insert(
+    public AirshipHeatInsertionResult insert(
             AirshipHeatSource source,
             int capacity,
             boolean simulate
     ) {
         int safeCapacity = Math.max(1, capacity);
-
         if (!source.infinite() && this.infinite) {
-            return InsertionResult.REJECTED;
+            return AirshipHeatInsertionResult.REJECTED;
         }
 
         if (source.infinite()) {
             if (this.infinite && this.infiniteGrade == source.grade()) {
-                return InsertionResult.REJECTED;
+                return AirshipHeatInsertionResult.REJECTED;
             }
             if (!simulate) {
                 this.infinite = true;
                 this.infiniteGrade = source.grade();
             }
-            return new InsertionResult(true, 0, source.grade(), true);
+            return new AirshipHeatInsertionResult(true, 0, source.grade(), true);
         }
 
-        int available = safeCapacity - this.totalTicks();
-        int accepted = Math.min(available, source.burnTicks());
+        int accepted = Math.min(safeCapacity - this.totalTicks(), source.burnTicks());
         if (accepted <= 0) {
-            return InsertionResult.REJECTED;
+            return AirshipHeatInsertionResult.REJECTED;
         }
 
         if (!simulate) {
@@ -53,39 +45,36 @@ public final class AirshipHeatReservoir {
                 this.regularTicks += accepted;
             }
         }
-
-        return new InsertionResult(true, accepted, source.grade(), false);
+        return new AirshipHeatInsertionResult(true, accepted, source.grade(), false);
     }
 
-    public ConsumptionResult consume(double requestedTicks) {
+    public AirshipHeatConsumptionResult consume(double requestedTicks) {
         AirshipHeatGrade gradeBefore = this.activeGrade();
         if (this.infinite || requestedTicks <= 0.0D || !this.hasHeat()) {
-            return ConsumptionResult.unchanged(gradeBefore, this.activeGrade());
+            return AirshipHeatConsumptionResult.unchanged(gradeBefore, this.activeGrade());
         }
 
         this.consumptionRemainder += requestedTicks;
         int wholeTicks = (int) Math.floor(this.consumptionRemainder);
         if (wholeTicks <= 0) {
-            return ConsumptionResult.unchanged(gradeBefore, this.activeGrade());
+            return AirshipHeatConsumptionResult.unchanged(gradeBefore, this.activeGrade());
         }
 
         this.consumptionRemainder -= wholeTicks;
         int requested = wholeTicks;
-
         int fromSuperheated = Math.min(this.superheatedTicks, wholeTicks);
         this.superheatedTicks -= fromSuperheated;
         wholeTicks -= fromSuperheated;
 
         int fromRegular = Math.min(this.regularTicks, wholeTicks);
         this.regularTicks -= fromRegular;
-
         int consumed = fromSuperheated + fromRegular;
         if (!this.hasHeat()) {
             this.consumptionRemainder = 0.0D;
         }
 
         AirshipHeatGrade gradeAfter = this.activeGrade();
-        return new ConsumptionResult(
+        return new AirshipHeatConsumptionResult(
                 consumed > 0,
                 requested,
                 consumed,
@@ -96,12 +85,9 @@ public final class AirshipHeatReservoir {
         );
     }
 
-    /**
-     * Applies a reloaded profile capacity while preserving the hotter layer.
-     */
+    /** Applies a reloaded capacity while preferentially retaining hotter heat. */
     public boolean clampToCapacity(int capacity) {
-        int safeCapacity = Math.max(1, capacity);
-        int excess = this.totalTicks() - safeCapacity;
+        int excess = this.totalTicks() - Math.max(1, capacity);
         if (excess <= 0) {
             return false;
         }
@@ -109,7 +95,6 @@ public final class AirshipHeatReservoir {
         int removeRegular = Math.min(this.regularTicks, excess);
         this.regularTicks -= removeRegular;
         excess -= removeRegular;
-
         if (excess > 0) {
             this.superheatedTicks = Math.max(0, this.superheatedTicks - excess);
         }
@@ -180,8 +165,8 @@ public final class AirshipHeatReservoir {
         );
     }
 
-    public Snapshot snapshot(int capacity) {
-        return new Snapshot(
+    public AirshipHeatSnapshot snapshot(int capacity) {
+        return new AirshipHeatSnapshot(
                 this.regularTicks,
                 this.superheatedTicks,
                 this.totalTicks(),
@@ -193,104 +178,28 @@ public final class AirshipHeatReservoir {
     }
 
     public void write(CompoundTag tag) {
-        tag.putInt("RegularHeatTicks", this.regularTicks);
-        tag.putInt("SuperheatedHeatTicks", this.superheatedTicks);
-        tag.putDouble("HeatConsumptionRemainder", this.consumptionRemainder);
-        tag.putBoolean("InfiniteHeat", this.infinite);
-        tag.putString("InfiniteHeatGrade", this.infiniteGrade.name());
+        AirshipHeatReservoirCodec.write(tag, this.persistentState());
     }
 
     public void read(CompoundTag tag) {
-        if (tag.contains("RegularHeatTicks") || tag.contains("SuperheatedHeatTicks")) {
-            this.regularTicks = Math.max(0, tag.getInt("RegularHeatTicks"));
-            this.superheatedTicks = Math.max(0, tag.getInt("SuperheatedHeatTicks"));
-            this.consumptionRemainder = Math.max(0.0D, tag.getDouble("HeatConsumptionRemainder"));
-            this.infinite = tag.getBoolean("InfiniteHeat");
-            this.infiniteGrade = parseGrade(
-                    tag.getString("InfiniteHeatGrade"),
-                    AirshipHeatGrade.SUPERHEATED
-            );
-            return;
-        }
-
-        // Save migration from Zeppelin Must Have 0.4.x.
-        int legacyTicks = Math.max(0, tag.getInt("RemainingFuelTicks"));
-        AirshipHeatGrade legacyGrade = parseLegacyGrade(tag.getString("FuelGrade"));
-        if (legacyGrade == AirshipHeatGrade.SUPERHEATED) {
-            this.superheatedTicks = legacyTicks;
-        } else {
-            this.regularTicks = legacyTicks;
-        }
-        this.consumptionRemainder = Math.max(0.0D, tag.getDouble("FuelConsumptionRemainder"));
-        this.infinite = tag.getBoolean("CreativeFuel");
-        this.infiniteGrade = legacyGrade == AirshipHeatGrade.NONE
-                ? AirshipHeatGrade.SUPERHEATED
-                : legacyGrade;
+        this.restore(AirshipHeatReservoirCodec.read(tag));
     }
 
-    private static AirshipHeatGrade parseGrade(String value, AirshipHeatGrade fallback) {
-        try {
-            return AirshipHeatGrade.valueOf(value);
-        } catch (IllegalArgumentException ignored) {
-            return fallback;
-        }
-    }
-
-    private static AirshipHeatGrade parseLegacyGrade(String value) {
-        return switch (value) {
-            case "SUPERHEATED" -> AirshipHeatGrade.SUPERHEATED;
-            case "NORMAL" -> AirshipHeatGrade.REGULAR;
-            default -> AirshipHeatGrade.NONE;
-        };
-    }
-
-    public record Snapshot(
-            int regularTicks,
-            int superheatedTicks,
-            int totalTicks,
-            int capacityTicks,
-            double fillRatio,
-            boolean infinite,
-            AirshipHeatGrade activeGrade
-    ) {
-    }
-
-    public record InsertionResult(
-            boolean accepted,
-            int acceptedTicks,
-            AirshipHeatGrade grade,
-            boolean infinite
-    ) {
-        private static final InsertionResult REJECTED = new InsertionResult(
-                false,
-                0,
-                AirshipHeatGrade.NONE,
-                false
+    private AirshipHeatReservoirState persistentState() {
+        return new AirshipHeatReservoirState(
+                this.regularTicks,
+                this.superheatedTicks,
+                this.consumptionRemainder,
+                this.infinite,
+                this.infiniteGrade
         );
     }
 
-    public record ConsumptionResult(
-            boolean changed,
-            int requestedTicks,
-            int consumedTicks,
-            AirshipHeatGrade gradeBefore,
-            AirshipHeatGrade gradeAfter,
-            boolean gradeChanged,
-            boolean depleted
-    ) {
-        private static ConsumptionResult unchanged(
-                AirshipHeatGrade gradeBefore,
-                AirshipHeatGrade gradeAfter
-        ) {
-            return new ConsumptionResult(
-                    false,
-                    0,
-                    0,
-                    gradeBefore,
-                    gradeAfter,
-                    gradeBefore != gradeAfter,
-                    gradeAfter == AirshipHeatGrade.NONE
-            );
-        }
+    private void restore(AirshipHeatReservoirState state) {
+        this.regularTicks = state.regularTicks();
+        this.superheatedTicks = state.superheatedTicks();
+        this.consumptionRemainder = state.consumptionRemainder();
+        this.infinite = state.infinite();
+        this.infiniteGrade = state.infiniteGrade();
     }
 }

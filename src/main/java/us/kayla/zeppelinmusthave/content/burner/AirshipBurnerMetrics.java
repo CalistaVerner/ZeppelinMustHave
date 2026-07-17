@@ -9,7 +9,7 @@ import us.kayla.zeppelinmusthave.integration.BalloonHeatAggregate;
  */
 public record AirshipBurnerMetrics(
         AirshipBurnerProfile profile,
-        AirshipHeatReservoir.Snapshot reservoir,
+        AirshipHeatSnapshot reservoir,
         int signalStrength,
         double throttle,
         double individualGasOutput,

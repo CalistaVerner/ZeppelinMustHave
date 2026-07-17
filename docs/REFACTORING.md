@@ -39,7 +39,20 @@ ZmhRedstoneBlocks
 
 `ZmhBlocks` is intentionally retained as a stable public facade. Existing code can continue using names such as `ZmhBlocks.COPPER_BOILER_BASE`, but the facade no longer constructs blocks or registers items.
 
-`ZmhCreativeContents` defines creative-tab ordering only. It does not perform registration.
+`ZeppelinPartCatalog` defines creative ordering and the complete public item/block manifest. Registry coverage is validated during common setup.
+
+### Zeppelin Parts catalog
+
+```text
+ZeppelinPartCatalog
+├── ordered creative contents
+├── registry-ID index
+├── subsystem categories
+├── public item/block tag contract
+└── exact registry coverage validation
+```
+
+The previous standalone creative-order list was removed so that creative tabs, tooltips, Ponder membership, and coverage tests cannot drift independently.
 
 ## Block entity registration
 
@@ -155,3 +168,6 @@ VerticalThrusterBlockEntity
 4. Boiler grades retain distinct block entity types.
 5. Data-pack directories and profile IDs are unchanged.
 6. Gameplay and renderer behavior must remain covered by the existing GameTests and client runtime checks.
+## Monolith review
+
+The post-`0.10.0` cohesion audit and before/after measurements are maintained in [`MONOLITH_AUDIT.md`](MONOLITH_AUDIT.md). Runtime block entities now delegate state, persistence, presentation, and external-system integration through explicit components rather than accumulating independent responsibilities.

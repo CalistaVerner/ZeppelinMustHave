@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "zeppelin_must_have:airship_helm",
+    "zeppelin_must_have:altitude_gauge"
+  ]
+}

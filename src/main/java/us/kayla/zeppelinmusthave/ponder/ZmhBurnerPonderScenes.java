@@ -30,7 +30,10 @@ final class ZmhBurnerPonderScenes {
         helper.forComponents(
                         ZmhBlocks.AIRSHIP_BURNER.getId(),
                         ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER.getId(),
-                        ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER.getId())
+                        ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER.getId(),
+                        ZmhItems.HEAT_RECUPERATOR_UPGRADE.getId(),
+                        ZmhItems.FORCED_INDUCTION_UPGRADE.getId(),
+                        ZmhItems.PRECISION_REGULATOR_UPGRADE.getId())
                 .addStoryBoard("burner/operation", ZmhBurnerPonderScenes::airshipBurners,
                         ZmhPonderTags.ZEPPELIN_SYSTEMS);
     }

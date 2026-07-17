@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "zeppelin_must_have:copper_piped_redstone",
+    "zeppelin_must_have:brass_piped_redstone",
+    "zeppelin_must_have:resonant_piped_redstone",
+    "zeppelin_must_have:piped_redstone_native_lever",
+    "zeppelin_must_have:piped_redstone_repeater"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "zeppelin_must_have:airship_burner",
+    "zeppelin_must_have:forced_draft_airship_burner",
+    "zeppelin_must_have:industrial_airship_burner"
+  ]
+}

@@ -2,7 +2,6 @@ package us.kayla.zeppelinmusthave.content.redstone.conduit;
 
 import com.mojang.serialization.MapCodec;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import net.createmod.catnip.placement.IPlacementHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -11,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -27,7 +25,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 
 public final class PipedRedstoneBlock extends PipeBlock
@@ -41,17 +38,17 @@ public final class PipedRedstoneBlock extends PipeBlock
     public PipedRedstoneBlock(Properties properties, PipedRedstoneTier tier) {
         super(3.0F / 16.0F, properties);
         this.tier = tier;
-
-        BlockState state = this.stateDefinition.any()
-                .setValue(NORTH, false)
-                .setValue(EAST, false)
-                .setValue(SOUTH, false)
-                .setValue(WEST, false)
-                .setValue(UP, false)
-                .setValue(DOWN, false)
-                .setValue(POWER, 0)
-                .setValue(WATERLOGGED, false);
-        this.registerDefaultState(state);
+        this.registerDefaultState(
+                this.stateDefinition.any()
+                        .setValue(NORTH, false)
+                        .setValue(EAST, false)
+                        .setValue(SOUTH, false)
+                        .setValue(WEST, false)
+                        .setValue(UP, false)
+                        .setValue(DOWN, false)
+                        .setValue(POWER, 0)
+                        .setValue(WATERLOGGED, false)
+        );
     }
 
     @Override
@@ -73,31 +70,14 @@ public final class PipedRedstoneBlock extends PipeBlock
     }
 
     @Override
-    protected boolean skipRendering(
-            BlockState state,
-            BlockState adjacentState,
-            Direction side
-    ) {
-        if (adjacentState.getBlock() instanceof PipedRedstoneBlock
-                && hasPort(state, side)
-                && hasPort(adjacentState, side.getOpposite())) {
-            return true;
-        }
-        return super.skipRendering(state, adjacentState, side);
+    protected boolean skipRendering(BlockState state, BlockState adjacentState, Direction side) {
+        return PipedRedstoneBlockSupport.skipConnectedFace(state, adjacentState, side)
+                || super.skipRendering(state, adjacentState, side);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = this.defaultBlockState();
-        Direction.Axis axis = context.getClickedFace().getAxis();
-        for (Direction direction : Direction.values()) {
-            if (direction.getAxis() == axis) {
-                state = state.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
-            }
-        }
-
-        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        return state.setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
+        return PipedRedstoneBlockSupport.placementState(this.defaultBlockState(), context);
     }
 
     @Override
@@ -109,16 +89,8 @@ public final class PipedRedstoneBlock extends PipeBlock
             boolean movedByPiston
     ) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
-        if (!oldState.is(state.getBlock())) {
-            PipedRedstoneTopology.connectReciprocalPorts(level, pos, state);
-            PipedRedstoneNetworkManager.requestRebuild(level, pos);
-        }
+        PipedRedstoneBlockSupport.placed(state, level, pos, oldState);
     }
-
-    /**
-     * Turns a straight terminal into an elbow when a conduit is placed against
-     * its side. Middle segments keep both axial connections and become a tee.
-     */
 
     @Override
     protected void onRemove(
@@ -128,16 +100,7 @@ public final class PipedRedstoneBlock extends PipeBlock
             BlockState newState,
             boolean movedByPiston
     ) {
-        if (!state.is(newState.getBlock())) {
-            if (!level.isClientSide && state.getValue(POWER) > 0) {
-                for (Direction direction : Direction.values()) {
-                    if (hasPort(state, direction)) {
-                        level.neighborChanged(pos.relative(direction), this, pos);
-                    }
-                }
-            }
-            PipedRedstoneNetworkManager.requestAdjacentComponents(level, pos);
-        }
+        PipedRedstoneBlockSupport.removed(this, state, level, pos, newState);
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
@@ -150,18 +113,13 @@ public final class PipedRedstoneBlock extends PipeBlock
             BlockPos neighborPos,
             boolean movedByPiston
     ) {
-        PipedRedstoneNetworkManager.requestRebuild(level, pos);
+        PipedRedstoneBlockSupport.neighborChanged(level, pos);
         super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
     }
 
     @Override
-    protected void tick(
-            BlockState state,
-            ServerLevel level,
-            BlockPos pos,
-            RandomSource random
-    ) {
-        PipedRedstoneNetworkManager.rebuild(level, pos);
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        PipedRedstoneBlockSupport.scheduledTick(level, pos);
     }
 
     @Override
@@ -177,50 +135,23 @@ public final class PipedRedstoneBlock extends PipeBlock
         if (player.isShiftKeyDown() || !player.mayBuild()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-
-        IPlacementHelper helper = PipedRedstonePlacement.helper();
-        if (helper.matchesItem(stack) && stack.getItem() instanceof BlockItem blockItem) {
-            return helper.getOffset(player, level, state, pos, hitResult, stack)
-                    .placeInWorld(level, blockItem, player, hand, hitResult);
-        }
-
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        ItemInteractionResult result = PipedRedstoneBlockSupport.tryPlacementAssist(
+                stack,
+                state,
+                level,
+                pos,
+                player,
+                hand,
+                hitResult
+        );
+        return result == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+                ? super.useItemOn(stack, state, level, pos, player, hand, hitResult)
+                : result;
     }
 
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-        Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        Direction direction = context.getClickedFace();
-        boolean nextValue = !hasPort(state, direction);
-
-        if (level.isClientSide) {
-            return InteractionResult.SUCCESS;
-        }
-
-        BlockState nextState = state.setValue(
-                PROPERTY_BY_DIRECTION.get(direction),
-                nextValue
-        );
-        level.setBlock(pos, nextState, Block.UPDATE_ALL);
-
-        BlockPos neighborPos = pos.relative(direction);
-        BlockState neighborState = level.getBlockState(neighborPos);
-        if (neighborState.getBlock() instanceof PipedRedstoneBlock) {
-            level.setBlock(
-                    neighborPos,
-                    neighborState.setValue(
-                            PROPERTY_BY_DIRECTION.get(direction.getOpposite()),
-                            nextValue
-                    ),
-                    Block.UPDATE_ALL
-            );
-            PipedRedstoneNetworkManager.requestRebuild(level, neighborPos);
-        }
-
-        PipedRedstoneNetworkManager.requestRebuild(level, pos);
-        IWrenchable.playRotateSound(level, pos);
-        return InteractionResult.SUCCESS;
+        return PipedRedstoneBlockSupport.wrench(state, context);
     }
 
     @Override
@@ -229,22 +160,12 @@ public final class PipedRedstoneBlock extends PipeBlock
     }
 
     @Override
-    public int getSignal(
-            BlockState state,
-            BlockGetter level,
-            BlockPos pos,
-            Direction side
-    ) {
-        return hasPort(state, side.getOpposite()) ? state.getValue(POWER) : 0;
+    public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
+        return PipedRedstoneBlockSupport.signal(state, side);
     }
 
     @Override
-    public int getDirectSignal(
-            BlockState state,
-            BlockGetter level,
-            BlockPos pos,
-            Direction side
-    ) {
+    public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
         return this.getSignal(state, level, pos, side);
     }
 
@@ -255,7 +176,7 @@ public final class PipedRedstoneBlock extends PipeBlock
             BlockPos pos,
             Direction side
     ) {
-        return side != null && hasPort(state, side.getOpposite());
+        return PipedRedstoneBlockSupport.canConnect(state, side);
     }
 
     @Override
@@ -267,24 +188,21 @@ public final class PipedRedstoneBlock extends PipeBlock
             BlockPos pos,
             BlockPos neighborPos
     ) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        }
+        PipedRedstoneWaterlogging.scheduleWaterTick(state, WATERLOGGED, level, pos);
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
     protected FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED)
-                ? Fluids.WATER.getSource(false)
-                : super.getFluidState(state);
+        return PipedRedstoneWaterlogging.fluidState(
+                state,
+                WATERLOGGED,
+                super.getFluidState(state)
+        );
     }
 
     @Override
-    protected void createBlockStateDefinition(
-            StateDefinition.Builder<Block, BlockState> builder
-    ) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, POWER, WATERLOGGED);
     }
-
 }
