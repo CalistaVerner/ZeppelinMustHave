@@ -2,19 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "pattern": [
-    "CSC",
-    "PAP",
-    "CBC"
+    "CPC",
+    "CFC",
+    "CAC"
   ],
   "key": {
     "A": {"item": "create:andesite_casing"},
-    "B": {"item": "create:blaze_burner"},
     "C": {"item": "create:copper_sheet"},
-    "P": {"item": "create:fluid_pipe"},
-    "S": {"item": "create:shaft"}
+    "F": {"item": "create:fluid_tank"},
+    "P": {"item": "create:fluid_pipe"}
   },
   "result": {
     "id": "zeppelin_must_have:copper_boiler_base",
-    "count": 2
+    "count": 1
   }
 }

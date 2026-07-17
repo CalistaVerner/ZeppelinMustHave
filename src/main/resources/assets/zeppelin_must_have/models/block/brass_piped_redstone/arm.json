@@ -1,9 +1,11 @@
 {
   "parent": "zeppelin_must_have:block/piped_redstone/arm",
   "textures": {
-    "casing": "create:block/brass_casing",
+    "casing": "zeppelin_must_have:block/zmh/piped_redstone_brass_shell",
     "insulation": "zeppelin_must_have:block/zmh/piped_redstone_insulation",
     "signal": "zeppelin_must_have:block/zmh/piped_redstone_signal",
     "port": "zeppelin_must_have:block/zmh/piped_redstone_port"
-  }
+  },
+  "render_type": "minecraft:cutout",
+  "ambientocclusion": false
 }

@@ -142,33 +142,56 @@ Extended diagnostics appear while sneaking. The resolved profile and heat-networ
 
 
 
-## Graded Create Boiler Bases
+## Graded Create Fluid-Tank Boilers
 
-The add-on now extends Create's native boiler through the public `BoilerHeater` API. Boiler Bases are installed directly between a bottom Fluid Tank and its heat source:
+The add-on provides three pressure-vessel grades implemented as direct descendants of Create's Fluid Tank. The graded block is the tank itself:
 
 ```text
-Create Fluid Tank
-        │
-Copper / Brass / Industrial Boiler Base
-        │
+Copper / Brass / Industrial Boiler blocks
+Copper / Brass / Industrial Boiler blocks
+        в”‚
 Blaze Burner or another registered BoilerHeater
 ```
 
-| Grade | Normal active heat | Superheated heat | Maximum transfer |
+Blocks of one grade merge through Create's native tank connectivity, share fluid capacity, render their contents, accept the Create Wrench, and support Steam Engines and Steam Whistles. Different grades have separate block-entity types and cannot merge into one controller.
+
+| Grade | Normal active heat | Superheated heat | Maximum per heater column |
 |---|---:|---:|---:|
-| Copper — Grade I | 2 | 3 | 3 |
-| Brass — Grade II | 3 | 5 | 5 |
-| Industrial — Grade III | 5 | 8 | 8 |
+| Copper вЂ” Grade I | 2 | 3 | 3 |
+| Brass вЂ” Grade II | 3 | 5 | 5 |
+| Industrial вЂ” Grade III | 5 | 8 | 8 |
 
-Passive heat remains passive, absent heat remains absent, and Boiler Bases cannot be stacked. Create continues to calculate boiler size, water requirements, attached Steam Engines, efficiency, boiler level, and generated Stress Units.
+Passive heat remains passive and absent heat remains absent. Create remains authoritative for multiblock dimensions, fluid storage, water requirements, attached engines, efficiency, boiler level, comparator output, and generated Stress Units.
 
-Each base provides Engineer's Goggles diagnostics, comparator output proportional to transferred heat, active lighting, and data-pack tuning through `data/*/boiler_grade_profiles/*.json`.
+EngineerвЂ™s Goggles append the resolved grade profile to Create's native tank/boiler information. Tuning is data-driven through `data/*/boiler_grade_profiles/*.json`.
 
-Documentation: `docs/BOILER_GRADES.md`.
+Same-grade boiler blocks render as one continuous pressure vessel. Connected textures remove the 1×1 block grid and keep structural rims only on the outer perimeter.
+
+The pressure gauge frame, scale, and animated dial are selected from the vessel grade, so the front instrument matches Copper, Brass, or Industrial construction.
+
+The block registry IDs retain the historical `_boiler_base` suffix for save and recipe compatibility. Documentation: `docs/BOILER_GRADES.md`.
+
+## Graded Steam Engines
+
+The graded boiler family now has matching Steam Engines. Every grade inherits Create's normal shaft placement, rotation-direction control, boiler efficiency, and kinetic-network integration, while adding its own stress capacity, housing, and animated crank mechanism.
+
+| Grade | Capacity | Boiler load | Animated mechanism |
+|---|---:|---:|---|
+| Copper вЂ” I | 1024 SU | 1 unit | one cylinder |
+| Brass вЂ” II | 2560 SU | 2 units | two cylinders, 180В° opposed |
+| Industrial вЂ” III | 4608 SU | 3 units | three cylinders, 120В° phased |
+
+Higher-grade engines remain bounded by Create's boiler size, heat, water supply, and efficiency. They must be attached to a Zeppelin Must Have graded boiler; vanilla Create Fluid Tanks continue using the native Create Steam Engine.
+
+Numerical capacity, boiler load, crank geometry, cylinder spacing, and steam-particle intensity are data-driven through `data/*/steam_engine_grade_profiles/*.json`.
+
+Documentation: `docs/STEAM_ENGINE_GRADES.md`.
 
 ## Piped Redstone
 
 Piped Redstone provides protected analog redstone routing for airships and dense Create machinery.
+
+Reciprocally connected conduit blocks render as one continuous constant-section tube: internal end caps are culled, while closed ports remain visibly sealed and electrically isolated.
 
 Its connections are explicit six-sided ports rather than automatic adjacency. Use the Create Wrench on a selected face to open or close that port. Two conduits may therefore run in neighboring blocks, cross beside one another, or pass through the same machinery compartment without merging unless reciprocal ports are deliberately enabled.
 
@@ -277,9 +300,12 @@ All registered equipment blocks and upgrade modules have production recipes; eve
 | Airship Burner | Create Blaze Burner upgraded with copper sheets and andesite alloy |
 | Forced-Draft Burner | Airship Burner, Encased Fans, brass sheets, and precision mechanisms |
 | Industrial Burner | 5×5 Create Mechanical Crafting recipe using the forced-draft tier, fluid tanks, fans, sturdy sheets, brass sheets, and precision mechanisms |
-| Copper Boiler Base — Grade I | Blaze Burner, Copper Sheets, Fluid Pipes, Andesite Casing, and Shaft |
-| Brass Boiler Base — Grade II | Mechanical Crafting upgrade with Brass Sheets, Electron Tubes, Fluid Tank, and Precision Mechanisms |
-| Industrial Boiler Base — Grade III | 5×5 Mechanical Crafting with Sturdy Sheets, tanks, mechanisms, and the Brass grade |
+| Copper Boiler — Grade I | Create Fluid Tank upgraded with Copper Sheets, a Fluid Pipe, and Andesite Casing |
+| Brass Boiler — Grade II | Mechanical Crafting upgrade from Copper grade with Brass Sheets, Electron Tube, Brass Casing, and Precision Mechanisms |
+| Industrial Boiler — Grade III | 5×5 Mechanical Crafting upgrade from Brass grade with Sturdy Sheets, tanks, Electron Tubes, sheets, and mechanisms |
+| Copper Steam Engine — Grade I | Create Steam Engine upgraded with Copper Sheets, Shafts, a Precision Mechanism, and Andesite Casing |
+| Brass Compound Steam Engine — Grade II | Mechanical Crafting upgrade with Brass Sheets, Electron Tube, Brass Casing, and Precision Mechanisms |
+| Industrial Triple-Expansion Steam Engine — Grade III | 5×5 Mechanical Crafting with Sturdy Sheets, Flywheels, Brass Casings, Electron Tubes, and mechanisms |
 | Copper Piped Redstone | Copper Sheets, Create Fluid Pipes, and redstone dust; produces eight conduits |
 | Brass Piped Redstone | Mechanical Crafting upgrade using Copper conduits, Brass Sheets, Electron Tubes, and Precision Mechanisms |
 | Resonant Piped Redstone | 5×5 Mechanical Crafting with Brass conduits, Sturdy Sheets, Polished Rose Quartz, Electron Tubes, and Precision Mechanisms |

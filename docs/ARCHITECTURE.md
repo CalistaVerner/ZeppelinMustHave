@@ -247,28 +247,69 @@ No force, balloon, pressure, or mass state is mutated by the controller. Aeronau
 
 ## Graded Create Boiler Integration
 
-`BoilerGradeBlock` is registered directly in Create's public `BoilerHeater.REGISTRY` during `FMLCommonSetupEvent`.
-
-Each base reads the registered heater immediately below it and returns a profile-transformed value to the normal Create boiler query:
+`BoilerGradeBlock` extends Create's `FluidTankBlock`; `BoilerGradeBlockEntity` extends `FluidTankBlockEntity`. The graded block is therefore the pressure vessel itself rather than a proxy heater placed below an ordinary tank.
 
 ```text
-BoilerData.updateTemperature
-        │
-        ▼
-BoilerHeater.findHeat(base position)
-        │
-        ▼
-BoilerGradeBlock
-        │
-        ▼
-BoilerHeater.findHeat(source below)
+BoilerGradeBlock / BoilerGradeBlockEntity
+        в”‚
+        в”њв”Ђв”Ђ Create ConnectivityHandler
+        в”њв”Ђв”Ђ inherited fluid tank and capability forwarding
+        в”њв”Ђв”Ђ inherited BoilerData lifecycle
+        в”њв”Ђв”Ђ inherited engine/whistle discovery
+        в””в”Ђв”Ђ grade profile applied only during temperature sampling
 ```
 
-The block rejects another `BoilerGradeBlock` as a source, preventing recursive amplification and stacking exploits. `NO_HEAT` and `PASSIVE_HEAT` preserve their Create semantics.
+Create's `ConnectivityHandler` accepts parts with the same exact `BlockEntityType`. `ZmhBlockEntityTypes` consequently registers one type per grade. This makes grade compatibility a structural invariant: equal grades merge through the normal Create algorithm, while mixed grades remain independent controllers without custom graph traversal.
 
-`BoilerGradeProfiles` reloads multiplier, additive heat, and maximum transfer from server data packs. `BoilerGradeBlockEntity` samples the source, synchronizes the resolved profile for goggles, updates comparator output, and calls `FluidTankBlockEntity.updateBoilerTemperature()` on the tank above whenever the effective transfer changes.
+`GradedBoilerData` subclasses Create's `BoilerData` and overrides only `updateTemperature`. It scans the inherited controller footprint, calls `BoilerHeater.findHeat` for every block directly below the bottom layer, and applies the current immutable `BoilerGradeProfile`:
 
-Create remains authoritative for boiler size, water supply, engine efficiency, Stress Unit output, whistles, and maximum boiler level.
+```text
+BoilerData.tick
+        в”‚
+        в–ј
+GradedBoilerData.updateTemperature
+        в”‚
+        в”њв”Ђв”Ђ BoilerHeater.findHeat(column below)
+        в”њв”Ђв”Ђ preserve NO_HEAT / PASSIVE_HEAT
+        в””в”Ђв”Ђ transform active heat by grade profile
+```
+
+All downstream calculations remain Create-owned: shared fluid capacity, water-input sampling, boiler size, Steam Engine efficiency, Stress Unit output, whistles, comparator output, and maximum boiler level.
+
+NeoForge fluid capabilities are registered for all three grade-specific types. Client integration reuses Create's `FluidTankRenderer` and wraps the custom baked models with `FluidTankModel.standard`, preserving controller-only fluid rendering and internal-face culling.
+
+`BoilerGradeProfiles` reloads multiplier, additive heat, and per-column maximum output from server data packs. Existing controllers observe the revision, request a native temperature refresh, and synchronize a client snapshot for Engineer's Goggles.
+
+## Graded Steam Engine Integration
+
+`SteamEngineGradeBlock` extends Create's `SteamEngineBlock`, preserving placement, attachment orientation, wrenching, rotation-direction behaviour, shaft conversion, and powered-shaft ownership.
+
+Create's native `SteamEngineBlockEntity` contains identity checks for `create:steam_engine`. `SteamEngineGradeBlockEntity` therefore invokes the upstream tick first for standard behaviour and invalidation, then supplies the grade-aware generation path for the custom block family. The generated shaft remains Create's native `PoweredShaftBlockEntity`.
+
+```text
+Graded BoilerData efficiency
+        в”‚
+        в–ј
+SteamEngineGradeBlockEntity
+        в”‚
+        в–ј
+Create PoweredShaftBlockEntity
+        в”‚
+        в–ј
+Create kinetic network
+```
+
+The powered shaft stores the engine block as its `capacityKey`. `BlockStressValues.CAPACITIES` resolves each grade through a reload-aware supplier, so Create remains responsible for generated speed, capacity application, overstress, and network propagation.
+
+`GradedBoilerData.evaluate` first executes Create's native engine/whistle scan, then adds graded engines as weighted engine units. This keeps the standard `BoilerData.getEngineEfficiency` calculation authoritative:
+
+- Copper engine: one engine unit;
+- Brass engine: two engine units;
+- Industrial engine: three engine units.
+
+The client does not replace the shaft simulation. `SteamEngineGradeRenderer` derives its angle from the native powered shaft and renders one, two, or three profile-controlled slider-crank assemblies. Grade-specific `PartialModel` resources provide different piston, linkage, connector, and housing geometry.
+
+Profiles are loaded from `data/*/steam_engine_grade_profiles/*.json`. Server snapshots synchronize the effective geometry and capacity metadata used by Engineer's Goggles and rendering. A profile reload forces the attached powered shaft to rebuild its generator entry without replacing the shaft block.
 
 ## Piped Redstone
 

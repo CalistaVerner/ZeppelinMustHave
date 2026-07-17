@@ -1,0 +1,31 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "BTB",
+    "PCP",
+    "BSB"
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "C": {
+      "item": "zeppelin_must_have:copper_steam_engine"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "S": {
+      "item": "create:brass_casing"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:brass_steam_engine",
+    "count": 1
+  }
+}

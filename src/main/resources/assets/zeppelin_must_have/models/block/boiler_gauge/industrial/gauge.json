@@ -1,0 +1,7 @@
+{
+  "parent": "create:block/steam_engine/gauge",
+  "textures": {
+    "0": "zeppelin_must_have:block/boiler/gauge/industrial_gauge",
+    "particle": "zeppelin_must_have:block/boiler/gauge/industrial_gauge"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "create:block/steam_engine/gauge_dial",
+  "textures": {
+    "0": "zeppelin_must_have:block/boiler/gauge/copper_dial",
+    "particle": "zeppelin_must_have:block/boiler/gauge/copper_dial"
+  }
+}

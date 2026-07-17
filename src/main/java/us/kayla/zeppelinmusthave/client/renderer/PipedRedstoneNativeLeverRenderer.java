@@ -30,6 +30,12 @@ public final class PipedRedstoneNativeLeverRenderer
     public PipedRedstoneNativeLeverRenderer(BlockEntityRendererProvider.Context context) {
     }
 
+    /** Forces PartialModel registration before Minecraft bakes the model registry. */
+    public static void init() {
+        HANDLE.modelLocation();
+        INDICATOR.modelLocation();
+    }
+
     @Override
     protected void renderSafe(
             PipedRedstoneNativeLeverBlockEntity blockEntity,
@@ -41,7 +47,9 @@ public final class PipedRedstoneNativeLeverRenderer
     ) {
         BlockState state = blockEntity.getBlockState();
         float progress = blockEntity.getHandlePosition(partialTicks);
-        VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.solid());
+        // Request one render layer only. BufferSource invalidates the previously
+        // returned builder whenever another RenderType is requested.
+        VertexConsumer consumer = buffer.getBuffer(RenderType.cutout());
 
         float handleRadians = (float) Math.toRadians(-38.0F + 76.0F * progress);
         SuperByteBuffer handle = orient(CachedBuffers.partial(HANDLE, state), state);
@@ -49,13 +57,13 @@ public final class PipedRedstoneNativeLeverRenderer
                 .rotate(handleRadians, Direction.EAST)
                 .translate(-0.5F, -1.0F / 16.0F, -0.5F)
                 .light(light)
-                .renderInto(poseStack, vertexConsumer);
+                .renderInto(poseStack, consumer);
 
         int indicatorColor = Color.mixColors(0x2A0704, 0xF13A20, progress);
         SuperByteBuffer indicator = orient(CachedBuffers.partial(INDICATOR, state), state);
         indicator.color(indicatorColor)
                 .light(light)
-                .renderInto(poseStack, vertexConsumer);
+                .renderInto(poseStack, consumer);
     }
 
     private static SuperByteBuffer orient(SuperByteBuffer buffer, BlockState state) {

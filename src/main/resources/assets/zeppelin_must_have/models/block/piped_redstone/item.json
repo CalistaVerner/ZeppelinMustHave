@@ -1,5 +1,7 @@
 {
   "parent": "zeppelin_must_have:block/templates/equipment_display",
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "#casing"
   },
@@ -17,108 +19,12 @@
       ],
       "faces": {
         "north": {
-          "texture": "#casing"
-        },
-        "east": {
-          "texture": "#casing"
+          "texture": "#port"
         },
         "south": {
-          "texture": "#casing"
-        },
-        "west": {
-          "texture": "#casing"
-        },
-        "up": {
-          "texture": "#casing"
-        },
-        "down": {
-          "texture": "#casing"
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        6,
-        6
-      ],
-      "to": [
-        16,
-        10,
-        10
-      ],
-      "faces": {
-        "north": {
-          "texture": "#insulation"
+          "texture": "#port"
         },
         "east": {
-          "texture": "#insulation"
-        },
-        "south": {
-          "texture": "#insulation"
-        },
-        "west": {
-          "texture": "#insulation"
-        },
-        "up": {
-          "texture": "#insulation"
-        },
-        "down": {
-          "texture": "#insulation"
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        7,
-        7
-      ],
-      "to": [
-        16,
-        9,
-        9
-      ],
-      "faces": {
-        "north": {
-          "texture": "#signal"
-        },
-        "east": {
-          "texture": "#signal"
-        },
-        "south": {
-          "texture": "#signal"
-        },
-        "west": {
-          "texture": "#signal"
-        },
-        "up": {
-          "texture": "#signal"
-        },
-        "down": {
-          "texture": "#signal"
-        }
-      }
-    },
-    {
-      "from": [
-        5,
-        4,
-        4
-      ],
-      "to": [
-        11,
-        12,
-        12
-      ],
-      "faces": {
-        "north": {
-          "texture": "#casing"
-        },
-        "east": {
-          "texture": "#casing"
-        },
-        "south": {
           "texture": "#casing"
         },
         "west": {

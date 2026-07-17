@@ -1,7 +1,7 @@
 package us.kayla.zeppelinmusthave;
 
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.api.boiler.BoilerHeater;
+import com.simibubi.create.api.stress.BlockStressValues;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -9,10 +9,12 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerProfiles;
-import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
+import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlockEntity;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeProfiles;
 import us.kayla.zeppelinmusthave.content.control.AltitudeControlProfiles;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneProfiles;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeProfiles;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeDefinitions;
 import us.kayla.zeppelinmusthave.integration.SimulatedStack;
 import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
@@ -29,9 +31,11 @@ public final class ZeppelinMustHave {
         Map<String, String> dependencyVersions = SimulatedStack.loadedVersions();
 
         ZmhRegistries.register(modEventBus);
+        modEventBus.addListener(BoilerGradeBlockEntity::registerCapabilities);
         modEventBus.addListener(this::commonSetup);
         AirshipBurnerProfiles.register();
         BoilerGradeProfiles.register();
+        SteamEngineGradeProfiles.register();
         AirshipUpgradeDefinitions.register();
         AltitudeControlProfiles.register();
         PipedRedstoneProfiles.register();
@@ -47,22 +51,21 @@ public final class ZeppelinMustHave {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            BoilerHeater.REGISTRY.register(
-                    ZmhBlocks.COPPER_BOILER_BASE.get(),
-                    (level, pos, state) -> ((BoilerGradeBlock) state.getBlock())
-                            .getTransferredHeat(level, pos, state)
-            );
-            BoilerHeater.REGISTRY.register(
-                    ZmhBlocks.BRASS_BOILER_BASE.get(),
-                    (level, pos, state) -> ((BoilerGradeBlock) state.getBlock())
-                            .getTransferredHeat(level, pos, state)
-            );
-            BoilerHeater.REGISTRY.register(
-                    ZmhBlocks.INDUSTRIAL_BOILER_BASE.get(),
-                    (level, pos, state) -> ((BoilerGradeBlock) state.getBlock())
-                            .getTransferredHeat(level, pos, state)
-            );
+            registerSteamEngineStress(ZmhBlocks.COPPER_STEAM_ENGINE.get(), SteamEngineGradeTier.COPPER);
+            registerSteamEngineStress(ZmhBlocks.BRASS_STEAM_ENGINE.get(), SteamEngineGradeTier.BRASS);
+            registerSteamEngineStress(ZmhBlocks.INDUSTRIAL_STEAM_ENGINE.get(), SteamEngineGradeTier.INDUSTRIAL);
         });
+    }
+
+    private static void registerSteamEngineStress(
+            net.minecraft.world.level.block.Block block,
+            SteamEngineGradeTier tier
+    ) {
+        BlockStressValues.CAPACITIES.register(
+                block,
+                () -> SteamEngineGradeProfiles.INSTANCE.resolve(tier).stressCapacity()
+        );
+        BlockStressValues.RPM.register(block, new BlockStressValues.GeneratedRpm(64, true));
     }
 
     public static ResourceLocation id(String path) {

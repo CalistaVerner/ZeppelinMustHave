@@ -84,6 +84,20 @@ public final class PipedRedstoneBlock extends PipeBlock
     }
 
     @Override
+    protected boolean skipRendering(
+            BlockState state,
+            BlockState adjacentState,
+            Direction side
+    ) {
+        if (adjacentState.getBlock() instanceof PipedRedstoneBlock
+                && hasPort(state, side)
+                && hasPort(adjacentState, side.getOpposite())) {
+            return true;
+        }
+        return super.skipRendering(state, adjacentState, side);
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = this.defaultBlockState();
         Direction.Axis axis = context.getClickedFace().getAxis();

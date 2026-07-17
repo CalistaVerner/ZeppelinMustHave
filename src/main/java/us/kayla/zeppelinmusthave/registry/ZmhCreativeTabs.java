@@ -29,6 +29,9 @@ public final class ZmhCreativeTabs {
                         output.accept(ZmhBlocks.COPPER_BOILER_BASE_ITEM.get());
                         output.accept(ZmhBlocks.BRASS_BOILER_BASE_ITEM.get());
                         output.accept(ZmhBlocks.INDUSTRIAL_BOILER_BASE_ITEM.get());
+                        output.accept(ZmhBlocks.COPPER_STEAM_ENGINE_ITEM.get());
+                        output.accept(ZmhBlocks.BRASS_STEAM_ENGINE_ITEM.get());
+                        output.accept(ZmhBlocks.INDUSTRIAL_STEAM_ENGINE_ITEM.get());
                         output.accept(ZmhItems.PRECISION_REGULATOR_UPGRADE.get());
                         output.accept(ZmhBlocks.COPPER_PIPED_REDSTONE_ITEM.get());
                         output.accept(ZmhBlocks.BRASS_PIPED_REDSTONE_ITEM.get());

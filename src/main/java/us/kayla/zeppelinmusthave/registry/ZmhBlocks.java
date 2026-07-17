@@ -13,6 +13,7 @@ import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerTier;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
+import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeItem;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeTier;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlock;
@@ -20,6 +21,8 @@ import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneRepeaterBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneTier;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeBlock;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
 
 public final class ZmhBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
@@ -62,7 +65,7 @@ public final class ZmhBlocks {
             "copper_boiler_base",
             () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.COPPER)
     );
-    public static final DeferredItem<BlockItem> COPPER_BOILER_BASE_ITEM = registerBlockItem(
+    public static final DeferredItem<BoilerGradeItem> COPPER_BOILER_BASE_ITEM = registerBoilerItem(
             "copper_boiler_base",
             COPPER_BOILER_BASE
     );
@@ -71,7 +74,7 @@ public final class ZmhBlocks {
             "brass_boiler_base",
             () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.BRASS)
     );
-    public static final DeferredItem<BlockItem> BRASS_BOILER_BASE_ITEM = registerBlockItem(
+    public static final DeferredItem<BoilerGradeItem> BRASS_BOILER_BASE_ITEM = registerBoilerItem(
             "brass_boiler_base",
             BRASS_BOILER_BASE
     );
@@ -80,9 +83,36 @@ public final class ZmhBlocks {
             "industrial_boiler_base",
             () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.INDUSTRIAL)
     );
-    public static final DeferredItem<BlockItem> INDUSTRIAL_BOILER_BASE_ITEM = registerBlockItem(
+    public static final DeferredItem<BoilerGradeItem> INDUSTRIAL_BOILER_BASE_ITEM = registerBoilerItem(
             "industrial_boiler_base",
             INDUSTRIAL_BOILER_BASE
+    );
+
+    public static final DeferredBlock<SteamEngineGradeBlock> COPPER_STEAM_ENGINE = BLOCKS.register(
+            "copper_steam_engine",
+            () -> new SteamEngineGradeBlock(steamEngineProperties(), SteamEngineGradeTier.COPPER)
+    );
+    public static final DeferredItem<BlockItem> COPPER_STEAM_ENGINE_ITEM = registerBlockItem(
+            "copper_steam_engine",
+            COPPER_STEAM_ENGINE
+    );
+
+    public static final DeferredBlock<SteamEngineGradeBlock> BRASS_STEAM_ENGINE = BLOCKS.register(
+            "brass_steam_engine",
+            () -> new SteamEngineGradeBlock(steamEngineProperties(), SteamEngineGradeTier.BRASS)
+    );
+    public static final DeferredItem<BlockItem> BRASS_STEAM_ENGINE_ITEM = registerBlockItem(
+            "brass_steam_engine",
+            BRASS_STEAM_ENGINE
+    );
+
+    public static final DeferredBlock<SteamEngineGradeBlock> INDUSTRIAL_STEAM_ENGINE = BLOCKS.register(
+            "industrial_steam_engine",
+            () -> new SteamEngineGradeBlock(steamEngineProperties(), SteamEngineGradeTier.INDUSTRIAL)
+    );
+    public static final DeferredItem<BlockItem> INDUSTRIAL_STEAM_ENGINE_ITEM = registerBlockItem(
+            "industrial_steam_engine",
+            INDUSTRIAL_STEAM_ENGINE
     );
 
     public static final DeferredBlock<PipedRedstoneBlock> COPPER_PIPED_REDSTONE = BLOCKS.register(
@@ -167,6 +197,16 @@ public final class ZmhBlocks {
         return BLOCK_ITEMS.registerSimpleBlockItem(name, block);
     }
 
+    private static DeferredItem<BoilerGradeItem> registerBoilerItem(
+            String name,
+            DeferredBlock<BoilerGradeBlock> block
+    ) {
+        return BLOCK_ITEMS.register(
+                name,
+                () -> new BoilerGradeItem(block.get(), new net.minecraft.world.item.Item.Properties())
+        );
+    }
+
     private static BlockBehaviour.Properties metalProperties() {
         return BlockBehaviour.Properties.of()
                 .mapColor(MapColor.METAL)
@@ -185,7 +225,13 @@ public final class ZmhBlocks {
     private static BlockBehaviour.Properties boilerGradeProperties() {
         return metalProperties()
                 .strength(4.0F, 10.0F)
-                .lightLevel(BoilerGradeBlock::getLightPower)
+                .noOcclusion()
+                .isRedstoneConductor((state, level, pos) -> true);
+    }
+
+    private static BlockBehaviour.Properties steamEngineProperties() {
+        return metalProperties()
+                .strength(4.0F, 10.0F)
                 .noOcclusion();
     }
 

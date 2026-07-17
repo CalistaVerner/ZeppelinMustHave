@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CPC",
+    "SES",
+    "CAC"
+  ],
+  "key": {
+    "A": {
+      "item": "create:andesite_casing"
+    },
+    "C": {
+      "item": "create:copper_sheet"
+    },
+    "E": {
+      "item": "create:steam_engine"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "S": {
+      "item": "create:shaft"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:copper_steam_engine",
+    "count": 1
+  }
+}

@@ -15,5 +15,10 @@
       "parent": "zeppelin_must_have:block/piped_redstone_native_lever/indicator"
     }
   },
-  "item_render_order": ["base", "handle", "indicator"]
+  "item_render_order": [
+    "base",
+    "handle",
+    "indicator"
+  ],
+  "render_type": "minecraft:cutout"
 }

@@ -1,6 +1,76 @@
 {
   "variants": {
-    "lit=false": {"model": "zeppelin_must_have:block/industrial_boiler_base"},
-    "lit=true": {"model": "zeppelin_must_have:block/industrial_boiler_base"}
+    "bottom=false,shape=plain,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_middle"
+    },
+    "bottom=false,shape=window,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_middle_window"
+    },
+    "bottom=false,shape=window_ne,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_middle_window_ne"
+    },
+    "bottom=false,shape=window_nw,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_middle_window_nw"
+    },
+    "bottom=false,shape=window_se,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_middle_window_se"
+    },
+    "bottom=false,shape=window_sw,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_middle_window_sw"
+    },
+    "bottom=false,shape=plain,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_top"
+    },
+    "bottom=false,shape=window,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_top_window"
+    },
+    "bottom=false,shape=window_ne,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_top_window_ne"
+    },
+    "bottom=false,shape=window_nw,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_top_window_nw"
+    },
+    "bottom=false,shape=window_se,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_top_window_se"
+    },
+    "bottom=false,shape=window_sw,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_top_window_sw"
+    },
+    "bottom=true,shape=plain,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_bottom"
+    },
+    "bottom=true,shape=window,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_bottom_window"
+    },
+    "bottom=true,shape=window_ne,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_bottom_window_ne"
+    },
+    "bottom=true,shape=window_nw,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_bottom_window_nw"
+    },
+    "bottom=true,shape=window_se,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_bottom_window_se"
+    },
+    "bottom=true,shape=window_sw,top=false": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_bottom_window_sw"
+    },
+    "bottom=true,shape=plain,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_single"
+    },
+    "bottom=true,shape=window,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_single_window"
+    },
+    "bottom=true,shape=window_ne,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_single_window_ne"
+    },
+    "bottom=true,shape=window_nw,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_single_window_nw"
+    },
+    "bottom=true,shape=window_se,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_single_window_se"
+    },
+    "bottom=true,shape=window_sw,top=true": {
+      "model": "zeppelin_must_have:block/industrial_boiler_base/block_single_window_sw"
+    }
   }
 }
