@@ -1,0 +1,186 @@
+{
+  "credit": "Zeppelin Must Have / us.Kayla \u2014 Create-compatible visual pass",
+  "textures": {
+    "particle": "#andesite",
+    "andesite": "create:block/andesite_casing",
+    "brass": "create:block/brass_casing",
+    "copper": "create:block/copper_casing",
+    "industrial": "create:block/industrial_iron_block",
+    "dark": "create:block/dark_metal_block",
+    "axis": "create:block/axis",
+    "gearbox": "create:block/gearbox",
+    "brass_gearbox": "create:block/brass_gearbox",
+    "fan_casing": "create:block/fan_casing",
+    "brazier": "create:block/blaze_heater_brazier",
+    "fluid_tank": "create:block/fluid_tank",
+    "fluid_window": "create:block/fluid_tank_window_single",
+    "rope": "create:block/pulley_rope",
+    "helm_panel": "zeppelin_must_have:block/zmh/helm_panel",
+    "altimeter": "zeppelin_must_have:block/zmh/altimeter",
+    "ballast_indicator": "zeppelin_must_have:block/zmh/ballast_indicator",
+    "burner_panel": "zeppelin_must_have:block/zmh/burner_panel"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        7,
+        6
+      ],
+      "to": [
+        10,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        9,
+        1
+      ],
+      "to": [
+        9,
+        10,
+        7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#industrial"
+        },
+        "east": {
+          "texture": "#industrial"
+        },
+        "south": {
+          "texture": "#industrial"
+        },
+        "west": {
+          "texture": "#industrial"
+        },
+        "up": {
+          "texture": "#industrial"
+        },
+        "down": {
+          "texture": "#industrial"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        9,
+        9
+      ],
+      "to": [
+        9,
+        10,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#industrial"
+        },
+        "east": {
+          "texture": "#industrial"
+        },
+        "south": {
+          "texture": "#industrial"
+        },
+        "west": {
+          "texture": "#industrial"
+        },
+        "up": {
+          "texture": "#industrial"
+        },
+        "down": {
+          "texture": "#industrial"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        9,
+        7
+      ],
+      "to": [
+        7,
+        10,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#industrial"
+        },
+        "east": {
+          "texture": "#industrial"
+        },
+        "south": {
+          "texture": "#industrial"
+        },
+        "west": {
+          "texture": "#industrial"
+        },
+        "up": {
+          "texture": "#industrial"
+        },
+        "down": {
+          "texture": "#industrial"
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        9,
+        7
+      ],
+      "to": [
+        15,
+        10,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#industrial"
+        },
+        "east": {
+          "texture": "#industrial"
+        },
+        "south": {
+          "texture": "#industrial"
+        },
+        "west": {
+          "texture": "#industrial"
+        },
+        "up": {
+          "texture": "#industrial"
+        },
+        "down": {
+          "texture": "#industrial"
+        }
+      }
+    }
+  ],
+  "parent": "minecraft:block/block"
+}

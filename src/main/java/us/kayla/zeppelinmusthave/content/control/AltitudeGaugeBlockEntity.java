@@ -5,7 +5,6 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.animation.LerpedFloat.Chaser;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -18,12 +17,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import us.kayla.zeppelinmusthave.content.helm.AirshipFlightSnapshot;
-import us.kayla.zeppelinmusthave.data.ZmhLang;
 import us.kayla.zeppelinmusthave.integration.AeronauticsFlightStateReader;
 import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
 
 import java.util.List;
-import java.util.Locale;
 
 public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
         implements IHaveGoggleInformation {
@@ -91,25 +88,12 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
         this.sampleAndUpdate();
         this.setChanged();
         this.sendData();
-
-        if (player != null) {
-            player.displayClientMessage(
-                    Component.translatable(
-                            "message.zeppelin_must_have.altitude_gauge.mode",
-                            Component.translatable(this.mode.translationKey())
-                    ).withStyle(ChatFormatting.GOLD),
-                    true
-            );
-        }
+        AltitudeGaugePresentation.notifyMode(this, player);
     }
 
     public void captureOrToggleAltitudeHold(Player player) {
         if (!this.snapshot.attached()) {
-            player.displayClientMessage(
-                    Component.translatable("message.zeppelin_must_have.altitude_gauge.detached")
-                            .withStyle(ChatFormatting.RED),
-                    true
-            );
+            AltitudeGaugePresentation.notifyDetached(player, true);
             return;
         }
 
@@ -138,56 +122,11 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
                     this.altitudeHoldEnabled ? 1.15F : 0.75F
             );
         }
-
-        player.displayClientMessage(
-                this.altitudeHoldEnabled
-                        ? Component.translatable(
-                                "message.zeppelin_must_have.altitude_gauge.hold_enabled",
-                                decimal(this.targetAltitude, 1)
-                        ).withStyle(ChatFormatting.AQUA)
-                        : Component.translatable(
-                                "message.zeppelin_must_have.altitude_gauge.hold_disabled"
-                        ).withStyle(ChatFormatting.GRAY),
-                true
-        );
+        AltitudeGaugePresentation.notifyHoldState(this, player);
     }
 
     public void sendStatusTo(Player player) {
-        if (!this.snapshot.attached()) {
-            player.displayClientMessage(
-                    Component.translatable("message.zeppelin_must_have.altitude_gauge.detached")
-                            .withStyle(ChatFormatting.RED),
-                    false
-            );
-            return;
-        }
-
-        player.displayClientMessage(
-                Component.translatable(
-                        "message.zeppelin_must_have.altitude_gauge.status",
-                        Component.translatable(this.mode.translationKey()),
-                        decimal(this.snapshot.worldY(), 1),
-                        signedDecimal(this.snapshot.velocityY(), 2),
-                        this.trimInput,
-                        this.outputSignal
-                ).withStyle(ChatFormatting.GOLD),
-                false
-        );
-
-        if (this.mode == AltitudeGaugeMode.ALTITUDE_HOLD) {
-            player.displayClientMessage(
-                    Component.translatable(
-                            this.altitudeHoldEnabled
-                                    ? "message.zeppelin_must_have.altitude_gauge.hold_status"
-                                    : "message.zeppelin_must_have.altitude_gauge.hold_standby",
-                            decimal(this.targetAltitude, 1),
-                            signedDecimal(this.targetAltitude - this.snapshot.worldY(), 1)
-                    ).withStyle(this.altitudeHoldEnabled
-                            ? ChatFormatting.AQUA
-                            : ChatFormatting.GRAY),
-                    false
-            );
-        }
+        AltitudeGaugePresentation.sendStatusTo(this, player);
     }
 
     @Override
@@ -195,105 +134,7 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
             List<Component> tooltip,
             boolean isPlayerSneaking
     ) {
-        ZmhLang.blockName(this.getBlockState()).text(":").forGoggles(tooltip, 1);
-
-        ZmhLang.translate(
-                        "goggles.altitude_gauge.mode",
-                        ZmhLang.translate(this.mode.translationKey())
-                                .style(ChatFormatting.GOLD)
-                                .component()
-                )
-                .style(ChatFormatting.GRAY)
-                .forGoggles(tooltip, 2);
-
-        if (!this.snapshot.attached()) {
-            ZmhLang.translate("goggles.altitude_gauge.detached")
-                    .style(ChatFormatting.RED)
-                    .forGoggles(tooltip, 2);
-            return true;
-        }
-
-        ZmhLang.translate(
-                        "goggles.altitude_gauge.altitude",
-                        Component.literal(decimal(this.snapshot.worldY(), 1) + " m")
-                                .withStyle(ChatFormatting.AQUA)
-                )
-                .style(ChatFormatting.GRAY)
-                .forGoggles(tooltip, 2);
-        ZmhLang.translate(
-                        "goggles.altitude_gauge.vertical_speed",
-                        Component.literal(signedDecimal(this.snapshot.velocityY(), 2) + " m/s")
-                                .withStyle(this.snapshot.velocityY() >= 0.0D
-                                        ? ChatFormatting.GREEN
-                                        : ChatFormatting.RED)
-                )
-                .style(ChatFormatting.GRAY)
-                .forGoggles(tooltip, 2);
-        ZmhLang.translate(
-                        "goggles.altitude_gauge.signal",
-                        Component.literal(Integer.toString(this.trimInput))
-                                .withStyle(ChatFormatting.DARK_RED),
-                        Component.literal(Integer.toString(this.outputSignal))
-                                .withStyle(ChatFormatting.RED)
-                )
-                .style(ChatFormatting.GRAY)
-                .forGoggles(tooltip, 2);
-
-        if (this.mode == AltitudeGaugeMode.BALLOON_FILL) {
-            ZmhLang.translate(
-                            "goggles.altitude_gauge.balloon_fill",
-                            Component.literal(decimal(this.snapshot.balloonFillRatio() * 100.0D, 1) + "%")
-                                    .withStyle(ChatFormatting.AQUA)
-                    )
-                    .style(ChatFormatting.GRAY)
-                    .forGoggles(tooltip, 2);
-        }
-
-        if (this.mode == AltitudeGaugeMode.ALTITUDE_HOLD) {
-            ZmhLang.emptyLine(tooltip);
-            ZmhLang.translate("goggles.altitude_gauge.hold").forGoggles(tooltip, 1);
-            ZmhLang.translate(
-                            "goggles.altitude_gauge.hold_state",
-                            ZmhLang.translate(this.altitudeHoldEnabled
-                                            ? "goggles.altitude_gauge.hold_enabled"
-                                            : "goggles.altitude_gauge.hold_disabled")
-                                    .style(this.altitudeHoldEnabled
-                                            ? ChatFormatting.GREEN
-                                            : ChatFormatting.GRAY)
-                                    .component()
-                    )
-                    .style(ChatFormatting.GRAY)
-                    .forGoggles(tooltip, 2);
-            ZmhLang.translate(
-                            "goggles.altitude_gauge.target",
-                            Component.literal(decimal(this.targetAltitude, 1) + " m")
-                                    .withStyle(ChatFormatting.AQUA)
-                    )
-                    .style(ChatFormatting.GRAY)
-                    .forGoggles(tooltip, 2);
-            ZmhLang.translate(
-                            "goggles.altitude_gauge.error",
-                            Component.literal(signedDecimal(
-                                    this.targetAltitude - this.snapshot.worldY(),
-                                    1
-                            ) + " m").withStyle(ChatFormatting.GOLD)
-                    )
-                    .style(ChatFormatting.GRAY)
-                    .forGoggles(tooltip, 2);
-        }
-
-        if (isPlayerSneaking) {
-            ZmhLang.emptyLine(tooltip);
-            ZmhLang.translate("goggles.altitude_gauge.controls").forGoggles(tooltip, 1);
-            ZmhLang.translate("goggles.altitude_gauge.controls.wrench")
-                    .style(ChatFormatting.DARK_GRAY)
-                    .forGoggles(tooltip, 2);
-            ZmhLang.translate("goggles.altitude_gauge.controls.capture")
-                    .style(ChatFormatting.DARK_GRAY)
-                    .forGoggles(tooltip, 2);
-        }
-
-        return true;
+        return AltitudeGaugePresentation.addToGoggleTooltip(this, tooltip, isPlayerSneaking);
     }
 
     @Override
@@ -323,6 +164,10 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
 
     public double getTargetAltitude() {
         return this.targetAltitude;
+    }
+
+    AirshipFlightSnapshot snapshot() {
+        return this.snapshot;
     }
 
     private void sampleAndUpdate() {
@@ -359,33 +204,19 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
     }
 
     private int calculateDesiredOutput() {
-        if (!this.snapshot.attached() || this.level == null) {
+        if (this.level == null) {
             return 0;
         }
-
-        return switch (this.mode) {
-            case ALTITUDE -> AltitudeControlMath.altitudeSignal(
-                    this.snapshot.worldY(),
-                    this.level.getMinBuildHeight(),
-                    this.level.getMaxBuildHeight()
-            );
-            case VERTICAL_SPEED -> AltitudeControlMath.verticalSpeedSignal(
-                    this.snapshot.velocityY(),
-                    this.activeProfile.verticalSpeedFullScale()
-            );
-            case BALLOON_FILL -> AltitudeControlMath.balloonFillSignal(
-                    this.snapshot.balloonFillRatio()
-            );
-            case ALTITUDE_HOLD -> this.altitudeHoldEnabled
-                    ? AltitudeControlMath.holdSignal(
-                            this.trimInput,
-                            this.targetAltitude,
-                            this.snapshot.worldY(),
-                            this.snapshot.velocityY(),
-                            this.activeProfile
-                    )
-                    : this.trimInput;
-        };
+        return AltitudeGaugeController.desiredOutput(
+                this.mode,
+                this.altitudeHoldEnabled,
+                this.trimInput,
+                this.targetAltitude,
+                this.snapshot,
+                this.activeProfile,
+                this.level.getMinBuildHeight(),
+                this.level.getMaxBuildHeight()
+        );
     }
 
     private int readTrimInput() {
@@ -479,11 +310,4 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
         super.read(tag, registries, clientPacket);
     }
 
-    private static String decimal(double value, int precision) {
-        return String.format(Locale.ROOT, "%." + precision + "f", value);
-    }
-
-    private static String signedDecimal(double value, int precision) {
-        return String.format(Locale.ROOT, "%+." + precision + "f", value);
-    }
 }

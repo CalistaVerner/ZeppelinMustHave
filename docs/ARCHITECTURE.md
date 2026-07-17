@@ -50,6 +50,34 @@ Block / Block Entity
 
 Upstream API calls are concentrated in `integration` or in subclasses explicitly intended by the upstream API.
 
+## Internal module boundaries
+
+The internal architecture is organized around small domain modules rather than global registration or presentation monoliths:
+
+```text
+Registry facade
+    ZmhBlocks
+        │
+        ├── ZmhAirshipBlocks
+        ├── ZmhSteamPowerBlocks
+        └── ZmhRedstoneBlocks
+
+Shared registration primitives
+    ZmhRegistryContext
+    ZmhBlockRegistrar
+    RegisteredBlock<B, I>
+```
+
+`ZmhBlockRegistrar` is the only block-and-block-item creation path. `ZmhBlocks` remains a stable public facade for existing source references but owns no construction logic. Creative-tab ordering is declared separately by `ZmhCreativeContents`.
+
+Runtime classes delegate non-lifecycle responsibilities to focused collaborators:
+
+- `AirshipBurnerConfiguration`, `AirshipBurnerStateCodec`, and `AirshipBurnerPresentation`;
+- `AltitudeGaugeController` and `AltitudeGaugePresentation`;
+- `PipedRedstoneTopology`, `PipedRedstonePlacement`, `PipedRedstoneNetworkDiscovery`, and `PipedRedstoneSignalSolver`.
+
+Ponder registration follows the same boundary: `ZmhPonderScenes` delegates to domain-specific storyboard classes. The complete internal map is documented in `docs/REFACTORING.md`.
+
 ## Airship Helm
 
 ### Server authority
@@ -114,7 +142,7 @@ The reservoir allows regular and superheated contributions to coexist. The super
 data/<namespace>/airship_burner_profiles/*.json
 ```
 
-The profile owns capacity, output scaling, consumption, throttle curve, and cast range. The reservoir owns stored energy. `AirshipBurnerMetrics` derives shared values once for status chat, Engineer's Goggles, and diagnostics.
+The profile owns capacity, output scaling, consumption, throttle curve, and cast range. The reservoir owns stored energy. `AirshipBurnerConfiguration` resolves the effective profile and observes profile, definition, and installed-upgrade revisions. `AirshipBurnerStateCodec` owns persistence and client snapshots. `AirshipBurnerMetrics` derives shared operating values, while `AirshipBurnerPresentation` owns chat and Engineer's Goggles formatting.
 
 Missing or invalid profiles fail closed without affecting Create or Aeronautics blocks.
 
@@ -212,7 +240,7 @@ Correction and final output are bounded to vanilla analog redstone `0..15`.
 
 ### Stability and failure behaviour
 
-`AltitudeControlMath` centralizes all calculations used by gameplay and tests. The controller adds:
+`AltitudeControlMath` provides reusable numerical primitives. `AltitudeGaugeController` owns the pure mode-selection and altitude-hold output policy used by the block entity. The controller adds:
 
 - altitude deadband;
 - bounded correction;
@@ -245,6 +273,56 @@ No force, balloon, pressure, or mass state is mutated by the controller. Aeronau
 
 `AltitudeControlGameTests` verifies telemetry scaling, deadband behaviour, proportional correction, vertical damping, and slew limiting independently of rendering or Ponder.
 
+## Ballast, Mooring, and Vertical Propulsion
+
+### Ballast mass pipeline
+
+`BallastTankBlockEntity` exposes a water-only NeoForge fluid capability. The resolved `BallastTankProfile` maps stored millibuckets to an absolute extra block mass. `SableBallastMassBridge` writes that value to the containing `ServerSubLevel.getSelfMassTracker()` through `MassTracker.addBlockMass`.
+
+```text
+FluidTank contents
+        │
+        ▼
+BallastTankProfile.massForAmount
+        │
+        ▼
+SableBallastMassBridge
+        │
+        ▼
+ServerSubLevel self MassTracker
+        │
+        ├── total mass
+        ├── center of mass
+        └── inertia tensor
+```
+
+The bridge stores only a transient binding to the current sub-level and last applied absolute addition. Fluid changes replace the previous contribution; removal and chunk unload restore the position to normal block mass by submitting zero additional mass. A tank outside a Sable sub-level remains a normal fluid handler.
+
+### Native mooring rope
+
+`MooringWinchBlock` extends Create Simulated `RopeWinchBlock`; `MooringWinchBlockEntity` extends its native block entity. Rope creation, strand segments, endpoint attachment, tension, break force, target length, constraints, and rendering therefore remain Create Simulated responsibilities.
+
+The add-on contributes only its stable registry identity, zeppelin-specific model, creative progression, localization, Ponder scene, and additional Engineer's Goggles status.
+
+### Native vertical propulsion
+
+`VerticalThrusterBlock` extends Aeronautics `BasePropellerBlock`; `VerticalThrusterBlockEntity` extends `BasePropellerBlockEntity`. The inherited `BlockEntitySubLevelPropellerActor` supplies propulsion through Sable `ForceGroups.PROPULSION` every physics tick.
+
+```text
+Create kinetic speed
+        │
+        ▼
+VerticalThrusterBlockEntity
+        │
+        ▼
+Aeronautics propeller contract
+        │
+        ▼
+Sable propulsion force at block position
+```
+
+Because Sable applies force at the physical mounting point, offset thrusters generate torque naturally. `VerticalThrusterProfile` controls thrust scaling, airflow, radius, and Create stress impact through a server reload listener.
+
 ## Graded Create Boiler Integration
 
 `BoilerGradeBlock` extends Create's `FluidTankBlock`; `BoilerGradeBlockEntity` extends `FluidTankBlockEntity`. The graded block is therefore the pressure vessel itself rather than a proxy heater placed below an ordinary tank.
@@ -276,7 +354,7 @@ GradedBoilerData.updateTemperature
 
 All downstream calculations remain Create-owned: shared fluid capacity, water-input sampling, boiler size, Steam Engine efficiency, Stress Unit output, whistles, comparator output, and maximum boiler level.
 
-NeoForge fluid capabilities are registered for all three grade-specific types. Client integration reuses Create's `FluidTankRenderer` and wraps the custom baked models with `FluidTankModel.standard`, preserving controller-only fluid rendering and internal-face culling.
+NeoForge fluid capabilities are registered for all three grade-specific types. Client integration reuses Create's controller-only `FluidTankRenderer`, while `GradedFluidTankModel` and `BoilerGradeSpriteShifts` supply grade-specific connected textures and internal-face culling. `BoilerGradeRenderer` selects matching gauge and dial partial models for each vessel grade.
 
 `BoilerGradeProfiles` reloads multiplier, additive heat, and per-column maximum output from server data packs. Existing controllers observe the revision, request a native temperature refresh, and synchronize a client snapshot for Engineer's Goggles.
 
@@ -333,14 +411,12 @@ The Create Wrench toggles the selected face and mirrors that change to an adjace
 
 Network rebuilds are requested after placement, removal, explicit port changes, or external redstone neighbor updates. One scheduled tick is attached to the canonical lowest-position anchor of the connected component.
 
-The solver performs:
+The network pipeline is split by responsibility:
 
-1. reciprocal-port component discovery;
-2. weakest-link profile aggregation;
-3. temporary removal of conduit output to avoid reading its own previous state;
-4. external analog source collection;
-5. priority traversal by strongest power and shortest path;
-6. blockstate power application and notification of non-conduit neighbors.
+1. `PipedRedstoneNetworkDiscovery` performs reciprocal-port component discovery and weakest-link profile aggregation;
+2. `PipedRedstoneNetworkManager` temporarily removes conduit output to avoid reading the previous network state;
+3. `PipedRedstoneSignalSolver` collects external analog sources and performs priority traversal by strongest power and shortest path;
+4. `PipedRedstoneNetworkManager` applies resolved blockstate power and notifies non-conduit neighbors.
 
 Power remains in the vanilla `0..15` range and is not attenuated per conduit. Paths beyond `max_signal_distance` are not energized.
 
@@ -389,18 +465,16 @@ Ordinary right-click cycles the setting. The selected position is represented by
 
 `ZmhPonderPlugin` implements `PonderPlugin` directly. It does not inherit Create's restore hooks or index exclusions.
 
-The plugin registers:
+`ZmhPonderScenes` is a small root registration point. Storyboards are grouped by domain:
 
-- category: `zeppelin_must_have:zeppelin_systems`;
-- scene: `helm/telemetry`;
-- scene: `burner/operation`;
-- scene: `redstone/conduits`.
+- `ZmhHelmPonderScenes` — `helm/telemetry`;
+- `ZmhBurnerPonderScenes` — `burner/operation`;
+- `ZmhSteamPowerPonderScenes` — `boiler/grades` and `steam_engine/grades`;
+- `ZmhControlPonderScenes` — `control/altitude_hold`;
+- `ZmhRedstonePonderScenes` — `redstone/conduits`;
+- `ZmhServicePonderScenes` — `service/ballast_tank`, `service/mooring_winch`, and `service/vertical_thruster`.
 
-Storyboards resolve to matching compressed structure templates under `assets/zeppelin_must_have/ponder`.
-
-Burner scenes update both blockstate and `AirshipBurnerBlockEntity` preview state through `WorldInstructions.modifyBlockEntity`. Preview block entities are explicitly marked virtual, so Ponder cannot join or alter real Aeronautics balloons.
-
-The scene places three independent virtual providers beneath one envelope and explains that Aeronautics combines them through the balloon's native heater collection. Scene text contains no profile tuning constants.
+All scenes remain under the `zeppelin_must_have:zeppelin_systems` tag and resolve to matching compressed structure templates. Burner scenes update both blockstate and virtual `AirshipBurnerBlockEntity` preview state through `WorldInstructions.modifyBlockEntity`, so Ponder cannot join or alter real Aeronautics balloons.
 
 ## Assets
 
@@ -435,8 +509,8 @@ Recipe resources use normal Minecraft shaped crafting and Create Mechanical Craf
 ## Next functional stages
 
 1. Helm ownership and pilot input protocol.
-2. Ballast Tank fluid capability and trim contribution.
-3. Vertical Thruster kinetic stress and Aeronautics force integration.
-4. Mooring constraints through Sable physics.
-5. Functional Altitude Gauge renderer and display-source integration.
-6. Automated GameTests for reload, fuel, profile synchronization, sub-level attachment, and balloon association.
+2. Distributed ballast automation and trim presets.
+3. Mooring tension alarms, line-length displays, and anchor-specific controls.
+4. Additional thruster grades and optional vectoring mechanisms.
+5. Automated integration tests inside assembled moving sub-levels.
+6. Expanded multiplayer authority and permission checks for vessel controls.

@@ -1,15 +1,8 @@
 package us.kayla.zeppelinmusthave.content.redstone.conduit;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.mojang.serialization.MapCodec;
-import com.simibubi.create.content.equipment.extendoGrip.ExtendoGripItem;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
-import net.createmod.catnip.placement.PlacementOffset;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -17,8 +10,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -43,8 +34,6 @@ public final class PipedRedstoneBlock extends PipeBlock
         implements SimpleWaterloggedBlock, IWrenchable {
     public static final IntegerProperty POWER = BlockStateProperties.POWER;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
-    private static final int PLACEMENT_HELPER_ID = PlacementHelpers.register(new PlacementHelper());
 
     private final PipedRedstoneTier tier;
     private final MapCodec<PipedRedstoneBlock> codec = MapCodec.unit(this);
@@ -121,39 +110,8 @@ public final class PipedRedstoneBlock extends PipeBlock
     ) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (!oldState.is(state.getBlock())) {
-            connectReciprocalPorts(level, pos, state);
+            PipedRedstoneTopology.connectReciprocalPorts(level, pos, state);
             PipedRedstoneNetworkManager.requestRebuild(level, pos);
-        }
-    }
-
-    private static void connectReciprocalPorts(
-            Level level,
-            BlockPos pos,
-            BlockState placedState
-    ) {
-        for (Direction direction : Direction.values()) {
-            if (!hasPort(placedState, direction)) {
-                continue;
-            }
-
-            BlockPos neighborPos = pos.relative(direction);
-            BlockState neighborState = level.getBlockState(neighborPos);
-            if (!(neighborState.getBlock() instanceof PipedRedstoneBlock)) {
-                continue;
-            }
-
-            Direction reciprocal = direction.getOpposite();
-            BlockState reshapedNeighbor = reshapeTerminalForTurn(
-                    level,
-                    neighborPos,
-                    neighborState,
-                    reciprocal
-            ).setValue(PROPERTY_BY_DIRECTION.get(reciprocal), true);
-
-            if (reshapedNeighbor != neighborState) {
-                level.setBlock(neighborPos, reshapedNeighbor, Block.UPDATE_ALL);
-            }
-            PipedRedstoneNetworkManager.requestRebuild(level, neighborPos);
         }
     }
 
@@ -161,45 +119,6 @@ public final class PipedRedstoneBlock extends PipeBlock
      * Turns a straight terminal into an elbow when a conduit is placed against
      * its side. Middle segments keep both axial connections and become a tee.
      */
-    private static BlockState reshapeTerminalForTurn(
-            Level level,
-            BlockPos pos,
-            BlockState state,
-            Direction newConnection
-    ) {
-        Direction connectedDirection = null;
-        int connectedConduits = 0;
-
-        for (Direction direction : Direction.values()) {
-            if (!hasPort(state, direction)) {
-                continue;
-            }
-            BlockState adjacent = level.getBlockState(pos.relative(direction));
-            if (adjacent.getBlock() instanceof PipedRedstoneBlock
-                    && hasPort(adjacent, direction.getOpposite())) {
-                connectedDirection = direction;
-                connectedConduits++;
-            }
-        }
-
-        if (connectedConduits != 1
-                || connectedDirection == null
-                || connectedDirection.getAxis() == newConnection.getAxis()) {
-            return state;
-        }
-
-        Direction dangling = connectedDirection.getOpposite();
-        if (!hasPort(state, dangling)) {
-            return state;
-        }
-
-        BlockState danglingNeighbor = level.getBlockState(pos.relative(dangling));
-        if (!danglingNeighbor.canBeReplaced()) {
-            return state;
-        }
-
-        return state.setValue(PROPERTY_BY_DIRECTION.get(dangling), false);
-    }
 
     @Override
     protected void onRemove(
@@ -259,7 +178,7 @@ public final class PipedRedstoneBlock extends PipeBlock
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        IPlacementHelper helper = PlacementHelpers.get(PLACEMENT_HELPER_ID);
+        IPlacementHelper helper = PipedRedstonePlacement.helper();
         if (helper.matchesItem(stack) && stack.getItem() instanceof BlockItem blockItem) {
             return helper.getOffset(player, level, state, pos, hitResult, stack)
                     .placeInWorld(level, blockItem, player, hand, hitResult);
@@ -368,82 +287,4 @@ public final class PipedRedstoneBlock extends PipeBlock
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, POWER, WATERLOGGED);
     }
 
-    private static final class PlacementHelper implements IPlacementHelper {
-        @Override
-        public Predicate<ItemStack> getItemPredicate() {
-            return stack -> stack.getItem() instanceof BlockItem blockItem
-                    && blockItem.getBlock() instanceof PipedRedstoneBlock;
-        }
-
-        @Override
-        public Predicate<BlockState> getStatePredicate() {
-            return state -> state.getBlock() instanceof PipedRedstoneBlock;
-        }
-
-        @Override
-        public PlacementOffset getOffset(
-                Player player,
-                Level level,
-                BlockState state,
-                BlockPos pos,
-                BlockHitResult hitResult
-        ) {
-            List<Direction> directions = IPlacementHelper.orderedByDistance(
-                    pos,
-                    hitResult.getLocation(),
-                    direction -> hasPort(state, direction)
-            );
-
-            for (Direction direction : directions) {
-                int range = AllConfigs.server().equipment.placementAssistRange.get();
-                if (player != null) {
-                    AttributeInstance reach = player.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
-                    if (reach != null
-                            && reach.hasModifier(ExtendoGripItem.singleRangeAttributeModifier.id())) {
-                        range += 4;
-                    }
-                }
-
-                BlockPos cursor = pos;
-                BlockState cursorState = state;
-                int attached = 0;
-
-                while (attached < range && cursorState.getBlock() instanceof PipedRedstoneBlock) {
-                    if (!hasPort(cursorState, direction)) {
-                        break;
-                    }
-
-                    BlockPos nextPos = cursor.relative(direction);
-                    BlockState nextState = level.getBlockState(nextPos);
-                    if (nextState.getBlock() instanceof PipedRedstoneBlock
-                            && hasPort(nextState, direction.getOpposite())) {
-                        cursor = nextPos;
-                        cursorState = nextState;
-                        attached++;
-                        continue;
-                    }
-
-                    if (!nextState.canBeReplaced()) {
-                        break;
-                    }
-
-                    Direction extensionDirection = direction;
-                    return PlacementOffset.success(nextPos, placedState -> {
-                        BlockState result = placedState;
-                        for (Direction candidate : Direction.values()) {
-                            result = result.setValue(PROPERTY_BY_DIRECTION.get(candidate), false);
-                        }
-                        return result
-                                .setValue(PROPERTY_BY_DIRECTION.get(extensionDirection), true)
-                                .setValue(
-                                        PROPERTY_BY_DIRECTION.get(extensionDirection.getOpposite()),
-                                        true
-                                );
-                    });
-                }
-            }
-
-            return PlacementOffset.fail();
-        }
-    }
 }

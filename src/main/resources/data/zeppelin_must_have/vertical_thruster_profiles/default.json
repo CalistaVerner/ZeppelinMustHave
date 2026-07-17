@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "thrust_scaling": 1.75,
+  "airflow_scaling": 0.12,
+  "radius": 1.0,
+  "stress_impact": 8.0
+}

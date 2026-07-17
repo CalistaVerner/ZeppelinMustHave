@@ -8,15 +8,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.WeakHashMap;
 
@@ -40,7 +36,11 @@ public final class PipedRedstoneNetworkManager {
             return;
         }
 
-        Network network = discover(serverLevel, start);
+        PipedRedstoneNetwork network = PipedRedstoneNetworkDiscovery.discover(
+                serverLevel,
+                start,
+                MAX_NETWORK_NODES
+        );
         if (network.positions().isEmpty()) {
             return;
         }
@@ -75,7 +75,11 @@ public final class PipedRedstoneNetworkManager {
             return;
         }
 
-        Network network = discover(level, start);
+        PipedRedstoneNetwork network = PipedRedstoneNetworkDiscovery.discover(
+                level,
+                start,
+                MAX_NETWORK_NODES
+        );
         if (network.positions().isEmpty()) {
             return;
         }
@@ -85,9 +89,9 @@ public final class PipedRedstoneNetworkManager {
             clearNetworkPower(level, network);
             notifyExternalNeighbors(level, network.positions());
 
-            Map<BlockPos, SignalPath> resolved = network.truncated()
+            Map<BlockPos, PipedRedstoneSignalPath> resolved = network.truncated()
                     ? Map.of()
-                    : solveSignal(level, network);
+                    : PipedRedstoneSignalSolver.solve(level, network);
 
             List<BlockPos> changed = applyResolvedPower(level, network, resolved);
             notifyExternalNeighbors(level, changed);
@@ -104,61 +108,7 @@ public final class PipedRedstoneNetworkManager {
         }
     }
 
-    private static Network discover(ServerLevel level, BlockPos start) {
-        BlockState startState = level.getBlockState(start);
-        if (!(startState.getBlock() instanceof PipedRedstoneBlock)) {
-            return Network.EMPTY;
-        }
-
-        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
-        Set<BlockPos> positions = new HashSet<>();
-        queue.add(start.immutable());
-
-        int delay = 1;
-        int maxDistance = Integer.MAX_VALUE;
-        boolean truncated = false;
-
-        while (!queue.isEmpty()) {
-            BlockPos pos = queue.removeFirst();
-            if (!positions.add(pos)) {
-                continue;
-            }
-            if (positions.size() > MAX_NETWORK_NODES) {
-                truncated = true;
-                break;
-            }
-
-            BlockState state = level.getBlockState(pos);
-            if (!(state.getBlock() instanceof PipedRedstoneBlock conduit)) {
-                positions.remove(pos);
-                continue;
-            }
-
-            PipedRedstoneProfile profile = PipedRedstoneProfiles.INSTANCE.resolve(conduit.tier());
-            delay = Math.max(delay, profile.propagationDelayTicks());
-            maxDistance = Math.min(maxDistance, profile.maxSignalDistance());
-
-            for (Direction direction : Direction.values()) {
-                if (!PipedRedstoneBlock.hasPort(state, direction)) {
-                    continue;
-                }
-                BlockPos neighborPos = pos.relative(direction);
-                BlockState neighborState = level.getBlockState(neighborPos);
-                if (neighborState.getBlock() instanceof PipedRedstoneBlock
-                        && PipedRedstoneBlock.hasPort(neighborState, direction.getOpposite())
-                        && !positions.contains(neighborPos)) {
-                    queue.addLast(neighborPos.immutable());
-                }
-            }
-        }
-
-        if (maxDistance == Integer.MAX_VALUE) {
-            maxDistance = 1;
-        }
-        return new Network(Set.copyOf(positions), delay, maxDistance, truncated);
-    }
-
-    private static void clearNetworkPower(ServerLevel level, Network network) {
+    private static void clearNetworkPower(ServerLevel level, PipedRedstoneNetwork network) {
         for (BlockPos pos : network.positions()) {
             BlockState state = level.getBlockState(pos);
             if (!(state.getBlock() instanceof PipedRedstoneBlock)
@@ -173,98 +123,10 @@ public final class PipedRedstoneNetworkManager {
         }
     }
 
-    private static Map<BlockPos, SignalPath> solveSignal(ServerLevel level, Network network) {
-        PriorityQueue<SignalCandidate> queue = new PriorityQueue<>(
-                Comparator.comparingInt(SignalCandidate::power).reversed()
-                        .thenComparingInt(SignalCandidate::distance)
-        );
-        Map<BlockPos, SignalPath> resolved = new HashMap<>();
-
-        for (BlockPos pos : network.positions()) {
-            BlockState state = level.getBlockState(pos);
-            int sourcePower = readExternalSource(level, pos, state);
-            if (sourcePower > 0) {
-                queue.add(new SignalCandidate(pos, sourcePower, 0));
-            }
-        }
-
-        while (!queue.isEmpty()) {
-            SignalCandidate candidate = queue.poll();
-            SignalPath previous = resolved.get(candidate.pos());
-            if (previous != null && !candidate.isBetterThan(previous)) {
-                continue;
-            }
-
-            resolved.put(
-                    candidate.pos(),
-                    new SignalPath(candidate.power(), candidate.distance())
-            );
-
-            if (candidate.distance() >= network.maxSignalDistance()) {
-                continue;
-            }
-
-            BlockState state = level.getBlockState(candidate.pos());
-            for (Direction direction : Direction.values()) {
-                if (!PipedRedstoneBlock.hasPort(state, direction)) {
-                    continue;
-                }
-
-                BlockPos neighborPos = candidate.pos().relative(direction);
-                if (!network.positions().contains(neighborPos)) {
-                    continue;
-                }
-                BlockState neighborState = level.getBlockState(neighborPos);
-                if (!PipedRedstoneBlock.hasPort(neighborState, direction.getOpposite())) {
-                    continue;
-                }
-
-                SignalCandidate next = new SignalCandidate(
-                        neighborPos,
-                        candidate.power(),
-                        candidate.distance() + 1
-                );
-                SignalPath known = resolved.get(neighborPos);
-                if (known == null || next.isBetterThan(known)) {
-                    queue.add(next);
-                }
-            }
-        }
-
-        return Map.copyOf(resolved);
-    }
-
-    private static int readExternalSource(
-            ServerLevel level,
-            BlockPos pos,
-            BlockState state
-    ) {
-        int strongest = 0;
-        for (Direction direction : Direction.values()) {
-            if (!PipedRedstoneBlock.hasPort(state, direction)) {
-                continue;
-            }
-
-            BlockPos neighborPos = pos.relative(direction);
-            BlockState neighborState = level.getBlockState(neighborPos);
-            if (neighborState.getBlock() instanceof PipedRedstoneBlock) {
-                // Pipes are only connected through reciprocal ports, never
-                // through vanilla weak-power adjacency.
-                continue;
-            }
-
-            strongest = Math.max(
-                    strongest,
-                    level.getSignal(neighborPos, direction)
-            );
-        }
-        return strongest;
-    }
-
     private static List<BlockPos> applyResolvedPower(
             ServerLevel level,
-            Network network,
-            Map<BlockPos, SignalPath> resolved
+            PipedRedstoneNetwork network,
+            Map<BlockPos, PipedRedstoneSignalPath> resolved
     ) {
         List<BlockPos> changed = new ArrayList<>();
         for (BlockPos pos : network.positions()) {
@@ -273,7 +135,7 @@ public final class PipedRedstoneNetworkManager {
                 continue;
             }
 
-            int power = resolved.getOrDefault(pos, SignalPath.OFF).power();
+            int power = resolved.getOrDefault(pos, PipedRedstoneSignalPath.OFF).power();
             if (state.getValue(PipedRedstoneBlock.POWER) == power) {
                 continue;
             }
@@ -311,23 +173,4 @@ public final class PipedRedstoneNetworkManager {
         }
     }
 
-    private record Network(
-            Set<BlockPos> positions,
-            int delayTicks,
-            int maxSignalDistance,
-            boolean truncated
-    ) {
-        private static final Network EMPTY = new Network(Set.of(), 1, 1, false);
-    }
-
-    private record SignalPath(int power, int distance) {
-        private static final SignalPath OFF = new SignalPath(0, Integer.MAX_VALUE);
-    }
-
-    private record SignalCandidate(BlockPos pos, int power, int distance) {
-        private boolean isBetterThan(SignalPath previous) {
-            return this.power > previous.power()
-                    || (this.power == previous.power() && this.distance < previous.distance());
-        }
-    }
 }

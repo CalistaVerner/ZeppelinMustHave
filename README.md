@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.9.0
+Zeppelin Must Have 0.10.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -245,6 +245,30 @@ All controller gains, sampling rate, damping, and slew limits are data-pack driv
 
 Documentation: `docs/ALTITUDE_CONTROL.md`.
 
+## Ballast Tank and Mass Trim
+
+The Ballast Tank is a water-only NeoForge fluid handler with an `8000 mB` bundled capacity. It accepts buckets and Create fluid pipes, exposes comparator fill output, and renders the stored level in its front service gauge.
+
+When installed inside a moving Sable sub-level, stored water is applied directly to `ServerSubLevel.getSelfMassTracker()`. This changes the real rigid-body mass, center of mass, and inertia tensor rather than applying an artificial downward force. The bundled profile assigns `1000 kg` per bucket of ballast water.
+
+Capacity and fluid density are data-driven through `data/*/ballast_tank_profiles/*.json`. Documentation: `docs/BALLAST_TANK.md`.
+
+## Physical Mooring Winch
+
+The Mooring Winch is a specialized descendant of Create Simulated's Rope Winch. It reuses the native kinetic winch behavior, rope strand, endpoint attachment, tension, break force, rendering, and Sable physics constraints.
+
+Shaft rotation pays out or retrieves the line. A moored zeppelin remains physically simulated and may move within the rope length while propulsion, lift, ballast, and wind-equivalent forces act on it.
+
+Documentation: `docs/MOORING_WINCH.md`.
+
+## Vertical Thruster
+
+The Vertical Thruster is a Create-powered Aeronautics propeller restricted to upward/downward installation. Its block entity participates in the native `BlockEntitySubLevelPropellerActor` pipeline, so Sable applies propulsion force at the thruster's physical mounting position every physics tick.
+
+Create Wrench interaction reverses thrust or flips the unit between upward and downward operation. The bundled profile provides `1.75×` thrust scaling with `8 SU` stress impact. Thrust, airflow, radius, and stress are data-driven through `data/*/vertical_thruster_profiles/*.json`.
+
+Documentation: `docs/VERTICAL_THRUSTER.md`.
+
 ## Ponder
 
 The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Systems**.
@@ -255,6 +279,9 @@ Implemented scenes:
 - **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, native Aeronautics aggregation, and installation/removal of the three upgrade socket types;
 - **Protected Redstone for Airships** — explicit non-merging ports, waterlogging, three conduit tiers, adjustable repeater delay, and weakest-link mixed-tier behaviour;
 - **Automatic Altitude Control** — trim input, four sensor/controller modes, target capture, damping, and burner output routing.
+- **Ballast Tank** — fluid handling, dynamic Sable mass, center-of-mass trim, and comparator output;
+- **Mooring Winch** — kinetic rope deployment and native Simulated rope physics;
+- **Vertical Thruster** — Create kinetic input, thrust reversal, and native Sable/Aeronautics propulsion.
 
 Scene structures are stored at:
 
@@ -263,6 +290,9 @@ assets/zeppelin_must_have/ponder/helm/telemetry.nbt
 assets/zeppelin_must_have/ponder/burner/operation.nbt
 assets/zeppelin_must_have/ponder/redstone/conduits.nbt
 assets/zeppelin_must_have/ponder/control/altitude_hold.nbt
+assets/zeppelin_must_have/ponder/service/ballast_tank.nbt
+assets/zeppelin_must_have/ponder/service/mooring_winch.nbt
+assets/zeppelin_must_have/ponder/service/vertical_thruster.nbt
 ```
 
 Ponder preview state is applied through the burner block entity rather than by faking only its blockstate.
@@ -316,7 +346,7 @@ All registered equipment blocks and upgrade modules have production recipes; eve
 | Altitude Gauge | Simulated altitude sensor, Create speedometer, precision mechanisms, brass sheets, and compass |
 | Vertical Thruster | Aeronautics propeller and gyroscopic bearing with Create Encased Fans and brass casing |
 
-The Ballast Tank, Mooring Winch, and Vertical Thruster currently have production assets and recipes; their functional block entities are subsequent implementation stages. The Altitude Gauge is fully functional as of `0.8.0`.
+The Ballast Tank, Mooring Winch, Vertical Thruster, and Altitude Gauge are fully functional. Their gameplay implementations use the native Sable mass tracker, Create Simulated rope system, Aeronautics propeller actor, and server-authoritative altitude-control pipeline respectively.
 
 ## Version matrix
 
@@ -332,7 +362,13 @@ The Ballast Tank, Mooring Winch, and Vertical Thruster currently have production
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.9.0` |
+| Zeppelin Must Have | `0.10.0` |
+
+## Internal code organization
+
+Registration and runtime responsibilities are split by domain. `ZmhBlocks` remains the stable public facade, while construction is delegated to the airship, steam-power, and redstone catalogs through a shared typed registrar. Large runtime classes delegate presentation, configuration, persistence, topology, graph discovery, and signal solving to focused collaborators.
+
+See [`docs/REFACTORING.md`](docs/REFACTORING.md) for the complete internal module map and compatibility invariants.
 
 ## Development
 

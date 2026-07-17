@@ -1,23 +1,17 @@
 package us.kayla.zeppelinmusthave;
 
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.api.stress.BlockStressValues;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
-import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerProfiles;
-import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlockEntity;
-import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeProfiles;
-import us.kayla.zeppelinmusthave.content.control.AltitudeControlProfiles;
-import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneProfiles;
-import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeProfiles;
-import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
-import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeDefinitions;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineStressRegistration;
+import us.kayla.zeppelinmusthave.content.thruster.VerticalThrusterStressRegistration;
+import us.kayla.zeppelinmusthave.data.ZmhDataReloaders;
 import us.kayla.zeppelinmusthave.integration.SimulatedStack;
-import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
+import us.kayla.zeppelinmusthave.registry.ZmhCapabilities;
 import us.kayla.zeppelinmusthave.registry.ZmhRegistries;
 
 import java.util.Map;
@@ -31,14 +25,9 @@ public final class ZeppelinMustHave {
         Map<String, String> dependencyVersions = SimulatedStack.loadedVersions();
 
         ZmhRegistries.register(modEventBus);
-        modEventBus.addListener(BoilerGradeBlockEntity::registerCapabilities);
+        modEventBus.addListener(ZmhCapabilities::register);
         modEventBus.addListener(this::commonSetup);
-        AirshipBurnerProfiles.register();
-        BoilerGradeProfiles.register();
-        SteamEngineGradeProfiles.register();
-        AirshipUpgradeDefinitions.register();
-        AltitudeControlProfiles.register();
-        PipedRedstoneProfiles.register();
+        ZmhDataReloaders.registerAll();
 
         LOGGER.info(
                 "Initializing {} {} by us.Kayla on stack {}",
@@ -48,24 +37,11 @@ public final class ZeppelinMustHave {
         );
     }
 
-
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            registerSteamEngineStress(ZmhBlocks.COPPER_STEAM_ENGINE.get(), SteamEngineGradeTier.COPPER);
-            registerSteamEngineStress(ZmhBlocks.BRASS_STEAM_ENGINE.get(), SteamEngineGradeTier.BRASS);
-            registerSteamEngineStress(ZmhBlocks.INDUSTRIAL_STEAM_ENGINE.get(), SteamEngineGradeTier.INDUSTRIAL);
+            SteamEngineStressRegistration.registerAll();
+            VerticalThrusterStressRegistration.register();
         });
-    }
-
-    private static void registerSteamEngineStress(
-            net.minecraft.world.level.block.Block block,
-            SteamEngineGradeTier tier
-    ) {
-        BlockStressValues.CAPACITIES.register(
-                block,
-                () -> SteamEngineGradeProfiles.INSTANCE.resolve(tier).stressCapacity()
-        );
-        BlockStressValues.RPM.register(block, new BlockStressValues.GeneratedRpm(64, true));
     }
 
     public static ResourceLocation id(String path) {

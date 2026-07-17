@@ -10,13 +10,18 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.client.renderer.AltitudeGaugeRenderer;
+import us.kayla.zeppelinmusthave.client.renderer.BallastTankRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.BoilerGaugePartialModels;
 import us.kayla.zeppelinmusthave.client.renderer.BoilerGradeRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.BoilerGradeSpriteShifts;
 import us.kayla.zeppelinmusthave.client.renderer.GradedFluidTankModel;
+import us.kayla.zeppelinmusthave.client.renderer.MooringWinchPartialModels;
+import us.kayla.zeppelinmusthave.client.renderer.MooringWinchRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.PipedRedstoneNativeLeverRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.SteamEngineGradePartialModels;
 import us.kayla.zeppelinmusthave.client.renderer.SteamEngineGradeRenderer;
+import us.kayla.zeppelinmusthave.client.renderer.VerticalThrusterPartialModels;
+import us.kayla.zeppelinmusthave.client.renderer.VerticalThrusterRenderer;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeTier;
 import us.kayla.zeppelinmusthave.ponder.ZmhPonderPlugin;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
@@ -28,6 +33,8 @@ public final class ZeppelinMustHaveClient {
         BoilerGradeSpriteShifts.init();
         BoilerGaugePartialModels.init();
         SteamEngineGradePartialModels.init();
+        VerticalThrusterPartialModels.init();
+        MooringWinchPartialModels.init();
         PonderIndex.addPlugin(new ZmhPonderPlugin());
         modEventBus.addListener(this::registerRenderers);
         modEventBus.addListener(this::modifyBakedModels);
@@ -46,6 +53,18 @@ public final class ZeppelinMustHaveClient {
         event.registerBlockEntityRenderer(
                 ZmhBlockEntityTypes.ALTITUDE_GAUGE.get(),
                 AltitudeGaugeRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.BALLAST_TANK.get(),
+                BallastTankRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.MOORING_WINCH.get(),
+                context -> (BlockEntityRenderer) new MooringWinchRenderer(context)
+        );
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.VERTICAL_THRUSTER.get(),
+                VerticalThrusterRenderer::new
         );
         event.registerBlockEntityRenderer(
                 ZmhBlockEntityTypes.COPPER_BOILER.get(),

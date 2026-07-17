@@ -1,0 +1,186 @@
+{
+  "credit": "Zeppelin Must Have / us.Kayla \u2014 Create-compatible visual pass",
+  "textures": {
+    "particle": "#andesite",
+    "andesite": "create:block/andesite_casing",
+    "brass": "create:block/brass_casing",
+    "copper": "create:block/copper_casing",
+    "industrial": "create:block/industrial_iron_block",
+    "dark": "create:block/dark_metal_block",
+    "axis": "create:block/axis",
+    "gearbox": "create:block/gearbox",
+    "brass_gearbox": "create:block/brass_gearbox",
+    "fan_casing": "create:block/fan_casing",
+    "brazier": "create:block/blaze_heater_brazier",
+    "fluid_tank": "create:block/fluid_tank",
+    "fluid_window": "create:block/fluid_tank_window_single",
+    "rope": "create:block/pulley_rope",
+    "helm_panel": "zeppelin_must_have:block/zmh/helm_panel",
+    "altimeter": "zeppelin_must_have:block/zmh/altimeter",
+    "ballast_indicator": "zeppelin_must_have:block/zmh/ballast_indicator",
+    "burner_panel": "zeppelin_must_have:block/zmh/burner_panel"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        3,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        3,
+        2
+      ],
+      "to": [
+        14,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#fan_casing"
+        },
+        "east": {
+          "texture": "#fan_casing"
+        },
+        "south": {
+          "texture": "#fan_casing"
+        },
+        "west": {
+          "texture": "#fan_casing"
+        },
+        "up": {
+          "texture": "#fan_casing"
+        },
+        "down": {
+          "texture": "#fan_casing"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        12,
+        1
+      ],
+      "to": [
+        15,
+        15,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        4,
+        6
+      ],
+      "to": [
+        3,
+        14,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        4,
+        6
+      ],
+      "to": [
+        16,
+        14,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    }
+  ],
+  "parent": "minecraft:block/block"
+}

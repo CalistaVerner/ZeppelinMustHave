@@ -92,3 +92,46 @@ A reusable profile file is available at:
 ```text
 docs/templates/airship_burner_profile.template.json
 ```
+
+
+## Ballast Tank profile
+
+Ballast Tank profiles are loaded from:
+
+```text
+data/<namespace>/ballast_tank_profiles/<profile>.json
+```
+
+Bundled `zeppelin_must_have:default`:
+
+```json
+{
+  "schema_version": 1,
+  "capacity_mb": 8000,
+  "mass_per_bucket_kg": 1000.0
+}
+```
+
+`capacity_mb` is constrained to `1000..64000`. `mass_per_bucket_kg` is the absolute extra Sable mass contributed by `1000 mB` of stored fluid. Existing tanks clamp their contents to a reduced capacity and reapply mass through the normal Sable tracker after `/reload`.
+
+## Vertical Thruster profile
+
+Vertical Thruster profiles are loaded from:
+
+```text
+data/<namespace>/vertical_thruster_profiles/<profile>.json
+```
+
+Bundled `zeppelin_must_have:default`:
+
+```json
+{
+  "schema_version": 1,
+  "thrust_scaling": 1.75,
+  "airflow_scaling": 0.12,
+  "radius": 1.0,
+  "stress_impact": 8.0
+}
+```
+
+The first three fields are passed into the inherited Aeronautics propeller contract. `stress_impact` is resolved by Create's reload-aware block stress supplier. Existing thrusters synchronize the new effective profile to clients after `/reload`.

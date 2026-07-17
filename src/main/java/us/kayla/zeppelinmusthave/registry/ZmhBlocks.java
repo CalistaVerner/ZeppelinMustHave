@@ -1,264 +1,89 @@
 package us.kayla.zeppelinmusthave.registry;
 
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import us.kayla.zeppelinmusthave.ZeppelinMustHave;
-import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
-import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerTier;
+import us.kayla.zeppelinmusthave.content.ballast.BallastTankBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeItem;
-import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeTier;
+import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlock;
+import us.kayla.zeppelinmusthave.content.mooring.MooringWinchBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneRepeaterBlock;
-import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneTier;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeBlock;
-import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
+import us.kayla.zeppelinmusthave.content.thruster.VerticalThrusterBlock;
 
+/**
+ * Stable public facade for block and block-item handles.
+ *
+ * <p>Actual definitions are split into domain catalogs. Keeping this facade
+ * preserves all existing source references and registry IDs.</p>
+ */
 public final class ZmhBlocks {
-    public static final DeferredRegister.Blocks BLOCKS =
-            DeferredRegister.createBlocks(ZeppelinMustHave.MOD_ID);
+    public static final DeferredBlock<AirshipHelmBlock> AIRSHIP_HELM = ZmhAirshipBlocks.HELM.block();
+    public static final DeferredItem<BlockItem> AIRSHIP_HELM_ITEM = ZmhAirshipBlocks.HELM.item();
 
-    public static final DeferredRegister.Items BLOCK_ITEMS =
-            DeferredRegister.createItems(ZeppelinMustHave.MOD_ID);
+    public static final DeferredBlock<AirshipBurnerBlock> AIRSHIP_BURNER = ZmhAirshipBlocks.STANDARD_BURNER.block();
+    public static final DeferredItem<BlockItem> AIRSHIP_BURNER_ITEM = ZmhAirshipBlocks.STANDARD_BURNER.item();
+    public static final DeferredBlock<AirshipBurnerBlock> FORCED_DRAFT_AIRSHIP_BURNER =
+            ZmhAirshipBlocks.FORCED_DRAFT_BURNER.block();
+    public static final DeferredItem<BlockItem> FORCED_DRAFT_AIRSHIP_BURNER_ITEM =
+            ZmhAirshipBlocks.FORCED_DRAFT_BURNER.item();
+    public static final DeferredBlock<AirshipBurnerBlock> INDUSTRIAL_AIRSHIP_BURNER =
+            ZmhAirshipBlocks.INDUSTRIAL_BURNER.block();
+    public static final DeferredItem<BlockItem> INDUSTRIAL_AIRSHIP_BURNER_ITEM =
+            ZmhAirshipBlocks.INDUSTRIAL_BURNER.item();
 
-    public static final DeferredBlock<AirshipHelmBlock> AIRSHIP_HELM = BLOCKS.register(
-            "airship_helm",
-            () -> new AirshipHelmBlock(metalProperties())
-    );
-    public static final DeferredItem<BlockItem> AIRSHIP_HELM_ITEM = registerBlockItem("airship_helm", AIRSHIP_HELM);
+    public static final DeferredBlock<BoilerGradeBlock> COPPER_BOILER_BASE = ZmhSteamPowerBlocks.COPPER_BOILER.block();
+    public static final DeferredItem<BoilerGradeItem> COPPER_BOILER_BASE_ITEM = ZmhSteamPowerBlocks.COPPER_BOILER.item();
+    public static final DeferredBlock<BoilerGradeBlock> BRASS_BOILER_BASE = ZmhSteamPowerBlocks.BRASS_BOILER.block();
+    public static final DeferredItem<BoilerGradeItem> BRASS_BOILER_BASE_ITEM = ZmhSteamPowerBlocks.BRASS_BOILER.item();
+    public static final DeferredBlock<BoilerGradeBlock> INDUSTRIAL_BOILER_BASE =
+            ZmhSteamPowerBlocks.INDUSTRIAL_BOILER.block();
+    public static final DeferredItem<BoilerGradeItem> INDUSTRIAL_BOILER_BASE_ITEM =
+            ZmhSteamPowerBlocks.INDUSTRIAL_BOILER.item();
 
-    public static final DeferredBlock<AirshipBurnerBlock> AIRSHIP_BURNER = BLOCKS.register(
-            "airship_burner",
-            () -> new AirshipBurnerBlock(burnerProperties(), AirshipBurnerTier.STANDARD)
-    );
-    public static final DeferredItem<BlockItem> AIRSHIP_BURNER_ITEM = registerBlockItem("airship_burner", AIRSHIP_BURNER);
+    public static final DeferredBlock<SteamEngineGradeBlock> COPPER_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.COPPER_ENGINE.block();
+    public static final DeferredItem<BlockItem> COPPER_STEAM_ENGINE_ITEM = ZmhSteamPowerBlocks.COPPER_ENGINE.item();
+    public static final DeferredBlock<SteamEngineGradeBlock> BRASS_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.BRASS_ENGINE.block();
+    public static final DeferredItem<BlockItem> BRASS_STEAM_ENGINE_ITEM = ZmhSteamPowerBlocks.BRASS_ENGINE.item();
+    public static final DeferredBlock<SteamEngineGradeBlock> INDUSTRIAL_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.INDUSTRIAL_ENGINE.block();
+    public static final DeferredItem<BlockItem> INDUSTRIAL_STEAM_ENGINE_ITEM =
+            ZmhSteamPowerBlocks.INDUSTRIAL_ENGINE.item();
 
-    public static final DeferredBlock<AirshipBurnerBlock> FORCED_DRAFT_AIRSHIP_BURNER = BLOCKS.register(
-            "forced_draft_airship_burner",
-            () -> new AirshipBurnerBlock(burnerProperties(), AirshipBurnerTier.FORCED_DRAFT)
-    );
-    public static final DeferredItem<BlockItem> FORCED_DRAFT_AIRSHIP_BURNER_ITEM = registerBlockItem(
-            "forced_draft_airship_burner",
-            FORCED_DRAFT_AIRSHIP_BURNER
-    );
+    public static final DeferredBlock<PipedRedstoneBlock> COPPER_PIPED_REDSTONE = ZmhRedstoneBlocks.COPPER_CONDUIT.block();
+    public static final DeferredItem<BlockItem> COPPER_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.COPPER_CONDUIT.item();
+    public static final DeferredBlock<PipedRedstoneBlock> BRASS_PIPED_REDSTONE = ZmhRedstoneBlocks.BRASS_CONDUIT.block();
+    public static final DeferredItem<BlockItem> BRASS_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.BRASS_CONDUIT.item();
+    public static final DeferredBlock<PipedRedstoneBlock> RESONANT_PIPED_REDSTONE = ZmhRedstoneBlocks.RESONANT_CONDUIT.block();
+    public static final DeferredItem<BlockItem> RESONANT_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.RESONANT_CONDUIT.item();
+    public static final DeferredBlock<PipedRedstoneNativeLeverBlock> PIPED_REDSTONE_NATIVE_LEVER =
+            ZmhRedstoneBlocks.NATIVE_LEVER.block();
+    public static final DeferredItem<BlockItem> PIPED_REDSTONE_NATIVE_LEVER_ITEM = ZmhRedstoneBlocks.NATIVE_LEVER.item();
+    public static final DeferredBlock<PipedRedstoneRepeaterBlock> PIPED_REDSTONE_REPEATER =
+            ZmhRedstoneBlocks.REPEATER.block();
+    public static final DeferredItem<BlockItem> PIPED_REDSTONE_REPEATER_ITEM = ZmhRedstoneBlocks.REPEATER.item();
 
-    public static final DeferredBlock<AirshipBurnerBlock> INDUSTRIAL_AIRSHIP_BURNER = BLOCKS.register(
-            "industrial_airship_burner",
-            () -> new AirshipBurnerBlock(burnerProperties(), AirshipBurnerTier.INDUSTRIAL)
-    );
-    public static final DeferredItem<BlockItem> INDUSTRIAL_AIRSHIP_BURNER_ITEM = registerBlockItem(
-            "industrial_airship_burner",
-            INDUSTRIAL_AIRSHIP_BURNER
-    );
-
-    public static final DeferredBlock<BoilerGradeBlock> COPPER_BOILER_BASE = BLOCKS.register(
-            "copper_boiler_base",
-            () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.COPPER)
-    );
-    public static final DeferredItem<BoilerGradeItem> COPPER_BOILER_BASE_ITEM = registerBoilerItem(
-            "copper_boiler_base",
-            COPPER_BOILER_BASE
-    );
-
-    public static final DeferredBlock<BoilerGradeBlock> BRASS_BOILER_BASE = BLOCKS.register(
-            "brass_boiler_base",
-            () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.BRASS)
-    );
-    public static final DeferredItem<BoilerGradeItem> BRASS_BOILER_BASE_ITEM = registerBoilerItem(
-            "brass_boiler_base",
-            BRASS_BOILER_BASE
-    );
-
-    public static final DeferredBlock<BoilerGradeBlock> INDUSTRIAL_BOILER_BASE = BLOCKS.register(
-            "industrial_boiler_base",
-            () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.INDUSTRIAL)
-    );
-    public static final DeferredItem<BoilerGradeItem> INDUSTRIAL_BOILER_BASE_ITEM = registerBoilerItem(
-            "industrial_boiler_base",
-            INDUSTRIAL_BOILER_BASE
-    );
-
-    public static final DeferredBlock<SteamEngineGradeBlock> COPPER_STEAM_ENGINE = BLOCKS.register(
-            "copper_steam_engine",
-            () -> new SteamEngineGradeBlock(steamEngineProperties(), SteamEngineGradeTier.COPPER)
-    );
-    public static final DeferredItem<BlockItem> COPPER_STEAM_ENGINE_ITEM = registerBlockItem(
-            "copper_steam_engine",
-            COPPER_STEAM_ENGINE
-    );
-
-    public static final DeferredBlock<SteamEngineGradeBlock> BRASS_STEAM_ENGINE = BLOCKS.register(
-            "brass_steam_engine",
-            () -> new SteamEngineGradeBlock(steamEngineProperties(), SteamEngineGradeTier.BRASS)
-    );
-    public static final DeferredItem<BlockItem> BRASS_STEAM_ENGINE_ITEM = registerBlockItem(
-            "brass_steam_engine",
-            BRASS_STEAM_ENGINE
-    );
-
-    public static final DeferredBlock<SteamEngineGradeBlock> INDUSTRIAL_STEAM_ENGINE = BLOCKS.register(
-            "industrial_steam_engine",
-            () -> new SteamEngineGradeBlock(steamEngineProperties(), SteamEngineGradeTier.INDUSTRIAL)
-    );
-    public static final DeferredItem<BlockItem> INDUSTRIAL_STEAM_ENGINE_ITEM = registerBlockItem(
-            "industrial_steam_engine",
-            INDUSTRIAL_STEAM_ENGINE
-    );
-
-    public static final DeferredBlock<PipedRedstoneBlock> COPPER_PIPED_REDSTONE = BLOCKS.register(
-            "copper_piped_redstone",
-            () -> new PipedRedstoneBlock(conduitProperties(), PipedRedstoneTier.COPPER)
-    );
-    public static final DeferredItem<BlockItem> COPPER_PIPED_REDSTONE_ITEM = registerBlockItem(
-            "copper_piped_redstone",
-            COPPER_PIPED_REDSTONE
-    );
-
-    public static final DeferredBlock<PipedRedstoneBlock> BRASS_PIPED_REDSTONE = BLOCKS.register(
-            "brass_piped_redstone",
-            () -> new PipedRedstoneBlock(conduitProperties(), PipedRedstoneTier.BRASS)
-    );
-    public static final DeferredItem<BlockItem> BRASS_PIPED_REDSTONE_ITEM = registerBlockItem(
-            "brass_piped_redstone",
-            BRASS_PIPED_REDSTONE
-    );
-
-    public static final DeferredBlock<PipedRedstoneBlock> RESONANT_PIPED_REDSTONE = BLOCKS.register(
-            "resonant_piped_redstone",
-            () -> new PipedRedstoneBlock(conduitProperties(), PipedRedstoneTier.RESONANT)
-    );
-    public static final DeferredItem<BlockItem> RESONANT_PIPED_REDSTONE_ITEM = registerBlockItem(
-            "resonant_piped_redstone",
-            RESONANT_PIPED_REDSTONE
-    );
-
-    public static final DeferredBlock<PipedRedstoneNativeLeverBlock> PIPED_REDSTONE_NATIVE_LEVER = BLOCKS.register(
-            "piped_redstone_native_lever",
-            () -> new PipedRedstoneNativeLeverBlock(nativeLeverProperties())
-    );
-    public static final DeferredItem<BlockItem> PIPED_REDSTONE_NATIVE_LEVER_ITEM = registerBlockItem(
-            "piped_redstone_native_lever",
-            PIPED_REDSTONE_NATIVE_LEVER
-    );
-
-    public static final DeferredBlock<PipedRedstoneRepeaterBlock> PIPED_REDSTONE_REPEATER = BLOCKS.register(
-            "piped_redstone_repeater",
-            () -> new PipedRedstoneRepeaterBlock(repeaterProperties())
-    );
-    public static final DeferredItem<BlockItem> PIPED_REDSTONE_REPEATER_ITEM = registerBlockItem(
-            "piped_redstone_repeater",
-            PIPED_REDSTONE_REPEATER
-    );
-
-    public static final DeferredBlock<Block> BALLAST_TANK = registerMetalBlock("ballast_tank");
-    public static final DeferredItem<BlockItem> BALLAST_TANK_ITEM = registerBlockItem("ballast_tank", BALLAST_TANK);
-
-    public static final DeferredBlock<Block> MOORING_WINCH = registerMetalBlock("mooring_winch");
-    public static final DeferredItem<BlockItem> MOORING_WINCH_ITEM = registerBlockItem("mooring_winch", MOORING_WINCH);
-
-    public static final DeferredBlock<AltitudeGaugeBlock> ALTITUDE_GAUGE = BLOCKS.register(
-            "altitude_gauge",
-            () -> new AltitudeGaugeBlock(altitudeGaugeProperties())
-    );
-    public static final DeferredItem<BlockItem> ALTITUDE_GAUGE_ITEM = registerBlockItem(
-            "altitude_gauge",
-            ALTITUDE_GAUGE
-    );
-
-    public static final DeferredBlock<Block> VERTICAL_THRUSTER = registerMetalBlock("vertical_thruster");
-    public static final DeferredItem<BlockItem> VERTICAL_THRUSTER_ITEM = registerBlockItem("vertical_thruster", VERTICAL_THRUSTER);
+    public static final DeferredBlock<BallastTankBlock> BALLAST_TANK = ZmhAirshipBlocks.BALLAST_TANK.block();
+    public static final DeferredItem<BlockItem> BALLAST_TANK_ITEM = ZmhAirshipBlocks.BALLAST_TANK.item();
+    public static final DeferredBlock<MooringWinchBlock> MOORING_WINCH = ZmhAirshipBlocks.MOORING_WINCH.block();
+    public static final DeferredItem<BlockItem> MOORING_WINCH_ITEM = ZmhAirshipBlocks.MOORING_WINCH.item();
+    public static final DeferredBlock<AltitudeGaugeBlock> ALTITUDE_GAUGE = ZmhAirshipBlocks.ALTITUDE_GAUGE.block();
+    public static final DeferredItem<BlockItem> ALTITUDE_GAUGE_ITEM = ZmhAirshipBlocks.ALTITUDE_GAUGE.item();
+    public static final DeferredBlock<VerticalThrusterBlock> VERTICAL_THRUSTER = ZmhAirshipBlocks.VERTICAL_THRUSTER.block();
+    public static final DeferredItem<BlockItem> VERTICAL_THRUSTER_ITEM = ZmhAirshipBlocks.VERTICAL_THRUSTER.item();
 
     private ZmhBlocks() {
     }
 
-    static void register(IEventBus modEventBus) {
-        BLOCKS.register(modEventBus);
-        BLOCK_ITEMS.register(modEventBus);
+    static void bootstrap() {
+        // Loading this facade initializes every domain catalog.
     }
 
-    private static DeferredBlock<Block> registerMetalBlock(String name) {
-        return BLOCKS.registerSimpleBlock(name, metalProperties());
-    }
-
-    private static <T extends Block> DeferredItem<BlockItem> registerBlockItem(
-            String name,
-            DeferredBlock<T> block
-    ) {
-        return BLOCK_ITEMS.registerSimpleBlockItem(name, block);
-    }
-
-    private static DeferredItem<BoilerGradeItem> registerBoilerItem(
-            String name,
-            DeferredBlock<BoilerGradeBlock> block
-    ) {
-        return BLOCK_ITEMS.register(
-                name,
-                () -> new BoilerGradeItem(block.get(), new net.minecraft.world.item.Item.Properties())
-        );
-    }
-
-    private static BlockBehaviour.Properties metalProperties() {
-        return BlockBehaviour.Properties.of()
-                .mapColor(MapColor.METAL)
-                .strength(3.5F, 8.0F)
-                .sound(SoundType.METAL)
-                .requiresCorrectToolForDrops();
-    }
-
-    private static BlockBehaviour.Properties burnerProperties() {
-        return metalProperties()
-                .lightLevel(AirshipBurnerBlock::getLightPower)
-                .noOcclusion();
-    }
-
-
-    private static BlockBehaviour.Properties boilerGradeProperties() {
-        return metalProperties()
-                .strength(4.0F, 10.0F)
-                .noOcclusion()
-                .isRedstoneConductor((state, level, pos) -> true);
-    }
-
-    private static BlockBehaviour.Properties steamEngineProperties() {
-        return metalProperties()
-                .strength(4.0F, 10.0F)
-                .noOcclusion();
-    }
-
-    private static BlockBehaviour.Properties conduitProperties() {
-        return metalProperties()
-                .strength(2.5F, 6.0F)
-                .lightLevel(PipedRedstoneBlock::getLightPower)
-                .noOcclusion();
-    }
-
-    private static BlockBehaviour.Properties nativeLeverProperties() {
-        return metalProperties()
-                .strength(2.0F, 4.0F)
-                .lightLevel(PipedRedstoneNativeLeverBlock::getLightPower)
-                .noOcclusion();
-    }
-
-    private static BlockBehaviour.Properties repeaterProperties() {
-        return metalProperties()
-                .strength(3.0F, 6.0F)
-                .lightLevel(PipedRedstoneRepeaterBlock::getLightPower)
-                .noOcclusion();
-    }
-
-    private static BlockBehaviour.Properties altitudeGaugeProperties() {
-        return metalProperties()
-                .lightLevel(AltitudeGaugeBlock::getLightPower)
-                .noOcclusion();
-    }
 }

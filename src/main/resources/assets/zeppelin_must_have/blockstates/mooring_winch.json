@@ -1,5 +1,52 @@
 {
   "variants": {
-    "": { "model": "zeppelin_must_have:block/mooring_winch" }
+    "axis_along_first=false,facing=down": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=east": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "y": 270
+    },
+    "axis_along_first=false,facing=north": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "y": 180
+    },
+    "axis_along_first=false,facing=south": {
+      "model": "zeppelin_must_have:block/mooring_winch_body"
+    },
+    "axis_along_first=false,facing=up": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=west": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "y": 90
+    },
+    "axis_along_first=true,facing=down": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "x": 270
+    },
+    "axis_along_first=true,facing=east": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "y": 270
+    },
+    "axis_along_first=true,facing=north": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "y": 180
+    },
+    "axis_along_first=true,facing=south": {
+      "model": "zeppelin_must_have:block/mooring_winch_body"
+    },
+    "axis_along_first=true,facing=up": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "x": 90
+    },
+    "axis_along_first=true,facing=west": {
+      "model": "zeppelin_must_have:block/mooring_winch_body",
+      "y": 90
+    }
   }
 }

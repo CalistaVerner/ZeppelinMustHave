@@ -1,0 +1,58 @@
+{
+  "credit": "Zeppelin Must Have / us.Kayla \u2014 Create-compatible visual pass",
+  "textures": {
+    "particle": "#andesite",
+    "andesite": "create:block/andesite_casing",
+    "brass": "create:block/brass_casing",
+    "copper": "create:block/copper_casing",
+    "industrial": "create:block/industrial_iron_block",
+    "dark": "create:block/dark_metal_block",
+    "axis": "create:block/axis",
+    "gearbox": "create:block/gearbox",
+    "brass_gearbox": "create:block/brass_gearbox",
+    "fan_casing": "create:block/fan_casing",
+    "brazier": "create:block/blaze_heater_brazier",
+    "fluid_tank": "create:block/fluid_tank",
+    "fluid_window": "create:block/fluid_tank_window_single",
+    "rope": "create:block/pulley_rope",
+    "helm_panel": "zeppelin_must_have:block/zmh/helm_panel",
+    "altimeter": "zeppelin_must_have:block/zmh/altimeter",
+    "ballast_indicator": "zeppelin_must_have:block/zmh/ballast_indicator",
+    "burner_panel": "zeppelin_must_have:block/zmh/burner_panel"
+  },
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "from": [
+        4,
+        5,
+        4
+      ],
+      "to": [
+        12,
+        11,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rope"
+        },
+        "east": {
+          "texture": "#rope"
+        },
+        "south": {
+          "texture": "#rope"
+        },
+        "west": {
+          "texture": "#rope"
+        },
+        "up": {
+          "texture": "#rope"
+        },
+        "down": {
+          "texture": "#rope"
+        }
+      }
+    }
+  ]
+}

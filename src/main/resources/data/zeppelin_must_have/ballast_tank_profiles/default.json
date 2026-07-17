@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "capacity_mb": 8000,
+  "mass_per_bucket_kg": 1000.0
+}

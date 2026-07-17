@@ -7,9 +7,11 @@ public final class ZmhRegistries {
     }
 
     public static void register(IEventBus modEventBus) {
-        ZmhBlocks.register(modEventBus);
-        ZmhItems.register(modEventBus);
-        ZmhBlockEntityTypes.register(modEventBus);
-        ZmhCreativeTabs.register(modEventBus);
+        // Force definition classes to populate the shared DeferredRegisters.
+        ZmhBlocks.bootstrap();
+        ZmhItems.bootstrap();
+        ZmhBlockEntityTypes.bootstrap();
+        ZmhCreativeTabs.bootstrap();
+        ZmhRegistryContext.register(modEventBus);
     }
 }
