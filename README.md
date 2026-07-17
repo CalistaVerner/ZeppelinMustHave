@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.8.0
+Zeppelin Must Have 0.9.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -140,6 +140,31 @@ Burner goggles preserve the standard Aeronautics balloon section and append:
 
 Extended diagnostics appear while sneaking. The resolved profile and heat-network aggregate are synchronized from the server, so clients do not need the server data pack installed.
 
+
+
+## Graded Create Boiler Bases
+
+The add-on now extends Create's native boiler through the public `BoilerHeater` API. Boiler Bases are installed directly between a bottom Fluid Tank and its heat source:
+
+```text
+Create Fluid Tank
+        │
+Copper / Brass / Industrial Boiler Base
+        │
+Blaze Burner or another registered BoilerHeater
+```
+
+| Grade | Normal active heat | Superheated heat | Maximum transfer |
+|---|---:|---:|---:|
+| Copper — Grade I | 2 | 3 | 3 |
+| Brass — Grade II | 3 | 5 | 5 |
+| Industrial — Grade III | 5 | 8 | 8 |
+
+Passive heat remains passive, absent heat remains absent, and Boiler Bases cannot be stacked. Create continues to calculate boiler size, water requirements, attached Steam Engines, efficiency, boiler level, and generated Stress Units.
+
+Each base provides Engineer's Goggles diagnostics, comparator output proportional to transferred heat, active lighting, and data-pack tuning through `data/*/boiler_grade_profiles/*.json`.
+
+Documentation: `docs/BOILER_GRADES.md`.
 
 ## Piped Redstone
 
@@ -252,6 +277,9 @@ All registered equipment blocks and upgrade modules have production recipes; eve
 | Airship Burner | Create Blaze Burner upgraded with copper sheets and andesite alloy |
 | Forced-Draft Burner | Airship Burner, Encased Fans, brass sheets, and precision mechanisms |
 | Industrial Burner | 5×5 Create Mechanical Crafting recipe using the forced-draft tier, fluid tanks, fans, sturdy sheets, brass sheets, and precision mechanisms |
+| Copper Boiler Base — Grade I | Blaze Burner, Copper Sheets, Fluid Pipes, Andesite Casing, and Shaft |
+| Brass Boiler Base — Grade II | Mechanical Crafting upgrade with Brass Sheets, Electron Tubes, Fluid Tank, and Precision Mechanisms |
+| Industrial Boiler Base — Grade III | 5×5 Mechanical Crafting with Sturdy Sheets, tanks, mechanisms, and the Brass grade |
 | Copper Piped Redstone | Copper Sheets, Create Fluid Pipes, and redstone dust; produces eight conduits |
 | Brass Piped Redstone | Mechanical Crafting upgrade using Copper conduits, Brass Sheets, Electron Tubes, and Precision Mechanisms |
 | Resonant Piped Redstone | 5×5 Mechanical Crafting with Brass conduits, Sturdy Sheets, Polished Rose Quartz, Electron Tubes, and Precision Mechanisms |
@@ -278,7 +306,7 @@ The Ballast Tank, Mooring Winch, and Vertical Thruster currently have production
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.8.0` |
+| Zeppelin Must Have | `0.9.0` |
 
 ## Development
 

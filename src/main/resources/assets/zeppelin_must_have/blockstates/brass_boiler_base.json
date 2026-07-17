@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": {"model": "zeppelin_must_have:block/brass_boiler_base"},
+    "lit=true": {"model": "zeppelin_must_have:block/brass_boiler_base"}
+  }
+}

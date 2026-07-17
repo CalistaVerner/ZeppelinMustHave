@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "heat_multiplier": 2.0,
+  "additive_heat": 1.0,
+  "maximum_heat_output": 5
+}

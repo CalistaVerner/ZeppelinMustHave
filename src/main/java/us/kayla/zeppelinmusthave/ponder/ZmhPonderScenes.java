@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.Vec3;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
+import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlock;
@@ -50,6 +51,18 @@ public final class ZmhPonderScenes {
                         ZmhPonderTags.ZEPPELIN_SYSTEMS
                 );
 
+
+
+        helper.forComponents(
+                        ZmhBlocks.COPPER_BOILER_BASE.getId(),
+                        ZmhBlocks.BRASS_BOILER_BASE.getId(),
+                        ZmhBlocks.INDUSTRIAL_BOILER_BASE.getId()
+                )
+                .addStoryBoard(
+                        "boiler/grades",
+                        ZmhPonderScenes::boilerGrades,
+                        ZmhPonderTags.ZEPPELIN_SYSTEMS
+                );
 
         helper.forComponents(ZmhBlocks.ALTITUDE_GAUGE.getId())
                 .addStoryBoard(
@@ -715,6 +728,92 @@ public final class ZmhPonderScenes {
                 .attachKeyFrame()
                 .colored(PonderPalette.GREEN)
                 .pointAt(Vec3.atCenterOf(gauge))
+                .placeNearTarget();
+        scene.idle(95);
+    }
+
+
+    private static void boilerGrades(
+            SceneBuilder scene,
+            SceneBuildingUtil util
+    ) {
+        BlockPos heater = util.grid().at(3, 1, 3);
+        BlockPos base = util.grid().at(3, 2, 3);
+        BlockPos tank = util.grid().at(3, 3, 3);
+        BlockPos engine = util.grid().at(4, 3, 3);
+
+        scene.title("boiler_grades", "Graded Boiler Heat Exchangers");
+        scene.configureBasePlate(0, 0, 7);
+        scene.scaleSceneView(0.9F);
+
+        scene.world().showSection(util.select().layer(0), Direction.UP);
+        scene.idle(10);
+        scene.world().showSection(util.select().fromTo(1, 1, 1, 5, 4, 5), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(80)
+                .text("Boiler Bases fit between Create Fluid Tanks and any registered BoilerHeater")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(base))
+                .placeNearTarget();
+        scene.overlay().showOutline(PonderPalette.INPUT, "boiler_stack", util.select().fromTo(heater, tank), 80);
+        scene.idle(95);
+
+        scene.overlay().showText(85)
+                .text("Create still calculates boiler size, water supply, engine count, efficiency, and generated Stress Units")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(engine))
+                .placeNearTarget();
+        scene.idle(100);
+
+        scene.world().setBlock(base, ZmhBlocks.COPPER_BOILER_BASE.get().defaultBlockState().setValue(BoilerGradeBlock.ACTIVE, true), true);
+        scene.overlay().showText(75)
+                .text("Grade I improves a normal active heater while keeping passive heat passive")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(base))
+                .placeNearTarget();
+        scene.idle(90);
+
+        scene.world().setBlock(base, ZmhBlocks.BRASS_BOILER_BASE.get().defaultBlockState().setValue(BoilerGradeBlock.ACTIVE, true), true);
+        scene.overlay().showText(80)
+                .text("Grade II transfers more heat and reduces the number of heater columns required by large boilers")
+                .attachKeyFrame()
+                .colored(PonderPalette.INPUT)
+                .pointAt(Vec3.atCenterOf(base))
+                .placeNearTarget();
+        scene.idle(95);
+
+        scene.world().setBlock(base, ZmhBlocks.INDUSTRIAL_BOILER_BASE.get().defaultBlockState().setValue(BoilerGradeBlock.ACTIVE, true), true);
+        scene.overlay().showText(85)
+                .text("Grade III is an expensive industrial exchanger intended for maximum-level airship power plants")
+                .attachKeyFrame()
+                .colored(PonderPalette.RED)
+                .pointAt(Vec3.atCenterOf(base))
+                .placeNearTarget();
+        scene.idle(100);
+
+        scene.world().setBlock(heater, ZmhBlocks.COPPER_BOILER_BASE.get().defaultBlockState(), true);
+        scene.overlay().showText(75)
+                .text("Boiler Bases cannot be stacked; each column requires a real heater below it")
+                .attachKeyFrame()
+                .colored(PonderPalette.RED)
+                .pointAt(Vec3.atCenterOf(heater))
+                .placeNearTarget();
+        scene.effects().indicateRedstone(heater);
+        scene.idle(90);
+
+        scene.world().setBlock(heater, Blocks.MAGMA_BLOCK.defaultBlockState(), true);
+        scene.overlay().showControls(
+                        util.vector().blockSurface(base, Direction.NORTH),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(AllItems.GOGGLES.asStack());
+        scene.idle(10);
+        scene.overlay().showText(80)
+                .text("Engineer's Goggles and comparator output report the actual transferred heat")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(base))
                 .placeNearTarget();
         scene.idle(95);
     }

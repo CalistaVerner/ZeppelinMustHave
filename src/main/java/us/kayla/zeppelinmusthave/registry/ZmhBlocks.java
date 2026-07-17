@@ -12,6 +12,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerTier;
+import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
+import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeTier;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
@@ -54,6 +56,33 @@ public final class ZmhBlocks {
     public static final DeferredItem<BlockItem> INDUSTRIAL_AIRSHIP_BURNER_ITEM = registerBlockItem(
             "industrial_airship_burner",
             INDUSTRIAL_AIRSHIP_BURNER
+    );
+
+    public static final DeferredBlock<BoilerGradeBlock> COPPER_BOILER_BASE = BLOCKS.register(
+            "copper_boiler_base",
+            () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.COPPER)
+    );
+    public static final DeferredItem<BlockItem> COPPER_BOILER_BASE_ITEM = registerBlockItem(
+            "copper_boiler_base",
+            COPPER_BOILER_BASE
+    );
+
+    public static final DeferredBlock<BoilerGradeBlock> BRASS_BOILER_BASE = BLOCKS.register(
+            "brass_boiler_base",
+            () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.BRASS)
+    );
+    public static final DeferredItem<BlockItem> BRASS_BOILER_BASE_ITEM = registerBlockItem(
+            "brass_boiler_base",
+            BRASS_BOILER_BASE
+    );
+
+    public static final DeferredBlock<BoilerGradeBlock> INDUSTRIAL_BOILER_BASE = BLOCKS.register(
+            "industrial_boiler_base",
+            () -> new BoilerGradeBlock(boilerGradeProperties(), BoilerGradeTier.INDUSTRIAL)
+    );
+    public static final DeferredItem<BlockItem> INDUSTRIAL_BOILER_BASE_ITEM = registerBlockItem(
+            "industrial_boiler_base",
+            INDUSTRIAL_BOILER_BASE
     );
 
     public static final DeferredBlock<PipedRedstoneBlock> COPPER_PIPED_REDSTONE = BLOCKS.register(
@@ -149,6 +178,14 @@ public final class ZmhBlocks {
     private static BlockBehaviour.Properties burnerProperties() {
         return metalProperties()
                 .lightLevel(AirshipBurnerBlock::getLightPower)
+                .noOcclusion();
+    }
+
+
+    private static BlockBehaviour.Properties boilerGradeProperties() {
+        return metalProperties()
+                .strength(4.0F, 10.0F)
+                .lightLevel(BoilerGradeBlock::getLightPower)
                 .noOcclusion();
     }
 

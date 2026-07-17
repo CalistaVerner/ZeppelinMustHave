@@ -22,7 +22,7 @@ public final class ZmhPonderTags {
         helper.registerTag(ZEPPELIN_SYSTEMS)
                 .item(ZmhBlocks.AIRSHIP_HELM_ITEM.get())
                 .title("Zeppelin Systems")
-                .description("Control, lift, navigation, propulsion, protected redstone, and service equipment for Create Aeronautics zeppelins")
+                .description("Control, lift, navigation, steam power, propulsion, protected redstone, and service equipment for Create Aeronautics zeppelins")
                 .register();
 
         itemHelper.addToTag(ZEPPELIN_SYSTEMS)
@@ -30,6 +30,9 @@ public final class ZmhPonderTags {
                 .add(ZmhBlocks.AIRSHIP_BURNER_ITEM.get())
                 .add(ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER_ITEM.get())
                 .add(ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER_ITEM.get())
+                .add(ZmhBlocks.COPPER_BOILER_BASE_ITEM.get())
+                .add(ZmhBlocks.BRASS_BOILER_BASE_ITEM.get())
+                .add(ZmhBlocks.INDUSTRIAL_BOILER_BASE_ITEM.get())
                 .add(ZmhBlocks.COPPER_PIPED_REDSTONE_ITEM.get())
                 .add(ZmhBlocks.BRASS_PIPED_REDSTONE_ITEM.get())
                 .add(ZmhBlocks.RESONANT_PIPED_REDSTONE_ITEM.get())

@@ -1,0 +1,21 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "BEB",
+    "PCP",
+    "BFB"
+  ],
+  "key": {
+    "B": {"item": "create:brass_sheet"},
+    "C": {"item": "zeppelin_must_have:copper_boiler_base"},
+    "E": {"item": "create:electron_tube"},
+    "F": {"item": "create:fluid_tank"},
+    "P": {"item": "create:precision_mechanism"}
+  },
+  "result": {
+    "id": "zeppelin_must_have:brass_boiler_base",
+    "count": 2
+  }
+}

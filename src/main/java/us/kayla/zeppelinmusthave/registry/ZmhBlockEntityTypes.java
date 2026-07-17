@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
+import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlockEntity;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlockEntity;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlockEntity;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlockEntity;
@@ -34,6 +35,17 @@ public final class ZmhBlockEntityTypes {
                             ZmhBlocks.AIRSHIP_BURNER.get(),
                             ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER.get(),
                             ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER.get()
+                    ).build(null)
+            );
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BoilerGradeBlockEntity>> BOILER_GRADE_BASE =
+            BLOCK_ENTITY_TYPES.register(
+                    "boiler_grade_base",
+                    () -> BlockEntityType.Builder.of(
+                            ZmhBlockEntityTypes::createBoilerGradeBase,
+                            ZmhBlocks.COPPER_BOILER_BASE.get(),
+                            ZmhBlocks.BRASS_BOILER_BASE.get(),
+                            ZmhBlocks.INDUSTRIAL_BOILER_BASE.get()
                     ).build(null)
             );
 
@@ -65,6 +77,11 @@ public final class ZmhBlockEntityTypes {
 
     private static AirshipBurnerBlockEntity createAirshipBurner(BlockPos pos, BlockState state) {
         return new AirshipBurnerBlockEntity(AIRSHIP_BURNER.get(), pos, state);
+    }
+
+
+    private static BoilerGradeBlockEntity createBoilerGradeBase(BlockPos pos, BlockState state) {
+        return new BoilerGradeBlockEntity(BOILER_GRADE_BASE.get(), pos, state);
     }
 
     private static PipedRedstoneNativeLeverBlockEntity createPipedRedstoneNativeLever(

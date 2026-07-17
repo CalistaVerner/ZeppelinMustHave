@@ -245,6 +245,31 @@ No force, balloon, pressure, or mass state is mutated by the controller. Aeronau
 
 `AltitudeControlGameTests` verifies telemetry scaling, deadband behaviour, proportional correction, vertical damping, and slew limiting independently of rendering or Ponder.
 
+## Graded Create Boiler Integration
+
+`BoilerGradeBlock` is registered directly in Create's public `BoilerHeater.REGISTRY` during `FMLCommonSetupEvent`.
+
+Each base reads the registered heater immediately below it and returns a profile-transformed value to the normal Create boiler query:
+
+```text
+BoilerData.updateTemperature
+        │
+        ▼
+BoilerHeater.findHeat(base position)
+        │
+        ▼
+BoilerGradeBlock
+        │
+        ▼
+BoilerHeater.findHeat(source below)
+```
+
+The block rejects another `BoilerGradeBlock` as a source, preventing recursive amplification and stacking exploits. `NO_HEAT` and `PASSIVE_HEAT` preserve their Create semantics.
+
+`BoilerGradeProfiles` reloads multiplier, additive heat, and maximum transfer from server data packs. `BoilerGradeBlockEntity` samples the source, synchronizes the resolved profile for goggles, updates comparator output, and calls `FluidTankBlockEntity.updateBoilerTemperature()` on the tank above whenever the effective transfer changes.
+
+Create remains authoritative for boiler size, water supply, engine efficiency, Stress Unit output, whistles, and maximum boiler level.
+
 ## Piped Redstone
 
 ### Explicit topology

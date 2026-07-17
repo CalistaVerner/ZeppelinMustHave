@@ -1,0 +1,25 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "STBTS",
+    "PFEFP",
+    "TBIBT",
+    "PFEFP",
+    "STBTS"
+  ],
+  "key": {
+    "B": {"item": "create:brass_sheet"},
+    "E": {"item": "create:electron_tube"},
+    "F": {"item": "create:fluid_tank"},
+    "I": {"item": "zeppelin_must_have:brass_boiler_base"},
+    "P": {"item": "create:precision_mechanism"},
+    "S": {"item": "create:sturdy_sheet"},
+    "T": {"item": "create:copper_sheet"}
+  },
+  "result": {
+    "id": "zeppelin_must_have:industrial_boiler_base",
+    "count": 1
+  }
+}
