@@ -4,6 +4,7 @@ public enum ZeppelinPartCategory {
     FLIGHT_CONTROL("flight_control", true),
     LIFT("lift", true),
     STEAM_POWER("steam_power", true),
+    FLUID_SYSTEMS("fluid_systems", true),
     REDSTONE_CONTROL("redstone_control", true),
     BALLAST("ballast", true),
     MOORING("mooring", true),

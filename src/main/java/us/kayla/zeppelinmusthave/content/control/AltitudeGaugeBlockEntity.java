@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlNetworkManager;
 import us.kayla.zeppelinmusthave.content.helm.AirshipFlightSnapshot;
 import us.kayla.zeppelinmusthave.integration.AeronauticsFlightStateReader;
 import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
@@ -162,6 +163,9 @@ public final class AltitudeGaugeBlockEntity extends SmartBlockEntity
                 this.level.getMinBuildHeight(),
                 this.level.getMaxBuildHeight()
         );
+        if (FlightControlNetworkManager.isEmergencyLatched(this.level, this.worldPosition)) {
+            desiredOutput = 0;
+        }
         int nextOutput = AltitudeControlMath.slew(
                 this.runtimeState.outputSignal(),
                 desiredOutput,

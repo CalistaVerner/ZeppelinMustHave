@@ -1,0 +1,7 @@
+{
+  "parent": "create:block/fluid_pipe/rim_connector/south",
+  "textures": {
+    "0": "zeppelin_must_have:block/zmh/industrial_fluid_pipe",
+    "particle": "zeppelin_must_have:block/zmh/industrial_fluid_pipe"
+  }
+}

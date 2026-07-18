@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
+import us.kayla.zeppelinmusthave.content.balloon.TieredEnvelopeBlock;
 import us.kayla.zeppelinmusthave.content.parts.ZeppelinPartCatalog;
 import us.kayla.zeppelinmusthave.content.parts.ZeppelinPartCategory;
 import us.kayla.zeppelinmusthave.content.parts.ZeppelinPartDefinition;
@@ -37,8 +38,8 @@ public final class ZeppelinPartCoverageGameTests {
             return;
         }
 
-        assertInt(helper, "Zeppelin Part item count", 22, ZeppelinPartCatalog.all().size());
-        assertInt(helper, "Zeppelin Part block count", 19, ZeppelinPartCatalog.blocks().size());
+        assertInt(helper, "Zeppelin Part item count", 35, ZeppelinPartCatalog.all().size());
+        assertInt(helper, "Zeppelin Part block count", 32, ZeppelinPartCatalog.blocks().size());
         helper.succeed();
     }
 
@@ -74,11 +75,25 @@ public final class ZeppelinPartCoverageGameTests {
     public static void everyBlockPartHasCompleteMiningTags(GameTestHelper helper) {
         for (ZeppelinPartDefinition part : ZeppelinPartCatalog.blocks()) {
             BlockState state = part.block().get().defaultBlockState();
+            boolean envelope = state.getBlock() instanceof TieredEnvelopeBlock;
+            if (envelope) {
+                if (!state.is(BlockTags.MINEABLE_WITH_AXE)) {
+                    helper.fail(part.id() + " is not mineable with an axe");
+                    return;
+                }
+                continue;
+            }
+
             if (!state.is(BlockTags.MINEABLE_WITH_PICKAXE)) {
                 helper.fail(part.id() + " is not mineable with a pickaxe");
                 return;
             }
-            if (!state.is(BlockTags.NEEDS_STONE_TOOL)) {
+            if (part.id().equals(ZeppelinMustHave.id("industrial_fluid_pipe"))) {
+                if (!state.is(BlockTags.NEEDS_IRON_TOOL)) {
+                    helper.fail(part.id() + " is missing the iron-tool requirement");
+                    return;
+                }
+            } else if (!state.is(BlockTags.NEEDS_STONE_TOOL)) {
                 helper.fail(part.id() + " is missing the stone-tool requirement");
                 return;
             }

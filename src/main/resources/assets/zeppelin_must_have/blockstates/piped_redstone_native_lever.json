@@ -1,25 +1,102 @@
 {
   "multipart": [
     {
-      "when": {"face": "floor"},
-      "apply": {"model": "zeppelin_must_have:block/piped_redstone_native_lever/base"}
+      "when": {
+        "face": "floor",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base"
+      }
     },
     {
-      "when": {"face": "ceiling"},
+      "when": {
+        "face": "floor",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "south"
+      },
       "apply": {
         "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
         "x": 180
       }
     },
     {
-      "when": {"face": "wall", "facing": "south"},
+      "when": {
+        "face": "ceiling",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "north"
+      },
       "apply": {
         "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
         "x": 90
       }
     },
     {
-      "when": {"face": "wall", "facing": "east"},
+      "when": {
+        "face": "wall",
+        "facing": "east"
+      },
       "apply": {
         "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
         "x": 90,
@@ -27,7 +104,10 @@
       }
     },
     {
-      "when": {"face": "wall", "facing": "north"},
+      "when": {
+        "face": "wall",
+        "facing": "south"
+      },
       "apply": {
         "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
         "x": 90,
@@ -35,9 +115,286 @@
       }
     },
     {
-      "when": {"face": "wall", "facing": "west"},
+      "when": {
+        "face": "wall",
+        "facing": "west"
+      },
       "apply": {
         "model": "zeppelin_must_have:block/piped_redstone_native_lever/base",
+        "x": 90,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "north",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off"
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "east",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "south",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "west",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "north",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "east",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "south",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "west",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "north",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "east",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "south",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "west",
+        "powered": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off",
+        "x": 90,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "north",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on"
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "east",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "south",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "west",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "north",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "east",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "south",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "west",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "north",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "east",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "south",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "west",
+        "powered": "true"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_on",
         "x": 90,
         "y": 270
       }

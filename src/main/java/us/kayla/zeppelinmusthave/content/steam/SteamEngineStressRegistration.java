@@ -12,7 +12,11 @@ public final class SteamEngineStressRegistration {
     private static final Map<SteamEngineGradeTier, Supplier<? extends Block>> ENGINES = Map.of(
             SteamEngineGradeTier.COPPER, ZmhBlocks.COPPER_STEAM_ENGINE,
             SteamEngineGradeTier.BRASS, ZmhBlocks.BRASS_STEAM_ENGINE,
-            SteamEngineGradeTier.INDUSTRIAL, ZmhBlocks.INDUSTRIAL_STEAM_ENGINE
+            SteamEngineGradeTier.INDUSTRIAL, ZmhBlocks.INDUSTRIAL_STEAM_ENGINE,
+            SteamEngineGradeTier.GRAND, ZmhBlocks.GRAND_STEAM_ENGINE,
+            SteamEngineGradeTier.SOVEREIGN, ZmhBlocks.SOVEREIGN_STEAM_ENGINE,
+            SteamEngineGradeTier.LEVIATHAN, ZmhBlocks.LEVIATHAN_STEAM_ENGINE,
+            SteamEngineGradeTier.MK_VII, ZmhBlocks.MK_VII_STEAM_ENGINE
     );
 
     private SteamEngineStressRegistration() {

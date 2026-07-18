@@ -29,6 +29,9 @@ public record AirshipFlightSnapshot(
         double angularVelocityY,
         double angularVelocityZ,
         double mass,
+        double centerOfMassX,
+        double centerOfMassY,
+        double centerOfMassZ,
         int balloonCount,
         int balloonCapacity,
         double balloonFilledVolume,
@@ -50,6 +53,9 @@ public record AirshipFlightSnapshot(
                 false,
                 null,
                 "",
+                0.0,
+                0.0,
+                0.0,
                 0.0,
                 0.0,
                 0.0,
@@ -119,6 +125,9 @@ public record AirshipFlightSnapshot(
                 || differs(this.angularVelocityY, other.angularVelocityY, VELOCITY_EPSILON)
                 || differs(this.angularVelocityZ, other.angularVelocityZ, VELOCITY_EPSILON)
                 || differs(this.mass, other.mass, AERONAUTICS_EPSILON)
+                || differs(this.centerOfMassX, other.centerOfMassX, POSITION_EPSILON)
+                || differs(this.centerOfMassY, other.centerOfMassY, POSITION_EPSILON)
+                || differs(this.centerOfMassZ, other.centerOfMassZ, POSITION_EPSILON)
                 || differs(this.balloonFilledVolume, other.balloonFilledVolume, AERONAUTICS_EPSILON)
                 || differs(this.balloonTargetVolume, other.balloonTargetVolume, AERONAUTICS_EPSILON)
                 || differs(this.balloonLift, other.balloonLift, AERONAUTICS_EPSILON);
@@ -143,6 +152,9 @@ public record AirshipFlightSnapshot(
         tag.putDouble("AngularVelocityY", this.angularVelocityY);
         tag.putDouble("AngularVelocityZ", this.angularVelocityZ);
         tag.putDouble("Mass", this.mass);
+        tag.putDouble("CenterOfMassX", this.centerOfMassX);
+        tag.putDouble("CenterOfMassY", this.centerOfMassY);
+        tag.putDouble("CenterOfMassZ", this.centerOfMassZ);
         tag.putInt("BalloonCount", this.balloonCount);
         tag.putInt("BalloonCapacity", this.balloonCapacity);
         tag.putDouble("BalloonFilledVolume", this.balloonFilledVolume);
@@ -169,6 +181,9 @@ public record AirshipFlightSnapshot(
                 tag.getDouble("AngularVelocityY"),
                 tag.getDouble("AngularVelocityZ"),
                 tag.getDouble("Mass"),
+                tag.getDouble("CenterOfMassX"),
+                tag.getDouble("CenterOfMassY"),
+                tag.getDouble("CenterOfMassZ"),
                 tag.getInt("BalloonCount"),
                 tag.getInt("BalloonCapacity"),
                 tag.getDouble("BalloonFilledVolume"),

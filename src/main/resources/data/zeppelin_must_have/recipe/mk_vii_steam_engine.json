@@ -1,0 +1,39 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "SFLFS",
+    "NPGPN",
+    "LILIL",
+    "NPGPN",
+    "SFLFS"
+  ],
+  "key": {
+    "S": {
+      "item": "create:sturdy_sheet"
+    },
+    "F": {
+      "item": "create:flywheel"
+    },
+    "L": {
+      "item": "zeppelin_must_have:leviathan_steam_engine"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "G": {
+      "item": "create:railway_casing"
+    },
+    "I": {
+      "item": "zeppelin_must_have:industrial_boiler_base"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:mk_vii_steam_engine",
+    "count": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:engine_telegraph",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.commissioning.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.commissioning.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "event": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "event"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/root",
+  "rewards": {
+    "experience": 25
+  }
+}

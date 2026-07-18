@@ -1,0 +1,146 @@
+{
+  "credit": "Zeppelin Must Have - Sovereign engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/sovereign_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/sovereign_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/sovereign_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/sovereign_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/sovereign_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "pressure_drum",
+      "from": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "to": [
+        10.4,
+        10.4,
+        10.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "steel_balance_ring_x",
+      "from": [
+        3.4,
+        7.2,
+        7.2
+      ],
+      "to": [
+        12.6,
+        8.8,
+        8.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "steel_balance_ring_z",
+      "from": [
+        7.2,
+        7.2,
+        3.4
+      ],
+      "to": [
+        8.8,
+        8.8,
+        12.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "regulator_axis",
+      "from": [
+        7.4,
+        3.25,
+        7.4
+      ],
+      "to": [
+        8.6,
+        12.75,
+        8.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    }
+  ]
+}

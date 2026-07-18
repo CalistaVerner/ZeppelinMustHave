@@ -10,6 +10,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlActuator;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlChannel;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlNetworkManager;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightSystemStatus;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightSystemType;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeModifiers;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSet;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSlot;
@@ -18,9 +23,11 @@ import us.kayla.zeppelinmusthave.integration.BalloonHeatAggregate;
 import java.util.List;
 import java.util.Map;
 
-public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
+public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity implements FlightControlActuator {
     private final AirshipBurnerRuntimeState runtimeState;
     private BlockPos castPositionBridge;
+    private boolean flightControlOverride;
+    private int flightControlSignal;
 
     public AirshipBurnerBlockEntity(
             BlockEntityType<?> type,
@@ -46,14 +53,15 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         }
 
         this.refreshProfile(false);
+        this.reportFlightSystemStatus();
         if (this.runtimeState.isInfinite()
                 || !this.runtimeState.hasHeat()
-                || this.signalStrength <= 0) {
+                || this.effectiveSignalStrength() <= 0) {
             AirshipBurnerWorldEffects.updateLitState(this);
             return;
         }
 
-        AirshipHeatConsumptionResult consumption = this.runtimeState.consume(this.signalStrength);
+        AirshipHeatConsumptionResult consumption = this.runtimeState.consume(this.effectiveSignalStrength());
         if (!consumption.changed()) {
             return;
         }
@@ -71,11 +79,6 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         }
     }
 
-    @Override
-    public void updateSignal() {
-        super.updateSignal();
-        AirshipBurnerWorldEffects.updateLitState(this);
-    }
 
     public boolean tryInsertFuel(ItemStack stack, boolean simulate) {
         AirshipBurnerRuntimeState.FuelInsertion insertion = this.runtimeState.tryInsertFuel(
@@ -109,7 +112,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
             return 0.0D;
         }
 
-        double linearThrottle = this.signalStrength / 15.0D;
+        double linearThrottle = this.effectiveSignalStrength() / 15.0D;
         if (linearThrottle <= 0.0D) {
             return 0.0D;
         }
@@ -117,14 +120,14 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
         AirshipBurnerProfile profile = this.runtimeState.profile();
         double aeronauticsSelectedOutput = super.getGasOutput() / linearThrottle;
         return aeronauticsSelectedOutput
-                * profile.throttleForSignal(this.signalStrength)
+                * profile.throttleForSignal(this.effectiveSignalStrength())
                 * profile.outputMultiplier(this.runtimeState.activeGrade().isSuperheated());
     }
 
     @Override
     public boolean canOutputGas() {
         boolean profileAvailable = this.isVirtual() || this.runtimeState.profileAllowsOperation();
-        return this.signalStrength > 0
+        return this.effectiveSignalStrength() > 0
                 && this.runtimeState.hasHeat()
                 && profileAvailable
                 && !this.isRemoved();
@@ -222,6 +225,67 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
     }
 
     @Override
+    public void applyFlightControl(FlightControlChannel channel, int value, boolean emergencyLatched) {
+        if (channel != FlightControlChannel.LIFT) return;
+        int nextSignal = emergencyLatched ? 0 : Math.clamp(value, 0, 15);
+        boolean changed = !this.flightControlOverride || this.flightControlSignal != nextSignal;
+        this.flightControlOverride = true;
+        this.flightControlSignal = nextSignal;
+        this.signalStrength = nextSignal;
+        this.powered = nextSignal > 0;
+        if (changed) {
+            this.setChanged();
+            this.sendData();
+            if (this.level != null && !this.level.isClientSide && !this.isVirtual()) this.tickBalloonLogic();
+        }
+    }
+
+    @Override
+    public void clearFlightControl(FlightControlChannel channel) {
+        if (channel != FlightControlChannel.LIFT || !this.flightControlOverride) return;
+        this.flightControlOverride = false;
+        this.flightControlSignal = 0;
+        if (this.level != null) this.updateSignal();
+        this.setChanged();
+        this.sendData();
+    }
+
+    @Override
+    public void updateSignal() {
+        if (this.flightControlOverride) {
+            this.signalStrength = this.flightControlSignal;
+            this.powered = this.flightControlSignal > 0;
+            AirshipBurnerWorldEffects.updateLitState(this);
+            return;
+        }
+        super.updateSignal();
+        AirshipBurnerWorldEffects.updateLitState(this);
+    }
+
+    private int effectiveSignalStrength() {
+        if (this.level != null && !this.level.isClientSide
+                && FlightControlNetworkManager.isEmergencyLatched(this.level, this.worldPosition)) {
+            return 0;
+        }
+        return this.flightControlOverride ? this.flightControlSignal : this.signalStrength;
+    }
+
+    private void reportFlightSystemStatus() {
+        if (this.level == null || this.level.isClientSide) return;
+        FlightControlNetworkManager.reportSystem(
+                this.level,
+                this.worldPosition,
+                new FlightSystemStatus(
+                        FlightSystemType.BURNER,
+                        this.canOutputGas(),
+                        this.effectiveSignalStrength(),
+                        this.getGasOutput(),
+                        this.getFuelRatio()
+                )
+        );
+    }
+
+    @Override
     public void write(
             CompoundTag tag,
             HolderLookup.Provider registries,
@@ -249,7 +313,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity {
                 ? BalloonHeatAggregate.from(this.getBalloon())
                 : this.runtimeState.clientBalloonHeat();
         return this.runtimeState.captureMetrics(
-                this.signalStrength,
+                this.effectiveSignalStrength(),
                 this.getGasOutput(),
                 aggregate
         );

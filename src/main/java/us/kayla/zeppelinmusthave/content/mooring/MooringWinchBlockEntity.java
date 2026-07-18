@@ -6,12 +6,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.data.ZmhLang;
 
 import java.util.List;
 import java.util.Locale;
 
 public final class MooringWinchBlockEntity extends RopeWinchBlockEntity {
+    private boolean advancementAttached;
     public MooringWinchBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
@@ -19,6 +21,25 @@ public final class MooringWinchBlockEntity extends RopeWinchBlockEntity {
     public float getClientRopeAngle(float partialTicks) {
         return this.clientAngle.getValue(partialTicks);
     }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+        if (this.level == null || this.level.isClientSide || this.getRopeHolder() == null) {
+            return;
+        }
+        boolean attached = this.getRopeHolder().isAttached();
+        if (attached && !this.advancementAttached) {
+            ZmhAdvancements.activateNearby(
+                    this.level,
+                    this.worldPosition,
+                    ZmhAdvancements.MOORING_ATTACHED,
+                    8.0D
+            );
+        }
+        this.advancementAttached = attached;
+    }
+
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {

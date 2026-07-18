@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:emergency_cutoff",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.emergency_cutoff_latched.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.emergency_cutoff_latched.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "event": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "event"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/commissioning",
+  "rewards": {
+    "experience": 25
+  }
+}

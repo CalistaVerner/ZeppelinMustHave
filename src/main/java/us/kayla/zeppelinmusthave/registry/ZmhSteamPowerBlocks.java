@@ -4,6 +4,8 @@ import net.minecraft.world.item.BlockItem;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeItem;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeTier;
+import us.kayla.zeppelinmusthave.content.steam.LeviathanSteamEngineBlock;
+import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEngineBlock;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeBlock;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
 
@@ -22,6 +24,20 @@ final class ZmhSteamPowerBlocks {
             engine("brass_steam_engine", SteamEngineGradeTier.BRASS);
     static final RegisteredBlock<SteamEngineGradeBlock, BlockItem> INDUSTRIAL_ENGINE =
             engine("industrial_steam_engine", SteamEngineGradeTier.INDUSTRIAL);
+    static final RegisteredBlock<SteamEngineGradeBlock, BlockItem> GRAND_ENGINE =
+            engine("grand_steam_engine", SteamEngineGradeTier.GRAND);
+    static final RegisteredBlock<SteamEngineGradeBlock, BlockItem> SOVEREIGN_ENGINE =
+            engine("sovereign_steam_engine", SteamEngineGradeTier.SOVEREIGN);
+    static final RegisteredBlock<LeviathanSteamEngineBlock, BlockItem> LEVIATHAN_ENGINE =
+            ZmhBlockRegistrar.register(
+                    "leviathan_steam_engine",
+                    () -> new LeviathanSteamEngineBlock(ZmhBlockProperties.steamEngine())
+            );
+    static final RegisteredBlock<MkViiSteamEngineBlock, BlockItem> MK_VII_ENGINE =
+            ZmhBlockRegistrar.register(
+                    "mk_vii_steam_engine",
+                    () -> new MkViiSteamEngineBlock(ZmhBlockProperties.steamEngine())
+            );
 
     private ZmhSteamPowerBlocks() {
     }

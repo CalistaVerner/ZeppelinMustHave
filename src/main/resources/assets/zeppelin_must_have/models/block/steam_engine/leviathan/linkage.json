@@ -1,0 +1,179 @@
+{
+  "credit": "Zeppelin Must Have - Leviathan engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/leviathan_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/leviathan_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/leviathan_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/leviathan_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/leviathan_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "lower_big_end",
+      "from": [
+        7,
+        1,
+        7
+      ],
+      "to": [
+        9,
+        5.5,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "connecting_rod",
+      "from": [
+        7.55,
+        5.5,
+        7.55
+      ],
+      "to": [
+        8.45,
+        16,
+        8.45
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "upper_small_end",
+      "from": [
+        7,
+        16,
+        7
+      ],
+      "to": [
+        9,
+        21,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "lower_bearing_shell",
+      "from": [
+        6.75,
+        5.05,
+        6.75
+      ],
+      "to": [
+        9.25,
+        6,
+        9.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "upper_bearing_shell",
+      "from": [
+        6.75,
+        15.55,
+        6.75
+      ],
+      "to": [
+        9.25,
+        16.5,
+        9.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    }
+  ]
+}

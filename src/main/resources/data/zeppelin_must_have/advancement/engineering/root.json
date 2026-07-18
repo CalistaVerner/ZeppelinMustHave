@@ -1,0 +1,381 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:flight_computer",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.root.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "airship_helm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_helm"
+          }
+        ]
+      }
+    },
+    "flight_computer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:flight_computer"
+          }
+        ]
+      }
+    },
+    "engine_telegraph": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:engine_telegraph"
+          }
+        ]
+      }
+    },
+    "emergency_cutoff": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:emergency_cutoff"
+          }
+        ]
+      }
+    },
+    "control_transmitter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:control_transmitter"
+          }
+        ]
+      }
+    },
+    "control_receiver": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:control_receiver"
+          }
+        ]
+      }
+    },
+    "altitude_gauge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:altitude_gauge"
+          }
+        ]
+      }
+    },
+    "airship_burner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_burner"
+          }
+        ]
+      }
+    },
+    "forced_draft_airship_burner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:forced_draft_airship_burner"
+          }
+        ]
+      }
+    },
+    "industrial_airship_burner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_airship_burner"
+          }
+        ]
+      }
+    },
+    "reinforced_envelope": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:reinforced_envelope"
+          }
+        ]
+      }
+    },
+    "industrial_envelope": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_envelope"
+          }
+        ]
+      }
+    },
+    "copper_boiler_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:copper_boiler_base"
+          }
+        ]
+      }
+    },
+    "brass_boiler_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:brass_boiler_base"
+          }
+        ]
+      }
+    },
+    "industrial_boiler_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_boiler_base"
+          }
+        ]
+      }
+    },
+    "copper_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:copper_steam_engine"
+          }
+        ]
+      }
+    },
+    "brass_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:brass_steam_engine"
+          }
+        ]
+      }
+    },
+    "industrial_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_steam_engine"
+          }
+        ]
+      }
+    },
+    "grand_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:grand_steam_engine"
+          }
+        ]
+      }
+    },
+    "reinforced_fluid_pipe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:reinforced_fluid_pipe"
+          }
+        ]
+      }
+    },
+    "industrial_fluid_pipe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_fluid_pipe"
+          }
+        ]
+      }
+    },
+    "copper_piped_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:copper_piped_redstone"
+          }
+        ]
+      }
+    },
+    "brass_piped_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:brass_piped_redstone"
+          }
+        ]
+      }
+    },
+    "resonant_piped_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:resonant_piped_redstone"
+          }
+        ]
+      }
+    },
+    "piped_redstone_native_lever": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:piped_redstone_native_lever"
+          }
+        ]
+      }
+    },
+    "piped_redstone_repeater": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:piped_redstone_repeater"
+          }
+        ]
+      }
+    },
+    "ballast_tank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:ballast_tank"
+          }
+        ]
+      }
+    },
+    "mooring_winch": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:mooring_winch"
+          }
+        ]
+      }
+    },
+    "vertical_thruster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:vertical_thruster"
+          }
+        ]
+      }
+    },
+    "heat_recuperator_upgrade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:heat_recuperator_upgrade"
+          }
+        ]
+      }
+    },
+    "forced_induction_upgrade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:forced_induction_upgrade"
+          }
+        ]
+      }
+    },
+    "precision_regulator_upgrade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:precision_regulator_upgrade"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "airship_helm",
+      "flight_computer",
+      "engine_telegraph",
+      "emergency_cutoff",
+      "control_transmitter",
+      "control_receiver",
+      "altitude_gauge",
+      "airship_burner",
+      "forced_draft_airship_burner",
+      "industrial_airship_burner",
+      "reinforced_envelope",
+      "industrial_envelope",
+      "copper_boiler_base",
+      "brass_boiler_base",
+      "industrial_boiler_base",
+      "copper_steam_engine",
+      "brass_steam_engine",
+      "industrial_steam_engine",
+      "grand_steam_engine",
+      "reinforced_fluid_pipe",
+      "industrial_fluid_pipe",
+      "copper_piped_redstone",
+      "brass_piped_redstone",
+      "resonant_piped_redstone",
+      "piped_redstone_native_lever",
+      "piped_redstone_repeater",
+      "ballast_tank",
+      "mooring_winch",
+      "vertical_thruster",
+      "heat_recuperator_upgrade",
+      "forced_induction_upgrade",
+      "precision_regulator_upgrade"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "rewards": {
+    "experience": 10
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "credit": "Zeppelin Must Have - Sovereign engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/sovereign_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/sovereign_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/sovereign_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/sovereign_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/sovereign_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "counter_hub",
+      "from": [
+        6.15,
+        6.15,
+        6.15
+      ],
+      "to": [
+        9.85,
+        9.85,
+        9.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_top",
+      "from": [
+        6.75,
+        13.8,
+        2.3
+      ],
+      "to": [
+        9.25,
+        15.2,
+        13.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_bottom",
+      "from": [
+        6.75,
+        0.8,
+        2.3
+      ],
+      "to": [
+        9.25,
+        2.2,
+        13.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_front",
+      "from": [
+        6.75,
+        2.2,
+        0.8
+      ],
+      "to": [
+        9.25,
+        13.8,
+        2.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_back",
+      "from": [
+        6.75,
+        2.2,
+        13.8
+      ],
+      "to": [
+        9.25,
+        13.8,
+        15.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_spoke_vertical",
+      "from": [
+        7.35,
+        2.2,
+        7.35
+      ],
+      "to": [
+        8.65,
+        13.8,
+        8.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "counter_spoke_horizontal",
+      "from": [
+        7.35,
+        7.35,
+        2.2
+      ],
+      "to": [
+        8.65,
+        8.65,
+        13.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "counter_spoke_diag_a",
+      "from": [
+        7.45,
+        2.5,
+        7.45
+      ],
+      "to": [
+        8.55,
+        13.5,
+        8.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": 45,
+        "rescale": true
+      }
+    },
+    {
+      "name": "counter_spoke_diag_b",
+      "from": [
+        7.45,
+        2.5,
+        7.45
+      ],
+      "to": [
+        8.55,
+        13.5,
+        8.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": true
+      }
+    }
+  ]
+}

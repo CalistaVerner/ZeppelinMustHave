@@ -27,8 +27,8 @@ public record SteamEngineGradeProfile(
         if (boilerLoadUnits < 1 || boilerLoadUnits > 18) {
             throw new JsonParseException("boiler_load_units must be in [1, 18]");
         }
-        if (cylinderCount < 1 || cylinderCount > 3) {
-            throw new JsonParseException("cylinder_count must be in [1, 3]");
+        if (cylinderCount < 1 || cylinderCount > 12) {
+            throw new JsonParseException("cylinder_count must be in [1, 12]");
         }
         requireFinitePositive("crank_radius", crankRadius);
         requireFinitePositive("connecting_rod_length", connectingRodLength);
@@ -97,7 +97,7 @@ public record SteamEngineGradeProfile(
                 id,
                 Math.max(1.0D, tag.getDouble("SteamEngineStressCapacity")),
                 Math.clamp(tag.getInt("SteamEngineBoilerLoadUnits"), 1, 18),
-                Math.clamp(tag.getInt("SteamEngineCylinderCount"), 1, 3),
+                Math.clamp(tag.getInt("SteamEngineCylinderCount"), 1, 12),
                 Math.max(0.01F, tag.getFloat("SteamEngineCrankRadius")),
                 Math.max(0.02F, tag.getFloat("SteamEngineConnectingRodLength")),
                 Math.max(0.01F, tag.getFloat("SteamEnginePistonBaseOffset")),

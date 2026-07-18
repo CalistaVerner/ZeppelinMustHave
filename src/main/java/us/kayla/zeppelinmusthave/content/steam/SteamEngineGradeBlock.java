@@ -16,7 +16,7 @@ import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
  * Native shaft placement, wrenching, rotation direction and boiler attachment
  * behaviour are inherited from {@link SteamEngineBlock}.
  */
-public final class SteamEngineGradeBlock extends SteamEngineBlock {
+public class SteamEngineGradeBlock extends SteamEngineBlock {
     private final SteamEngineGradeTier tier;
     private final MapCodec<SteamEngineGradeBlock> codec = MapCodec.unit(this);
 

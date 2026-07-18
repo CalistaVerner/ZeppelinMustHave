@@ -11,6 +11,13 @@ import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlockEntity;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeTier;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlockEntity;
+import us.kayla.zeppelinmusthave.content.control.fcn.ControlReceiverBlockEntity;
+import us.kayla.zeppelinmusthave.content.control.fcn.ControlTransmitterBlockEntity;
+import us.kayla.zeppelinmusthave.content.control.fcn.EmergencyCutoffBlockEntity;
+import us.kayla.zeppelinmusthave.content.control.fcn.EngineTelegraphBlockEntity;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightComputerBlockEntity;
+import us.kayla.zeppelinmusthave.content.fluid.TieredFluidPipeBlockEntity;
+import us.kayla.zeppelinmusthave.content.fluid.TieredGlassFluidPipeBlockEntity;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlockEntity;
 import us.kayla.zeppelinmusthave.content.mooring.MooringWinchBlockEntity;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlockEntity;
@@ -46,6 +53,17 @@ public final class ZmhBlockEntityTypes {
                     ZmhBlocks.VERTICAL_THRUSTER
             );
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FlightComputerBlockEntity>> FLIGHT_COMPUTER =
+            register("flight_computer", ZmhBlockEntityTypes::createFlightComputer, ZmhBlocks.FLIGHT_COMPUTER);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EngineTelegraphBlockEntity>> ENGINE_TELEGRAPH =
+            register("engine_telegraph", ZmhBlockEntityTypes::createEngineTelegraph, ZmhBlocks.ENGINE_TELEGRAPH);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EmergencyCutoffBlockEntity>> EMERGENCY_CUTOFF =
+            register("emergency_cutoff", ZmhBlockEntityTypes::createEmergencyCutoff, ZmhBlocks.EMERGENCY_CUTOFF);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ControlTransmitterBlockEntity>> CONTROL_TRANSMITTER =
+            register("control_transmitter", ZmhBlockEntityTypes::createControlTransmitter, ZmhBlocks.CONTROL_TRANSMITTER);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ControlReceiverBlockEntity>> CONTROL_RECEIVER =
+            register("control_receiver", ZmhBlockEntityTypes::createControlReceiver, ZmhBlocks.CONTROL_RECEIVER);
+
     /* ConnectivityHandler groups tank multiblocks by exact type identity. */
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BoilerGradeBlockEntity>> COPPER_BOILER =
             registerBoiler("copper_boiler", BoilerGradeTier.COPPER, ZmhBlocks.COPPER_BOILER_BASE);
@@ -60,7 +78,27 @@ public final class ZmhBlockEntityTypes {
                     ZmhBlockEntityTypes::createSteamEngineGrade,
                     ZmhBlocks.COPPER_STEAM_ENGINE,
                     ZmhBlocks.BRASS_STEAM_ENGINE,
-                    ZmhBlocks.INDUSTRIAL_STEAM_ENGINE
+                    ZmhBlocks.INDUSTRIAL_STEAM_ENGINE,
+                    ZmhBlocks.GRAND_STEAM_ENGINE,
+                    ZmhBlocks.SOVEREIGN_STEAM_ENGINE,
+                    ZmhBlocks.LEVIATHAN_STEAM_ENGINE,
+                    ZmhBlocks.MK_VII_STEAM_ENGINE
+            );
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TieredFluidPipeBlockEntity>>
+            TIERED_FLUID_PIPE = register(
+                    "tiered_fluid_pipe",
+                    ZmhBlockEntityTypes::createTieredFluidPipe,
+                    ZmhBlocks.REINFORCED_FLUID_PIPE,
+                    ZmhBlocks.INDUSTRIAL_FLUID_PIPE
+            );
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TieredGlassFluidPipeBlockEntity>>
+            TIERED_GLASS_FLUID_PIPE = register(
+                    "tiered_glass_fluid_pipe",
+                    ZmhBlockEntityTypes::createTieredGlassFluidPipe,
+                    ZmhBlocks.REINFORCED_GLASS_FLUID_PIPE,
+                    ZmhBlocks.INDUSTRIAL_GLASS_FLUID_PIPE
             );
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PipedRedstoneNativeLeverBlockEntity>>
@@ -120,6 +158,26 @@ public final class ZmhBlockEntityTypes {
         return new AirshipHelmBlockEntity(AIRSHIP_HELM.get(), pos, state);
     }
 
+    private static FlightComputerBlockEntity createFlightComputer(BlockPos pos, BlockState state) {
+        return new FlightComputerBlockEntity(FLIGHT_COMPUTER.get(), pos, state);
+    }
+
+    private static EngineTelegraphBlockEntity createEngineTelegraph(BlockPos pos, BlockState state) {
+        return new EngineTelegraphBlockEntity(ENGINE_TELEGRAPH.get(), pos, state);
+    }
+
+    private static EmergencyCutoffBlockEntity createEmergencyCutoff(BlockPos pos, BlockState state) {
+        return new EmergencyCutoffBlockEntity(EMERGENCY_CUTOFF.get(), pos, state);
+    }
+
+    private static ControlTransmitterBlockEntity createControlTransmitter(BlockPos pos, BlockState state) {
+        return new ControlTransmitterBlockEntity(CONTROL_TRANSMITTER.get(), pos, state);
+    }
+
+    private static ControlReceiverBlockEntity createControlReceiver(BlockPos pos, BlockState state) {
+        return new ControlReceiverBlockEntity(CONTROL_RECEIVER.get(), pos, state);
+    }
+
     private static AirshipBurnerBlockEntity createAirshipBurner(BlockPos pos, BlockState state) {
         return new AirshipBurnerBlockEntity(AIRSHIP_BURNER.get(), pos, state);
     }
@@ -138,6 +196,14 @@ public final class ZmhBlockEntityTypes {
 
     private static SteamEngineGradeBlockEntity createSteamEngineGrade(BlockPos pos, BlockState state) {
         return new SteamEngineGradeBlockEntity(STEAM_ENGINE_GRADE.get(), pos, state);
+    }
+
+    private static TieredFluidPipeBlockEntity createTieredFluidPipe(BlockPos pos, BlockState state) {
+        return new TieredFluidPipeBlockEntity(TIERED_FLUID_PIPE.get(), pos, state);
+    }
+
+    private static TieredGlassFluidPipeBlockEntity createTieredGlassFluidPipe(BlockPos pos, BlockState state) {
+        return new TieredGlassFluidPipeBlockEntity(TIERED_GLASS_FLUID_PIPE.get(), pos, state);
     }
 
     private static PipedRedstoneNativeLeverBlockEntity createPipedRedstoneNativeLever(

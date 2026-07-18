@@ -1,0 +1,117 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/core"
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_y_north_west"
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_y_north_east"
+      }
+    },
+    {
+      "when": {
+        "south": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_y_south_west"
+      }
+    },
+    {
+      "when": {
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_y_south_east"
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "down": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_x_north_down"
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_x_north_up"
+      }
+    },
+    {
+      "when": {
+        "south": "false",
+        "down": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_x_south_down"
+      }
+    },
+    {
+      "when": {
+        "south": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_x_south_up"
+      }
+    },
+    {
+      "when": {
+        "west": "false",
+        "down": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_z_west_down"
+      }
+    },
+    {
+      "when": {
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_z_west_up"
+      }
+    },
+    {
+      "when": {
+        "east": "false",
+        "down": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_z_east_down"
+      }
+    },
+    {
+      "when": {
+        "east": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "zeppelin_must_have:block/industrial_envelope/edge_z_east_up"
+      }
+    }
+  ]
+}

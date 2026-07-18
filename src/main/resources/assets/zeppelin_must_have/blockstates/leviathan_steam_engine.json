@@ -1,0 +1,428 @@
+{
+  "variants": {
+    "face=floor,facing=north,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller"
+    },
+    "face=floor,facing=north,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder"
+    },
+    "face=floor,facing=north,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder"
+    },
+    "face=floor,facing=north,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose"
+    },
+    "face=floor,facing=north,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller"
+    },
+    "face=floor,facing=north,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder"
+    },
+    "face=floor,facing=north,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder"
+    },
+    "face=floor,facing=north,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose"
+    },
+    "face=floor,facing=east,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "y": 90
+    },
+    "face=floor,facing=east,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "y": 90
+    },
+    "face=floor,facing=east,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "y": 90
+    },
+    "face=floor,facing=east,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "y": 90
+    },
+    "face=floor,facing=east,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "y": 90
+    },
+    "face=floor,facing=east,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "y": 90
+    },
+    "face=floor,facing=east,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "y": 90
+    },
+    "face=floor,facing=east,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "y": 90
+    },
+    "face=floor,facing=south,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "y": 180
+    },
+    "face=floor,facing=south,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "y": 180
+    },
+    "face=floor,facing=south,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "y": 180
+    },
+    "face=floor,facing=south,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "y": 180
+    },
+    "face=floor,facing=south,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "y": 180
+    },
+    "face=floor,facing=south,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "y": 180
+    },
+    "face=floor,facing=south,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "y": 180
+    },
+    "face=floor,facing=south,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "y": 180
+    },
+    "face=floor,facing=west,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "y": 270
+    },
+    "face=floor,facing=west,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "y": 270
+    },
+    "face=floor,facing=west,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "y": 270
+    },
+    "face=floor,facing=west,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "y": 270
+    },
+    "face=floor,facing=west,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "y": 270
+    },
+    "face=floor,facing=west,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "y": 270
+    },
+    "face=floor,facing=west,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "y": 270
+    },
+    "face=floor,facing=west,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "y": 270
+    },
+    "face=ceiling,facing=north,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=east,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=south,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180
+    },
+    "face=ceiling,facing=west,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 180,
+      "y": 90
+    },
+    "face=wall,facing=north,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90
+    },
+    "face=wall,facing=north,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90
+    },
+    "face=wall,facing=north,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90
+    },
+    "face=wall,facing=north,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90
+    },
+    "face=wall,facing=north,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90
+    },
+    "face=wall,facing=north,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90
+    },
+    "face=wall,facing=north,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90
+    },
+    "face=wall,facing=north,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90
+    },
+    "face=wall,facing=east,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=south,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=west,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=left_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=right_cylinder,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=shaft_nose,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/controller",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=left_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/left_cylinder",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=right_cylinder,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/right_cylinder",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=shaft_nose,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/leviathan/shaft_nose",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

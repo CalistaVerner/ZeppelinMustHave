@@ -1,0 +1,33 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "category": "misc",
+  "pattern": [
+    "NSSSN",
+    "SFPFS",
+    "SPGPS",
+    "SFPFS",
+    "NSSSN"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "S": {
+      "item": "create:sturdy_sheet"
+    },
+    "F": {
+      "item": "create:flywheel"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "G": {
+      "item": "zeppelin_must_have:grand_steam_engine"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:sovereign_steam_engine",
+    "count": 1
+  }
+}

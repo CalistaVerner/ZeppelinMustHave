@@ -7,7 +7,11 @@ import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 public enum SteamEngineGradeTier {
     COPPER("copper"),
     BRASS("brass"),
-    INDUSTRIAL("industrial");
+    INDUSTRIAL("industrial"),
+    GRAND("grand"),
+    SOVEREIGN("sovereign"),
+    LEVIATHAN("leviathan"),
+    MK_VII("mk_vii");
 
     private final String path;
     private final ResourceLocation profileId;

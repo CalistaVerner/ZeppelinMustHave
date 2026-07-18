@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "zeppelin_must_have:block/control_transmitter"
+    },
+    "facing=east": {
+      "model": "zeppelin_must_have:block/control_transmitter",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "zeppelin_must_have:block/control_transmitter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "zeppelin_must_have:block/control_transmitter",
+      "y": 270
+    }
+  }
+}

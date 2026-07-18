@@ -16,9 +16,13 @@ final class ZmhHelmPonderScenes {
     }
 
     static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        helper.forComponents(ZmhBlocks.AIRSHIP_HELM.getId())
-                .addStoryBoard("helm/telemetry", ZmhHelmPonderScenes::airshipHelmTelemetry,
-                        ZmhPonderTags.ZEPPELIN_SYSTEMS);
+        ZmhPonderRegistration.items(helper)
+                .forComponents(ZmhBlocks.AIRSHIP_HELM_ITEM.get())
+                .addStoryBoard(
+                        "helm/telemetry",
+                        ZmhHelmPonderScenes::airshipHelmTelemetry,
+                        ZmhPonderTags.ZEPPELIN_SYSTEMS
+                );
     }
 
     private static void airshipHelmTelemetry(

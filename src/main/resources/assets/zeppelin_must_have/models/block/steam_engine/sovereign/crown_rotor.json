@@ -1,0 +1,179 @@
+{
+  "credit": "Zeppelin Must Have - Sovereign engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/sovereign_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/sovereign_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/sovereign_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/sovereign_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/sovereign_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "rotary_valve_hub",
+      "from": [
+        6.25,
+        6.25,
+        6.25
+      ],
+      "to": [
+        9.75,
+        9.75,
+        9.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "valve_arm_x",
+      "from": [
+        3,
+        7.25,
+        7.25
+      ],
+      "to": [
+        13,
+        8.75,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "valve_arm_z",
+      "from": [
+        7.25,
+        7.25,
+        3
+      ],
+      "to": [
+        8.75,
+        8.75,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "balance_weight_a",
+      "from": [
+        2.5,
+        6.5,
+        6.5
+      ],
+      "to": [
+        4,
+        9.5,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "balance_weight_b",
+      "from": [
+        12,
+        6.5,
+        6.5
+      ],
+      "to": [
+        13.5,
+        9.5,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    }
+  ]
+}

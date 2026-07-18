@@ -1,0 +1,42 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#rib"
+  },
+  "elements": [
+    {
+      "name": "edge_z_west_down",
+      "from": [
+        -0.02,
+        -0.02,
+        0
+      ],
+      "to": [
+        0.42,
+        0.42,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    }
+  ]
+}

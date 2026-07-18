@@ -14,6 +14,9 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlNetworkManager;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightSystemStatus;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightSystemType;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
 import java.util.List;
@@ -45,6 +48,17 @@ public final class BallastTankBlockEntity extends SmartBlockEntity
         super.initialize();
         this.refreshProfile(true);
         this.reconcileMass();
+        FlightControlNetworkManager.reportSystem(
+                this.level,
+                this.worldPosition,
+                new FlightSystemStatus(
+                        FlightSystemType.BALLAST,
+                        this.storage.tank().getFluidAmount() > 0,
+                        this.storage.fillRatio() * 15.0D,
+                        this.storage.ballastMassKg(),
+                        this.storage.fillRatio()
+                )
+        );
     }
 
     @Override

@@ -27,9 +27,24 @@ import java.util.stream.Collectors;
  * coverage tests must derive from this catalog rather than duplicate lists.</p>
  */
 public final class ZeppelinPartCatalog {
+    private static final Set<ResourceLocation> INTERNAL_BLOCKS = Set.of(
+            ZeppelinMustHave.id("reinforced_glass_fluid_pipe"),
+            ZeppelinMustHave.id("industrial_glass_fluid_pipe")
+    );
     private static final List<ZeppelinPartDefinition> PARTS = List.of(
             block("airship_helm", ZmhBlocks.AIRSHIP_HELM_ITEM, ZmhBlocks.AIRSHIP_HELM,
                     ZeppelinPartCategory.FLIGHT_CONTROL),
+            block("flight_computer", ZmhBlocks.FLIGHT_COMPUTER_ITEM, ZmhBlocks.FLIGHT_COMPUTER,
+                    ZeppelinPartCategory.FLIGHT_CONTROL),
+            block("engine_telegraph", ZmhBlocks.ENGINE_TELEGRAPH_ITEM, ZmhBlocks.ENGINE_TELEGRAPH,
+                    ZeppelinPartCategory.FLIGHT_CONTROL),
+            block("emergency_cutoff", ZmhBlocks.EMERGENCY_CUTOFF_ITEM, ZmhBlocks.EMERGENCY_CUTOFF,
+                    ZeppelinPartCategory.FLIGHT_CONTROL),
+            block("control_transmitter", ZmhBlocks.CONTROL_TRANSMITTER_ITEM, ZmhBlocks.CONTROL_TRANSMITTER,
+                    ZeppelinPartCategory.FLIGHT_CONTROL),
+            block("control_receiver", ZmhBlocks.CONTROL_RECEIVER_ITEM, ZmhBlocks.CONTROL_RECEIVER,
+                    ZeppelinPartCategory.FLIGHT_CONTROL),
+
 
             block("airship_burner", ZmhBlocks.AIRSHIP_BURNER_ITEM, ZmhBlocks.AIRSHIP_BURNER,
                     ZeppelinPartCategory.LIFT),
@@ -37,6 +52,10 @@ public final class ZeppelinPartCatalog {
                     ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER, ZeppelinPartCategory.LIFT),
             block("industrial_airship_burner", ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER_ITEM,
                     ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER, ZeppelinPartCategory.LIFT),
+            block("reinforced_envelope", ZmhBlocks.REINFORCED_ENVELOPE_ITEM,
+                    ZmhBlocks.REINFORCED_ENVELOPE, ZeppelinPartCategory.LIFT),
+            block("industrial_envelope", ZmhBlocks.INDUSTRIAL_ENVELOPE_ITEM,
+                    ZmhBlocks.INDUSTRIAL_ENVELOPE, ZeppelinPartCategory.LIFT),
 
             item("heat_recuperator_upgrade", ZmhItems.HEAT_RECUPERATOR_UPGRADE,
                     ZeppelinPartCategory.UPGRADE),
@@ -55,9 +74,22 @@ public final class ZeppelinPartCatalog {
                     ZmhBlocks.BRASS_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
             block("industrial_steam_engine", ZmhBlocks.INDUSTRIAL_STEAM_ENGINE_ITEM,
                     ZmhBlocks.INDUSTRIAL_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
+            block("grand_steam_engine", ZmhBlocks.GRAND_STEAM_ENGINE_ITEM,
+                    ZmhBlocks.GRAND_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
+            block("sovereign_steam_engine", ZmhBlocks.SOVEREIGN_STEAM_ENGINE_ITEM,
+                    ZmhBlocks.SOVEREIGN_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
+            block("leviathan_steam_engine", ZmhBlocks.LEVIATHAN_STEAM_ENGINE_ITEM,
+                    ZmhBlocks.LEVIATHAN_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
+            block("mk_vii_steam_engine", ZmhBlocks.MK_VII_STEAM_ENGINE_ITEM,
+                    ZmhBlocks.MK_VII_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
 
             item("precision_regulator_upgrade", ZmhItems.PRECISION_REGULATOR_UPGRADE,
                     ZeppelinPartCategory.UPGRADE),
+
+            block("reinforced_fluid_pipe", ZmhBlocks.REINFORCED_FLUID_PIPE_ITEM,
+                    ZmhBlocks.REINFORCED_FLUID_PIPE, ZeppelinPartCategory.FLUID_SYSTEMS),
+            block("industrial_fluid_pipe", ZmhBlocks.INDUSTRIAL_FLUID_PIPE_ITEM,
+                    ZmhBlocks.INDUSTRIAL_FLUID_PIPE, ZeppelinPartCategory.FLUID_SYSTEMS),
 
             block("copper_piped_redstone", ZmhBlocks.COPPER_PIPED_REDSTONE_ITEM,
                     ZmhBlocks.COPPER_PIPED_REDSTONE, ZeppelinPartCategory.REDSTONE_CONTROL),
@@ -124,6 +156,7 @@ public final class ZeppelinPartCatalog {
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         Set<ResourceLocation> registeredBlocks = BuiltInRegistries.BLOCK.keySet().stream()
                 .filter(id -> id.getNamespace().equals(ZeppelinMustHave.MOD_ID))
+                .filter(id -> !INTERNAL_BLOCKS.contains(id))
                 .collect(Collectors.toCollection(LinkedHashSet::new));
 
         assertExactCoverage("items", expectedItems, registeredItems);

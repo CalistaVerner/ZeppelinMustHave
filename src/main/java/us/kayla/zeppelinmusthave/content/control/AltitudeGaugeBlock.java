@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
 /**
@@ -78,6 +79,9 @@ public final class AltitudeGaugeBlock extends HorizontalDirectionalBlock
         return this.onBlockEntityUse(level, pos, blockEntity -> {
             if (player.isShiftKeyDown()) {
                 blockEntity.captureOrToggleAltitudeHold(player);
+                if (blockEntity.isAltitudeHoldEnabled()) {
+                    ZmhAdvancements.activate(player, ZmhAdvancements.ALTITUDE_HOLD_ENGAGED);
+                }
             } else {
                 blockEntity.sendStatusTo(player);
             }

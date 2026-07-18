@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "create:block/brass_casing",
+    "front": "zeppelin_must_have:block/zmh/helm_panel",
+    "side": "create:block/dark_metal_block"
+  }
+}

@@ -17,14 +17,14 @@ import static net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalB
 import static net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACING;
 
 final class PipedRedstoneLeverSupport {
-    private static final VoxelShape NORTH = Block.box(4.0D, 3.0D, 10.0D, 12.0D, 13.0D, 16.0D);
-    private static final VoxelShape SOUTH = Block.box(4.0D, 3.0D, 0.0D, 12.0D, 13.0D, 6.0D);
-    private static final VoxelShape WEST = Block.box(10.0D, 3.0D, 4.0D, 16.0D, 13.0D, 12.0D);
-    private static final VoxelShape EAST = Block.box(0.0D, 3.0D, 4.0D, 6.0D, 13.0D, 12.0D);
-    private static final VoxelShape FLOOR_Z = Block.box(4.0D, 0.0D, 3.0D, 12.0D, 8.0D, 13.0D);
-    private static final VoxelShape FLOOR_X = Block.box(3.0D, 0.0D, 4.0D, 13.0D, 8.0D, 12.0D);
-    private static final VoxelShape CEILING_Z = Block.box(4.0D, 8.0D, 3.0D, 12.0D, 16.0D, 13.0D);
-    private static final VoxelShape CEILING_X = Block.box(3.0D, 8.0D, 4.0D, 13.0D, 16.0D, 12.0D);
+    private static final VoxelShape NORTH = Block.box(5.0D, 4.0D, 10.0D, 11.0D, 12.0D, 16.0D);
+    private static final VoxelShape SOUTH = Block.box(5.0D, 4.0D, 0.0D, 11.0D, 12.0D, 6.0D);
+    private static final VoxelShape WEST = Block.box(10.0D, 4.0D, 5.0D, 16.0D, 12.0D, 11.0D);
+    private static final VoxelShape EAST = Block.box(0.0D, 4.0D, 5.0D, 6.0D, 12.0D, 11.0D);
+    private static final VoxelShape FLOOR_Z = Block.box(5.0D, 0.0D, 4.0D, 11.0D, 8.0D, 12.0D);
+    private static final VoxelShape FLOOR_X = Block.box(4.0D, 0.0D, 5.0D, 12.0D, 8.0D, 11.0D);
+    private static final VoxelShape CEILING_Z = Block.box(5.0D, 8.0D, 4.0D, 11.0D, 16.0D, 12.0D);
+    private static final VoxelShape CEILING_X = Block.box(4.0D, 8.0D, 5.0D, 12.0D, 16.0D, 11.0D);
 
     private PipedRedstoneLeverSupport() {
     }

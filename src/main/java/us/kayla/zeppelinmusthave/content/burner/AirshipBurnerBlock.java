@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeItem;
 import us.kayla.zeppelinmusthave.content.upgrade.AirshipUpgradeSet;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
@@ -84,6 +85,7 @@ public final class AirshipBurnerBlock extends HotAirBurnerBlock {
                         ),
                         false
                 );
+                ZmhAdvancements.activate(player, ZmhAdvancements.BURNER_UPGRADED);
             } else {
                 player.displayClientMessage(
                         Component.translatable(installFailureKey(result.status())),
@@ -95,15 +97,18 @@ public final class AirshipBurnerBlock extends HotAirBurnerBlock {
 
         if (blockEntity instanceof AirshipBurnerBlockEntity burner
                 && burner.tryInsertFuel(stack, true)) {
-            if (!level.isClientSide && burner.tryInsertFuel(stack, false) && !player.isCreative()) {
-                ItemStack container = stack.hasCraftingRemainingItem()
-                        ? stack.getCraftingRemainingItem()
-                        : ItemStack.EMPTY;
-                stack.shrink(1);
+            if (!level.isClientSide && burner.tryInsertFuel(stack, false)) {
+                ZmhAdvancements.activate(player, ZmhAdvancements.BURNER_IGNITION);
+                if (!player.isCreative()) {
+                    ItemStack container = stack.hasCraftingRemainingItem()
+                            ? stack.getCraftingRemainingItem()
+                            : ItemStack.EMPTY;
+                    stack.shrink(1);
 
-                if (!container.isEmpty()
-                        && !player.getInventory().add(container)) {
-                    player.drop(container, false);
+                    if (!container.isEmpty()
+                            && !player.getInventory().add(container)) {
+                        player.drop(container, false);
+                    }
                 }
             }
             return ItemInteractionResult.SUCCESS;

@@ -4,12 +4,22 @@ import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import us.kayla.zeppelinmusthave.content.ballast.BallastTankBlock;
+import us.kayla.zeppelinmusthave.content.balloon.TieredEnvelopeBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeItem;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
+import us.kayla.zeppelinmusthave.content.control.fcn.ControlReceiverBlock;
+import us.kayla.zeppelinmusthave.content.control.fcn.ControlTransmitterBlock;
+import us.kayla.zeppelinmusthave.content.control.fcn.EmergencyCutoffBlock;
+import us.kayla.zeppelinmusthave.content.control.fcn.EngineTelegraphBlock;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightComputerBlock;
+import us.kayla.zeppelinmusthave.content.fluid.TieredFluidPipeBlock;
+import us.kayla.zeppelinmusthave.content.fluid.TieredGlassFluidPipeBlock;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlock;
 import us.kayla.zeppelinmusthave.content.mooring.MooringWinchBlock;
+import us.kayla.zeppelinmusthave.content.steam.LeviathanSteamEngineBlock;
+import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEngineBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneRepeaterBlock;
@@ -26,6 +36,17 @@ public final class ZmhBlocks {
     public static final DeferredBlock<AirshipHelmBlock> AIRSHIP_HELM = ZmhAirshipBlocks.HELM.block();
     public static final DeferredItem<BlockItem> AIRSHIP_HELM_ITEM = ZmhAirshipBlocks.HELM.item();
 
+    public static final DeferredBlock<FlightComputerBlock> FLIGHT_COMPUTER = ZmhAirshipBlocks.FLIGHT_COMPUTER.block();
+    public static final DeferredItem<BlockItem> FLIGHT_COMPUTER_ITEM = ZmhAirshipBlocks.FLIGHT_COMPUTER.item();
+    public static final DeferredBlock<EngineTelegraphBlock> ENGINE_TELEGRAPH = ZmhAirshipBlocks.ENGINE_TELEGRAPH.block();
+    public static final DeferredItem<BlockItem> ENGINE_TELEGRAPH_ITEM = ZmhAirshipBlocks.ENGINE_TELEGRAPH.item();
+    public static final DeferredBlock<EmergencyCutoffBlock> EMERGENCY_CUTOFF = ZmhAirshipBlocks.EMERGENCY_CUTOFF.block();
+    public static final DeferredItem<BlockItem> EMERGENCY_CUTOFF_ITEM = ZmhAirshipBlocks.EMERGENCY_CUTOFF.item();
+    public static final DeferredBlock<ControlTransmitterBlock> CONTROL_TRANSMITTER = ZmhAirshipBlocks.CONTROL_TRANSMITTER.block();
+    public static final DeferredItem<BlockItem> CONTROL_TRANSMITTER_ITEM = ZmhAirshipBlocks.CONTROL_TRANSMITTER.item();
+    public static final DeferredBlock<ControlReceiverBlock> CONTROL_RECEIVER = ZmhAirshipBlocks.CONTROL_RECEIVER.block();
+    public static final DeferredItem<BlockItem> CONTROL_RECEIVER_ITEM = ZmhAirshipBlocks.CONTROL_RECEIVER.item();
+
     public static final DeferredBlock<AirshipBurnerBlock> AIRSHIP_BURNER = ZmhAirshipBlocks.STANDARD_BURNER.block();
     public static final DeferredItem<BlockItem> AIRSHIP_BURNER_ITEM = ZmhAirshipBlocks.STANDARD_BURNER.item();
     public static final DeferredBlock<AirshipBurnerBlock> FORCED_DRAFT_AIRSHIP_BURNER =
@@ -36,6 +57,15 @@ public final class ZmhBlocks {
             ZmhAirshipBlocks.INDUSTRIAL_BURNER.block();
     public static final DeferredItem<BlockItem> INDUSTRIAL_AIRSHIP_BURNER_ITEM =
             ZmhAirshipBlocks.INDUSTRIAL_BURNER.item();
+
+    public static final DeferredBlock<TieredEnvelopeBlock> REINFORCED_ENVELOPE =
+            ZmhEnvelopeBlocks.REINFORCED_ENVELOPE.block();
+    public static final DeferredItem<BlockItem> REINFORCED_ENVELOPE_ITEM =
+            ZmhEnvelopeBlocks.REINFORCED_ENVELOPE.item();
+    public static final DeferredBlock<TieredEnvelopeBlock> INDUSTRIAL_ENVELOPE =
+            ZmhEnvelopeBlocks.INDUSTRIAL_ENVELOPE.block();
+    public static final DeferredItem<BlockItem> INDUSTRIAL_ENVELOPE_ITEM =
+            ZmhEnvelopeBlocks.INDUSTRIAL_ENVELOPE.item();
 
     public static final DeferredBlock<BoilerGradeBlock> COPPER_BOILER_BASE = ZmhSteamPowerBlocks.COPPER_BOILER.block();
     public static final DeferredItem<BoilerGradeItem> COPPER_BOILER_BASE_ITEM = ZmhSteamPowerBlocks.COPPER_BOILER.item();
@@ -56,6 +86,22 @@ public final class ZmhBlocks {
             ZmhSteamPowerBlocks.INDUSTRIAL_ENGINE.block();
     public static final DeferredItem<BlockItem> INDUSTRIAL_STEAM_ENGINE_ITEM =
             ZmhSteamPowerBlocks.INDUSTRIAL_ENGINE.item();
+    public static final DeferredBlock<SteamEngineGradeBlock> GRAND_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.GRAND_ENGINE.block();
+    public static final DeferredItem<BlockItem> GRAND_STEAM_ENGINE_ITEM =
+            ZmhSteamPowerBlocks.GRAND_ENGINE.item();
+    public static final DeferredBlock<SteamEngineGradeBlock> SOVEREIGN_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.SOVEREIGN_ENGINE.block();
+    public static final DeferredItem<BlockItem> SOVEREIGN_STEAM_ENGINE_ITEM =
+            ZmhSteamPowerBlocks.SOVEREIGN_ENGINE.item();
+    public static final DeferredBlock<LeviathanSteamEngineBlock> LEVIATHAN_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.LEVIATHAN_ENGINE.block();
+    public static final DeferredItem<BlockItem> LEVIATHAN_STEAM_ENGINE_ITEM =
+            ZmhSteamPowerBlocks.LEVIATHAN_ENGINE.item();
+    public static final DeferredBlock<MkViiSteamEngineBlock> MK_VII_STEAM_ENGINE =
+            ZmhSteamPowerBlocks.MK_VII_ENGINE.block();
+    public static final DeferredItem<BlockItem> MK_VII_STEAM_ENGINE_ITEM =
+            ZmhSteamPowerBlocks.MK_VII_ENGINE.item();
 
     public static final DeferredBlock<PipedRedstoneBlock> COPPER_PIPED_REDSTONE = ZmhRedstoneBlocks.COPPER_CONDUIT.block();
     public static final DeferredItem<BlockItem> COPPER_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.COPPER_CONDUIT.item();
@@ -63,6 +109,19 @@ public final class ZmhBlocks {
     public static final DeferredItem<BlockItem> BRASS_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.BRASS_CONDUIT.item();
     public static final DeferredBlock<PipedRedstoneBlock> RESONANT_PIPED_REDSTONE = ZmhRedstoneBlocks.RESONANT_CONDUIT.block();
     public static final DeferredItem<BlockItem> RESONANT_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.RESONANT_CONDUIT.item();
+    public static final DeferredBlock<TieredFluidPipeBlock> REINFORCED_FLUID_PIPE =
+            ZmhFluidBlocks.REINFORCED_FLUID_PIPE.block();
+    public static final DeferredItem<BlockItem> REINFORCED_FLUID_PIPE_ITEM =
+            ZmhFluidBlocks.REINFORCED_FLUID_PIPE.item();
+    public static final DeferredBlock<TieredFluidPipeBlock> INDUSTRIAL_FLUID_PIPE =
+            ZmhFluidBlocks.INDUSTRIAL_FLUID_PIPE.block();
+    public static final DeferredItem<BlockItem> INDUSTRIAL_FLUID_PIPE_ITEM =
+            ZmhFluidBlocks.INDUSTRIAL_FLUID_PIPE.item();
+    public static final DeferredBlock<TieredGlassFluidPipeBlock> REINFORCED_GLASS_FLUID_PIPE =
+            ZmhFluidBlocks.REINFORCED_GLASS_FLUID_PIPE;
+    public static final DeferredBlock<TieredGlassFluidPipeBlock> INDUSTRIAL_GLASS_FLUID_PIPE =
+            ZmhFluidBlocks.INDUSTRIAL_GLASS_FLUID_PIPE;
+
     public static final DeferredBlock<PipedRedstoneNativeLeverBlock> PIPED_REDSTONE_NATIVE_LEVER =
             ZmhRedstoneBlocks.NATIVE_LEVER.block();
     public static final DeferredItem<BlockItem> PIPED_REDSTONE_NATIVE_LEVER_ITEM = ZmhRedstoneBlocks.NATIVE_LEVER.item();

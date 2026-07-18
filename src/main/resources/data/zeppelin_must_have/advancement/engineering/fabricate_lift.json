@@ -1,0 +1,84 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:industrial_airship_burner",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_lift.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_lift.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "airship_burner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_burner"
+          }
+        ]
+      }
+    },
+    "forced_draft_airship_burner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:forced_draft_airship_burner"
+          }
+        ]
+      }
+    },
+    "industrial_airship_burner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_airship_burner"
+          }
+        ]
+      }
+    },
+    "reinforced_envelope": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:reinforced_envelope"
+          }
+        ]
+      }
+    },
+    "industrial_envelope": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_envelope"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "airship_burner",
+      "forced_draft_airship_burner",
+      "industrial_airship_burner",
+      "reinforced_envelope",
+      "industrial_envelope"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/root",
+  "rewards": {
+    "experience": 25
+  }
+}

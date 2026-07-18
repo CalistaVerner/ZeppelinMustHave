@@ -1,0 +1,278 @@
+{
+  "credit": "Zeppelin Must Have - MK VII industrial mechanism",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/mk_vii_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/mk_vii_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/mk_vii_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/mk_vii_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/mk_vii_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "lower_big_end",
+      "from": [
+        7,
+        1,
+        7
+      ],
+      "to": [
+        9,
+        5.5,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "connecting_rod",
+      "from": [
+        7.55,
+        5.5,
+        7.55
+      ],
+      "to": [
+        8.45,
+        16,
+        8.45
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "upper_small_end",
+      "from": [
+        7,
+        16,
+        7
+      ],
+      "to": [
+        9,
+        21,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "lower_bearing_shell",
+      "from": [
+        6.75,
+        5.05,
+        6.75
+      ],
+      "to": [
+        9.25,
+        6,
+        9.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "upper_bearing_shell",
+      "from": [
+        6.75,
+        15.55,
+        6.75
+      ],
+      "to": [
+        9.25,
+        16.5,
+        9.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "left_parallel_rod",
+      "from": [
+        6.55,
+        5,
+        7.15
+      ],
+      "to": [
+        7.35,
+        16.7,
+        7.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "right_parallel_rod",
+      "from": [
+        8.65,
+        5,
+        8.15
+      ],
+      "to": [
+        9.45,
+        16.7,
+        8.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "big_end_cap",
+      "from": [
+        6.45,
+        3.9,
+        6.45
+      ],
+      "to": [
+        9.55,
+        5.2,
+        9.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    }
+  ]
+}

@@ -6,6 +6,10 @@
     "zeppelin_must_have:industrial_boiler_base",
     "zeppelin_must_have:copper_steam_engine",
     "zeppelin_must_have:brass_steam_engine",
-    "zeppelin_must_have:industrial_steam_engine"
+    "zeppelin_must_have:industrial_steam_engine",
+    "zeppelin_must_have:grand_steam_engine",
+    "zeppelin_must_have:sovereign_steam_engine",
+    "zeppelin_must_have:leviathan_steam_engine",
+    "zeppelin_must_have:mk_vii_steam_engine"
   ]
 }

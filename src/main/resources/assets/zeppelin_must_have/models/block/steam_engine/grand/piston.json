@@ -1,0 +1,179 @@
+{
+  "credit": "Zeppelin Must Have — MK IV corporate flagship engine",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/grand_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/grand_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/grand_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/grand_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/grand_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "piston_rod",
+      "from": [
+        7.1,
+        3,
+        7.1
+      ],
+      "to": [
+        8.9,
+        21,
+        8.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "piston_body",
+      "from": [
+        5.8,
+        17.5,
+        5.8
+      ],
+      "to": [
+        10.2,
+        21.5,
+        10.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "lower_ring",
+      "from": [
+        5.5,
+        17.25,
+        5.5
+      ],
+      "to": [
+        10.5,
+        18,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "upper_ring",
+      "from": [
+        5.5,
+        20.75,
+        5.5
+      ],
+      "to": [
+        10.5,
+        21.5,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "wrist_pin",
+      "from": [
+        7.25,
+        1,
+        7.25
+      ],
+      "to": [
+        8.75,
+        5,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#fabric"
+  },
+  "elements": [
+    {
+      "name": "hull",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#fabric"
+        },
+        "east": {
+          "texture": "#fabric"
+        },
+        "south": {
+          "texture": "#fabric"
+        },
+        "west": {
+          "texture": "#fabric"
+        },
+        "up": {
+          "texture": "#fabric"
+        },
+        "down": {
+          "texture": "#fabric"
+        }
+      }
+    },
+    {
+      "name": "edge_y_north_west",
+      "from": [
+        -0.02,
+        0,
+        -0.02
+      ],
+      "to": [
+        0.42,
+        16,
+        0.42
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_y_north_east",
+      "from": [
+        15.58,
+        0,
+        -0.02
+      ],
+      "to": [
+        16.02,
+        16,
+        0.42
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_y_south_west",
+      "from": [
+        -0.02,
+        0,
+        15.58
+      ],
+      "to": [
+        0.42,
+        16,
+        16.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_y_south_east",
+      "from": [
+        15.58,
+        0,
+        15.58
+      ],
+      "to": [
+        16.02,
+        16,
+        16.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_x_north_down",
+      "from": [
+        0,
+        -0.02,
+        -0.02
+      ],
+      "to": [
+        16,
+        0.42,
+        0.42
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_x_north_up",
+      "from": [
+        0,
+        15.58,
+        -0.02
+      ],
+      "to": [
+        16,
+        16.02,
+        0.42
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_x_south_down",
+      "from": [
+        0,
+        -0.02,
+        15.58
+      ],
+      "to": [
+        16,
+        0.42,
+        16.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_x_south_up",
+      "from": [
+        0,
+        15.58,
+        15.58
+      ],
+      "to": [
+        16,
+        16.02,
+        16.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_z_west_down",
+      "from": [
+        -0.02,
+        -0.02,
+        0
+      ],
+      "to": [
+        0.42,
+        0.42,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_z_west_up",
+      "from": [
+        -0.02,
+        15.58,
+        0
+      ],
+      "to": [
+        0.42,
+        16.02,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_z_east_down",
+      "from": [
+        15.58,
+        -0.02,
+        0
+      ],
+      "to": [
+        16.02,
+        0.42,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    },
+    {
+      "name": "edge_z_east_up",
+      "from": [
+        15.58,
+        15.58,
+        0
+      ],
+      "to": [
+        16.02,
+        16.02,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rib"
+        },
+        "east": {
+          "texture": "#rib"
+        },
+        "south": {
+          "texture": "#rib"
+        },
+        "west": {
+          "texture": "#rib"
+        },
+        "up": {
+          "texture": "#rib"
+        },
+        "down": {
+          "texture": "#rib"
+        }
+      }
+    }
+  ]
+}

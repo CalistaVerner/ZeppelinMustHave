@@ -1,0 +1,9 @@
+{
+  "parent": "zeppelin_must_have:block/envelope_connected/edge_z_east_down",
+  "textures": {
+    "fabric": "zeppelin_must_have:block/zmh/industrial_envelope_fabric",
+    "rib": "zeppelin_must_have:block/zmh/industrial_envelope_rib",
+    "particle": "zeppelin_must_have:block/zmh/industrial_envelope_fabric"
+  },
+  "ambientocclusion": false
+}

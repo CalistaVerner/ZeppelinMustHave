@@ -1,0 +1,542 @@
+{
+  "credit": "Zeppelin Must Have - Leviathan engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/leviathan_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/leviathan_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/leviathan_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/leviathan_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/leviathan_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "bank_bedplate",
+      "from": [
+        0.5,
+        1,
+        0.5
+      ],
+      "to": [
+        15.5,
+        3.5,
+        15.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_barrel",
+      "from": [
+        2,
+        4,
+        1.0
+      ],
+      "to": [
+        14,
+        12.5,
+        3.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_lower_flange",
+      "from": [
+        1.6,
+        3.5,
+        0.85
+      ],
+      "to": [
+        14.4,
+        4.35,
+        3.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_head",
+      "from": [
+        1.6,
+        12.5,
+        0.85
+      ],
+      "to": [
+        14.4,
+        14.25,
+        3.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_barrel",
+      "from": [
+        2,
+        4,
+        4.15
+      ],
+      "to": [
+        14,
+        12.5,
+        6.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_lower_flange",
+      "from": [
+        1.6,
+        3.5,
+        4.0
+      ],
+      "to": [
+        14.4,
+        4.35,
+        6.800000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_head",
+      "from": [
+        1.6,
+        12.5,
+        4.0
+      ],
+      "to": [
+        14.4,
+        14.25,
+        6.800000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_barrel",
+      "from": [
+        2,
+        4,
+        7.3
+      ],
+      "to": [
+        14,
+        12.5,
+        9.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_lower_flange",
+      "from": [
+        1.6,
+        3.5,
+        7.1499999999999995
+      ],
+      "to": [
+        14.4,
+        4.35,
+        9.950000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_head",
+      "from": [
+        1.6,
+        12.5,
+        7.1499999999999995
+      ],
+      "to": [
+        14.4,
+        14.25,
+        9.950000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_4_barrel",
+      "from": [
+        2,
+        4,
+        10.45
+      ],
+      "to": [
+        14,
+        12.5,
+        12.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_4_lower_flange",
+      "from": [
+        1.6,
+        3.5,
+        10.299999999999999
+      ],
+      "to": [
+        14.4,
+        4.35,
+        13.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_4_head",
+      "from": [
+        1.6,
+        12.5,
+        10.299999999999999
+      ],
+      "to": [
+        14.4,
+        14.25,
+        13.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "top_steam_manifold",
+      "from": [
+        3,
+        14.25,
+        0.75
+      ],
+      "to": [
+        13,
+        15.75,
+        15.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "inner_bank_coupling",
+      "from": [
+        12.5,
+        4.5,
+        3
+      ],
+      "to": [
+        16,
+        11.5,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "outer_inspection_plate",
+      "from": [
+        0,
+        5.25,
+        4
+      ],
+      "to": [
+        1.25,
+        10.5,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    }
+  ]
+}

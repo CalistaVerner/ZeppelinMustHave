@@ -1,0 +1,1103 @@
+{
+  "credit": "Zeppelin Must Have - MK VII industrial engine",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/mk_vii_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/mk_vii_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/mk_vii_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/mk_vii_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/mk_vii_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "cast_bedplate",
+      "from": [
+        0.35,
+        0,
+        0.6
+      ],
+      "to": [
+        15.65,
+        2.3,
+        15.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "front_rail",
+      "from": [
+        0,
+        2.3,
+        0.25
+      ],
+      "to": [
+        16,
+        3.35,
+        3.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "rear_rail",
+      "from": [
+        0,
+        2.3,
+        12.9
+      ],
+      "to": [
+        16,
+        3.35,
+        15.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "lower_crankcase",
+      "from": [
+        0.9,
+        3.35,
+        2.1
+      ],
+      "to": [
+        15.1,
+        8.9,
+        14.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "front_bearing_house",
+      "from": [
+        2.3,
+        4,
+        0.2
+      ],
+      "to": [
+        13.7,
+        9,
+        4.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "rear_inspection_chest",
+      "from": [
+        2,
+        4.2,
+        13.8
+      ],
+      "to": [
+        14,
+        8.4,
+        15.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "upper_bridge",
+      "from": [
+        0.6,
+        8.7,
+        3.2
+      ],
+      "to": [
+        15.4,
+        10.2,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "left_frame_rib",
+      "from": [
+        0.25,
+        3.2,
+        2.5
+      ],
+      "to": [
+        1.25,
+        13.8,
+        14.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "right_frame_rib",
+      "from": [
+        14.75,
+        3.2,
+        2.5
+      ],
+      "to": [
+        15.75,
+        13.8,
+        14.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "front_guard_beam",
+      "from": [
+        0.75,
+        8.4,
+        0
+      ],
+      "to": [
+        15.25,
+        10,
+        2.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "steam_header",
+      "from": [
+        1,
+        14.15,
+        11.2
+      ],
+      "to": [
+        15,
+        15.75,
+        14.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "oil_gallery",
+      "from": [
+        1.5,
+        3.55,
+        11.8
+      ],
+      "to": [
+        14.5,
+        4.45,
+        13.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_jacket",
+      "from": [
+        1.15,
+        9.7,
+        4.1
+      ],
+      "to": [
+        5,
+        14.55,
+        12.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_lower_flange",
+      "from": [
+        0.8499999999999999,
+        9.05,
+        3.75
+      ],
+      "to": [
+        5.3,
+        10.05,
+        12.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_head",
+      "from": [
+        0.8999999999999999,
+        14.35,
+        3.8
+      ],
+      "to": [
+        5.25,
+        15.75,
+        12.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_1_valve_chest",
+      "from": [
+        1.5,
+        11,
+        12.35
+      ],
+      "to": [
+        4.65,
+        14.05,
+        15.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "crank_bearing_1",
+      "from": [
+        1.5999999999999999,
+        4.2,
+        0
+      ],
+      "to": [
+        4.55,
+        6.7,
+        3.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "bearing_cap_1",
+      "from": [
+        1.3499999999999999,
+        6.35,
+        0.25
+      ],
+      "to": [
+        4.8,
+        7.35,
+        3.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_jacket",
+      "from": [
+        6.05,
+        9.7,
+        4.1
+      ],
+      "to": [
+        9.95,
+        14.55,
+        12.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_lower_flange",
+      "from": [
+        5.75,
+        9.05,
+        3.75
+      ],
+      "to": [
+        10.25,
+        10.05,
+        12.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_head",
+      "from": [
+        5.8,
+        14.35,
+        3.8
+      ],
+      "to": [
+        10.2,
+        15.75,
+        12.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_2_valve_chest",
+      "from": [
+        6.3999999999999995,
+        11,
+        12.35
+      ],
+      "to": [
+        9.6,
+        14.05,
+        15.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "crank_bearing_2",
+      "from": [
+        6.5,
+        4.2,
+        0
+      ],
+      "to": [
+        9.5,
+        6.7,
+        3.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "bearing_cap_2",
+      "from": [
+        6.25,
+        6.35,
+        0.25
+      ],
+      "to": [
+        9.75,
+        7.35,
+        3.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_jacket",
+      "from": [
+        11,
+        9.7,
+        4.1
+      ],
+      "to": [
+        14.85,
+        14.55,
+        12.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_lower_flange",
+      "from": [
+        10.7,
+        9.05,
+        3.75
+      ],
+      "to": [
+        15.15,
+        10.05,
+        12.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_head",
+      "from": [
+        10.75,
+        14.35,
+        3.8
+      ],
+      "to": [
+        15.1,
+        15.75,
+        12.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "cylinder_3_valve_chest",
+      "from": [
+        11.35,
+        11,
+        12.35
+      ],
+      "to": [
+        14.5,
+        14.05,
+        15.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "crank_bearing_3",
+      "from": [
+        11.45,
+        4.2,
+        0
+      ],
+      "to": [
+        14.4,
+        6.7,
+        3.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "bearing_cap_3",
+      "from": [
+        11.2,
+        6.35,
+        0.25
+      ],
+      "to": [
+        14.65,
+        7.35,
+        3.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "inner_torque_coupling",
+      "from": [
+        0,
+        4.8,
+        4.8
+      ],
+      "to": [
+        2.25,
+        9.5,
+        11.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "outer_service_console",
+      "from": [
+        14.3,
+        5.1,
+        5
+      ],
+      "to": [
+        16,
+        10.8,
+        12.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "lubricator_reservoir",
+      "from": [
+        11.8,
+        10.2,
+        11
+      ],
+      "to": [
+        14.6,
+        14.4,
+        14.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    }
+  ]
+}

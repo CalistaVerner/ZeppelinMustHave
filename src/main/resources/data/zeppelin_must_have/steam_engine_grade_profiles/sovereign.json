@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "stress_capacity": 12288.0,
+  "boiler_load_units": 6,
+  "cylinder_count": 5,
+  "crank_radius": 0.56,
+  "connecting_rod_length": 1.28,
+  "piston_base_offset": 1.42,
+  "cylinder_spread": 0.18,
+  "steam_particle_scale": 3.2
+}

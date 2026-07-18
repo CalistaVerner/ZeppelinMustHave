@@ -28,7 +28,7 @@ final class SteamEngineGradeClientEffects {
         }
 
         Direction facing = SteamEngineBlock.getFacing(blockState);
-        PoweredShaftBlockEntity shaft = engine.getShaft();
+        PoweredShaftBlockEntity shaft = engine.getPrimaryShaft();
         if (shaft == null) {
             return null;
         }

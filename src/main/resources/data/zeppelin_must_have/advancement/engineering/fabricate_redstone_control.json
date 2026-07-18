@@ -1,0 +1,84 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:resonant_piped_redstone",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_redstone_control.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_redstone_control.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "copper_piped_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:copper_piped_redstone"
+          }
+        ]
+      }
+    },
+    "brass_piped_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:brass_piped_redstone"
+          }
+        ]
+      }
+    },
+    "resonant_piped_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:resonant_piped_redstone"
+          }
+        ]
+      }
+    },
+    "piped_redstone_native_lever": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:piped_redstone_native_lever"
+          }
+        ]
+      }
+    },
+    "piped_redstone_repeater": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:piped_redstone_repeater"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "copper_piped_redstone",
+      "brass_piped_redstone",
+      "resonant_piped_redstone",
+      "piped_redstone_native_lever",
+      "piped_redstone_repeater"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/root",
+  "rewards": {
+    "experience": 25
+  }
+}

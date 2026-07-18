@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BRB",
+    "RTR",
+    "BRB"
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "R": {
+      "item": "zeppelin_must_have:reinforced_envelope"
+    },
+    "T": {
+      "item": "create:sturdy_sheet"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:industrial_envelope",
+    "count": 4
+  }
+}

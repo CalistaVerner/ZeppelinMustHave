@@ -1,0 +1,146 @@
+{
+  "credit": "Zeppelin Must Have - Sovereign engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/sovereign_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/sovereign_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/sovereign_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/sovereign_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/sovereign_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "left_crank_web",
+      "from": [
+        4.2,
+        6.3,
+        6.7
+      ],
+      "to": [
+        7,
+        9.7,
+        9.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "right_crank_web",
+      "from": [
+        9,
+        6.3,
+        6.7
+      ],
+      "to": [
+        11.8,
+        9.7,
+        9.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "crank_pin",
+      "from": [
+        6.5,
+        6.5,
+        6.5
+      ],
+      "to": [
+        9.5,
+        9.5,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "main_shaft",
+      "from": [
+        7.25,
+        -1,
+        7.25
+      ],
+      "to": [
+        8.75,
+        18,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    }
+  ]
+}

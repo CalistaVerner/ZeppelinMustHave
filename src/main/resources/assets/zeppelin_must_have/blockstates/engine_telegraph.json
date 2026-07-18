@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "zeppelin_must_have:block/engine_telegraph"
+    },
+    "facing=east": {
+      "model": "zeppelin_must_have:block/engine_telegraph",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "zeppelin_must_have:block/engine_telegraph",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "zeppelin_must_have:block/engine_telegraph",
+      "y": 270
+    }
+  }
+}

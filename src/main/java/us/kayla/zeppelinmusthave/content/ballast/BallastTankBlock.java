@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
 public final class BallastTankBlock extends Block implements IBE<BallastTankBlockEntity> {
@@ -49,6 +50,8 @@ public final class BallastTankBlock extends Block implements IBE<BallastTankBloc
             InteractionHand hand,
             BlockHitResult hitResult
     ) {
+        BallastTankBlockEntity tank = this.getBlockEntity(level, pos);
+        int previousAmount = tank == null ? -1 : tank.tank().getFluidAmount();
         if (FluidUtil.interactWithFluidHandler(
                 player,
                 hand,
@@ -56,6 +59,11 @@ public final class BallastTankBlock extends Block implements IBE<BallastTankBloc
                 pos,
                 hitResult.getDirection()
         )) {
+            if (!level.isClientSide
+                    && tank != null
+                    && tank.tank().getFluidAmount() > previousAmount) {
+                ZmhAdvancements.activate(player, ZmhAdvancements.BALLAST_LOADED);
+            }
             return ItemInteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);

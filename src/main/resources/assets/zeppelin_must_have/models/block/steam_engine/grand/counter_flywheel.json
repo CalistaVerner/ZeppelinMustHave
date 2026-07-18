@@ -1,0 +1,245 @@
+{
+  "credit": "Zeppelin Must Have — MK IV corporate flagship engine",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/grand_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/grand_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/grand_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/grand_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/grand_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "counter_hub",
+      "from": [
+        6.25,
+        6.25,
+        6.25
+      ],
+      "to": [
+        9.75,
+        9.75,
+        9.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_top",
+      "from": [
+        6.8,
+        13.75,
+        2.25
+      ],
+      "to": [
+        9.2,
+        15.25,
+        13.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_bottom",
+      "from": [
+        6.8,
+        0.75,
+        2.25
+      ],
+      "to": [
+        9.2,
+        2.25,
+        13.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_front",
+      "from": [
+        6.8,
+        2.25,
+        0.75
+      ],
+      "to": [
+        9.2,
+        13.75,
+        2.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_rim_back",
+      "from": [
+        6.8,
+        2.25,
+        13.75
+      ],
+      "to": [
+        9.2,
+        13.75,
+        15.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "counter_spoke_vertical",
+      "from": [
+        7.25,
+        2.25,
+        7.25
+      ],
+      "to": [
+        8.75,
+        13.75,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "counter_spoke_horizontal",
+      "from": [
+        7.25,
+        7.25,
+        2.25
+      ],
+      "to": [
+        8.75,
+        8.75,
+        13.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    }
+  ]
+}

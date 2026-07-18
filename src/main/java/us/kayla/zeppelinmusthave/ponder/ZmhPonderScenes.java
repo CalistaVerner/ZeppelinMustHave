@@ -10,8 +10,11 @@ public final class ZmhPonderScenes {
 
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
         ZmhAirshipPonderScenes.register(helper);
+        ZmhLiftPonderScenes.register(helper);
         ZmhSteamPowerPonderScenes.register(helper);
         ZmhControlPonderScenes.register(helper);
+        ZmhFlightControlPonderScenes.register(helper);
+        ZmhFluidPonderScenes.register(helper);
         ZmhRedstonePonderScenes.register(helper);
         ZmhServicePonderScenes.register(helper);
     }

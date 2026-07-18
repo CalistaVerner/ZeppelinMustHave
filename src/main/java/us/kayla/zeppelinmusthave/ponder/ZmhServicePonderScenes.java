@@ -27,19 +27,20 @@ final class ZmhServicePonderScenes {
     }
 
     static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        helper.forComponents(ZmhBlocks.BALLAST_TANK.getId())
+        var items = ZmhPonderRegistration.items(helper);
+        items.forComponents(ZmhBlocks.BALLAST_TANK_ITEM.get())
                 .addStoryBoard(
                         "service/ballast_tank",
                         ZmhServicePonderScenes::ballastTank,
                         ZmhPonderTags.ZEPPELIN_SYSTEMS
                 );
-        helper.forComponents(ZmhBlocks.MOORING_WINCH.getId())
+        items.forComponents(ZmhBlocks.MOORING_WINCH_ITEM.get())
                 .addStoryBoard(
                         "service/mooring_winch",
                         ZmhServicePonderScenes::mooringWinch,
                         ZmhPonderTags.ZEPPELIN_SYSTEMS
                 );
-        helper.forComponents(ZmhBlocks.VERTICAL_THRUSTER.getId())
+        items.forComponents(ZmhBlocks.VERTICAL_THRUSTER_ITEM.get())
                 .addStoryBoard(
                         "service/vertical_thruster",
                         ZmhServicePonderScenes::verticalThruster,
@@ -53,6 +54,7 @@ final class ZmhServicePonderScenes {
         scene.title("ballast_tank", "Controlling Airship Mass with Ballast");
         scene.configureBasePlate(0, 0, 5);
         scene.world().setBlock(tankPos, ZmhBlocks.BALLAST_TANK.get().defaultBlockState(), false);
+        scene.idle(1);
         scene.world().showSection(util.select().layer(0), Direction.UP);
         scene.world().showSection(util.select().position(tankPos), Direction.DOWN);
         scene.idle(20);
@@ -116,6 +118,7 @@ final class ZmhServicePonderScenes {
                 AllBlocks.SHAFT.getDefaultState().setValue(ShaftBlock.AXIS, Direction.Axis.X),
                 false
         );
+        scene.idle(1);
         scene.world().showSection(util.select().layer(0), Direction.UP);
         scene.world().showSection(util.select().fromTo(winchPos, shaftPos), Direction.DOWN);
         scene.idle(20);
@@ -164,6 +167,7 @@ final class ZmhServicePonderScenes {
                         .setValue(BasePropellerBlock.REVERSED, false),
                 false
         );
+        scene.idle(1);
         scene.world().showSection(util.select().layer(0), Direction.UP);
         scene.world().showSection(util.select().fromTo(shaftPos, thrusterPos), Direction.DOWN);
         scene.idle(20);

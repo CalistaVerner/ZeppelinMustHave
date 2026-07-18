@@ -22,13 +22,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlActuator;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlChannel;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightControlNetworkManager;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightSystemStatus;
+import us.kayla.zeppelinmusthave.content.control.fcn.FlightSystemType;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
 
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
+public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity implements FlightControlActuator {
     private final SteamEngineGradeConfiguration configuration;
+    private boolean flightControlOverride;
+    private int flightControlCommand;
+    private boolean advancementActive;
 
     public SteamEngineGradeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -55,15 +64,46 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         if (this.level == null || !(this.getBlockState().getBlock() instanceof SteamEngineGradeBlock)) {
             return;
         }
-
-        FluidTankBlockEntity tank = this.getTank();
-        PoweredShaftBlockEntity shaft = this.getShaft();
-        if (tank == null || shaft == null || !this.isValid()) {
+        if (this.isMkViiAuxiliary()) {
             return;
         }
 
-        float efficiency = this.updatePoweredShaft(tank, shaft);
-        if (this.level.isClientSide) {
+        FluidTankBlockEntity tank = this.getTank();
+        PoweredShaftBlockEntity shaft = this.getPrimaryShaft();
+        if (tank == null || shaft == null || !this.isValid()) {
+            if (!this.level.isClientSide) {
+                this.deactivateOwnedShaft();
+                this.advancementActive = false;
+            }
+            return;
+        }
+
+        float efficiency = this.resolveEfficiency(tank);
+        this.updatePoweredShaft(shaft, efficiency);
+
+        if (!this.level.isClientSide) {
+            boolean active = efficiency > 0.0F;
+            if (active && !this.advancementActive) {
+                ZmhAdvancements.activateNearby(
+                        this.level,
+                        this.worldPosition,
+                        ZmhAdvancements.STEAM_POWER_ONLINE,
+                        8.0D
+                );
+            }
+            this.advancementActive = active;
+            FlightControlNetworkManager.reportSystem(
+                    this.level,
+                    this.worldPosition,
+                    new FlightSystemStatus(
+                            FlightSystemType.ENGINE,
+                            efficiency > 0.0F,
+                            this.flightControlOverride ? this.flightControlCommand : 15.0D,
+                            Math.abs(shaft.getTheoreticalSpeed()) * efficiency,
+                            efficiency
+                    )
+            );
+        } else {
             SteamEngineGradeClientEffects.spawnParticles(
                     this,
                     shaft,
@@ -73,10 +113,27 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         }
     }
 
-    private float updatePoweredShaft(
-            FluidTankBlockEntity tank,
-            PoweredShaftBlockEntity shaft
-    ) {
+    private float resolveEfficiency(FluidTankBlockEntity tank) {
+        float efficiency = Mth.clamp(
+                tank.boiler.getEngineEfficiency(tank.getTotalTankSize()),
+                0.0F,
+                1.0F
+        );
+        boolean emergency = this.level != null
+                && !this.level.isClientSide
+                && FlightControlNetworkManager.isEmergencyLatched(this.level, this.worldPosition);
+        if (emergency) {
+            efficiency = 0.0F;
+        } else if (this.flightControlOverride) {
+            efficiency *= Math.abs(this.flightControlCommand) / 15.0F;
+        }
+        if (efficiency > 0.0F) {
+            this.award(AllAdvancements.STEAM_ENGINE);
+        }
+        return efficiency;
+    }
+
+    private void updatePoweredShaft(PoweredShaftBlockEntity shaft, float efficiency) {
         BlockState shaftState = shaft.getBlockState();
         Axis targetAxis = shaftState.getBlock() instanceof IRotate rotate
                 ? rotate.getRotationAxis(shaftState)
@@ -87,15 +144,6 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         Direction facing = SteamEngineBlock.getFacing(engineState);
         if (facing.getAxis() == Axis.Y) {
             facing = engineState.getValue(SteamEngineBlock.FACING);
-        }
-
-        float efficiency = Mth.clamp(
-                tank.boiler.getEngineEfficiency(tank.getTotalTankSize()),
-                0.0F,
-                1.0F
-        );
-        if (efficiency > 0.0F) {
-            this.award(AllAdvancements.STEAM_ENGINE);
         }
 
         int conveyedDirection = efficiency == 0.0F
@@ -109,6 +157,9 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         if (this.movementDirection.get() == RotationDirection.COUNTER_CLOCKWISE) {
             conveyedDirection *= -1;
         }
+        if (this.flightControlOverride && this.flightControlCommand < 0) {
+            conveyedDirection *= -1;
+        }
 
         float shaftSpeed = shaft.getTheoreticalSpeed();
         if (shaft.hasSource()
@@ -120,15 +171,86 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         }
 
         shaft.update(this.worldPosition, conveyedDirection, efficiency);
-        return efficiency;
+    }
+
+    public @Nullable PoweredShaftBlockEntity getPrimaryShaft() {
+        if (this.level == null) {
+            return null;
+        }
+        BlockState state = this.getBlockState();
+        if (state.getBlock() instanceof MkViiSteamEngineBlock) {
+            BlockPos controllerPos = MkViiSteamEngineBlock.controllerPos(state, this.worldPosition);
+            if (!controllerPos.equals(this.worldPosition)) {
+                if (this.level.getBlockEntity(controllerPos) instanceof SteamEngineGradeBlockEntity controller) {
+                    return controller.getShaft();
+                }
+                return null;
+            }
+        }
+        return this.getShaft();
+    }
+
+    private @Nullable PoweredShaftBlockEntity getOwnedShaft() {
+        if (this.isMkViiAuxiliary()) {
+            return null;
+        }
+        PoweredShaftBlockEntity shaft = this.getPrimaryShaft();
+        return shaft != null && shaft.isPoweredBy(this.worldPosition) ? shaft : null;
+    }
+
+    private void deactivateOwnedShaft() {
+        PoweredShaftBlockEntity shaft = this.getOwnedShaft();
+        if (shaft != null && (shaft.engineEfficiency != 0.0F || shaft.movementDirection != 0)) {
+            shaft.update(this.worldPosition, 0, 0.0F);
+        }
+    }
+
+    private boolean isMkViiAuxiliary() {
+        return MkViiSteamEngineBlock.isAuxiliary(this.getBlockState());
+    }
+
+    @Override
+    public void remove() {
+        PoweredShaftBlockEntity shaft = this.getOwnedShaft();
+        if (shaft != null) {
+            shaft.remove(this.worldPosition);
+        }
+        super.remove();
+    }
+
+    @Override
+    public void applyFlightControl(FlightControlChannel channel, int value, boolean emergencyLatched) {
+        if (channel != FlightControlChannel.ENGINE_THROTTLE || this.isMkViiAuxiliary()) return;
+        this.flightControlOverride = true;
+        this.flightControlCommand = emergencyLatched ? 0 : Math.clamp(value, -15, 15);
+        this.setChanged();
+        this.sendData();
+    }
+
+    @Override
+    public void clearFlightControl(FlightControlChannel channel) {
+        if (channel != FlightControlChannel.ENGINE_THROTTLE || this.isMkViiAuxiliary()) return;
+        this.flightControlOverride = false;
+        this.flightControlCommand = 0;
+        this.setChanged();
+        this.sendData();
     }
 
     @Override
     public boolean isValid() {
-        Direction direction = SteamEngineBlock.getConnectedDirection(this.getBlockState()).getOpposite();
         Level level = this.getLevel();
-        return level != null
-                && level.getBlockState(this.getBlockPos().relative(direction)).getBlock()
+        if (level == null) {
+            return false;
+        }
+        BlockState state = this.getBlockState();
+        if (state.getBlock() instanceof LeviathanSteamEngineBlock leviathan) {
+            return leviathan.isAssemblyComplete(level, this.getBlockPos(), state);
+        }
+        if (state.getBlock() instanceof MkViiSteamEngineBlock mkVii) {
+            return mkVii.isAssemblyComplete(level, this.getBlockPos(), state);
+        }
+        Direction direction = SteamEngineBlock.getConnectedDirection(state).getOpposite();
+        return level.getBlockState(this.getBlockPos().relative(direction)).getBlock()
                 instanceof BoilerGradeBlock;
     }
 
@@ -163,6 +285,8 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         super.read(tag, registries, clientPacket);
         if (clientPacket) {
             this.configuration.readClientSnapshot(tag);
+            this.flightControlOverride = tag.getBoolean("FlightControlOverride");
+            this.flightControlCommand = tag.getInt("FlightControlCommand");
         }
     }
 
@@ -171,6 +295,8 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
         super.write(tag, registries, clientPacket);
         if (clientPacket) {
             this.configuration.writeClientSnapshot(tag);
+            tag.putBoolean("FlightControlOverride", this.flightControlOverride);
+            tag.putInt("FlightControlCommand", this.flightControlCommand);
         }
     }
 
@@ -186,8 +312,8 @@ public final class SteamEngineGradeBlockEntity extends SteamEngineBlockEntity {
             return;
         }
 
-        PoweredShaftBlockEntity shaft = this.getShaft();
-        if (shaft != null && shaft.isPoweredBy(this.worldPosition)) {
+        PoweredShaftBlockEntity shaft = this.getOwnedShaft();
+        if (shaft != null) {
             int direction = shaft.movementDirection;
             float efficiency = shaft.engineEfficiency;
             shaft.remove(this.worldPosition);

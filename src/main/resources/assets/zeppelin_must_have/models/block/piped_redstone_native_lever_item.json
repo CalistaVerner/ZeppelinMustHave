@@ -12,7 +12,7 @@
       "parent": "zeppelin_must_have:block/piped_redstone_native_lever/handle_item"
     },
     "indicator": {
-      "parent": "zeppelin_must_have:block/piped_redstone_native_lever/indicator"
+      "parent": "zeppelin_must_have:block/piped_redstone_native_lever/indicator_off"
     }
   },
   "item_render_order": [

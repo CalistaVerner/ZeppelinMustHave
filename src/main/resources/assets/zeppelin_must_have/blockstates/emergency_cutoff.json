@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "latched=false": {
+      "model": "zeppelin_must_have:block/emergency_cutoff"
+    },
+    "latched=true": {
+      "model": "zeppelin_must_have:block/emergency_cutoff_latched"
+    }
+  }
+}

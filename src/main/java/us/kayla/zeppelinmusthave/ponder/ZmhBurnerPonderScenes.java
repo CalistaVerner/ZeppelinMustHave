@@ -27,15 +27,20 @@ final class ZmhBurnerPonderScenes {
     }
 
     static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        helper.forComponents(
-                        ZmhBlocks.AIRSHIP_BURNER.getId(),
-                        ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER.getId(),
-                        ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER.getId(),
-                        ZmhItems.HEAT_RECUPERATOR_UPGRADE.getId(),
-                        ZmhItems.FORCED_INDUCTION_UPGRADE.getId(),
-                        ZmhItems.PRECISION_REGULATOR_UPGRADE.getId())
-                .addStoryBoard("burner/operation", ZmhBurnerPonderScenes::airshipBurners,
-                        ZmhPonderTags.ZEPPELIN_SYSTEMS);
+        ZmhPonderRegistration.items(helper)
+                .forComponents(
+                        ZmhBlocks.AIRSHIP_BURNER_ITEM.get(),
+                        ZmhBlocks.FORCED_DRAFT_AIRSHIP_BURNER_ITEM.get(),
+                        ZmhBlocks.INDUSTRIAL_AIRSHIP_BURNER_ITEM.get(),
+                        ZmhItems.HEAT_RECUPERATOR_UPGRADE.get(),
+                        ZmhItems.FORCED_INDUCTION_UPGRADE.get(),
+                        ZmhItems.PRECISION_REGULATOR_UPGRADE.get()
+                )
+                .addStoryBoard(
+                        "burner/operation",
+                        ZmhBurnerPonderScenes::airshipBurners,
+                        ZmhPonderTags.ZEPPELIN_SYSTEMS
+                );
     }
 
     private static void airshipBurners(
@@ -159,7 +164,7 @@ final class ZmhBurnerPonderScenes {
         );
         scene.idle(20);
         scene.overlay().showText(75)
-                .text("The Industrial Burner is a configurable high-output tier with a correspondingly higher fuel demand")
+                .text("The Industrial Burner MK III is a configurable high-output model with a correspondingly higher fuel demand")
                 .attachKeyFrame()
                 .colored(PonderPalette.RED)
                 .pointAt(Vec3.atCenterOf(burnerPos))

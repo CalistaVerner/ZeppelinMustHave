@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "zeppelin_must_have:airship_helm",
-    "zeppelin_must_have:altitude_gauge"
+    "zeppelin_must_have:altitude_gauge",
+    "zeppelin_must_have:flight_computer",
+    "zeppelin_must_have:engine_telegraph",
+    "zeppelin_must_have:emergency_cutoff",
+    "zeppelin_must_have:control_transmitter",
+    "zeppelin_must_have:control_receiver"
   ]
 }

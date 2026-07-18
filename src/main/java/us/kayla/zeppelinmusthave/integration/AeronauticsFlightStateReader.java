@@ -52,6 +52,7 @@ public final class AeronauticsFlightStateReader {
         }
 
         AeronauticsBalloonTotals balloons = readBalloons(serverLevel, serverSubLevel);
+        Vector3dc centerOfMass = serverSubLevel.getMassTracker().getCenterOfMass();
 
         return new AirshipFlightSnapshot(
                 true,
@@ -70,6 +71,9 @@ public final class AeronauticsFlightStateReader {
                 angularVelocity.y,
                 angularVelocity.z,
                 serverSubLevel.getMassTracker().getMass(),
+                centerOfMass == null ? 0.0D : centerOfMass.x(),
+                centerOfMass == null ? 0.0D : centerOfMass.y(),
+                centerOfMass == null ? 0.0D : centerOfMass.z(),
                 balloons.count,
                 balloons.capacity,
                 balloons.filledVolume,

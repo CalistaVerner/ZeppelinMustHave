@@ -1,0 +1,7 @@
+{
+  "parent": "create:block/fluid_pipe/u_z",
+  "textures": {
+    "0": "zeppelin_must_have:block/zmh/reinforced_fluid_pipe_connected",
+    "particle": "zeppelin_must_have:block/zmh/reinforced_fluid_pipe"
+  }
+}

@@ -25,6 +25,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
 public final class PipedRedstoneNativeLeverBlock
@@ -88,7 +89,11 @@ public final class PipedRedstoneNativeLeverBlock
             Player player,
             BlockHitResult hitResult
     ) {
-        return PipedRedstoneLeverSupport.toggle(state, level, pos);
+        InteractionResult result = PipedRedstoneLeverSupport.toggle(state, level, pos);
+        if (!level.isClientSide && !state.getValue(POWERED)) {
+            ZmhAdvancements.activate(player, ZmhAdvancements.PROTECTED_SIGNAL_ONLINE);
+        }
+        return result;
     }
 
     @Override

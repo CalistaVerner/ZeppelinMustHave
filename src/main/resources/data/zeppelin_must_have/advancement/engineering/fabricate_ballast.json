@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:ballast_tank",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_ballast.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_ballast.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "ballast_tank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:ballast_tank"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ballast_tank"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/root",
+  "rewards": {
+    "experience": 25
+  }
+}

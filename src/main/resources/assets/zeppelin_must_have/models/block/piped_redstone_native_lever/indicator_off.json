@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "zeppelin_must_have:block/zmh/piped_redstone_native_lever_base",
+    "indicator": "zeppelin_must_have:block/zmh/piped_redstone_native_lever_base"
+  },
+  "elements": [
+    {
+      "name": "recessed_status_lamp",
+      "from": [
+        7.0,
+        2.51,
+        4.35
+      ],
+      "to": [
+        9.0,
+        2.88,
+        6.65
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#indicator"
+        },
+        "east": {
+          "texture": "#indicator"
+        },
+        "south": {
+          "texture": "#indicator"
+        },
+        "west": {
+          "texture": "#indicator"
+        },
+        "up": {
+          "texture": "#indicator"
+        },
+        "down": {
+          "texture": "#indicator"
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:cutout"
+}

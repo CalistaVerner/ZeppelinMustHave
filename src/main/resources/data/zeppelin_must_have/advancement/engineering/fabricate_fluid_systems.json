@@ -1,0 +1,51 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:industrial_fluid_pipe",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_fluid_systems.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_fluid_systems.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "reinforced_fluid_pipe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:reinforced_fluid_pipe"
+          }
+        ]
+      }
+    },
+    "industrial_fluid_pipe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_fluid_pipe"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "reinforced_fluid_pipe",
+      "industrial_fluid_pipe"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/root",
+  "rewards": {
+    "experience": 25
+  }
+}

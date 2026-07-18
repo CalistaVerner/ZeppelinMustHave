@@ -21,14 +21,19 @@ final class ZmhRedstonePonderScenes {
     }
 
     static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        helper.forComponents(
-                        ZmhBlocks.COPPER_PIPED_REDSTONE.getId(),
-                        ZmhBlocks.BRASS_PIPED_REDSTONE.getId(),
-                        ZmhBlocks.RESONANT_PIPED_REDSTONE.getId(),
-                        ZmhBlocks.PIPED_REDSTONE_NATIVE_LEVER.getId(),
-                        ZmhBlocks.PIPED_REDSTONE_REPEATER.getId())
-                .addStoryBoard("redstone/conduits", ZmhRedstonePonderScenes::pipedRedstone,
-                        ZmhPonderTags.ZEPPELIN_SYSTEMS);
+        ZmhPonderRegistration.items(helper)
+                .forComponents(
+                        ZmhBlocks.COPPER_PIPED_REDSTONE_ITEM.get(),
+                        ZmhBlocks.BRASS_PIPED_REDSTONE_ITEM.get(),
+                        ZmhBlocks.RESONANT_PIPED_REDSTONE_ITEM.get(),
+                        ZmhBlocks.PIPED_REDSTONE_NATIVE_LEVER_ITEM.get(),
+                        ZmhBlocks.PIPED_REDSTONE_REPEATER_ITEM.get()
+                )
+                .addStoryBoard(
+                        "redstone/conduits",
+                        ZmhRedstonePonderScenes::pipedRedstone,
+                        ZmhPonderTags.ZEPPELIN_SYSTEMS
+                );
     }
 
     private static void pipedRedstone(
@@ -119,7 +124,7 @@ final class ZmhRedstonePonderScenes {
                 true
         );
         scene.overlay().showText(85)
-                .text("Copper, Brass, and Resonant tiers progressively reduce network delay and increase repeater-free distance")
+                .text("MK I, MK II, and MK III conduits progressively reduce network delay and increase repeater-free distance")
                 .attachKeyFrame()
                 .colored(PonderPalette.INPUT)
                 .pointAt(Vec3.atCenterOf(lineMiddle))
@@ -169,7 +174,7 @@ final class ZmhRedstonePonderScenes {
         );
         scene.effects().indicateRedstone(inputPos);
         scene.overlay().showText(75)
-                .text("Mixed-tier networks use the weakest segment's delay and maximum distance, so upgrading the whole trunk matters")
+                .text("Mixed-MK networks use the weakest segment's delay and maximum distance, so upgrading the whole trunk matters")
                 .attachKeyFrame()
                 .colored(PonderPalette.RED)
                 .pointAt(Vec3.atCenterOf(lineEnd))

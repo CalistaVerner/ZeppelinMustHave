@@ -19,9 +19,13 @@ final class ZmhControlPonderScenes {
     }
 
     static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        helper.forComponents(ZmhBlocks.ALTITUDE_GAUGE.getId())
-                .addStoryBoard("control/altitude_hold", ZmhControlPonderScenes::altitudeControl,
-                        ZmhPonderTags.ZEPPELIN_SYSTEMS);
+        ZmhPonderRegistration.items(helper)
+                .forComponents(ZmhBlocks.ALTITUDE_GAUGE_ITEM.get())
+                .addStoryBoard(
+                        "control/altitude_hold",
+                        ZmhControlPonderScenes::altitudeControl,
+                        ZmhPonderTags.ZEPPELIN_SYSTEMS
+                );
     }
 
     private static void altitudeControl(

@@ -1,0 +1,245 @@
+{
+  "credit": "Zeppelin Must Have - MK VII industrial mechanism",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/mk_vii_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/mk_vii_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/mk_vii_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/mk_vii_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/mk_vii_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "left_crank_web",
+      "from": [
+        4.5,
+        6.4,
+        6.8
+      ],
+      "to": [
+        7.1,
+        9.6,
+        9.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "right_crank_web",
+      "from": [
+        8.9,
+        6.4,
+        6.8
+      ],
+      "to": [
+        11.5,
+        9.6,
+        9.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "crank_pin",
+      "from": [
+        6.6,
+        6.6,
+        6.6
+      ],
+      "to": [
+        9.4,
+        9.4,
+        9.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "drive_shaft",
+      "from": [
+        7.3,
+        -1,
+        7.3
+      ],
+      "to": [
+        8.7,
+        18,
+        8.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "left_main_journal",
+      "from": [
+        2.4,
+        7.15,
+        7.15
+      ],
+      "to": [
+        5,
+        8.85,
+        8.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "right_main_journal",
+      "from": [
+        11,
+        7.15,
+        7.15
+      ],
+      "to": [
+        13.6,
+        8.85,
+        8.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "balance_weight",
+      "from": [
+        5.1,
+        3.8,
+        6.3
+      ],
+      "to": [
+        10.9,
+        6.2,
+        9.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    }
+  ]
+}

@@ -3,8 +3,10 @@ package us.kayla.zeppelinmusthave.registry;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import us.kayla.zeppelinmusthave.content.balloon.BalloonEnvelopeTier;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
+import us.kayla.zeppelinmusthave.content.fluid.FluidPipeTier;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlock;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneRepeaterBlock;
@@ -20,6 +22,25 @@ final class ZmhBlockProperties {
                 .strength(3.5F, 8.0F)
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops();
+    }
+
+    static BlockBehaviour.Properties envelope(BalloonEnvelopeTier tier) {
+        return BlockBehaviour.Properties.of()
+                .mapColor(tier == BalloonEnvelopeTier.REINFORCED
+                        ? MapColor.COLOR_LIGHT_GRAY
+                        : MapColor.COLOR_GRAY)
+                .strength(tier.structuralRating(), tier.structuralRating() * 4.0F)
+                .sound(SoundType.WOOL);
+    }
+
+    static BlockBehaviour.Properties fluidPipe(FluidPipeTier tier) {
+        return metal()
+                .strength(
+                        tier == FluidPipeTier.REINFORCED ? 3.5F : 5.0F,
+                        tier == FluidPipeTier.REINFORCED ? 8.0F : 14.0F
+                )
+                .sound(tier == FluidPipeTier.REINFORCED ? SoundType.COPPER : SoundType.NETHERITE_BLOCK)
+                .noOcclusion();
     }
 
     static BlockBehaviour.Properties burner() {

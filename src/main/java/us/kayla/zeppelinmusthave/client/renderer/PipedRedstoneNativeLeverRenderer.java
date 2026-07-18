@@ -6,7 +6,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRender
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
-import net.createmod.catnip.theme.Color;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -23,9 +22,6 @@ public final class PipedRedstoneNativeLeverRenderer
     private static final PartialModel HANDLE = PartialModel.of(
             ZeppelinMustHave.id("block/piped_redstone_native_lever/handle")
     );
-    private static final PartialModel INDICATOR = PartialModel.of(
-            ZeppelinMustHave.id("block/piped_redstone_native_lever/indicator")
-    );
 
     public PipedRedstoneNativeLeverRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -33,7 +29,6 @@ public final class PipedRedstoneNativeLeverRenderer
     /** Forces PartialModel registration before Minecraft bakes the model registry. */
     public static void init() {
         HANDLE.modelLocation();
-        INDICATOR.modelLocation();
     }
 
     @Override
@@ -51,17 +46,11 @@ public final class PipedRedstoneNativeLeverRenderer
         // returned builder whenever another RenderType is requested.
         VertexConsumer consumer = buffer.getBuffer(RenderType.cutout());
 
-        float handleRadians = (float) Math.toRadians(-38.0F + 76.0F * progress);
+        float handleRadians = (float) Math.toRadians(90.0F * progress);
         SuperByteBuffer handle = orient(CachedBuffers.partial(HANDLE, state), state);
         handle.translate(0.5F, 1.0F / 16.0F, 0.5F)
                 .rotate(handleRadians, Direction.EAST)
                 .translate(-0.5F, -1.0F / 16.0F, -0.5F)
-                .light(light)
-                .renderInto(poseStack, consumer);
-
-        int indicatorColor = Color.mixColors(0x2A0704, 0xF13A20, progress);
-        SuperByteBuffer indicator = orient(CachedBuffers.partial(INDICATOR, state), state);
-        indicator.color(indicatorColor)
                 .light(light)
                 .renderInto(poseStack, consumer);
     }

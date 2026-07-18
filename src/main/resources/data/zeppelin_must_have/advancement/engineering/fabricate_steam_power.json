@@ -1,0 +1,139 @@
+{
+  "display": {
+    "icon": {
+      "id": "zeppelin_must_have:mk_vii_steam_engine",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_steam_power.title"
+    },
+    "description": {
+      "translate": "advancement.zeppelin_must_have.engineering.fabricate_steam_power.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "copper_boiler_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:copper_boiler_base"
+          }
+        ]
+      }
+    },
+    "brass_boiler_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:brass_boiler_base"
+          }
+        ]
+      }
+    },
+    "industrial_boiler_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_boiler_base"
+          }
+        ]
+      }
+    },
+    "copper_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:copper_steam_engine"
+          }
+        ]
+      }
+    },
+    "brass_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:brass_steam_engine"
+          }
+        ]
+      }
+    },
+    "industrial_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:industrial_steam_engine"
+          }
+        ]
+      }
+    },
+    "grand_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:grand_steam_engine"
+          }
+        ]
+      }
+    },
+    "sovereign_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:sovereign_steam_engine"
+          }
+        ]
+      }
+    },
+    "leviathan_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:leviathan_steam_engine"
+          }
+        ]
+      }
+    },
+    "mk_vii_steam_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:mk_vii_steam_engine"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "copper_boiler_base",
+      "brass_boiler_base",
+      "industrial_boiler_base",
+      "copper_steam_engine",
+      "brass_steam_engine",
+      "industrial_steam_engine",
+      "grand_steam_engine",
+      "sovereign_steam_engine",
+      "leviathan_steam_engine",
+      "mk_vii_steam_engine"
+    ]
+  ],
+  "sends_telemetry_event": false,
+  "parent": "zeppelin_must_have:engineering/root",
+  "rewards": {
+    "experience": 25
+  }
+}

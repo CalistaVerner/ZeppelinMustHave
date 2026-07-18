@@ -1,0 +1,212 @@
+{
+  "credit": "Zeppelin Must Have - Sovereign engine-grade rework",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/sovereign_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/sovereign_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/sovereign_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/sovereign_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/sovereign_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "governor_spindle",
+      "from": [
+        7.45,
+        2.5,
+        7.45
+      ],
+      "to": [
+        8.55,
+        14.5,
+        8.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "governor_crosshead",
+      "from": [
+        5,
+        9.5,
+        7.35
+      ],
+      "to": [
+        11,
+        10.5,
+        8.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "left_flyweight",
+      "from": [
+        4,
+        8.8,
+        6.9
+      ],
+      "to": [
+        5.5,
+        11.2,
+        9.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "right_flyweight",
+      "from": [
+        10.5,
+        8.8,
+        6.9
+      ],
+      "to": [
+        12,
+        11.2,
+        9.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "top_bearing",
+      "from": [
+        6.6,
+        13.5,
+        6.6
+      ],
+      "to": [
+        9.4,
+        15,
+        9.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "governor_pedestal",
+      "from": [
+        6.4,
+        1.5,
+        6.4
+      ],
+      "to": [
+        9.6,
+        3.5,
+        9.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    }
+  ]
+}

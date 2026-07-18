@@ -54,3 +54,11 @@ reason="Create Aeronautics provides the flying contraption systems extended by t
 versionRange="${aeronautics_version_range}"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="curios"
+type="optional"
+reason="When present, Curios provides a head slot for Aeronautics Aviator's Goggles."
+versionRange="${curios_version_range}"
+ordering="AFTER"
+side="BOTH"

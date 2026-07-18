@@ -7,6 +7,15 @@
     "#zeppelin_must_have:zeppelin_parts/redstone_control",
     "#zeppelin_must_have:zeppelin_parts/ballast",
     "#zeppelin_must_have:zeppelin_parts/mooring",
-    "#zeppelin_must_have:zeppelin_parts/propulsion"
+    "#zeppelin_must_have:zeppelin_parts/propulsion",
+    "zeppelin_must_have:flight_computer",
+    "zeppelin_must_have:engine_telegraph",
+    "zeppelin_must_have:emergency_cutoff",
+    "zeppelin_must_have:control_transmitter",
+    "zeppelin_must_have:control_receiver",
+    "#zeppelin_must_have:zeppelin_parts/fluid_systems",
+    "zeppelin_must_have:grand_steam_engine",
+    "zeppelin_must_have:leviathan_steam_engine",
+    "zeppelin_must_have:mk_vii_steam_engine"
   ]
 }

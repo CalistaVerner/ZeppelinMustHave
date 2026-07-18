@@ -1,0 +1,322 @@
+{
+  "variants": {
+    "face=floor,facing=north,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller"
+    },
+    "face=floor,facing=north,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left"
+    },
+    "face=floor,facing=north,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right"
+    },
+    "face=floor,facing=north,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller"
+    },
+    "face=floor,facing=north,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left"
+    },
+    "face=floor,facing=north,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right"
+    },
+    "face=floor,facing=east,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "y": 90
+    },
+    "face=floor,facing=east,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "y": 90
+    },
+    "face=floor,facing=east,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "y": 90
+    },
+    "face=floor,facing=east,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "y": 90
+    },
+    "face=floor,facing=east,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "y": 90
+    },
+    "face=floor,facing=east,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "y": 90
+    },
+    "face=floor,facing=south,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "y": 180
+    },
+    "face=floor,facing=south,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "y": 180
+    },
+    "face=floor,facing=south,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "y": 180
+    },
+    "face=floor,facing=south,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "y": 180
+    },
+    "face=floor,facing=south,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "y": 180
+    },
+    "face=floor,facing=south,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "y": 180
+    },
+    "face=floor,facing=west,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "y": 270
+    },
+    "face=floor,facing=west,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "y": 270
+    },
+    "face=floor,facing=west,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "y": 270
+    },
+    "face=floor,facing=west,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "y": 270
+    },
+    "face=floor,facing=west,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "y": 270
+    },
+    "face=floor,facing=west,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "y": 270
+    },
+    "face=ceiling,facing=north,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=north,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=east,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=east,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=south,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180
+    },
+    "face=ceiling,facing=south,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180
+    },
+    "face=ceiling,facing=west,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 180,
+      "y": 90
+    },
+    "face=ceiling,facing=west,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 180,
+      "y": 90
+    },
+    "face=wall,facing=north,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90
+    },
+    "face=wall,facing=north,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90
+    },
+    "face=wall,facing=north,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90
+    },
+    "face=wall,facing=north,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90
+    },
+    "face=wall,facing=north,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90
+    },
+    "face=wall,facing=north,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90
+    },
+    "face=wall,facing=east,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=east,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=south,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=south,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=west,part=controller,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=left,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=right,waterlogged=false": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=controller,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/controller",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=left,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/left",
+      "x": 90,
+      "y": 270
+    },
+    "face=wall,facing=west,part=right,waterlogged=true": {
+      "model": "zeppelin_must_have:block/steam_engine/mk_vii/right",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

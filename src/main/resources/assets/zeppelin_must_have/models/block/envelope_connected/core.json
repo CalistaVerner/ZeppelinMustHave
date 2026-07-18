@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#fabric"
+  },
+  "elements": [
+    {
+      "name": "continuous_hull",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#fabric",
+          "cullface": "north"
+        },
+        "east": {
+          "texture": "#fabric",
+          "cullface": "east"
+        },
+        "south": {
+          "texture": "#fabric",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#fabric",
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#fabric",
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#fabric",
+          "cullface": "down"
+        }
+      }
+    }
+  ]
+}

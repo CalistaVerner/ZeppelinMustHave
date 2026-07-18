@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
 public final class AirshipHelmBlock extends HorizontalDirectionalBlock
@@ -60,6 +61,9 @@ public final class AirshipHelmBlock extends HorizontalDirectionalBlock
 
         return this.onBlockEntityUse(level, pos, blockEntity -> {
             blockEntity.sendStatusTo(player);
+            if (blockEntity.getSnapshot().attached()) {
+                ZmhAdvancements.activate(player, ZmhAdvancements.FLIGHT_TELEMETRY_ONLINE);
+            }
             return InteractionResult.CONSUME;
         });
     }
