@@ -368,5 +368,12 @@
   "block.zeppelin_must_have.mk_vii_steam_engine": "Motore a Vapore Industriale a Tre Bancate — MK VII",
   "zeppelin_must_have.zeppelin_part.description.mk_vii_steam_engine": "Motore MK VII largo tre blocchi con nove alberi interni, riduttore centrale e una sola uscita Create.",
   "zeppelin_must_have.placement.mk_vii.requires_three_wide_industrial_boiler": "MK VII richiede tre celle adiacenti della Caldaia Industriale MK III.",
-  "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "MK VII richiede due celle laterali libere, una fila di servizio larga tre celle e una posizione centrale libera per l’albero."
+  "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "MK VII richiede due celle laterali libere, una fila di servizio larga tre celle e una posizione centrale libera per l’albero.",
+  "block.zeppelin_must_have.omni_speed_controller": "Regolatore di Velocità Omni",
+  "zeppelin_must_have.zeppelin_part.description.omni_speed_controller": "Controller cinetico a sei porte: riceve rotazione da qualsiasi lato e imposta la velocità assoluta sulle altre cinque uscite.",
+  "zeppelin_must_have.omni_speed_controller.target_speed": "Velocità di uscita",
+  "zeppelin_must_have.goggles.omni_speed_controller": "Trasmissione Omni",
+  "zeppelin_must_have.goggles.omni_speed_controller.target": "Uscita obiettivo: %s RPM",
+  "zeppelin_must_have.goggles.omni_speed_controller.input": "Lato di ingresso: %s",
+  "zeppelin_must_have.goggles.omni_speed_controller.no_input": "Nessun ingresso cinetico"
 }

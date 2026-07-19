@@ -368,5 +368,12 @@
   "block.zeppelin_must_have.mk_vii_steam_engine": "Промышленный трёхсекционный паровой двигатель — MK VII",
   "zeppelin_must_have.zeppelin_part.description.mk_vii_steam_engine": "Паровой двигатель MK VII шириной три блока: девять внутренних кривошипных валов, центральный редуктор и один выходной вал Create.",
   "zeppelin_must_have.placement.mk_vii.requires_three_wide_industrial_boiler": "Для MK VII нужны три соседние секции промышленного бойлера MK III по всей ширине двигателя.",
-  "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "Для MK VII должны быть свободны две боковые секции корпуса, сервисный ряд шириной три блока и одна центральная позиция выходного вала."
+  "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "Для MK VII должны быть свободны две боковые секции корпуса, сервисный ряд шириной три блока и одна центральная позиция выходного вала.",
+  "block.zeppelin_must_have.omni_speed_controller": "Всенаправленный регулятор скорости",
+  "zeppelin_must_have.zeppelin_part.description.omni_speed_controller": "Шестипортовый кинетический контроллер. Принимает вращение с любой грани и выдаёт заданную абсолютную скорость через остальные пять граней.",
+  "zeppelin_must_have.omni_speed_controller.target_speed": "Выходная скорость",
+  "zeppelin_must_have.goggles.omni_speed_controller": "Всенаправленная трансмиссия",
+  "zeppelin_must_have.goggles.omni_speed_controller.target": "Целевая скорость: %s об/мин",
+  "zeppelin_must_have.goggles.omni_speed_controller.input": "Входная грань: %s",
+  "zeppelin_must_have.goggles.omni_speed_controller.no_input": "Кинетический вход отсутствует"
 }

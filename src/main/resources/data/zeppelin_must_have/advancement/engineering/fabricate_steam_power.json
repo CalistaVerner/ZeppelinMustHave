@@ -115,6 +115,16 @@
           }
         ]
       }
+    },
+    "omni_speed_controller": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:omni_speed_controller"
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -128,7 +138,8 @@
       "grand_steam_engine",
       "sovereign_steam_engine",
       "leviathan_steam_engine",
-      "mk_vii_steam_engine"
+      "mk_vii_steam_engine",
+      "omni_speed_controller"
     ]
   ],
   "sends_telemetry_event": false,

@@ -82,6 +82,8 @@ public final class ZeppelinPartCatalog {
                     ZmhBlocks.LEVIATHAN_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
             block("mk_vii_steam_engine", ZmhBlocks.MK_VII_STEAM_ENGINE_ITEM,
                     ZmhBlocks.MK_VII_STEAM_ENGINE, ZeppelinPartCategory.STEAM_POWER),
+            block("omni_speed_controller", ZmhBlocks.OMNI_SPEED_CONTROLLER_ITEM,
+                    ZmhBlocks.OMNI_SPEED_CONTROLLER, ZeppelinPartCategory.STEAM_POWER),
 
             item("precision_regulator_upgrade", ZmhItems.PRECISION_REGULATOR_UPGRADE,
                     ZeppelinPartCategory.UPGRADE),

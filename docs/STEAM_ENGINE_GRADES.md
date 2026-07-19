@@ -1,62 +1,75 @@
 # Graded Steam Engines
 
-Zeppelin Must Have adds three Create-compatible steam-engine grades for the graded boiler family.
+Zeppelin Must Have adds seven Create-compatible MK-series steam engines for the graded boiler family.
 
-The engines preserve Create's native powered-shaft, rotation-direction, boiler-efficiency, water-supply, and kinetic-network behaviour. Grade-specific logic changes only:
-
-- stress capacity;
-- equivalent boiler load;
-- cylinder count and phase;
-- crank radius and connecting-rod geometry;
-- housing and animated partial models;
-- steam-particle intensity.
+Every engine uses Create's powered-shaft and kinetic-network rules. The grade profile controls stress capacity, boiler load, cylinder count, crank geometry, and steam output intensity. Heat, water supply, boiler size, and Create's efficiency calculation remain authoritative.
 
 ## Installation
 
-A graded engine must be attached directly to a Zeppelin Must Have graded boiler tank. It uses the normal Create Steam Engine placement rules and drives a standard Create shaft two blocks away.
+MK I–V attach directly to a Zeppelin Must Have graded boiler and use the standard Create shaft position two blocks from the engine.
+
+MK VI uses a T-shaped four-cell body and requires an Industrial Boiler MK III.
+
+MK VII uses a three-block-wide body. Its three banks contain nine internal crankshafts, coupled through a central reduction gearbox to one Create-compatible output shaft.
 
 ```text
-Graded Boiler Tank ─ Graded Steam Engine ─ air ─ Create Shaft
+MK I–V:
+
+Graded Boiler ─ Engine ─ clear ─ Create Shaft
+
+MK VI, top view:
+
+                 Left Cylinder Bank
+Industrial Boiler ─ Controller ─ Shaft Nose ─ Create Shaft
+                 Right Cylinder Bank
+
+MK VII, top view:
+
+Industrial Boiler MK III:   [ B ][ B ][ B ]
+Engine body:                 [ L ][ C ][ R ]
+Required service clearance:  [ . ][ . ][ . ]
+Output row:                   [ . ][ S ][ . ]
+
+L = left bank, C = controller/reduction gearbox, R = right bank,
+S = the single powered output shaft.
 ```
 
-Vanilla Create Fluid Tanks intentionally do not accept graded engines. Create's native `BoilerData` only recognizes `create:steam_engine`; restricting the new engines to `BoilerGradeBlockEntity` keeps water, heat, engine-count, and efficiency calculations authoritative and prevents free generation.
+MK VII placement is rejected before any auxiliary block is placed when any of the following is unavailable:
+
+- one of the two side-body cells;
+- one of the three service-clearance cells;
+- the central output-shaft position;
+- one of the three Industrial Boiler MK III backing cells.
+
+Vanilla Create Fluid Tanks intentionally continue using the native Create Steam Engine. Graded engines require `BoilerGradeBlockEntity`, preserving authoritative heat, water, engine-load, and efficiency accounting.
 
 ## Bundled grades
 
-| Grade | Stress capacity | Boiler load | Cylinders | Crank phasing |
+| Grade | Stress capacity | Boiler load | Cylinders / internal shafts | Output |
 |---|---:|---:|---:|---|
-| Copper — I | 1024 SU | 1 engine unit | 1 | single cylinder |
-| Brass — II | 2560 SU | 2 engine units | 2 | 180° opposed |
-| Industrial — III | 4608 SU | 3 engine units | 3 | 120° evenly phased |
+| Copper — MK I | 1024 SU | 1 engine unit | 1 | one shaft |
+| Brass — MK II | 2560 SU | 2 engine units | 2 | one shaft |
+| Industrial — MK III | 4608 SU | 3 engine units | 3 | one shaft |
+| Grand — MK IV | 8192 SU | 4 engine units | 4 | one shaft |
+| Sovereign — MK V | 12288 SU | 6 engine units | 5 | one shaft |
+| Leviathan — MK VI | 20480 SU | 10 engine units | 8 across two banks | one shaft |
+| MK VII | 36864 SU | 18 engine units | 9 across three banks | one central shaft |
 
-The actual generated capacity remains multiplied by Create's boiler efficiency. A dry, undersized, or underheated boiler still reduces or stops the engine.
+All grades retain Create's normal 16–64 RPM efficiency range. Higher grades increase available Stress Units and mechanical smoothness; they do not bypass boiler limitations or increase the maximum shaft speed.
 
-All grades retain Create's native 16–64 RPM efficiency curve. Higher grades increase stress capacity and mechanical smoothness, not the maximum shaft speed.
+## MK VII drive architecture
 
-## Animation
+Each physical bank contains three crank positions. The three local positions are separated by 120 degrees. Adjacent banks are offset by 40 degrees, giving nine evenly distributed power strokes while preserving a balanced three-crank arrangement inside every block.
 
-`SteamEngineGradeRenderer` renders one independent piston, linkage, and crank connector per configured cylinder.
+The controller is the only section that:
 
-For cylinder `i`:
+- contributes the 18-unit boiler load;
+- publishes engine state to the Flight Control Network;
+- accepts throttle, reversal, and emergency-cutoff commands;
+- owns the powered output shaft;
+- contributes the configured 36864 SU capacity.
 
-```text
-phase_i = 2π × i / cylinder_count
-```
-
-The piston position uses the same slider-crank geometry as Create, parameterized by the grade profile:
-
-```text
-piston = r × sin(angle)
-       - sqrt(L² - r² × cos²(angle))
-```
-
-where:
-
-- `r` is `crank_radius`;
-- `L` is `connecting_rod_length`;
-- `angle` includes the cylinder phase offset.
-
-Brass and Industrial engines use narrower grade-specific partial models so multiple cylinders remain visually distinct inside one block footprint.
+The side banks are structural members of the same machine. Removing any bank dismantles the whole assembly, and removing the controller also removes the automatically created central output shaft.
 
 ## Data-pack profiles
 
@@ -72,6 +85,10 @@ Built-in profile IDs:
 zeppelin_must_have:copper
 zeppelin_must_have:brass
 zeppelin_must_have:industrial
+zeppelin_must_have:grand
+zeppelin_must_have:sovereign
+zeppelin_must_have:leviathan
+zeppelin_must_have:mk_vii
 ```
 
 Schema version 1:
@@ -79,39 +96,37 @@ Schema version 1:
 ```json
 {
   "schema_version": 1,
-  "stress_capacity": 2560.0,
-  "boiler_load_units": 2,
-  "cylinder_count": 2,
-  "crank_radius": 0.42,
-  "connecting_rod_length": 0.95,
-  "piston_base_offset": 1.28,
-  "cylinder_spread": 0.34,
-  "steam_particle_scale": 1.35
+  "stress_capacity": 36864.0,
+  "boiler_load_units": 18,
+  "cylinder_count": 9,
+  "crank_radius": 0.64,
+  "connecting_rod_length": 1.44,
+  "piston_base_offset": 1.52,
+  "cylinder_spread": 0.24,
+  "steam_particle_scale": 5.5
 }
 ```
 
-`/reload` updates already placed engines on their next lazy tick. Capacity changes force the attached powered shaft to rebuild its generated rotation entry.
+`/reload` updates already placed engines on their next lazy tick. Capacity changes rebuild the output shaft's generated-rotation entry.
 
 ## Crafting progression
 
-### Grade I — Copper
-
-A shaped upgrade from Create's native Steam Engine using Copper Sheets, a Precision Mechanism, Shafts, and an Andesite Casing.
-
-### Grade II — Brass
-
-Create Mechanical Crafting using the Copper grade, Brass Sheets, an Electron Tube, a Brass Casing, and Precision Mechanisms.
-
-### Grade III — Industrial
-
-A five-by-five Mechanical Crafting recipe using the Brass grade, Sturdy Sheets, Flywheels, Brass Casings, Electron Tubes, Brass Sheets, and Precision Mechanisms.
+- **MK I — Copper:** shaped upgrade from Create's native Steam Engine.
+- **MK II — Brass:** Mechanical Crafting upgrade from MK I.
+- **MK III — Industrial:** five-by-five industrial recipe.
+- **MK IV — Grand:** flagship upgrade using Flywheels, Precision Mechanisms, Electron Tubes, Railway Casings, Brass Casings, and Sturdy Sheets.
+- **MK V — Sovereign:** capital-class upgrade using Netherite and reinforced components.
+- **MK VI — Leviathan:** combines Sovereign machinery with Industrial Boiler MK III components.
+- **MK VII:** combines three Leviathan MK VI engines with Industrial Boiler MK III components, Flywheels, Railway Casings, Sturdy Sheets, Netherite Ingots, and Precision Mechanisms.
 
 ## Automated verification
 
 `SteamEngineGradeGameTests` verifies:
 
-- increasing cylinder count and capacity across grades;
-- stress-registry values supplied by the active profiles;
-- weighted boiler load for the Industrial grade.
-
-The complete GameTest suite currently contains 20 required tests.
+- profile capacity, boiler load, and cylinder counts;
+- stress-registry values;
+- MK VI footprint and boiler requirements;
+- MK VII rejection of a narrow boiler face;
+- MK VII rejection of occupied side-body, service-row, or output positions;
+- creation of the complete three-block body;
+- exactly nine internal crank positions and one powered output shaft.

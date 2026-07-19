@@ -366,6 +366,16 @@
           }
         ]
       }
+    },
+    "omni_speed_controller": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:omni_speed_controller"
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -473,6 +483,9 @@
     ],
     [
       "mk_vii_steam_engine"
+    ],
+    [
+      "omni_speed_controller"
     ]
   ],
   "rewards": {

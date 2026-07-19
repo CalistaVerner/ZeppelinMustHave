@@ -62,6 +62,12 @@ final class ZmhBlockProperties {
                 .noOcclusion();
     }
 
+    static BlockBehaviour.Properties kineticController() {
+        return metal()
+                .strength(4.0F, 10.0F)
+                .noOcclusion();
+    }
+
     static BlockBehaviour.Properties conduit() {
         return metal()
                 .strength(2.5F, 6.0F)

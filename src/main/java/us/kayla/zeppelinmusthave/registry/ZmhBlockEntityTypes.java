@@ -19,6 +19,7 @@ import us.kayla.zeppelinmusthave.content.control.fcn.FlightComputerBlockEntity;
 import us.kayla.zeppelinmusthave.content.fluid.TieredFluidPipeBlockEntity;
 import us.kayla.zeppelinmusthave.content.fluid.TieredGlassFluidPipeBlockEntity;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlockEntity;
+import us.kayla.zeppelinmusthave.content.kinetics.OmniSpeedControllerBlockEntity;
 import us.kayla.zeppelinmusthave.content.mooring.MooringWinchBlockEntity;
 import us.kayla.zeppelinmusthave.content.redstone.conduit.PipedRedstoneNativeLeverBlockEntity;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeBlockEntity;
@@ -83,6 +84,14 @@ public final class ZmhBlockEntityTypes {
                     ZmhBlocks.SOVEREIGN_STEAM_ENGINE,
                     ZmhBlocks.LEVIATHAN_STEAM_ENGINE,
                     ZmhBlocks.MK_VII_STEAM_ENGINE
+            );
+
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OmniSpeedControllerBlockEntity>>
+            OMNI_SPEED_CONTROLLER = register(
+                    "omni_speed_controller",
+                    ZmhBlockEntityTypes::createOmniSpeedController,
+                    ZmhBlocks.OMNI_SPEED_CONTROLLER
             );
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TieredFluidPipeBlockEntity>>
@@ -196,6 +205,11 @@ public final class ZmhBlockEntityTypes {
 
     private static SteamEngineGradeBlockEntity createSteamEngineGrade(BlockPos pos, BlockState state) {
         return new SteamEngineGradeBlockEntity(STEAM_ENGINE_GRADE.get(), pos, state);
+    }
+
+
+    private static OmniSpeedControllerBlockEntity createOmniSpeedController(BlockPos pos, BlockState state) {
+        return new OmniSpeedControllerBlockEntity(OMNI_SPEED_CONTROLLER.get(), pos, state);
     }
 
     private static TieredFluidPipeBlockEntity createTieredFluidPipe(BlockPos pos, BlockState state) {

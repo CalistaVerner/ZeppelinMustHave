@@ -1,6 +1,6 @@
 # Monolith Audit
 
-This audit covers `src/main/java` after the `0.10.0` service-system release.
+This audit covers `src/main/java` through the `0.15.0` industrial-powertrain release.
 
 ## Classification criteria
 
@@ -31,6 +31,17 @@ Storyboard and test classes are evaluated by cohesion rather than line count. On
 
 Line counts are a review aid, not the primary success condition. The important result is that each block entity now owns one state aggregate and delegates persistence, presentation, or external integration to a dedicated component.
 
+## 0.15.0 decomposition pass
+
+| Original class | Before | Facade after | Extracted responsibilities |
+|---|---:|---:|---|
+| `FlightControlNetworkManager` | 541 | 329 | vessel resolution, addressed network state, vessel state, telemetry aggregation, timeout policy |
+| `SteamEngineGradeRenderer` | 348 | 167 | crank geometry, flagship mechanisms, shared partial transforms |
+| `ZmhSteamPowerPonderScenes` | 417 | 15 | boiler storyboard and engine storyboard |
+| `SteamEngineGradeBlockEntity` | 336 | 250 | shaft lifecycle, efficiency policy, assembly validation |
+
+The FCN split also adds bounded cleanup for expired signal maps, stale computer heartbeats, stale telemetry, unused addressed networks, and inactive vessel entries. Persistent emergency state remains authoritative in `FlightControlEmergencySavedData`, so pruning transient cache entries does not lose safety state.
+
 ## Current responsibility boundaries
 
 ### Airship Burner
@@ -60,19 +71,47 @@ AirshipBurnerStateCodec
 
 ```text
 SteamEngineGradeBlockEntity
-├── boiler validation
-├── Powered Shaft coupling
-└── Create lifecycle
+├── FCN command state
+├── advancement/reporting orchestration
+├── profile synchronization
+└── Create block-entity lifecycle
 
-SteamEngineGradeConfiguration
-└── reload-aware profile state
+SteamEngineShaftController
+├── powered-shaft lookup and ownership
+├── direction transfer
+└── capacity refresh/deactivation
 
-SteamEngineGradePresentation
-└── Engineer's Goggles
+SteamEnginePowerController
+└── boiler efficiency, emergency latch and throttle policy
 
-SteamEngineGradeClientEffects
-├── target-angle calculation
-└── steam particles
+SteamEngineAssemblyValidator
+└── single-block, Leviathan and MK VII structural validity
+
+SteamEngineGradeConfiguration / Presentation / ClientEffects
+└── reload state, Goggles output and client effects
+```
+
+### Flight Control Network
+
+```text
+FlightControlNetworkManager
+└── synchronized public routing facade
+
+FlightControlVesselResolver
+└── Sable sub-level to vessel identity resolution
+
+FlightControlVesselState
+├── addressed network ownership
+├── emergency state mirror
+└── cache lifecycle
+
+FlightControlNetworkState
+├── authority arbitration
+├── primary-computer election
+└── input/output expiry
+
+FlightControlSystemsRegistry
+└── short-lived system telemetry aggregation
 ```
 
 ### Altitude Gauge

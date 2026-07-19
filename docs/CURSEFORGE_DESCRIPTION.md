@@ -10,7 +10,7 @@ The mod is built for players and servers that want airships to feel like enginee
 
 ## Zeppelin Parts — Complete Coverage
 
-Version `0.11.0` catalogues every public block and item as a Zeppelin Part: **19 functional block parts and 3 burner upgrades**.
+Version `0.15.0` catalogues every public block and item as a Zeppelin Part: **33 functional block parts and 3 upgrade items**.
 
 The Zeppelin Parts catalog provides:
 
@@ -26,6 +26,23 @@ The public root tags are `#zeppelin_must_have:zeppelin_parts` for items and bloc
 ---
 
 ## Main Features
+
+### Flight Control Network
+
+Release `0.14.1` adds a server-authoritative vessel control bus with a Flight Computer, seven-position Engine Telegraph, persistent Emergency Cutoff, and named/frequency-addressed Control Transmitters and Receivers. Routes are limited to one Sable sub-level, controllers require physical redstone power, and the network commands existing Aeronautics/Create actuators instead of replacing their physics.
+
+### Engineering Advancements
+
+The dedicated Engineering advancement tree rewards both construction and real system commissioning:
+
+- nine fabrication milestones derived from the Zeppelin Parts catalog;
+- persistent per-part progress toward the **Master Shipwright** challenge;
+- thirteen operational milestones for telemetry, burner ignition, upgrades, altitude hold, Flight Control Network setup, engine orders, emergency shutdown, control links, ballast, protected signals, steam power, vertical thrust, and physical mooring;
+- server-authoritative activation checks that do not award progress for simple block placement.
+
+The tree contains 25 advancement definitions and is localized in English, Russian, Italian, and Polish.
+
+---
 
 ### Airship Helm
 
@@ -105,7 +122,7 @@ Same-grade blocks merge through Create's native tank connectivity and behave as 
 - native water and boiler calculations;
 - controller-only fluid rendering;
 - connected textures with no visible internal block grid;
-- grade-specific pressure-gauge frame, scale, and animated dial.
+- grade-specific pressure-gauge frame, scale, and live pressure indication.
 
 Different boiler grades cannot merge into one controller. Create remains authoritative for tank dimensions, water requirements, attached engines, efficiency, boiler level, comparator output, and generated Stress Units.
 
@@ -113,19 +130,23 @@ Different boiler grades cannot merge into one controller. Create remains authori
 
 ### Graded Steam Engines
 
-Every boiler grade has a matching Create-compatible steam engine with its own housing, capacity, boiler load, cylinder count, and animation.
+Every boiler grade has a matching Create-compatible steam engine with its own housing, capacity, boiler load, cylinder count, and mechanical layout.
 
 | Engine | Capacity | Boiler load | Mechanism |
 |---|---:|---:|---|
 | Copper Steam Engine | 1024 SU | 1 unit | Single cylinder |
 | Brass Compound Steam Engine | 2560 SU | 2 units | Two cylinders, 180° opposed |
 | Industrial Triple-Expansion Engine | 4608 SU | 3 units | Three cylinders, 120° phased |
+| Grand Steam Engine MK IV | 8192 SU | 4 units | Four cylinders, twin flywheels and valve gear |
+| Sovereign Steam Engine MK V | 12288 SU | 6 units | Five cylinders, pressure core and crown rotor |
+| Leviathan T-Frame Engine MK VI | 20480 SU | 10 units | Eight cylinders, two lateral banks and a forward shaft nose |
+| Industrial Triple-Bank Engine MK VII | 36864 SU | 18 units | Nine internal crankshafts, central reduction gearbox and one output shaft |
 
 The engines retain Create's normal shaft placement, rotation-direction control, efficiency, overstress behavior, and kinetic-network integration.
 
 Higher-grade engines are more efficient per boiler-load unit, but they do not bypass heat, water, vessel-size, or efficiency limits.
 
-Graded engines must be attached to Zeppelin Must Have graded boilers. Standard Create Fluid Tanks continue using the native Create Steam Engine.
+Graded engines must be attached to Zeppelin Must Have graded boilers. MK VI requires an Industrial Boiler MK III and a clear T-shaped footprint. MK VII requires a three-cell-wide Industrial Boiler MK III face, a clear three-cell service row, and one central output position. Standard Create Fluid Tanks continue using the native Create Steam Engine.
 
 ---
 
@@ -155,7 +176,7 @@ Mixed-tier networks use the slowest delay and shortest range present in the conn
 
 #### Native Lever
 
-The **Piped Redstone Native Lever** mounts directly onto a conduit face, opens the matching port, and emits power only into that isolated conduit line. The handle uses a smooth animated block-entity renderer and remains functional while waterlogged.
+The **Piped Redstone Native Lever** mounts directly onto a conduit face, opens the matching port, and emits power only into that isolated conduit line. The handle follows the lever state precisely and remains functional while waterlogged.
 
 #### Waterproof Repeater
 
@@ -222,6 +243,8 @@ Engineer’s Goggles provide live information for:
 
 The **Zeppelin Parts** Ponder category includes scenes for:
 
+- Flight Control Network with Flight Computer, Engine Telegraph, Emergency Cutoff, Control Transmitter, and Control Receiver;
+- vessel-scoped command routing, timeout arbitration, physical controller power, and persistent emergency shutdown;
 - Airship Helm telemetry;
 - burner operation and upgrade sockets;
 - graded boilers;
@@ -230,7 +253,11 @@ The **Zeppelin Parts** Ponder category includes scenes for:
 - automatic altitude control;
 - Ballast Tank mass trim;
 - Mooring Winch rope physics;
-- Vertical Thruster propulsion.
+- Vertical Thruster propulsion;
+- Reinforced and Industrial envelope grades;
+- Reinforced and Industrial fluid-pipe grades.
+
+All 34 public Zeppelin Parts have direct Ponder access. The mod validates all 13 packaged storyboard structures during client registration and includes automated coverage tests to prevent missing scenes in later releases.
 
 ---
 
@@ -271,7 +298,7 @@ Zeppelin Must Have is an add-on, not a standalone mod. Install every required de
 | Create Simulated | `1.3.0` to `< 2.0.0` |
 | Create Aeronautics | `1.3.0` to `< 2.0.0` |
 
-The current Zeppelin Must Have release is **0.11.0**.
+The current Zeppelin Must Have release is **0.15.0**.
 
 ---
 
@@ -280,7 +307,7 @@ The current Zeppelin Must Have release is **0.11.0**.
 1. Install **Java 21**.
 2. Install **NeoForge for Minecraft 1.21.1**.
 3. Install Create, Sable, Create Simulated, and Create Aeronautics using compatible versions.
-4. Place `zeppelin_must_have-0.11.0.jar` into the `mods` folder.
+4. Place `zeppelin_must_have-0.15.0.jar` into the `mods` folder.
 5. Install the same mod and dependency versions on the server and every connecting client.
 
 ---
@@ -304,14 +331,18 @@ Create, Sable, Create Simulated, and Create Aeronautics remain authoritative for
 
 ## Current Development Status
 
-Fully functional systems in version `0.11.0`:
+Fully functional systems in version `0.15.0`:
 
 - Airship Helm telemetry;
 - three Airship Burner grades;
 - layered regular/superheated heat storage;
 - burner upgrade sockets;
 - graded Create boilers;
-- graded animated steam engines;
+- graded Create-compatible steam engines;
+- Grand Steam Engine MK IV with 8192 SU, four cylinders, twin flywheels, valve gear, and a centrifugal governor;
+- Sovereign Steam Engine MK V with 12288 SU, five cylinders, six boiler-load units, a rotating pressure core, crown rotor, and three valve-gear banks;
+- Leviathan T-Frame Steam Engine MK VI with 20480 SU, eight cylinders, ten boiler-load units, free-space validation, two cylinder-bank blocks, and a forward shaft module;
+- Industrial Triple-Bank Steam Engine MK VII with 36864 SU, nine internal crankshafts, 18 boiler-load units, transactional placement validation, and one central output shaft;
 - Piped Redstone, Native Lever, and Waterproof Repeater;
 - Altitude Gauge telemetry and Altitude Hold;
 - Ballast Tank fluid storage and real Sable mass trim;

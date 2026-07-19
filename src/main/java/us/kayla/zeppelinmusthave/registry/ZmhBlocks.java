@@ -17,6 +17,7 @@ import us.kayla.zeppelinmusthave.content.control.fcn.FlightComputerBlock;
 import us.kayla.zeppelinmusthave.content.fluid.TieredFluidPipeBlock;
 import us.kayla.zeppelinmusthave.content.fluid.TieredGlassFluidPipeBlock;
 import us.kayla.zeppelinmusthave.content.helm.AirshipHelmBlock;
+import us.kayla.zeppelinmusthave.content.kinetics.OmniSpeedControllerBlock;
 import us.kayla.zeppelinmusthave.content.mooring.MooringWinchBlock;
 import us.kayla.zeppelinmusthave.content.steam.LeviathanSteamEngineBlock;
 import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEngineBlock;
@@ -102,6 +103,12 @@ public final class ZmhBlocks {
             ZmhSteamPowerBlocks.MK_VII_ENGINE.block();
     public static final DeferredItem<BlockItem> MK_VII_STEAM_ENGINE_ITEM =
             ZmhSteamPowerBlocks.MK_VII_ENGINE.item();
+
+
+    public static final DeferredBlock<OmniSpeedControllerBlock> OMNI_SPEED_CONTROLLER =
+            ZmhKineticBlocks.OMNI_SPEED_CONTROLLER.block();
+    public static final DeferredItem<BlockItem> OMNI_SPEED_CONTROLLER_ITEM =
+            ZmhKineticBlocks.OMNI_SPEED_CONTROLLER.item();
 
     public static final DeferredBlock<PipedRedstoneBlock> COPPER_PIPED_REDSTONE = ZmhRedstoneBlocks.COPPER_CONDUIT.block();
     public static final DeferredItem<BlockItem> COPPER_PIPED_REDSTONE_ITEM = ZmhRedstoneBlocks.COPPER_CONDUIT.item();

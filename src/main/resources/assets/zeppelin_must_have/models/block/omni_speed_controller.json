@@ -1,0 +1,542 @@
+{
+  "credit": "Zeppelin Must Have - Omni Speed Controller",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "shell": "zeppelin_must_have:block/zmh/grand_engine_shell",
+    "trim": "zeppelin_must_have:block/zmh/grand_engine_trim",
+    "core": "zeppelin_must_have:block/zmh/grand_engine_core",
+    "mechanism": "zeppelin_must_have:block/zmh/grand_engine_mechanism",
+    "particle": "zeppelin_must_have:block/zmh/grand_engine_shell"
+  },
+  "elements": [
+    {
+      "name": "cast_housing",
+      "from": [
+        1,
+        1,
+        1
+      ],
+      "to": [
+        15,
+        15,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "inner_core",
+      "from": [
+        3,
+        3,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "north_bearing",
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "south_bearing",
+      "from": [
+        5,
+        5,
+        14
+      ],
+      "to": [
+        11,
+        11,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "west_bearing",
+      "from": [
+        0,
+        5,
+        5
+      ],
+      "to": [
+        2,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "east_bearing",
+      "from": [
+        14,
+        5,
+        5
+      ],
+      "to": [
+        16,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "bottom_bearing",
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "top_bearing",
+      "from": [
+        5,
+        14,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "north_port",
+      "from": [
+        6,
+        6,
+        -0.25
+      ],
+      "to": [
+        10,
+        10,
+        1.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "south_port",
+      "from": [
+        6,
+        6,
+        14.75
+      ],
+      "to": [
+        10,
+        10,
+        16.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "west_port",
+      "from": [
+        -0.25,
+        6,
+        6
+      ],
+      "to": [
+        1.25,
+        10,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "east_port",
+      "from": [
+        14.75,
+        6,
+        6
+      ],
+      "to": [
+        16.25,
+        10,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "bottom_port",
+      "from": [
+        6,
+        -0.25,
+        6
+      ],
+      "to": [
+        10,
+        1.25,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "top_port",
+      "from": [
+        6,
+        14.75,
+        6
+      ],
+      "to": [
+        10,
+        16.25,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "control_band_x",
+      "from": [
+        0.5,
+        7.25,
+        4
+      ],
+      "to": [
+        15.5,
+        8.75,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "control_band_z",
+      "from": [
+        4,
+        7.25,
+        0.5
+      ],
+      "to": [
+        12,
+        8.75,
+        15.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    }
+  ]
+}

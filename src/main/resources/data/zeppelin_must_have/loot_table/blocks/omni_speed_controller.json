@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "zeppelin_must_have:omni_speed_controller"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "zeppelin_must_have:blocks/omni_speed_controller"
+}

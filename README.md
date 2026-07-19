@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.11.0
+Zeppelin Must Have 0.15.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -53,6 +53,12 @@ Integration uses public contracts:
 - Create `IHaveGoggleInformation` for Engineer's Goggles;
 - Ponder `PonderPlugin` for documentation scenes;
 - NeoForge server resource reload for data-pack profiles.
+
+## Flight Control Network
+
+Release `0.14.1` adds a vessel-local control bus for large Sable airships: Flight Computer, Engine Telegraph, Emergency Cutoff, Control Transmitter, and Control Receiver. Routing is server-authoritative, limited to one Sable sub-level, requires physical controller power, and preserves Aeronautics/Create ownership of the actual physics.
+
+See [`docs/FLIGHT_CONTROL_NETWORK.md`](docs/FLIGHT_CONTROL_NETWORK.md) for addressing, command ranges, power rules, bipolar analog encoding, actuator integration, and emergency behavior.
 
 ## Airship Helm
 
@@ -167,23 +173,34 @@ Engineer’s Goggles append the resolved grade profile to Create's native tank/b
 
 Same-grade boiler blocks render as one continuous pressure vessel. Connected textures remove the 1×1 block grid and keep structural rims only on the outer perimeter.
 
-The pressure gauge frame, scale, and animated dial are selected from the vessel grade, so the front instrument matches Copper, Brass, or Industrial construction.
+The pressure gauge frame, scale, and live pressure indication are selected from the vessel grade, so the front instrument matches Copper, Brass, or Industrial construction.
 
 The block registry IDs retain the historical `_boiler_base` suffix for save and recipe compatibility. Documentation: `docs/BOILER_GRADES.md`.
 
+
+### Omni Speed Controller
+
+The Omni Speed Controller accepts kinetic power from any one of its six faces and drives the remaining five faces at a configured absolute speed. Engineer's Goggles report the selected target and the currently resolved input face. Conflicting external sources remain subject to Create's normal kinetic-network safety rules.
+
 ## Graded Steam Engines
 
-The graded boiler family now has matching Steam Engines. Every grade inherits Create's normal shaft placement, rotation-direction control, boiler efficiency, and kinetic-network integration, while adding its own stress capacity, housing, and animated crank mechanism.
+The graded boiler family now has matching Steam Engines. Every grade inherits Create's normal shaft placement, rotation-direction control, boiler efficiency, and kinetic-network integration, while adding its own stress capacity, housing, and internal drive architecture.
 
-| Grade | Capacity | Boiler load | Animated mechanism |
+| Grade | Capacity | Boiler load | Mechanical layout |
 |---|---:|---:|---|
 | Copper — I | 1024 SU | 1 unit | one cylinder |
 | Brass — II | 2560 SU | 2 units | two cylinders, 180° opposed |
 | Industrial — III | 4608 SU | 3 units | three cylinders, 120° phased |
+| Grand — MK IV | 8192 SU | 4 units | four cylinders, 90° phased; twin flywheels, valve gear, governor |
+| Sovereign — MK V | 12288 SU | 6 units | five cylinders, 72° phased; pressure core, crown rotor, flagship mechanism |
+| Leviathan — MK VI | 20480 SU | 10 units | eight cylinders in two banks; four-cell T-frame, twin flywheels, four valve banks |
+| MK VII | 36864 SU | 18 units | three banks, nine internal crankshafts, central reduction gearbox, one output shaft |
 
-Higher-grade engines remain bounded by Create's boiler size, heat, water supply, and efficiency. They must be attached to a Zeppelin Must Have graded boiler; vanilla Create Fluid Tanks continue using the native Create Steam Engine.
+Higher-grade engines remain bounded by Create's boiler size, heat, water supply, and efficiency. MK I–V attach to any matching Zeppelin Must Have graded boiler. MK VI requires an Industrial Boiler MK III and reserves three additional cells for its two cylinder banks and forward shaft nose. MK VII requires three adjacent Industrial Boiler MK III cells, two free side-body cells, a clear three-cell service row, and one central output position. Vanilla Create Fluid Tanks continue using the native Create Steam Engine.
 
 Numerical capacity, boiler load, crank geometry, cylinder spacing, and steam-particle intensity are data-driven through `data/*/steam_engine_grade_profiles/*.json`.
+
+MK IV remains the Grand flagship engine. MK V Sovereign advances the line with five 72°-phased cylinders and a rotating pressure core. MK VI Leviathan is a four-cell T-frame power plant with eight 45°-phased cylinders, two lateral cylinder banks, a dedicated shaft nose, twin flywheels, and four valve-gear banks. MK VII expands into three synchronized banks with nine internal crankshafts coupled through one central reduction gearbox to a single output shaft.
 
 Documentation: `docs/STEAM_ENGINE_GRADES.md`.
 
@@ -271,12 +288,12 @@ Documentation: `docs/VERTICAL_THRUSTER.md`.
 
 ## Zeppelin Parts Catalog
 
-Version `0.11.0` defines every public block and item through one canonical Zeppelin Parts catalog:
+Version `0.15.0` defines every public block and item through one canonical Zeppelin Parts catalog:
 
 ```text
-19 functional block parts
+33 functional block parts
  3 burner upgrade parts
-22 catalogued item entries
+36 catalogued item entries
 ```
 
 The catalog now drives creative-tab ordering, item tooltips, Ponder category membership, public tags, startup validation, and automated coverage tests. Every part displays its subsystem and gameplay role in English, Russian, Italian, and Polish.
@@ -295,9 +312,24 @@ Public integration tags:
 #zeppelin_must_have:zeppelin_parts/upgrade
 ```
 
-Every block part is covered by the pickaxe and stone-tool mining tags. The release audit fixed missing mining coverage for all three graded Steam Engines.
+Every block part has an explicit tool policy: fabric envelopes use axes, metal machinery uses pickaxes, and high-grade fluid equipment requires the appropriate tool tier.
 
 Complete manifest and extension checklist: [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). Release notes: [`CHANGELOG.md`](CHANGELOG.md). Cumulative `0.9.0 → 0.11.0` patch notes: [`docs/PATCH_NOTES_0.9.0_TO_0.11.0.md`](docs/PATCH_NOTES_0.9.0_TO_0.11.0.md).
+
+## Engineering Advancements
+
+Version `0.14.1` adds a dedicated server-authoritative advancement tree for building and commissioning Zeppelin systems.
+
+```text
+25 advancement definitions
+ 9 fabrication categories
+13 commissioning milestones
+ 1 complete-catalog challenge
+```
+
+Crafting a Zeppelin Part awards its subsystem milestone and records the exact registry path toward **Master Shipwright**. Operational milestones require verified system activation rather than simple placement: accepted burner fuel, an attached Helm, engaged Altitude Hold, an issued Engine Telegraph order, a latched Emergency Cutoff, loaded ballast, active steam output, physical vertical thrust, or an attached mooring rope.
+
+The tree is fully localized in English, Russian, Italian, and Polish. Complete trigger conditions and architecture: [`docs/ADVANCEMENTS.md`](docs/ADVANCEMENTS.md).
 
 ## Ponder
 
@@ -305,25 +337,29 @@ The mod registers its own isolated `PonderPlugin` and the category **Zeppelin Pa
 
 Implemented scenes:
 
-- **Airship Helm Telemetry** — Sable sub-level detection, physics telemetry, Aeronautics balloon aggregation, and empty-hand inspection;
-- **Airship Burner Operation** — mixed heat reserves, redstone throttling, airtight envelopes, tier progression, soul-fire appearance, native Aeronautics aggregation, and installation/removal of the three upgrade socket types;
-- **Protected Redstone for Airships** — explicit non-merging ports, waterlogging, three conduit tiers, adjustable repeater delay, and weakest-link mixed-tier behaviour;
-- **Automatic Altitude Control** — trim input, four sensor/controller modes, target capture, damping, and burner output routing.
-- **Ballast Tank** — fluid handling, dynamic Sable mass, center-of-mass trim, and comparator output;
+- **Zeppelin Parts Overview** — a guaranteed entry scene registered on every public Zeppelin Part;
+- **Airship Helm Telemetry** — vessel detection, flight telemetry, and balloon-state inspection;
+- **Airship Burner Operation** — fuel, throttle, lift tiers, and all three upgrade items;
+- **Envelope Grades** — Reinforced and Industrial lifting-envelope construction;
+- **Graded Boilers** — boiler tiers, heat, water, and engine-load limits;
+- **Graded Steam Engines** — Copper, Brass, Industrial, and Grand Grade IV progression;
+- **Flight Control Network** — Flight Computer, Engine Telegraph, Emergency Cutoff, Transmitter, and Receiver;
+- **Automatic Altitude Control** — trim input, sensor modes, target capture, and burner output;
+- **Fluid Pipe Grades** — Reinforced and Industrial fluid-routing tiers;
+- **Protected Redstone** — conduit ports, waterlogging, tier limits, levers, and repeaters;
+- **Ballast Tank** — fluid handling, dynamic vessel mass, center-of-mass trim, and comparator output;
 - **Mooring Winch** — kinetic rope deployment and native Simulated rope physics;
-- **Vertical Thruster** — Create kinetic input, thrust reversal, and native Sable/Aeronautics propulsion.
+- **Vertical Thruster** — Create kinetic input, reversal, and Aeronautics propulsion.
 
-Scene structures are stored at:
+Every one of the 36 catalogued Zeppelin Parts receives the overview scene and a subsystem-specific scene. Startup validation reads all storyboard templates with Minecraft `NbtIo` and fails immediately on missing files, malformed dimensions, empty palettes, or empty structures.
+
+Scene structures are stored under:
 
 ```text
-assets/zeppelin_must_have/ponder/helm/telemetry.nbt
-assets/zeppelin_must_have/ponder/burner/operation.nbt
-assets/zeppelin_must_have/ponder/redstone/conduits.nbt
-assets/zeppelin_must_have/ponder/control/altitude_hold.nbt
-assets/zeppelin_must_have/ponder/service/ballast_tank.nbt
-assets/zeppelin_must_have/ponder/service/mooring_winch.nbt
-assets/zeppelin_must_have/ponder/service/vertical_thruster.nbt
+assets/zeppelin_must_have/ponder/
 ```
+
+The packaged manifest currently validates 13 storyboard templates. `PonderCoverageGameTests` verifies catalog coverage, specialized coverage, template validity, and duplicate-free storyboard paths.
 
 Ponder preview state is applied through the burner block entity rather than by faking only its blockstate.
 
@@ -392,13 +428,13 @@ The Ballast Tank, Mooring Winch, Vertical Thruster, and Altitude Gauge are fully
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.11.0` |
+| Zeppelin Must Have | `0.15.0` |
 
 ## Internal code organization
 
 Registration and runtime responsibilities are split by domain. `ZmhBlocks` remains the stable public facade, while construction is delegated to the airship, steam-power, and redstone catalogs through a shared typed registrar. Large runtime classes delegate presentation, configuration, persistence, topology, graph discovery, and signal solving to focused collaborators.
 
-See [`docs/REFACTORING.md`](docs/REFACTORING.md) for the complete internal module map and compatibility invariants. The complete public parts manifest is documented in [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). The complete public parts manifest is documented in [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). The latest class-cohesion review is documented in [`docs/MONOLITH_AUDIT.md`](docs/MONOLITH_AUDIT.md).
+See [`docs/REFACTORING.md`](docs/REFACTORING.md) for the complete internal module map and compatibility invariants. The complete public parts manifest is documented in [`docs/ZEPPELIN_PARTS.md`](docs/ZEPPELIN_PARTS.md). The latest class-cohesion review is documented in [`docs/MONOLITH_AUDIT.md`](docs/MONOLITH_AUDIT.md).
 
 ## Development
 

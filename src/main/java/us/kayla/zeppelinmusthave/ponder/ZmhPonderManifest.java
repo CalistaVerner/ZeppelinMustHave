@@ -97,6 +97,7 @@ public final class ZmhPonderManifest {
                 ZmhBlocks.SOVEREIGN_STEAM_ENGINE.getId(),
                 ZmhBlocks.LEVIATHAN_STEAM_ENGINE.getId(),
                 ZmhBlocks.MK_VII_STEAM_ENGINE.getId(),
+                ZmhBlocks.OMNI_SPEED_CONTROLLER.getId(),
                 ZmhBlocks.REINFORCED_FLUID_PIPE.getId(),
                 ZmhBlocks.INDUSTRIAL_FLUID_PIPE.getId(),
                 ZmhBlocks.COPPER_PIPED_REDSTONE.getId(),

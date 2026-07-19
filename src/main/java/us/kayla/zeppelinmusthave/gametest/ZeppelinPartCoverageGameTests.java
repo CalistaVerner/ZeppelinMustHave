@@ -38,8 +38,8 @@ public final class ZeppelinPartCoverageGameTests {
             return;
         }
 
-        assertInt(helper, "Zeppelin Part item count", 35, ZeppelinPartCatalog.all().size());
-        assertInt(helper, "Zeppelin Part block count", 32, ZeppelinPartCatalog.blocks().size());
+        assertInt(helper, "Zeppelin Part item count", 36, ZeppelinPartCatalog.all().size());
+        assertInt(helper, "Zeppelin Part block count", 33, ZeppelinPartCatalog.blocks().size());
         helper.succeed();
     }
 

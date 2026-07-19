@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "zeppelin_must_have:block/omni_speed_controller"
+    }
+  }
+}

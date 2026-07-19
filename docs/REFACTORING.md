@@ -145,13 +145,20 @@ VerticalThrusterBlockEntity
 
 `ZmhCapabilities` is the single capability-registration entry point. `ZmhDataReloaders` includes ballast and vertical-thruster profiles, while `VerticalThrusterStressRegistration` owns the Create stress impact supplier.
 
+
+## 0.15.0 runtime boundaries
+
+The Flight Control Network public API remains in `FlightControlNetworkManager`, while mutable routing state is split into resolver, addressed-network, vessel, telemetry, and timeout-policy components. This keeps Sable lookup, authority arbitration, persistence, and cache cleanup independently testable.
+
+Graded steam engines use the same pattern: `SteamEngineGradeBlockEntity` owns synchronized state and lifecycle, `SteamEngineShaftController` owns powered-shaft coupling, `SteamEnginePowerController` owns effective output policy, and `SteamEngineAssemblyValidator` owns structural validation. Client rendering is divided into frame coordination, cylinder geometry, flagship mechanisms, and shared transforms.
+
 ## Ponder organization
 
 `ZmhPonderScenes` is only the root registration entry point. Storyboards are split into domain modules:
 
 - `ZmhHelmPonderScenes`;
 - `ZmhBurnerPonderScenes`;
-- `ZmhSteamPowerPonderScenes`;
+- `ZmhSteamPowerPonderScenes` facade, delegating to `ZmhBoilerPonderScenes` and `ZmhSteamEnginePonderScenes`;
 - `ZmhControlPonderScenes`;
 - `ZmhRedstonePonderScenes`;
 - `ZmhServicePonderScenes`.

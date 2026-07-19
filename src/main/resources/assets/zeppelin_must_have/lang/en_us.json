@@ -368,5 +368,12 @@
   "block.zeppelin_must_have.mk_vii_steam_engine": "Industrial Triple-Bank Steam Engine — MK VII",
   "zeppelin_must_have.zeppelin_part.description.mk_vii_steam_engine": "Three-block-wide MK VII engine with nine internal crankshafts, a central reduction gearbox, and one Create-compatible output shaft.",
   "zeppelin_must_have.placement.mk_vii.requires_three_wide_industrial_boiler": "MK VII requires three adjacent Industrial Boiler MK III cells behind its full width.",
-  "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "MK VII requires two free side-body cells, a clear three-cell service row, and one free central output position."
+  "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "MK VII requires two free side-body cells, a clear three-cell service row, and one free central output position.",
+  "block.zeppelin_must_have.omni_speed_controller": "Omni Speed Controller",
+  "zeppelin_must_have.zeppelin_part.description.omni_speed_controller": "Six-port kinetic controller. Accepts rotation from any face and drives the other five faces at one configured absolute speed.",
+  "zeppelin_must_have.omni_speed_controller.target_speed": "Output Speed",
+  "zeppelin_must_have.goggles.omni_speed_controller": "Omni Transmission",
+  "zeppelin_must_have.goggles.omni_speed_controller.target": "Target output: %s RPM",
+  "zeppelin_must_have.goggles.omni_speed_controller.input": "Input face: %s",
+  "zeppelin_must_have.goggles.omni_speed_controller.no_input": "No kinetic input"
 }

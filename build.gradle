@@ -27,6 +27,22 @@ sourceSets.main.resources {
     exclude('src/generated/**/.cache')
 }
 
+
+// Sable 2.0.0 extracts Rapier into a fixed relative path and always replaces
+// the DLL. Windows cannot replace a native library left behind by a previous
+// dev client, so clear the extraction directory before physics-capable runs.
+var cleanSableNatives = tasks.register('cleanSableNatives', Delete) {
+    group = 'mod development'
+    description = 'Removes stale Sable Rapier natives before a client or server development run.'
+    delete(layout.projectDirectory.dir('run/.sable/natives'))
+}
+
+var cleanSableGameTestNatives = tasks.register('cleanSableGameTestNatives', Delete) {
+    group = 'mod development'
+    description = 'Removes stale Sable Rapier natives from the isolated GameTest directory.'
+    delete(layout.projectDirectory.dir('run-gametest/.sable/natives'))
+}
+
 repositories {
     mavenCentral()
 
@@ -78,6 +94,7 @@ neoForge {
 
         gameTestServer {
             type = 'gameTestServer'
+            gameDirectory = layout.projectDirectory.dir('run-gametest')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -107,6 +124,17 @@ neoForge {
     }
 }
 
+
+tasks.matching { task ->
+    task.name in ['runClient', 'runServer']
+}.configureEach {
+    dependsOn(cleanSableNatives)
+}
+
+tasks.named('runGameTestServer').configure {
+    dependsOn(cleanSableGameTestNatives)
+}
+
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
@@ -130,6 +158,9 @@ dependencies {
     // Simulated Project APIs. These are first-class, required dependencies.
     implementation("dev.simulated_team.simulated:simulated-neoforge-${minecraft_version}:${simulated_version}")
     implementation("dev.eriksonn.aeronautics:aeronautics-neoforge-${minecraft_version}:${aeronautics_version}")
+
+    // Optional at runtime; used only by isolated compatibility classes.
+    implementation("top.theillusivec4.curios:curios-neoforge:${curios_version}")
 }
 
 var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
@@ -142,6 +173,7 @@ var generateModMetadata = tasks.register('generateModMetadata', ProcessResources
             sable_version_range      : sable_version_range,
             simulated_version_range  : simulated_version_range,
             aeronautics_version_range: aeronautics_version_range,
+            curios_version_range    : curios_version_range,
             mod_id                   : mod_id,
             mod_name                 : mod_name,
             mod_license              : mod_license,
