@@ -10,7 +10,7 @@ The mod is built for players and servers that want airships to feel like enginee
 
 ## Zeppelin Parts — Complete Coverage
 
-Version `0.15.0` catalogues every public block and item as a Zeppelin Part: **33 functional block parts and 3 upgrade items**.
+Version `0.16.0` catalogues every public block and item as a Zeppelin Part: **33 functional block parts and 3 upgrade items**.
 
 The Zeppelin Parts catalog provides:
 
@@ -298,7 +298,7 @@ Zeppelin Must Have is an add-on, not a standalone mod. Install every required de
 | Create Simulated | `1.3.0` to `< 2.0.0` |
 | Create Aeronautics | `1.3.0` to `< 2.0.0` |
 
-The current Zeppelin Must Have release is **0.15.0**.
+The current Zeppelin Must Have release is **0.16.0**.
 
 ---
 
@@ -307,7 +307,7 @@ The current Zeppelin Must Have release is **0.15.0**.
 1. Install **Java 21**.
 2. Install **NeoForge for Minecraft 1.21.1**.
 3. Install Create, Sable, Create Simulated, and Create Aeronautics using compatible versions.
-4. Place `zeppelin_must_have-0.15.0.jar` into the `mods` folder.
+4. Place `zeppelin_must_have-0.16.0.jar` into the `mods` folder.
 5. Install the same mod and dependency versions on the server and every connecting client.
 
 ---
@@ -331,7 +331,7 @@ Create, Sable, Create Simulated, and Create Aeronautics remain authoritative for
 
 ## Current Development Status
 
-Fully functional systems in version `0.15.0`:
+Fully functional systems in version `0.16.0`:
 
 - Airship Helm telemetry;
 - three Airship Burner grades;

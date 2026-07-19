@@ -43,6 +43,9 @@ public final class SteamEngineGradePartialModels {
     private static final PartialModel LEVIATHAN_VALVE_GEAR = model(SteamEngineGradeTier.LEVIATHAN, "valve_gear");
     private static final PartialModel LEVIATHAN_POWER_CORE = model(SteamEngineGradeTier.LEVIATHAN, "power_core");
     private static final PartialModel LEVIATHAN_CROWN_ROTOR = model(SteamEngineGradeTier.LEVIATHAN, "crown_rotor");
+    private static final PartialModel LEVIATHAN_MAIN_CRANKSHAFT = model(
+            SteamEngineGradeTier.LEVIATHAN, "main_crankshaft"
+    );
 
     private static final PartialModel MK_VII_PISTON = model(SteamEngineGradeTier.MK_VII, "piston");
     private static final PartialModel MK_VII_LINKAGE = model(SteamEngineGradeTier.MK_VII, "linkage");
@@ -147,6 +150,10 @@ public final class SteamEngineGradePartialModels {
             case LEVIATHAN -> LEVIATHAN_CROWN_ROTOR;
             default -> SOVEREIGN_CROWN_ROTOR;
         };
+    }
+
+    public static PartialModel leviathanMainCrankshaft() {
+        return LEVIATHAN_MAIN_CRANKSHAFT;
     }
 
     private static PartialModel model(SteamEngineGradeTier tier, String part) {

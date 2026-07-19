@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have - Leviathan MK VI detailed crosshead piston",
+  "credit": "Zeppelin Must Have - Leviathan MK VI visible synchronized main crankshaft",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
@@ -11,16 +11,16 @@
   },
   "elements": [
     {
-      "name": "piston_rod",
+      "name": "main_drive_shaft",
       "from": [
-        7.5,
-        3,
-        7.5
+        -12.0,
+        6.6,
+        6.6
       ],
       "to": [
-        8.5,
-        21,
-        8.5
+        28.0,
+        9.4,
+        9.4
       ],
       "faces": {
         "north": {
@@ -44,49 +44,16 @@
       }
     },
     {
-      "name": "piston_body",
+      "name": "main_shaft_key",
       "from": [
-        7,
-        17.8,
-        7
+        -10.0,
+        9.4,
+        7.15
       ],
       "to": [
-        9,
-        20.8,
-        9
-      ],
-      "faces": {
-        "north": {
-          "texture": "#shell"
-        },
-        "east": {
-          "texture": "#shell"
-        },
-        "south": {
-          "texture": "#shell"
-        },
-        "west": {
-          "texture": "#shell"
-        },
-        "up": {
-          "texture": "#shell"
-        },
-        "down": {
-          "texture": "#shell"
-        }
-      }
-    },
-    {
-      "name": "lower_ring",
-      "from": [
-        6.7,
-        17.55,
-        6.7
-      ],
-      "to": [
-        9.3,
-        18.1,
-        9.3
+        26.0,
+        10.15,
+        8.85
       ],
       "faces": {
         "north": {
@@ -110,16 +77,16 @@
       }
     },
     {
-      "name": "upper_ring",
+      "name": "left_journal_collar",
       "from": [
-        6.7,
-        20.35,
-        6.7
+        -8.5,
+        5.45,
+        5.45
       ],
       "to": [
-        9.3,
-        20.95,
-        9.3
+        -4.0,
+        10.55,
+        10.55
       ],
       "faces": {
         "north": {
@@ -143,115 +110,214 @@
       }
     },
     {
-      "name": "wrist_pin",
+      "name": "right_journal_collar",
       "from": [
-        7.25,
-        1,
-        7.25
+        20.0,
+        5.45,
+        5.45
       ],
       "to": [
-        8.75,
-        5,
-        8.75
+        24.5,
+        10.55,
+        10.55
       ],
       "faces": {
         "north": {
-          "texture": "#core"
+          "texture": "#trim"
         },
         "east": {
-          "texture": "#core"
+          "texture": "#trim"
         },
         "south": {
-          "texture": "#core"
+          "texture": "#trim"
         },
         "west": {
-          "texture": "#core"
+          "texture": "#trim"
         },
         "up": {
-          "texture": "#core"
+          "texture": "#trim"
         },
         "down": {
-          "texture": "#core"
+          "texture": "#trim"
         }
       }
     },
     {
-      "name": "detail_crosshead",
+      "name": "left_journal_core",
       "from": [
-        5.75,
-        3.8,
-        6.25
-      ],
-      "to": [
-        10.25,
-        6.2,
-        9.75
-      ],
-      "faces": {
-        "north": {
-          "texture": "#core"
-        },
-        "east": {
-          "texture": "#core"
-        },
-        "south": {
-          "texture": "#core"
-        },
-        "west": {
-          "texture": "#core"
-        },
-        "up": {
-          "texture": "#core"
-        },
-        "down": {
-          "texture": "#core"
-        }
-      }
-    },
-    {
-      "name": "detail_left_crosshead_shoe",
-      "from": [
-        5.15,
-        3.5,
-        6.0
-      ],
-      "to": [
+        -7.5,
         6.1,
-        6.5,
-        10.0
+        6.1
       ],
-      "faces": {
-        "north": {
-          "texture": "#trim"
-        },
-        "east": {
-          "texture": "#trim"
-        },
-        "south": {
-          "texture": "#trim"
-        },
-        "west": {
-          "texture": "#trim"
-        },
-        "up": {
-          "texture": "#trim"
-        },
-        "down": {
-          "texture": "#trim"
-        }
-      }
-    },
-    {
-      "name": "detail_right_crosshead_shoe",
-      "from": [
+      "to": [
+        -5.0,
         9.9,
-        3.5,
-        6.0
+        9.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "right_journal_core",
+      "from": [
+        21.0,
+        6.1,
+        6.1
       ],
       "to": [
-        10.85,
-        6.5,
-        10.0
+        23.5,
+        9.9,
+        9.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "central_crank_web_left",
+      "from": [
+        4.75,
+        4.65,
+        5.25
+      ],
+      "to": [
+        6.75,
+        11.35,
+        10.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "central_crank_web_right",
+      "from": [
+        9.25,
+        4.65,
+        5.25
+      ],
+      "to": [
+        11.25,
+        11.35,
+        10.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "offset_crank_pin",
+      "from": [
+        6.25,
+        9.15,
+        7.0
+      ],
+      "to": [
+        9.75,
+        11.35,
+        9.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "lower_counterweight",
+      "from": [
+        5.5,
+        4.25,
+        5.75
+      ],
+      "to": [
+        10.5,
+        6.25,
+        10.25
       ],
       "faces": {
         "north": {
@@ -275,16 +341,82 @@
       }
     },
     {
-      "name": "detail_rod_gland",
+      "name": "central_oil_ring",
       "from": [
-        6.75,
-        15.9,
-        6.75
+        7.0,
+        5.25,
+        5.25
       ],
       "to": [
-        9.25,
-        17.4,
-        9.25
+        9.0,
+        10.75,
+        10.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "left_drive_bolt",
+      "from": [
+        -5.2,
+        7.15,
+        5.3
+      ],
+      "to": [
+        -3.8,
+        8.85,
+        10.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "right_drive_bolt",
+      "from": [
+        19.8,
+        7.15,
+        5.3
+      ],
+      "to": [
+        21.2,
+        8.85,
+        10.7
       ],
       "faces": {
         "north": {

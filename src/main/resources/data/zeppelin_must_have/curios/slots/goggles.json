@@ -1,0 +1,13 @@
+{
+  "replace": true,
+  "order": 35,
+  "size": 1,
+  "operation": "SET",
+  "use_native_gui": true,
+  "add_cosmetic": false,
+  "render_toggle": true,
+  "icon": "zeppelin_must_have:slot/empty_goggles_slot",
+  "validators": [
+    "curios:tag"
+  ]
+}

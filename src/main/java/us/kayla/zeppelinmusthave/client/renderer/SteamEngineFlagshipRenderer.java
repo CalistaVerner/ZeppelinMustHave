@@ -43,14 +43,27 @@ final class SteamEngineFlagshipRenderer {
                 ? 0.0F
                 : Mth.clamp(Math.abs(shaft.getSpeed()) / 64.0F, 0.0F, 1.5F);
         float flywheelOffset = mkVii ? 0.38F : heavy ? 0.82F : 0.40F;
-        float counterRotationRatio = mkVii ? 1.55F : leviathan ? 1.35F : sovereign ? 1.12F : 0.82F;
+        float counterRotationRatio = mkVii ? 1.55F : sovereign ? 1.12F : 0.82F;
+        float driveRotation = -(angle + Mth.HALF_PI);
+
+        if (leviathan) {
+            renderLeviathanCrankshaft(
+                    blockState,
+                    facing,
+                    roll90,
+                    driveRotation,
+                    poseStack,
+                    vertexConsumer,
+                    light
+            );
+        }
 
         SteamEngineRenderTransform.partial(
                 SteamEngineGradePartialModels.flagshipFlywheel(tier), blockState, facing, roll90
         )
                 .translate(-flywheelOffset, 2.0F, 0.0F)
                 .center()
-                .rotateX(-(angle + Mth.HALF_PI))
+                .rotateX(driveRotation)
                 .uncenter()
                 .light(light)
                 .renderInto(poseStack, vertexConsumer);
@@ -60,7 +73,7 @@ final class SteamEngineFlagshipRenderer {
         )
                 .translate(flywheelOffset, 2.0F, 0.0F)
                 .center()
-                .rotateX(angle * counterRotationRatio + Mth.HALF_PI)
+                .rotateX(leviathan ? driveRotation : angle * counterRotationRatio + Mth.HALF_PI)
                 .uncenter()
                 .light(light)
                 .renderInto(poseStack, vertexConsumer);
@@ -113,6 +126,29 @@ final class SteamEngineFlagshipRenderer {
         }
     }
 
+    private static void renderLeviathanCrankshaft(
+            BlockState blockState,
+            Direction facing,
+            boolean roll90,
+            float driveRotation,
+            PoseStack poseStack,
+            VertexConsumer vertexConsumer,
+            int light
+    ) {
+        SteamEngineRenderTransform.partial(
+                SteamEngineGradePartialModels.leviathanMainCrankshaft(),
+                blockState,
+                facing,
+                roll90
+        )
+                .translate(0.0F, 2.0F, 0.0F)
+                .center()
+                .rotateX(driveRotation)
+                .uncenter()
+                .light(light)
+                .renderInto(poseStack, vertexConsumer);
+    }
+
     private static void renderGovernor(
             SteamEngineGradeTier tier,
             BlockState blockState,
@@ -152,15 +188,23 @@ final class SteamEngineFlagshipRenderer {
     ) {
         for (int bank = 0; bank < valveBanks; bank++) {
             float bankPhase = angle + (float) (Math.TAU * bank / valveBanks);
-            float valveTravel = Mth.sin(bankPhase * 2.0F) * 0.10F;
-            float valveRock = Mth.cos(bankPhase) * 0.16F;
+            float travelAmplitude = tier == SteamEngineGradeTier.LEVIATHAN
+                    ? 0.16F
+                    : tier == SteamEngineGradeTier.MK_VII ? 0.13F : 0.10F;
+            float rockAmplitude = tier == SteamEngineGradeTier.LEVIATHAN
+                    ? 0.24F
+                    : tier == SteamEngineGradeTier.MK_VII ? 0.20F : 0.16F;
+            float longitudinalAmplitude = tier == SteamEngineGradeTier.LEVIATHAN ? 0.08F : 0.04F;
+            float valveTravel = Mth.sin(bankPhase * 2.0F) * travelAmplitude;
+            float valveRock = Mth.cos(bankPhase) * rockAmplitude;
+            float longitudinalTravel = Mth.sin(bankPhase) * longitudinalAmplitude;
             float lateral = valveBanks == 2
                     ? (bank == 0 ? -0.28F : 0.28F)
                     : (bank - (valveBanks - 1) / 2.0F) * valveSpacing;
             SteamEngineRenderTransform.partial(
                     SteamEngineGradePartialModels.flagshipValveGear(tier), blockState, facing, roll90
             )
-                    .translate(lateral, 1.08F + valveTravel, 0.0F)
+                    .translate(lateral, 1.08F + valveTravel, longitudinalTravel)
                     .center()
                     .rotateX(valveRock)
                     .uncenter()

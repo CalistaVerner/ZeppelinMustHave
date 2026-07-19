@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have — MK IV corporate flagship engine",
+  "credit": "Zeppelin Must Have - MK IV exposed centrifugal governor",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
@@ -7,7 +7,8 @@
     "trim": "zeppelin_must_have:block/zmh/grand_engine_trim",
     "core": "zeppelin_must_have:block/zmh/grand_engine_core",
     "mechanism": "zeppelin_must_have:block/zmh/grand_engine_mechanism",
-    "particle": "zeppelin_must_have:block/zmh/grand_engine_shell"
+    "particle": "zeppelin_must_have:block/zmh/grand_engine_shell",
+    "crown": "zeppelin_must_have:block/zmh/grand_engine_crown"
   },
   "elements": [
     {
@@ -143,39 +144,6 @@
       }
     },
     {
-      "name": "top_cap",
-      "from": [
-        6.5,
-        13.5,
-        6.5
-      ],
-      "to": [
-        9.5,
-        15,
-        9.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#trim"
-        },
-        "east": {
-          "texture": "#trim"
-        },
-        "south": {
-          "texture": "#trim"
-        },
-        "west": {
-          "texture": "#trim"
-        },
-        "up": {
-          "texture": "#trim"
-        },
-        "down": {
-          "texture": "#trim"
-        }
-      }
-    },
-    {
       "name": "governor_base",
       "from": [
         6.5,
@@ -205,6 +173,105 @@
         },
         "down": {
           "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "governor_upper_collar",
+      "from": [
+        6.35,
+        13.0,
+        6.35
+      ],
+      "to": [
+        9.65,
+        13.625,
+        9.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "governor_cap_body",
+      "from": [
+        6.75,
+        13.75,
+        6.75
+      ],
+      "to": [
+        9.25,
+        14.625,
+        9.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "governor_cap_finial",
+      "from": [
+        7.4,
+        14.75,
+        7.4
+      ],
+      "to": [
+        8.6,
+        15.25,
+        8.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#crown"
+        },
+        "east": {
+          "texture": "#crown"
+        },
+        "south": {
+          "texture": "#crown"
+        },
+        "west": {
+          "texture": "#crown"
+        },
+        "up": {
+          "texture": "#crown"
+        },
+        "down": {
+          "texture": "#crown"
         }
       }
     }

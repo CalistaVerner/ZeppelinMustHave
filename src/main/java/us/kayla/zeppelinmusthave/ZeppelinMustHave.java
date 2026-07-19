@@ -10,6 +10,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 import us.kayla.zeppelinmusthave.advancement.ZmhAdvancements;
 import us.kayla.zeppelinmusthave.content.parts.ZeppelinPartCatalog;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineChunkRecovery;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineStressRegistration;
 import us.kayla.zeppelinmusthave.content.thruster.VerticalThrusterStressRegistration;
 import us.kayla.zeppelinmusthave.data.ZmhDataReloaders;
@@ -31,6 +32,7 @@ public final class ZeppelinMustHave {
         ZmhRegistries.register(modEventBus);
         modEventBus.addListener(ZmhCapabilities::register);
         modEventBus.addListener(this::commonSetup);
+        SteamEngineChunkRecovery.register();
         ZmhDataReloaders.registerAll();
         ZmhAdvancements.register();
 

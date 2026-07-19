@@ -14,11 +14,12 @@ import net.minecraft.world.level.material.PushReaction;
 import us.kayla.zeppelinmusthave.registry.ZmhBlockEntityTypes;
 
 /**
- * Six-port absolute speed controller.
+ * Six-port speed-limiting transmission.
  *
  * <p>Whichever adjacent kinetic component becomes the network source is treated
- * as the input. The remaining five shaft faces transmit the configured target
- * speed through Create's native split-shaft propagation rules.</p>
+ * as the input. The remaining five shaft faces transmit the configured signed
+ * output limit through Create's native split-shaft propagation rules, without
+ * ever exceeding the input RPM magnitude.</p>
  */
 public final class OmniSpeedControllerBlock extends KineticBlock
         implements IBE<OmniSpeedControllerBlockEntity>, IWrenchable {

@@ -18,8 +18,11 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 /**
- * One input, five output absolute-speed transmission built directly on Create's
- * split-shaft network semantics.
+ * One-input, five-output split-shaft transmission.
+ *
+ * <p>The configured value is an output limit, not an independent motor speed.
+ * Every output is clamped to the absolute speed received from the active input,
+ * so the controller can reduce or reverse rotation but can never amplify it.</p>
  */
 public final class OmniSpeedControllerBlockEntity extends SplitShaftBlockEntity {
     public static final int DEFAULT_SPEED = 16;
@@ -69,29 +72,46 @@ public final class OmniSpeedControllerBlockEntity extends SplitShaftBlockEntity 
             return 1.0F;
         }
 
-        float inputSpeed = this.getTheoreticalSpeed();
-        if (Math.abs(inputSpeed) < MINIMUM_INPUT_SPEED) {
-            return 0.0F;
-        }
-        return calculateOutputModifier(inputSpeed, this.getTargetSpeed());
+        return calculateOutputModifier(this.getTheoreticalSpeed(), this.getTargetSpeed());
     }
 
+    /**
+     * Computes the split-shaft ratio while enforcing conservation of RPM
+     * magnitude. The configured sign still controls output direction.
+     */
     public static float calculateOutputModifier(float inputSpeed, int targetSpeed) {
         if (Math.abs(inputSpeed) < MINIMUM_INPUT_SPEED) {
             return 0.0F;
         }
-        return targetSpeed / inputSpeed;
+        return calculateLimitedOutputSpeed(inputSpeed, targetSpeed) / inputSpeed;
+    }
+
+    /**
+     * Returns the requested signed output, limited to the available input RPM.
+     */
+    public static float calculateLimitedOutputSpeed(float inputSpeed, int targetSpeed) {
+        float availableSpeed = Math.abs(inputSpeed);
+        if (availableSpeed < MINIMUM_INPUT_SPEED || targetSpeed == 0) {
+            return 0.0F;
+        }
+
+        float limitedMagnitude = Math.min(availableSpeed, Math.abs((float) targetSpeed));
+        return Math.copySign(limitedMagnitude, targetSpeed);
     }
 
     public int getTargetSpeed() {
         return this.targetSpeed == null ? DEFAULT_SPEED : this.targetSpeed.getValue();
     }
 
+    public float getEffectiveOutputSpeed() {
+        return calculateLimitedOutputSpeed(this.getSpeed(), this.getTargetSpeed());
+    }
+
     public float getSpeedForFace(Direction face) {
         if (!this.hasSource()) {
             return 0.0F;
         }
-        return face == this.getSourceFacing() ? this.getSpeed() : this.getTargetSpeed();
+        return face == this.getSourceFacing() ? this.getSpeed() : this.getEffectiveOutputSpeed();
     }
 
     public Direction getInputFace() {
@@ -100,7 +120,7 @@ public final class OmniSpeedControllerBlockEntity extends SplitShaftBlockEntity 
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        super.addToGoggleTooltip(tooltip, isPlayerSneaking);
         tooltip.add(Component.translatable("zeppelin_must_have.goggles.omni_speed_controller")
                 .withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable(

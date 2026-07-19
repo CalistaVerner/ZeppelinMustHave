@@ -20,6 +20,8 @@ import us.kayla.zeppelinmusthave.content.steam.LeviathanSteamEngineBlock;
 import us.kayla.zeppelinmusthave.content.steam.LeviathanSteamEnginePart;
 import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEngineBlock;
 import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEnginePart;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineChunkRecovery;
+import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeBlockEntity;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeProfile;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeProfiles;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
@@ -332,6 +334,92 @@ public final class SteamEngineGradeGameTests {
                 }
                 helper.succeed();
             });
+        });
+    }
+
+
+    @GameTest(template = TEMPLATE, setupTicks = 1L, timeoutTicks = 60)
+    public static void copperAndBrassEnginesRepairSavedLoadDamage(GameTestHelper helper) {
+        BlockState copperEngineState = ZmhBlocks.COPPER_STEAM_ENGINE.get()
+                .defaultBlockState()
+                .setValue(SteamEngineBlock.FACE, AttachFace.WALL)
+                .setValue(SteamEngineBlock.FACING, Direction.NORTH);
+        BlockState brassEngineState = ZmhBlocks.BRASS_STEAM_ENGINE.get()
+                .defaultBlockState()
+                .setValue(SteamEngineBlock.FACE, AttachFace.WALL)
+                .setValue(SteamEngineBlock.FACING, Direction.NORTH);
+        BlockState plainShaft = AllBlocks.SHAFT.getDefaultState()
+                .setValue(ShaftBlock.AXIS, Direction.Axis.X);
+        BlockState poweredShaft = AllBlocks.POWERED_SHAFT.getDefaultState()
+                .setValue(ShaftBlock.AXIS, Direction.Axis.X);
+
+        BlockPos copperEngineA = new BlockPos(2, 2, 5);
+        BlockPos copperEngineB = new BlockPos(3, 2, 5);
+        BlockPos copperEngineC = new BlockPos(4, 2, 5);
+        BlockPos copperShaftA = copperEngineA.north(2);
+        BlockPos copperShaftB = copperEngineB.north(2);
+        BlockPos copperShaftC = copperEngineC.north(2);
+
+        for (BlockPos enginePos : new BlockPos[]{copperEngineA, copperEngineB, copperEngineC}) {
+            helper.setBlock(enginePos.south(), ZmhBlocks.COPPER_BOILER_BASE.get());
+            helper.setBlock(enginePos, copperEngineState);
+        }
+        helper.setBlock(copperShaftB, plainShaft);
+        helper.setBlock(copperShaftC, poweredShaft);
+
+        BlockPos brassEngineA = new BlockPos(7, 2, 5);
+        BlockPos brassEngineB = new BlockPos(8, 2, 5);
+        BlockPos brassEngineC = new BlockPos(9, 2, 5);
+        for (BlockPos enginePos : new BlockPos[]{brassEngineA, brassEngineB, brassEngineC}) {
+            helper.setBlock(enginePos.south(), ZmhBlocks.BRASS_BOILER_BASE.get());
+            helper.setBlock(enginePos, brassEngineState);
+            helper.setBlock(enginePos.north(2), poweredShaft);
+        }
+
+        helper.getLevel().removeBlockEntity(helper.absolutePos(brassEngineC));
+
+        var copperChunk = helper.getLevel().getChunkAt(helper.absolutePos(copperEngineA));
+        var brassChunk = helper.getLevel().getChunkAt(helper.absolutePos(brassEngineC));
+        SteamEngineChunkRecovery.repairLoadedChunk(helper.getLevel(), copperChunk);
+        if (!brassChunk.getPos().equals(copperChunk.getPos())) {
+            SteamEngineChunkRecovery.repairLoadedChunk(helper.getLevel(), brassChunk);
+        }
+
+        helper.runAfterDelay(16, () -> {
+            for (BlockPos enginePos : new BlockPos[]{copperEngineA, copperEngineB, copperEngineC}) {
+                if (!helper.getBlockState(enginePos).is(ZmhBlocks.COPPER_STEAM_ENGINE.get())) {
+                    helper.fail("Steam Engine MK I disappeared during chunk recovery at " + enginePos);
+                    return;
+                }
+            }
+            for (BlockPos shaftPos : new BlockPos[]{copperShaftA, copperShaftB, copperShaftC}) {
+                if (!AllBlocks.POWERED_SHAFT.has(helper.getBlockState(shaftPos))) {
+                    helper.fail("Steam Engine MK I crankshaft was not reconstructed at " + shaftPos);
+                    return;
+                }
+            }
+
+            if (!(helper.getLevel().getBlockEntity(helper.absolutePos(brassEngineC))
+                    instanceof SteamEngineGradeBlockEntity)) {
+                helper.fail("Steam Engine MK II BlockEntity was not reconstructed after chunk load");
+                return;
+            }
+
+            for (BlockPos enginePos : new BlockPos[]{
+                    copperEngineA,
+                    copperEngineB,
+                    copperEngineC,
+                    brassEngineA,
+                    brassEngineB,
+                    brassEngineC
+            }) {
+                SteamEngineGradeBlockEntity engine = helper.getBlockEntity(enginePos);
+                if (engine.getPrimaryShaft() == null) {
+                    helper.fail("Steam engine did not reconnect to its Powered Shaft at " + enginePos);
+                    return;
+                }
+            }
+            helper.succeed();
         });
     }
 

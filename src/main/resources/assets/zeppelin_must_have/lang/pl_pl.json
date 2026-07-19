@@ -370,10 +370,12 @@
   "zeppelin_must_have.placement.mk_vii.requires_three_wide_industrial_boiler": "MK VII wymaga trzech sąsiednich sekcji Kotła Przemysłowego MK III.",
   "zeppelin_must_have.placement.mk_vii.requires_clear_drive_space": "MK VII wymaga dwóch wolnych sekcji bocznych, trzyblokowego rzędu serwisowego i jednego wolnego centralnego wyjścia wału.",
   "block.zeppelin_must_have.omni_speed_controller": "Wielokierunkowy Regulator Prędkości",
-  "zeppelin_must_have.zeppelin_part.description.omni_speed_controller": "Sześciokierunkowy kontroler kinetyczny: przyjmuje obrót z dowolnej strony i ustawia prędkość bezwzględną na pozostałych pięciu wyjściach.",
-  "zeppelin_must_have.omni_speed_controller.target_speed": "Prędkość wyjściowa",
+  "zeppelin_must_have.zeppelin_part.description.omni_speed_controller": "Sześciokierunkowy ogranicznik kinetyczny: przyjmuje obrót z dowolnej strony i napędza pozostałe pięć wyjść bez przekraczania obrotów wejściowych.",
+  "zeppelin_must_have.omni_speed_controller.target_speed": "Limit wyjściowy",
   "zeppelin_must_have.goggles.omni_speed_controller": "Przekładnia Omni",
-  "zeppelin_must_have.goggles.omni_speed_controller.target": "Prędkość docelowa: %s RPM",
+  "zeppelin_must_have.goggles.omni_speed_controller.target": "Żądany limit: %s RPM",
   "zeppelin_must_have.goggles.omni_speed_controller.input": "Strona wejściowa: %s",
-  "zeppelin_must_have.goggles.omni_speed_controller.no_input": "Brak wejścia kinetycznego"
+  "zeppelin_must_have.goggles.omni_speed_controller.no_input": "Brak wejścia kinetycznego",
+  "curios.identifier.goggles": "Gogle",
+  "curios.modifiers.goggles": "Po założeniu jako gogle:"
 }

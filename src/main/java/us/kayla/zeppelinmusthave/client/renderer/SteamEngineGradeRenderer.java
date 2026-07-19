@@ -12,8 +12,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEngineBlock;
-import us.kayla.zeppelinmusthave.content.steam.MkViiSteamEnginePart;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeBlockEntity;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeProfile;
 import us.kayla.zeppelinmusthave.content.steam.SteamEngineGradeTier;
@@ -32,10 +32,8 @@ public final class SteamEngineGradeRenderer extends SafeBlockEntityRenderer<Stea
             int light,
             int overlay
     ) {
-        Float targetAngle = blockEntity.getTargetAngle();
-        if (targetAngle == null) {
-            return;
-        }
+        Float resolvedTargetAngle = blockEntity.getTargetAngle();
+        float targetAngle = resolvedTargetAngle == null ? 0.0F : resolvedTargetAngle;
 
         BlockState blockState = blockEntity.getBlockState();
         Direction facing = SteamEngineBlock.getFacing(blockState);
@@ -127,6 +125,16 @@ public final class SteamEngineGradeRenderer extends SafeBlockEntityRenderer<Stea
     private static boolean requiresQuarterRoll(Axis facingAxis, Axis shaftAxis) {
         return facingAxis.isHorizontal() && shaftAxis == Axis.Y
                 || facingAxis.isVertical() && shaftAxis == Axis.Z;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox(SteamEngineGradeBlockEntity blockEntity) {
+        double radius = switch (blockEntity.tier()) {
+            case LEVIATHAN -> 3.25D;
+            case MK_VII -> 4.25D;
+            default -> 2.25D;
+        };
+        return new AABB(blockEntity.getBlockPos()).inflate(radius);
     }
 
     @Override

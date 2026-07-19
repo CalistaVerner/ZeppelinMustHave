@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have - Leviathan engine-grade rework",
+  "credit": "Zeppelin Must Have - Leviathan MK VI forked connecting rod",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
@@ -172,6 +172,138 @@
         },
         "down": {
           "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_left_parallel_rod",
+      "from": [
+        6.65,
+        5.25,
+        6.95
+      ],
+      "to": [
+        7.35,
+        16.1,
+        7.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_right_parallel_rod",
+      "from": [
+        8.65,
+        5.25,
+        8.35
+      ],
+      "to": [
+        9.35,
+        16.1,
+        9.05
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_big_end_cap",
+      "from": [
+        6.25,
+        3.75,
+        6.25
+      ],
+      "to": [
+        9.75,
+        6.25,
+        9.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_small_end_cap",
+      "from": [
+        6.25,
+        15.25,
+        6.25
+      ],
+      "to": [
+        9.75,
+        17.2,
+        9.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
         }
       }
     }

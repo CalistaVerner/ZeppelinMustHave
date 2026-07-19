@@ -20,7 +20,6 @@ import us.kayla.zeppelinmusthave.client.renderer.BoilerGradeSpriteShifts;
 import us.kayla.zeppelinmusthave.client.renderer.GradedFluidTankModel;
 import us.kayla.zeppelinmusthave.client.renderer.MooringWinchPartialModels;
 import us.kayla.zeppelinmusthave.client.renderer.MooringWinchRenderer;
-import us.kayla.zeppelinmusthave.client.renderer.OmniSpeedControllerPartialModels;
 import us.kayla.zeppelinmusthave.client.renderer.OmniSpeedControllerRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.PipedRedstoneNativeLeverRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.SteamEngineGradePartialModels;
@@ -46,7 +45,6 @@ public final class ZeppelinMustHaveClient {
         TieredFluidPipePartialModels.init();
         VerticalThrusterPartialModels.init();
         MooringWinchPartialModels.init();
-        OmniSpeedControllerPartialModels.init();
         ZeppelinPartTooltip.register();
         PonderIndex.addPlugin(new ZmhPonderPlugin());
         if (ModList.get().isLoaded("curios")) {

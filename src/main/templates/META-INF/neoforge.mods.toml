@@ -58,7 +58,7 @@ side="BOTH"
 [[dependencies.${mod_id}]]
 modId="curios"
 type="optional"
-reason="When present, Curios provides a head slot for Aeronautics Aviator's Goggles."
+reason="When present, Curios provides one dedicated goggles slot shared by Create Engineer's Goggles and Aeronautics Aviator's Goggles."
 versionRange="${curios_version_range}"
 ordering="AFTER"
 side="BOTH"

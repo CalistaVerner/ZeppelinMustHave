@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have - Leviathan engine-grade rework",
+  "credit": "Zeppelin Must Have - Leviathan MK VI detailed naval crankcase",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
@@ -308,39 +308,6 @@
       }
     },
     {
-      "name": "shaft_nose_coupling",
-      "from": [
-        6,
-        4,
-        0
-      ],
-      "to": [
-        10,
-        9,
-        3
-      ],
-      "faces": {
-        "north": {
-          "texture": "#mechanism"
-        },
-        "east": {
-          "texture": "#mechanism"
-        },
-        "south": {
-          "texture": "#mechanism"
-        },
-        "west": {
-          "texture": "#mechanism"
-        },
-        "up": {
-          "texture": "#mechanism"
-        },
-        "down": {
-          "texture": "#mechanism"
-        }
-      }
-    },
-    {
       "name": "steam_distribution_chest",
       "from": [
         5,
@@ -370,6 +337,633 @@
         },
         "down": {
           "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_front_bearing_lower",
+      "from": [
+        3.5,
+        3.75,
+        0.25
+      ],
+      "to": [
+        12.5,
+        5.25,
+        2.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "detail_front_bearing_upper",
+      "from": [
+        3.5,
+        9.5,
+        0.25
+      ],
+      "to": [
+        12.5,
+        11.0,
+        2.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "detail_front_bearing_left",
+      "from": [
+        2.5,
+        5.25,
+        0.25
+      ],
+      "to": [
+        4.25,
+        9.5,
+        2.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "detail_front_bearing_right",
+      "from": [
+        11.75,
+        5.25,
+        0.25
+      ],
+      "to": [
+        13.5,
+        9.5,
+        2.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "detail_front_trim_lower",
+      "from": [
+        4.0,
+        4.5,
+        -0.15
+      ],
+      "to": [
+        12.0,
+        5.2,
+        0.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_front_trim_upper",
+      "from": [
+        4.0,
+        9.55,
+        -0.15
+      ],
+      "to": [
+        12.0,
+        10.25,
+        0.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_front_trim_left",
+      "from": [
+        3.45,
+        5.2,
+        -0.15
+      ],
+      "to": [
+        4.15,
+        9.55,
+        0.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_front_trim_right",
+      "from": [
+        11.85,
+        5.2,
+        -0.15
+      ],
+      "to": [
+        12.55,
+        9.55,
+        0.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_left_crankcase_rail",
+      "from": [
+        0.5,
+        4.0,
+        3.0
+      ],
+      "to": [
+        1.5,
+        13.5,
+        13.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_right_crankcase_rail",
+      "from": [
+        14.5,
+        4.0,
+        3.0
+      ],
+      "to": [
+        15.5,
+        13.5,
+        13.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_lower_frame_crossmember",
+      "from": [
+        1.25,
+        3.35,
+        2.0
+      ],
+      "to": [
+        14.75,
+        4.15,
+        14.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_upper_frame_crossmember",
+      "from": [
+        1.0,
+        10.75,
+        2.5
+      ],
+      "to": [
+        15.0,
+        11.55,
+        13.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_left_steam_riser",
+      "from": [
+        2.0,
+        11.25,
+        4.0
+      ],
+      "to": [
+        3.15,
+        16.25,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_right_steam_riser",
+      "from": [
+        12.85,
+        11.25,
+        4.0
+      ],
+      "to": [
+        14.0,
+        16.25,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_service_plate",
+      "from": [
+        5.0,
+        11.8,
+        1.8
+      ],
+      "to": [
+        11.0,
+        14.0,
+        2.45
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_service_plate_lip",
+      "from": [
+        4.6,
+        11.45,
+        1.55
+      ],
+      "to": [
+        11.4,
+        14.35,
+        1.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_oil_gallery",
+      "from": [
+        4.0,
+        3.0,
+        12.8
+      ],
+      "to": [
+        12.0,
+        4.4,
+        14.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_top_left_brace",
+      "from": [
+        1.5,
+        13.0,
+        5.0
+      ],
+      "to": [
+        5.0,
+        14.0,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "detail_top_right_brace",
+      "from": [
+        11.0,
+        13.0,
+        5.0
+      ],
+      "to": [
+        14.5,
+        14.0,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
         }
       }
     }

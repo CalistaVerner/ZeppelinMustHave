@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have - Leviathan engine-grade rework",
+  "credit": "Zeppelin Must Have - Leviathan MK VI detailed four-cylinder bank",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
@@ -516,6 +516,765 @@
         16,
         10.5,
         12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_1_lower_hoop",
+      "from": [
+        1.45,
+        6.0,
+        0.78
+      ],
+      "to": [
+        14.55,
+        6.75,
+        3.72
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_1_upper_hoop",
+      "from": [
+        1.45,
+        9.65,
+        0.78
+      ],
+      "to": [
+        14.55,
+        10.4,
+        3.72
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_1_valve_cap",
+      "from": [
+        5.5,
+        14.0,
+        1.45
+      ],
+      "to": [
+        10.5,
+        15.25,
+        3.05
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_1_injector",
+      "from": [
+        7.0,
+        15.15,
+        1.78
+      ],
+      "to": [
+        9.0,
+        16.35,
+        2.7199999999999998
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_2_lower_hoop",
+      "from": [
+        1.45,
+        6.0,
+        3.93
+      ],
+      "to": [
+        14.55,
+        6.75,
+        6.87
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_2_upper_hoop",
+      "from": [
+        1.45,
+        9.65,
+        3.93
+      ],
+      "to": [
+        14.55,
+        10.4,
+        6.87
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_2_valve_cap",
+      "from": [
+        5.5,
+        14.0,
+        4.6000000000000005
+      ],
+      "to": [
+        10.5,
+        15.25,
+        6.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_2_injector",
+      "from": [
+        7.0,
+        15.15,
+        4.930000000000001
+      ],
+      "to": [
+        9.0,
+        16.35,
+        5.87
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_3_lower_hoop",
+      "from": [
+        1.45,
+        6.0,
+        7.08
+      ],
+      "to": [
+        14.55,
+        6.75,
+        10.020000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_3_upper_hoop",
+      "from": [
+        1.45,
+        9.65,
+        7.08
+      ],
+      "to": [
+        14.55,
+        10.4,
+        10.020000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_3_valve_cap",
+      "from": [
+        5.5,
+        14.0,
+        7.75
+      ],
+      "to": [
+        10.5,
+        15.25,
+        9.350000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_3_injector",
+      "from": [
+        7.0,
+        15.15,
+        8.08
+      ],
+      "to": [
+        9.0,
+        16.35,
+        9.020000000000001
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_4_lower_hoop",
+      "from": [
+        1.45,
+        6.0,
+        10.229999999999999
+      ],
+      "to": [
+        14.55,
+        6.75,
+        13.17
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_4_upper_hoop",
+      "from": [
+        1.45,
+        9.65,
+        10.229999999999999
+      ],
+      "to": [
+        14.55,
+        10.4,
+        13.17
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_4_valve_cap",
+      "from": [
+        5.5,
+        14.0,
+        10.899999999999999
+      ],
+      "to": [
+        10.5,
+        15.25,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_cylinder_4_injector",
+      "from": [
+        7.0,
+        15.15,
+        11.229999999999999
+      ],
+      "to": [
+        9.0,
+        16.35,
+        12.17
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_inner_crosshead_guide_front",
+      "from": [
+        -0.25,
+        4.0,
+        1.5
+      ],
+      "to": [
+        2.25,
+        13.75,
+        3.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_inner_crosshead_guide_rear",
+      "from": [
+        -0.25,
+        4.0,
+        11.0
+      ],
+      "to": [
+        2.25,
+        13.75,
+        12.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_outer_armour_spine",
+      "from": [
+        14.8,
+        3.5,
+        2.0
+      ],
+      "to": [
+        16.2,
+        14.25,
+        13.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "name": "detail_steam_feed_rail",
+      "from": [
+        6.75,
+        15.25,
+        0.5
+      ],
+      "to": [
+        9.25,
+        16.5,
+        15.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_lower_bank_tie",
+      "from": [
+        1.0,
+        2.75,
+        2.0
+      ],
+      "to": [
+        15.0,
+        4.0,
+        13.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_upper_bank_tie",
+      "from": [
+        1.0,
+        13.5,
+        1.5
+      ],
+      "to": [
+        15.0,
+        14.5,
+        14.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_access_panel",
+      "from": [
+        14.700000000000001,
+        6.0,
+        5.0
+      ],
+      "to": [
+        16.3,
+        10.5,
+        11.0
       ],
       "faces": {
         "north": {

@@ -1,5 +1,5 @@
 {
-  "credit": "Zeppelin Must Have - Leviathan engine-grade rework",
+  "credit": "Zeppelin Must Have - Leviathan MK VI detailed synchronized flywheel",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
@@ -325,6 +325,336 @@
         "axis": "x",
         "angle": -45,
         "rescale": true
+      }
+    },
+    {
+      "name": "detail_left_hub_collar",
+      "from": [
+        4.85,
+        5.45,
+        5.45
+      ],
+      "to": [
+        6.2,
+        10.55,
+        10.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_right_hub_collar",
+      "from": [
+        9.8,
+        5.45,
+        5.45
+      ],
+      "to": [
+        11.15,
+        10.55,
+        10.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "#trim"
+        },
+        "east": {
+          "texture": "#trim"
+        },
+        "south": {
+          "texture": "#trim"
+        },
+        "west": {
+          "texture": "#trim"
+        },
+        "up": {
+          "texture": "#trim"
+        },
+        "down": {
+          "texture": "#trim"
+        }
+      }
+    },
+    {
+      "name": "detail_inner_rim_top",
+      "from": [
+        6.45,
+        12.9,
+        3.0
+      ],
+      "to": [
+        9.55,
+        13.75,
+        13.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_inner_rim_bottom",
+      "from": [
+        6.45,
+        2.25,
+        3.0
+      ],
+      "to": [
+        9.55,
+        3.1,
+        13.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_inner_rim_front",
+      "from": [
+        6.45,
+        3.0,
+        2.25
+      ],
+      "to": [
+        9.55,
+        13.0,
+        3.1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_inner_rim_back",
+      "from": [
+        6.45,
+        3.0,
+        12.9
+      ],
+      "to": [
+        9.55,
+        13.0,
+        13.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core"
+        },
+        "east": {
+          "texture": "#core"
+        },
+        "south": {
+          "texture": "#core"
+        },
+        "west": {
+          "texture": "#core"
+        },
+        "up": {
+          "texture": "#core"
+        },
+        "down": {
+          "texture": "#core"
+        }
+      }
+    },
+    {
+      "name": "detail_top_balance_bolt",
+      "from": [
+        5.9,
+        12.35,
+        7.15
+      ],
+      "to": [
+        10.1,
+        13.15,
+        8.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_bottom_balance_bolt",
+      "from": [
+        5.9,
+        2.85,
+        7.15
+      ],
+      "to": [
+        10.1,
+        3.65,
+        8.85
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_front_balance_bolt",
+      "from": [
+        5.9,
+        7.15,
+        2.85
+      ],
+      "to": [
+        10.1,
+        8.85,
+        3.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
+      }
+    },
+    {
+      "name": "detail_rear_balance_bolt",
+      "from": [
+        5.9,
+        7.15,
+        12.35
+      ],
+      "to": [
+        10.1,
+        8.85,
+        13.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mechanism"
+        },
+        "east": {
+          "texture": "#mechanism"
+        },
+        "south": {
+          "texture": "#mechanism"
+        },
+        "west": {
+          "texture": "#mechanism"
+        },
+        "up": {
+          "texture": "#mechanism"
+        },
+        "down": {
+          "texture": "#mechanism"
+        }
       }
     }
   ]

@@ -1,18 +1,22 @@
 package us.kayla.zeppelinmusthave.content.steam;
 
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.bearing.WindmillBearingBlockEntity.RotationDirection;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.IRotate;
+import com.simibubi.create.content.kinetics.simpleRelays.ShaftBlock;
+import com.simibubi.create.content.kinetics.steamEngine.PoweredShaftBlock;
 import com.simibubi.create.content.kinetics.steamEngine.PoweredShaftBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-/** Owns shaft lookup, lifecycle and direction transfer for graded steam engines. */
+/** Owns shaft lookup, lifecycle, load recovery and direction transfer for graded steam engines. */
 final class SteamEngineShaftController {
     private SteamEngineShaftController() {
     }
@@ -32,7 +36,12 @@ final class SteamEngineShaftController {
                 return null;
             }
         }
-        return engine.getShaft();
+
+        PoweredShaftBlockEntity shaft = engine.getShaft();
+        if (shaft == null && recoverAfterLoad(engine) != RecoveryResult.UNAVAILABLE) {
+            shaft = engine.getShaft();
+        }
+        return shaft;
     }
 
     static @Nullable PoweredShaftBlockEntity ownedShaft(SteamEngineGradeBlockEntity engine) {
@@ -111,5 +120,127 @@ final class SteamEngineShaftController {
         }
         shaft.update(engine.getBlockPos(), conveyedDirection, efficiency);
         return flipMovementDirection;
+    }
+
+    /**
+     * Repairs load-order damage for graded engines. Existing regular shafts are promoted back to
+     * Create's Powered Shaft. Missing shaft cells are rebuilt only for MK I/MK II engines that are
+     * visibly part of an existing crankshaft row, preventing isolated engines from spawning shafts.
+     */
+    static RecoveryResult recoverAfterLoad(SteamEngineGradeBlockEntity engine) {
+        Level level = engine.getLevel();
+        if (level == null
+                || level.isClientSide
+                || engine.isRemoved()
+                || MkViiSteamEngineBlock.isAuxiliary(engine.getBlockState())) {
+            return RecoveryResult.UNAVAILABLE;
+        }
+
+        BlockState engineState = engine.getBlockState();
+        if (!(engineState.getBlock() instanceof SteamEngineGradeBlock)) {
+            return RecoveryResult.UNAVAILABLE;
+        }
+
+        BlockPos shaftPos = SteamEngineBlock.getShaftPos(engineState, engine.getBlockPos());
+        if (!level.isLoaded(shaftPos)) {
+            return RecoveryResult.UNAVAILABLE;
+        }
+
+        BlockState shaftState = level.getBlockState(shaftPos);
+        if (AllBlocks.POWERED_SHAFT.has(shaftState)) {
+            return RecoveryResult.PRESENT;
+        }
+        if (SteamEngineBlock.isShaftValid(engineState, shaftState)) {
+            level.setBlock(shaftPos, PoweredShaftBlock.getEquivalent(shaftState), Block.UPDATE_ALL);
+            return RecoveryResult.REPAIRED;
+        }
+        if (!shaftState.isAir() || !isBasicRecoveryTier(engine.tier())) {
+            return RecoveryResult.UNAVAILABLE;
+        }
+
+        Axis recoveredAxis = inferMissingShaftAxis(level, engine.getBlockPos(), shaftPos, engineState);
+        if (recoveredAxis == null) {
+            return RecoveryResult.UNAVAILABLE;
+        }
+
+        BlockState poweredShaft = AllBlocks.POWERED_SHAFT.getDefaultState()
+                .setValue(ShaftBlock.AXIS, recoveredAxis);
+        level.setBlock(shaftPos, poweredShaft, Block.UPDATE_ALL);
+        return RecoveryResult.REPAIRED;
+    }
+
+    private static boolean isBasicRecoveryTier(SteamEngineGradeTier tier) {
+        return tier == SteamEngineGradeTier.COPPER || tier == SteamEngineGradeTier.BRASS;
+    }
+
+    private static @Nullable Axis inferMissingShaftAxis(
+            Level level,
+            BlockPos enginePos,
+            BlockPos shaftPos,
+            BlockState engineState
+    ) {
+        Axis facingAxis = SteamEngineBlock.getFacing(engineState).getAxis();
+        for (Axis axis : Axis.values()) {
+            if (axis == facingAxis) {
+                continue;
+            }
+            if (hasNeighbouringShaft(level, shaftPos, axis)) {
+                return axis;
+            }
+        }
+
+        Axis naturalHorizontalAxis = switch (facingAxis) {
+            case X -> Axis.Z;
+            case Z -> Axis.X;
+            case Y -> null;
+        };
+        if (naturalHorizontalAxis != null
+                && hasAdjacentBasicEngine(level, enginePos, engineState, naturalHorizontalAxis)) {
+            return naturalHorizontalAxis;
+        }
+        return null;
+    }
+
+    private static boolean hasNeighbouringShaft(Level level, BlockPos shaftPos, Axis axis) {
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis() != axis) {
+                continue;
+            }
+            BlockState neighbour = level.getBlockState(shaftPos.relative(direction));
+            if ((AllBlocks.SHAFT.has(neighbour) || AllBlocks.POWERED_SHAFT.has(neighbour))
+                    && neighbour.getValue(ShaftBlock.AXIS) == axis) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasAdjacentBasicEngine(
+            Level level,
+            BlockPos enginePos,
+            BlockState engineState,
+            Axis axis
+    ) {
+        Direction expectedFacing = SteamEngineBlock.getFacing(engineState);
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis() != axis) {
+                continue;
+            }
+            BlockState neighbour = level.getBlockState(enginePos.relative(direction));
+            if (!(neighbour.getBlock() instanceof SteamEngineGradeBlock adjacent)
+                    || !isBasicRecoveryTier(adjacent.tier())) {
+                continue;
+            }
+            if (SteamEngineBlock.getFacing(neighbour) == expectedFacing) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    enum RecoveryResult {
+        UNAVAILABLE,
+        PRESENT,
+        REPAIRED
     }
 }

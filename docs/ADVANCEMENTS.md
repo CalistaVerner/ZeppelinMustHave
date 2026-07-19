@@ -1,6 +1,6 @@
 # Engineering Advancements
 
-Zeppelin Must Have `0.15.0` provides a dedicated advancement tree for fabrication and commissioning milestones.
+Zeppelin Must Have `0.16.0` provides a dedicated advancement tree for fabrication and commissioning milestones.
 
 The tree is server-authoritative. Advancement JSON defines the display hierarchy and rewards, while `ZmhAdvancements` awards criteria only after verified crafting or successful system activation.
 

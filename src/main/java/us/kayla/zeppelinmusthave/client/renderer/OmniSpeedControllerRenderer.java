@@ -2,6 +2,7 @@ package us.kayla.zeppelinmusthave.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import net.createmod.catnip.animation.AnimationTickHolder;
@@ -13,8 +14,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import us.kayla.zeppelinmusthave.content.kinetics.OmniSpeedControllerBlockEntity;
 
+/**
+ * Renders every port with Create's native half-shaft partial and kinetic
+ * rotation transform. Using partialFacing is important for the vertical ports:
+ * it aligns the model first, then rotates it around the target world axis.
+ */
 public final class OmniSpeedControllerRenderer
         extends SafeBlockEntityRenderer<OmniSpeedControllerBlockEntity> {
+    private static final double SHAFT_PROTRUSION = 1.0D / 32.0D;
     public OmniSpeedControllerRenderer(BlockEntityRendererProvider.Context context) {
     }
 
@@ -29,15 +36,27 @@ public final class OmniSpeedControllerRenderer
     ) {
         VertexConsumer consumer = buffer.getBuffer(RenderType.solid());
         for (Direction face : Direction.values()) {
-            float speed = blockEntity.getSpeedForFace(face);
-            float angle = angleForSpeed(blockEntity, face.getAxis(), speed);
-            SuperByteBuffer shaft = CachedBuffers.partial(
-                    OmniSpeedControllerPartialModels.SHAFT_HALF,
-                    blockEntity.getBlockState()
+            Direction.Axis axis = face.getAxis();
+            float angle = angleForSpeed(blockEntity, axis, blockEntity.getSpeedForFace(face));
+            SuperByteBuffer shaft = CachedBuffers.partialFacing(
+                    AllPartialModels.SHAFT_HALF,
+                    blockEntity.getBlockState(),
+                    face
             );
-            shaft.rotateCentered(angle, Direction.SOUTH);
-            orientFromSouth(shaft, face);
-            shaft.light(light).renderInto(poseStack, consumer);
+            poseStack.pushPose();
+            poseStack.translate(
+                    face.getStepX() * SHAFT_PROTRUSION,
+                    face.getStepY() * SHAFT_PROTRUSION,
+                    face.getStepZ() * SHAFT_PROTRUSION
+            );
+            KineticBlockEntityRenderer.kineticRotationTransform(
+                    shaft,
+                    blockEntity,
+                    axis,
+                    angle,
+                    light
+            ).renderInto(poseStack, consumer);
+            poseStack.popPose();
         }
     }
 
@@ -54,17 +73,5 @@ public final class OmniSpeedControllerRenderer
         );
         return ((time * speed * 3.0F / 10.0F + offset) % 360.0F)
                 / 180.0F * (float) Math.PI;
-    }
-
-    private static void orientFromSouth(SuperByteBuffer buffer, Direction target) {
-        switch (target) {
-            case SOUTH -> {
-            }
-            case NORTH -> buffer.rotateCentered((float) Math.PI, Direction.UP);
-            case EAST -> buffer.rotateCentered((float) (Math.PI / 2.0D), Direction.UP);
-            case WEST -> buffer.rotateCentered((float) (-Math.PI / 2.0D), Direction.UP);
-            case UP -> buffer.rotateCentered((float) (-Math.PI / 2.0D), Direction.EAST);
-            case DOWN -> buffer.rotateCentered((float) (Math.PI / 2.0D), Direction.EAST);
-        }
     }
 }

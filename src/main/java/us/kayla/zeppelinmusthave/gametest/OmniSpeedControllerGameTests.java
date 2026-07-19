@@ -38,15 +38,19 @@ public final class OmniSpeedControllerGameTests {
     }
 
     @GameTest(template = TEMPLATE, setupTicks = 1L, timeoutTicks = 20)
-    public static void computesAbsoluteOutputRatios(GameTestHelper helper) {
-        assertFloat(helper, "double speed", 2.0F,
+    public static void clampsOutputRatiosToAvailableInput(GameTestHelper helper) {
+        assertFloat(helper, "cannot amplify forward input", 1.0F,
                 OmniSpeedControllerBlockEntity.calculateOutputModifier(16.0F, 32));
-        assertFloat(helper, "reverse output", -4.0F,
+        assertFloat(helper, "cannot amplify reversed output", -1.0F,
                 OmniSpeedControllerBlockEntity.calculateOutputModifier(16.0F, -64));
-        assertFloat(helper, "preserve signed target", -2.0F,
+        assertFloat(helper, "signed target may reverse negative input", -1.0F,
                 OmniSpeedControllerBlockEntity.calculateOutputModifier(-16.0F, 32));
+        assertFloat(helper, "may reduce available speed", 0.25F,
+                OmniSpeedControllerBlockEntity.calculateOutputModifier(64.0F, 16));
         assertFloat(helper, "zero input", 0.0F,
                 OmniSpeedControllerBlockEntity.calculateOutputModifier(0.0F, 64));
+        assertFloat(helper, "limited output speed", -16.0F,
+                OmniSpeedControllerBlockEntity.calculateLimitedOutputSpeed(16.0F, -64));
         helper.succeed();
     }
 
@@ -66,7 +70,7 @@ public final class OmniSpeedControllerGameTests {
 
 
     @GameTest(template = TEMPLATE, setupTicks = 1L, timeoutTicks = 60)
-    public static void drivesNativeShaftAtConfiguredSpeed(GameTestHelper helper) {
+    public static void neverDrivesNativeShaftFasterThanInput(GameTestHelper helper) {
         BlockPos motorPos = new BlockPos(1, 2, 2);
         BlockPos controllerPos = new BlockPos(2, 2, 2);
         BlockPos shaftPos = new BlockPos(3, 2, 2);
@@ -89,9 +93,11 @@ public final class OmniSpeedControllerGameTests {
 
             helper.runAfterDelay(10, () -> {
                 KineticBlockEntity shaft = helper.getBlockEntity(shaftPos);
+                float input = Math.abs(controller.getTheoreticalSpeed());
                 float actual = Math.abs(shaft.getTheoreticalSpeed());
-                if (Math.abs(actual - 64.0F) > 1.0E-4F) {
-                    helper.fail("Omni controller output: expected 64 RPM, got " + actual);
+                if (Math.abs(actual - input) > 1.0E-4F) {
+                    helper.fail("Omni controller amplified input: expected " + input
+                            + " RPM or less, got " + actual);
                     return;
                 }
                 helper.succeed();

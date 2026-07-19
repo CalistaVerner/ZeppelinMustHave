@@ -29,7 +29,7 @@ Create Simulated 1.3.0
 Create Aeronautics 1.3.0
         │
         ▼
-Zeppelin Must Have 0.15.0
+Zeppelin Must Have 0.16.0
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -180,7 +180,7 @@ The block registry IDs retain the historical `_boiler_base` suffix for save and 
 
 ### Omni Speed Controller
 
-The Omni Speed Controller accepts kinetic power from any one of its six faces and drives the remaining five faces at a configured absolute speed. Engineer's Goggles report the selected target and the currently resolved input face. Conflicting external sources remain subject to Create's normal kinetic-network safety rules.
+The Omni Speed Controller accepts kinetic power from any one of its six faces and drives the remaining five faces at a configured signed limit. It can reduce or reverse rotation, but the output magnitude can never exceed the available input RPM. Engineer's Goggles report the selected limit and the currently resolved input face. Conflicting external sources remain subject to Create's normal kinetic-network safety rules.
 
 ## Graded Steam Engines
 
@@ -200,7 +200,7 @@ Higher-grade engines remain bounded by Create's boiler size, heat, water supply,
 
 Numerical capacity, boiler load, crank geometry, cylinder spacing, and steam-particle intensity are data-driven through `data/*/steam_engine_grade_profiles/*.json`.
 
-MK IV remains the Grand flagship engine. MK V Sovereign advances the line with five 72°-phased cylinders and a rotating pressure core. MK VI Leviathan is a four-cell T-frame power plant with eight 45°-phased cylinders, two lateral cylinder banks, a dedicated shaft nose, twin flywheels, and four valve-gear banks. MK VII expands into three synchronized banks with nine internal crankshafts coupled through one central reduction gearbox to a single output shaft.
+MK IV remains the Grand flagship engine. MK V Sovereign advances the line with five 72°-phased cylinders and a rotating pressure core. MK VI Leviathan is a four-cell T-frame power plant with eight 45°-phased cylinders, two lateral cylinder banks, a dedicated shaft nose, twin flywheels, and four valve-gear banks. MK VII expands into three synchronized banks with nine internal crankshafts coupled through one central reduction gearbox to a single output shaft. The MK VI drive train uses an open bearing tunnel and a visible keyed crankshaft spanning two synchronized flywheels; its crossheads, forked rods, governor, valve banks, and balance core animate as one mechanism. MK I Copper and MK II Brass engines now repair load-order damage at chunk activation: missing engine BlockEntities are recreated, regular shafts are promoted back to Powered Shafts, and gaps inside an existing shared crankshaft row are reconstructed before the engines reconnect. Their mechanisms remain visible in an idle pose while client-side shaft references initialize.
 
 Documentation: `docs/STEAM_ENGINE_GRADES.md`.
 
@@ -288,7 +288,7 @@ Documentation: `docs/VERTICAL_THRUSTER.md`.
 
 ## Zeppelin Parts Catalog
 
-Version `0.15.0` defines every public block and item through one canonical Zeppelin Parts catalog:
+Version `0.16.0` defines every public block and item through one canonical Zeppelin Parts catalog:
 
 ```text
 33 functional block parts
@@ -428,7 +428,7 @@ The Ballast Tank, Mooring Winch, Vertical Thruster, and Altitude Gauge are fully
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.15.0` |
+| Zeppelin Must Have | `0.16.0` |
 
 ## Internal code organization
 
@@ -470,3 +470,6 @@ Linux and macOS use `./gradlew`.
 ## License
 
 **All Rights Reserved.** The original NeoForge MDK template notice remains in `TEMPLATE_LICENSE.txt`.
+
+
+Curios provides one dedicated localized Goggles slot shared by Create Engineer's Goggles and Aeronautics Aviator's Goggles. The empty slot uses the exact semi-transparent item silhouette of Create Engineer's Goggles, and only one of the two items can be equipped at a time.

@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.16.0 — Powertrain Reliability
+
+### Added
+
+- Added one dedicated localized Curios `goggles` slot shared by Create Engineer's Goggles and Aeronautics Aviator's Goggles, with exclusive one-item selection.
+- Added delayed chunk-load recovery for Steam Engine MK I and MK II assemblies.
+
+### Changed
+
+- Reworked the Omni Speed Controller into a signed non-amplifying limiter: output magnitude cannot exceed either the configured target or the available input RPM.
+- Switched Omni shaft rendering to Create's native half-shaft partials and moved every face half a model pixel outside the housing to remove coplanar flicker.
+- Rebuilt Leviathan Steam Engine MK VI with detailed cylinder banks, an open bearing nose, a visible keyed central crankshaft, synchronized twin flywheels, stronger valve motion, and expanded render bounds.
+- Reworked the Grand Steam Engine MK IV upper crown and governor clearance with separated geometry and a dedicated crown texture to eliminate top-cover z-fighting.
+- Replaced the generic Curios head-slot silhouette with the exact Create Engineer's Goggles item sprite at placeholder alpha `0.25`.
+
+### Fixed
+
+- Repaired MK I/MK II save corruption by recreating missing graded-engine BlockEntities, promoting regular shafts back to Powered Shafts, reconstructing missing cells inside an existing shared crankshaft row, and reconnecting shaft ownership after Create warmup.
+- Kept graded steam-engine mechanisms visible in an idle pose while client-side Powered Shaft references initialize after reconnecting.
+- Raised the mod version to `0.16.0`.
+
 ## 0.15.0 — Industrial Powertrain
 
 ### Added
