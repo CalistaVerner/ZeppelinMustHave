@@ -113,6 +113,8 @@ docs/templates/airship_burner_profile.template.json
 
 `AirshipHeatReservoir` stores regular and superheated contributions in separate layers. Both grades may be inserted in any order; superheated heat is consumed first and the burner falls back to the regular reserve automatically. Existing 0.4.x fuel NBT is migrated during block-entity loading.
 
+When mounted directly on top of an active Create fluid-tank boiler, a burner with an empty internal reservoir automatically switches to boiler steam. The burner emits Aeronautics `STEAM`, scales output by native boiler efficiency, and occupies one real boiler consumer slot. Internal burner fuel always has priority when available.
+
 ### Combining multiple burners
 
 The add-on does not create a parallel heat network. `BalloonHeatAggregate` observes the native Aeronautics `Balloon.getHeaters()` collection and reports connected sources, active sources, and combined gas output. Every burner remains an independent `BlockEntityLiftingGasProvider`; Aeronautics remains responsible for combining providers, filling the envelope, pressure, and lift.
@@ -181,6 +183,17 @@ The block registry IDs retain the historical `_boiler_base` suffix for save and 
 ### Omni Speed Controller
 
 The Omni Speed Controller accepts kinetic power from any one of its six faces and drives the remaining five faces at a configured signed limit. It can reduce or reverse rotation, but the output magnitude can never exceed the available input RPM. Engineer's Goggles report the selected limit and the currently resolved input face. Conflicting external sources remain subject to Create's normal kinetic-network safety rules.
+
+## Airship Casing Families
+
+Two Create-native casing materials extend engine-room construction beyond the standard Create palette:
+
+- **Airship Brass Casing** — bright naval brass for machinery rooms and precision powertrains;
+- **Airship Bronze Casing** — darker bronze for boilers, exposed deck machinery, and heavy-duty pipework.
+
+Both blocks are registered through Create's `EncasingRegistry`. Right-click a Create Shaft, Cogwheel, Large Cogwheel, or Fluid Pipe with either casing to create the matching encased variant. Kinetic axes, cogwheel shaft exposure, pipe topology, fluid-flow caches, BlockEntity data, connected textures, and Flywheel rendering remain native Create behavior. The Create Wrench removes the casing and restores the original component; shafts and cogwheels use sneak-wrenching, while encased pipes use a normal wrench action.
+
+The eight encased variants are internal technical blocks without separate inventory items. Their loot tables return the underlying Create component, while the two casing blocks remain public Zeppelin Parts with recipes, creative-tab entries, tags, tooltips, and Ponder coverage.
 
 ## Graded Steam Engines
 
@@ -291,9 +304,9 @@ Documentation: `docs/VERTICAL_THRUSTER.md`.
 Version `0.16.0` defines every public block and item through one canonical Zeppelin Parts catalog:
 
 ```text
-33 functional block parts
+35 functional block parts
  3 burner upgrade parts
-36 catalogued item entries
+38 catalogued item entries
 ```
 
 The catalog now drives creative-tab ordering, item tooltips, Ponder category membership, public tags, startup validation, and automated coverage tests. Every part displays its subsystem and gameplay role in English, Russian, Italian, and Polish.
@@ -342,6 +355,7 @@ Implemented scenes:
 - **Airship Burner Operation** — fuel, throttle, lift tiers, and all three upgrade items;
 - **Envelope Grades** — Reinforced and Industrial lifting-envelope construction;
 - **Graded Boilers** — boiler tiers, heat, water, and engine-load limits;
+- **Airship Casing Families** — Create-native brass and bronze encasing for shafts, cogwheels, and fluid pipes;
 - **Graded Steam Engines** — Copper, Brass, Industrial, and Grand Grade IV progression;
 - **Flight Control Network** — Flight Computer, Engine Telegraph, Emergency Cutoff, Transmitter, and Receiver;
 - **Automatic Altitude Control** — trim input, sensor modes, target capture, and burner output;
@@ -351,7 +365,7 @@ Implemented scenes:
 - **Mooring Winch** — kinetic rope deployment and native Simulated rope physics;
 - **Vertical Thruster** — Create kinetic input, reversal, and Aeronautics propulsion.
 
-Every one of the 36 catalogued Zeppelin Parts receives the overview scene and a subsystem-specific scene. Startup validation reads all storyboard templates with Minecraft `NbtIo` and fails immediately on missing files, malformed dimensions, empty palettes, or empty structures.
+Every one of the 38 catalogued Zeppelin Parts receives the overview scene and a subsystem-specific scene. Startup validation reads all storyboard templates with Minecraft `NbtIo` and fails immediately on missing files, malformed dimensions, empty palettes, or empty structures.
 
 Scene structures are stored under:
 

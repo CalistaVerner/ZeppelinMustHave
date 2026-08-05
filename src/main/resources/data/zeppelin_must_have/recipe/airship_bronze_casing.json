@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " B ",
+    "BCB",
+    " B "
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_nugget"
+    },
+    "C": {
+      "item": "create:copper_casing"
+    }
+  },
+  "result": {
+    "id": "zeppelin_must_have:airship_bronze_casing",
+    "count": 4
+  }
+}

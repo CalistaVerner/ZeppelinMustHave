@@ -1,0 +1,7 @@
+{
+  "parent": "create:block/encased_shaft/block",
+  "textures": {
+    "casing": "zeppelin_must_have:block/airship_bronze_casing",
+    "opening": "zeppelin_must_have:block/airship_bronze_gearbox"
+  }
+}

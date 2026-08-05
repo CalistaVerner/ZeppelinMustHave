@@ -125,6 +125,26 @@
           }
         ]
       }
+    },
+    "airship_brass_casing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_brass_casing"
+          }
+        ]
+      }
+    },
+    "airship_bronze_casing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_bronze_casing"
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -139,7 +159,9 @@
       "sovereign_steam_engine",
       "leviathan_steam_engine",
       "mk_vii_steam_engine",
-      "omni_speed_controller"
+      "omni_speed_controller",
+      "airship_brass_casing",
+      "airship_bronze_casing"
     ]
   ],
   "sends_telemetry_event": false,

@@ -4,15 +4,19 @@ import dev.eriksonn.aeronautics.content.blocks.hot_air.hot_air_burner.HotAirBurn
 import net.createmod.ponder.foundation.PonderIndex;
 import net.createmod.ponder.foundation.PonderTooltipHandler;
 import com.simibubi.create.content.fluids.pipes.TransparentStraightPipeRenderer;
+import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogRenderer;
+import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.client.renderer.AltitudeGaugeRenderer;
+import us.kayla.zeppelinmusthave.client.renderer.AirshipCasingClient;
 import us.kayla.zeppelinmusthave.client.renderer.BallastTankRenderer;
 import us.kayla.zeppelinmusthave.client.renderer.BoilerGaugePartialModels;
 import us.kayla.zeppelinmusthave.client.renderer.BoilerGradeRenderer;
@@ -50,12 +54,32 @@ public final class ZeppelinMustHaveClient {
         if (ModList.get().isLoaded("curios")) {
             CuriosClientCompat.register(modEventBus);
         }
+        modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::registerRenderers);
         modEventBus.addListener(this::modifyBakedModels);
     }
 
+    private void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            AirshipCasingClient.registerModels();
+            AirshipCasingClient.registerVisualizers();
+        });
+    }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.AIRSHIP_ENCASED_SHAFT.get(),
+                ShaftRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.AIRSHIP_ENCASED_COGWHEEL.get(),
+                EncasedCogRenderer::small
+        );
+        event.registerBlockEntityRenderer(
+                ZmhBlockEntityTypes.AIRSHIP_ENCASED_LARGE_COGWHEEL.get(),
+                EncasedCogRenderer::large
+        );
         event.registerBlockEntityRenderer(
                 ZmhBlockEntityTypes.AIRSHIP_BURNER.get(),
                 context -> (BlockEntityRenderer) new HotAirBurnerRenderer(context)

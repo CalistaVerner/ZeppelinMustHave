@@ -37,6 +37,16 @@ final class AirshipBurnerPresentation {
                 false
         );
 
+        if (burner.isUsingBoilerSteam()) {
+            player.displayClientMessage(
+                    Component.translatable(
+                            "message.zeppelin_must_have.burner.boiler_steam",
+                            decimal(burner.getBoilerEfficiency() * 100.0D, 0)
+                    ).withStyle(ChatFormatting.AQUA),
+                    false
+            );
+        }
+
         BalloonHeatAggregate network = metrics.balloonHeat();
         if (network.connectedSources() > 0) {
             player.displayClientMessage(
@@ -65,6 +75,26 @@ final class AirshipBurnerPresentation {
 
         AirshipBurnerMetrics metrics = burner.captureMetrics();
         AirshipHeatSnapshot heat = metrics.reservoir();
+
+        Component source = ZmhLang.translate(
+                        burner.isUsingBoilerSteam()
+                                ? "goggles.burner.source.boiler_steam"
+                                : "goggles.burner.source.fuel"
+                )
+                .style(burner.isUsingBoilerSteam() ? ChatFormatting.AQUA : ChatFormatting.GOLD)
+                .component();
+        ZmhLang.translate("goggles.burner.source", source)
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 1);
+        if (burner.isUsingBoilerSteam()) {
+            ZmhLang.translate(
+                            "goggles.burner.boiler_efficiency",
+                            Component.literal(decimal(burner.getBoilerEfficiency() * 100.0D, 0) + "%")
+                                    .withStyle(ChatFormatting.AQUA)
+                    )
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip, 2);
+        }
 
         ZmhLang.translate("goggles.burner.heat_reservoir").forGoggles(tooltip, 1);
         Component fuelValue = heat.infinite()

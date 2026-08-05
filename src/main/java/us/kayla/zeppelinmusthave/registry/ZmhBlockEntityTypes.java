@@ -1,5 +1,8 @@
 package us.kayla.zeppelinmusthave.registry;
 
+import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -86,6 +89,36 @@ public final class ZmhBlockEntityTypes {
                     ZmhBlocks.MK_VII_STEAM_ENGINE
             );
 
+
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<KineticBlockEntity>>
+            AIRSHIP_ENCASED_SHAFT = register(
+                    "airship_encased_shaft",
+                    ZmhBlockEntityTypes::createAirshipEncasedShaft,
+                    ZmhBlocks.AIRSHIP_BRASS_ENCASED_SHAFT,
+                    ZmhBlocks.AIRSHIP_BRONZE_ENCASED_SHAFT
+            );
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SimpleKineticBlockEntity>>
+            AIRSHIP_ENCASED_COGWHEEL = register(
+                    "airship_encased_cogwheel",
+                    ZmhBlockEntityTypes::createAirshipEncasedCogwheel,
+                    ZmhBlocks.AIRSHIP_BRASS_ENCASED_COGWHEEL,
+                    ZmhBlocks.AIRSHIP_BRONZE_ENCASED_COGWHEEL
+            );
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SimpleKineticBlockEntity>>
+            AIRSHIP_ENCASED_LARGE_COGWHEEL = register(
+                    "airship_encased_large_cogwheel",
+                    ZmhBlockEntityTypes::createAirshipEncasedLargeCogwheel,
+                    ZmhBlocks.AIRSHIP_BRASS_ENCASED_LARGE_COGWHEEL,
+                    ZmhBlocks.AIRSHIP_BRONZE_ENCASED_LARGE_COGWHEEL
+            );
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidPipeBlockEntity>>
+            AIRSHIP_ENCASED_FLUID_PIPE = register(
+                    "airship_encased_fluid_pipe",
+                    ZmhBlockEntityTypes::createAirshipEncasedFluidPipe,
+                    ZmhBlocks.AIRSHIP_BRASS_ENCASED_FLUID_PIPE,
+                    ZmhBlocks.AIRSHIP_BRONZE_ENCASED_FLUID_PIPE
+            );
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OmniSpeedControllerBlockEntity>>
             OMNI_SPEED_CONTROLLER = register(
@@ -207,6 +240,23 @@ public final class ZmhBlockEntityTypes {
         return new SteamEngineGradeBlockEntity(STEAM_ENGINE_GRADE.get(), pos, state);
     }
 
+
+
+    private static KineticBlockEntity createAirshipEncasedShaft(BlockPos pos, BlockState state) {
+        return new KineticBlockEntity(AIRSHIP_ENCASED_SHAFT.get(), pos, state);
+    }
+
+    private static SimpleKineticBlockEntity createAirshipEncasedCogwheel(BlockPos pos, BlockState state) {
+        return new SimpleKineticBlockEntity(AIRSHIP_ENCASED_COGWHEEL.get(), pos, state);
+    }
+
+    private static SimpleKineticBlockEntity createAirshipEncasedLargeCogwheel(BlockPos pos, BlockState state) {
+        return new SimpleKineticBlockEntity(AIRSHIP_ENCASED_LARGE_COGWHEEL.get(), pos, state);
+    }
+
+    private static FluidPipeBlockEntity createAirshipEncasedFluidPipe(BlockPos pos, BlockState state) {
+        return new FluidPipeBlockEntity(AIRSHIP_ENCASED_FLUID_PIPE.get(), pos, state);
+    }
 
     private static OmniSpeedControllerBlockEntity createOmniSpeedController(BlockPos pos, BlockState state) {
         return new OmniSpeedControllerBlockEntity(OMNI_SPEED_CONTROLLER.get(), pos, state);

@@ -376,6 +376,26 @@
           }
         ]
       }
+    },
+    "airship_brass_casing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_brass_casing"
+          }
+        ]
+      }
+    },
+    "airship_bronze_casing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "zeppelin_must_have:airship_bronze_casing"
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -486,6 +506,12 @@
     ],
     [
       "omni_speed_controller"
+    ],
+    [
+      "airship_brass_casing"
+    ],
+    [
+      "airship_bronze_casing"
     ]
   ],
   "rewards": {

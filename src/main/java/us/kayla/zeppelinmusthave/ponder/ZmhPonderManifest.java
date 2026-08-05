@@ -27,7 +27,7 @@ import java.util.Set;
 public final class ZmhPonderManifest {
     private static final Map<String, Integer> SCENE_TEXT_COUNTS = Map.ofEntries(
             Map.entry("airship_helm_telemetry", 5),
-            Map.entry("airship_burners", 14),
+            Map.entry("airship_burners", 17),
             Map.entry("altitude_control", 7),
             Map.entry("flight_control_network", 5),
             Map.entry("fluid_pipe_grades", 2),
@@ -87,6 +87,8 @@ public final class ZmhPonderManifest {
                 ZmhItems.HEAT_RECUPERATOR_UPGRADE.getId(),
                 ZmhItems.FORCED_INDUCTION_UPGRADE.getId(),
                 ZmhItems.PRECISION_REGULATOR_UPGRADE.getId(),
+                ZmhBlocks.AIRSHIP_BRASS_CASING.getId(),
+                ZmhBlocks.AIRSHIP_BRONZE_CASING.getId(),
                 ZmhBlocks.COPPER_BOILER_BASE.getId(),
                 ZmhBlocks.BRASS_BOILER_BASE.getId(),
                 ZmhBlocks.INDUSTRIAL_BOILER_BASE.getId(),

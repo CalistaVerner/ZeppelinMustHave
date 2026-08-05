@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.17.0 — 2026-08-05
+
+### Added
+
+- Airship Burners can now use steam from a directly attached Create boiler whenever their internal fuel reservoir is empty. Boiler-powered burners emit Aeronautics steam and count as real boiler consumers.
+- Extended the Airship Burner Ponder scene with boiler placement, automatic steam fallback, boiler-load accounting, fuel priority, and goggle diagnostics.
+- Added Airship Brass Casing and Airship Bronze Casing as full Create encasing materials for shafts, small cogwheels, large cogwheels, and fluid pipes.
+- Added custom connected textures, encased mechanism models, recipes, loot tables, mining tags, four-language localization, Ponder documentation, custom BlockEntityTypes, renderers, Flywheel visualizers, and integration GameTests for both casing families.
+
 ## 0.16.0 — Powertrain Reliability
 
 ### Added

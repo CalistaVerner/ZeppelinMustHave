@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "zeppelin_must_have:block/airship_brass_casing"
+  }
+}

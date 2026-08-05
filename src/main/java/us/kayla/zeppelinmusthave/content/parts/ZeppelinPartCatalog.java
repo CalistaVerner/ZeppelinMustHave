@@ -29,7 +29,15 @@ import java.util.stream.Collectors;
 public final class ZeppelinPartCatalog {
     private static final Set<ResourceLocation> INTERNAL_BLOCKS = Set.of(
             ZeppelinMustHave.id("reinforced_glass_fluid_pipe"),
-            ZeppelinMustHave.id("industrial_glass_fluid_pipe")
+            ZeppelinMustHave.id("industrial_glass_fluid_pipe"),
+            ZeppelinMustHave.id("airship_brass_encased_shaft"),
+            ZeppelinMustHave.id("airship_bronze_encased_shaft"),
+            ZeppelinMustHave.id("airship_brass_encased_cogwheel"),
+            ZeppelinMustHave.id("airship_bronze_encased_cogwheel"),
+            ZeppelinMustHave.id("airship_brass_encased_large_cogwheel"),
+            ZeppelinMustHave.id("airship_bronze_encased_large_cogwheel"),
+            ZeppelinMustHave.id("airship_brass_encased_fluid_pipe"),
+            ZeppelinMustHave.id("airship_bronze_encased_fluid_pipe")
     );
     private static final List<ZeppelinPartDefinition> PARTS = List.of(
             block("airship_helm", ZmhBlocks.AIRSHIP_HELM_ITEM, ZmhBlocks.AIRSHIP_HELM,
@@ -62,6 +70,10 @@ public final class ZeppelinPartCatalog {
             item("forced_induction_upgrade", ZmhItems.FORCED_INDUCTION_UPGRADE,
                     ZeppelinPartCategory.UPGRADE),
 
+            block("airship_brass_casing", ZmhBlocks.AIRSHIP_BRASS_CASING_ITEM,
+                    ZmhBlocks.AIRSHIP_BRASS_CASING, ZeppelinPartCategory.STEAM_POWER),
+            block("airship_bronze_casing", ZmhBlocks.AIRSHIP_BRONZE_CASING_ITEM,
+                    ZmhBlocks.AIRSHIP_BRONZE_CASING, ZeppelinPartCategory.STEAM_POWER),
             block("copper_boiler_base", ZmhBlocks.COPPER_BOILER_BASE_ITEM,
                     ZmhBlocks.COPPER_BOILER_BASE, ZeppelinPartCategory.STEAM_POWER),
             block("brass_boiler_base", ZmhBlocks.BRASS_BOILER_BASE_ITEM,

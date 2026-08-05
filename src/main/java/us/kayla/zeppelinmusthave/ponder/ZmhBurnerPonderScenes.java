@@ -51,6 +51,9 @@ final class ZmhBurnerPonderScenes {
         BlockPos leftBurnerPos = util.grid().at(2, 1, 3);
         BlockPos rightBurnerPos = util.grid().at(4, 1, 3);
         BlockPos leverPos = util.grid().at(1, 1, 3);
+        BlockPos boilerHeaterPos = util.grid().at(3, 1, 3);
+        BlockPos boilerPos = util.grid().at(3, 2, 3);
+        BlockPos boilerBurnerPos = util.grid().at(3, 3, 3);
         BlockPos envelopeCenter = util.grid().at(3, 5, 3);
 
         scene.title("airship_burners", "Supplying Lift with Airship Burners");
@@ -322,5 +325,64 @@ final class ZmhBurnerPonderScenes {
                 .pointAt(Vec3.atCenterOf(burnerPos))
                 .placeNearTarget();
         scene.idle(85);
+
+        scene.world().setBlock(leftBurnerPos, Blocks.AIR.defaultBlockState(), true);
+        scene.world().setBlock(rightBurnerPos, Blocks.AIR.defaultBlockState(), true);
+        scene.world().setBlock(leverPos, Blocks.AIR.defaultBlockState(), true);
+        scene.world().setBlock(boilerHeaterPos, Blocks.MAGMA_BLOCK.defaultBlockState(), true);
+        scene.world().setBlock(
+                boilerPos,
+                ZmhBlocks.COPPER_BOILER_BASE.get().defaultBlockState(),
+                true
+        );
+        scene.world().setBlock(
+                boilerBurnerPos,
+                ZmhBlocks.AIRSHIP_BURNER.get().defaultBlockState()
+                        .setValue(HotAirBurnerBlock.POWERED, true)
+                        .setValue(AirshipBurnerBlock.LIT, true),
+                true
+        );
+        scene.world().modifyBlockEntity(
+                boilerBurnerPos,
+                AirshipBurnerBlockEntity.class,
+                burner -> burner.configurePonderBoilerPreview(15, 0.75D)
+        );
+        scene.idle(20);
+
+        scene.overlay().showText(80)
+                .text("Mount an Airship Burner directly on top of an active Create fluid-tank boiler to use its steam")
+                .attachKeyFrame()
+                .colored(PonderPalette.BLUE)
+                .pointAt(Vec3.atCenterOf(boilerPos))
+                .placeNearTarget();
+        scene.overlay().showOutline(
+                PonderPalette.BLUE,
+                "boiler_steam_source",
+                util.select().fromTo(boilerHeaterPos, boilerBurnerPos),
+                80
+        );
+        scene.idle(95);
+
+        scene.overlay().showText(90)
+                .text("With an empty internal reservoir, the burner emits Aeronautics steam, scales output with boiler efficiency, and occupies one real boiler consumer slot")
+                .attachKeyFrame()
+                .pointAt(Vec3.atCenterOf(boilerBurnerPos))
+                .placeNearTarget();
+        scene.idle(105);
+
+        scene.overlay().showControls(
+                        util.vector().blockSurface(boilerBurnerPos, Direction.NORTH),
+                        Pointing.RIGHT,
+                        35
+                )
+                .withItem(AllItems.GOGGLES.asStack());
+        scene.idle(10);
+        scene.overlay().showText(85)
+                .text("Stored burner fuel always has priority; Engineer's Goggles show the active source and current boiler efficiency")
+                .attachKeyFrame()
+                .colored(PonderPalette.INPUT)
+                .pointAt(Vec3.atCenterOf(boilerBurnerPos))
+                .placeNearTarget();
+        scene.idle(100);
     }
 }

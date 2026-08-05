@@ -8,6 +8,10 @@ import us.kayla.zeppelinmusthave.content.balloon.TieredEnvelopeBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlock;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeItem;
 import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlock;
+import us.kayla.zeppelinmusthave.content.casing.AirshipCasingBlock;
+import us.kayla.zeppelinmusthave.content.casing.AirshipEncasedCogwheelBlock;
+import us.kayla.zeppelinmusthave.content.casing.AirshipEncasedPipeBlock;
+import us.kayla.zeppelinmusthave.content.casing.AirshipEncasedShaftBlock;
 import us.kayla.zeppelinmusthave.content.control.AltitudeGaugeBlock;
 import us.kayla.zeppelinmusthave.content.control.fcn.ControlReceiverBlock;
 import us.kayla.zeppelinmusthave.content.control.fcn.ControlTransmitterBlock;
@@ -34,6 +38,32 @@ import us.kayla.zeppelinmusthave.content.thruster.VerticalThrusterBlock;
  * preserves all existing source references and registry IDs.</p>
  */
 public final class ZmhBlocks {
+    public static final DeferredBlock<AirshipCasingBlock> AIRSHIP_BRASS_CASING =
+            ZmhCasingBlocks.AIRSHIP_BRASS_CASING.block();
+    public static final DeferredItem<BlockItem> AIRSHIP_BRASS_CASING_ITEM =
+            ZmhCasingBlocks.AIRSHIP_BRASS_CASING.item();
+    public static final DeferredBlock<AirshipCasingBlock> AIRSHIP_BRONZE_CASING =
+            ZmhCasingBlocks.AIRSHIP_BRONZE_CASING.block();
+    public static final DeferredItem<BlockItem> AIRSHIP_BRONZE_CASING_ITEM =
+            ZmhCasingBlocks.AIRSHIP_BRONZE_CASING.item();
+
+    public static final DeferredBlock<AirshipEncasedShaftBlock> AIRSHIP_BRASS_ENCASED_SHAFT =
+            ZmhCasingBlocks.AIRSHIP_BRASS_ENCASED_SHAFT;
+    public static final DeferredBlock<AirshipEncasedShaftBlock> AIRSHIP_BRONZE_ENCASED_SHAFT =
+            ZmhCasingBlocks.AIRSHIP_BRONZE_ENCASED_SHAFT;
+    public static final DeferredBlock<AirshipEncasedCogwheelBlock> AIRSHIP_BRASS_ENCASED_COGWHEEL =
+            ZmhCasingBlocks.AIRSHIP_BRASS_ENCASED_COGWHEEL;
+    public static final DeferredBlock<AirshipEncasedCogwheelBlock> AIRSHIP_BRONZE_ENCASED_COGWHEEL =
+            ZmhCasingBlocks.AIRSHIP_BRONZE_ENCASED_COGWHEEL;
+    public static final DeferredBlock<AirshipEncasedCogwheelBlock> AIRSHIP_BRASS_ENCASED_LARGE_COGWHEEL =
+            ZmhCasingBlocks.AIRSHIP_BRASS_ENCASED_LARGE_COGWHEEL;
+    public static final DeferredBlock<AirshipEncasedCogwheelBlock> AIRSHIP_BRONZE_ENCASED_LARGE_COGWHEEL =
+            ZmhCasingBlocks.AIRSHIP_BRONZE_ENCASED_LARGE_COGWHEEL;
+    public static final DeferredBlock<AirshipEncasedPipeBlock> AIRSHIP_BRASS_ENCASED_FLUID_PIPE =
+            ZmhCasingBlocks.AIRSHIP_BRASS_ENCASED_FLUID_PIPE;
+    public static final DeferredBlock<AirshipEncasedPipeBlock> AIRSHIP_BRONZE_ENCASED_FLUID_PIPE =
+            ZmhCasingBlocks.AIRSHIP_BRONZE_ENCASED_FLUID_PIPE;
+
     public static final DeferredBlock<AirshipHelmBlock> AIRSHIP_HELM = ZmhAirshipBlocks.HELM.block();
     public static final DeferredItem<BlockItem> AIRSHIP_HELM_ITEM = ZmhAirshipBlocks.HELM.item();
 

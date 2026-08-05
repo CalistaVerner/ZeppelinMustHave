@@ -1,6 +1,8 @@
 package us.kayla.zeppelinmusthave.content.burner;
 
 import dev.eriksonn.aeronautics.content.blocks.hot_air.hot_air_burner.HotAirBurnerBlockEntity;
+import dev.eriksonn.aeronautics.content.blocks.hot_air.lifting_gas.LiftingGasType;
+import dev.eriksonn.aeronautics.index.AeroLiftingGasTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +30,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
     private BlockPos castPositionBridge;
     private boolean flightControlOverride;
     private int flightControlSignal;
+    private double boilerEfficiency;
 
     public AirshipBurnerBlockEntity(
             BlockEntityType<?> type,
@@ -42,6 +45,7 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
     public void initialize() {
         super.initialize();
         this.refreshProfile(true);
+        this.refreshBoilerEfficiency();
         AirshipBurnerWorldEffects.updateLitState(this);
     }
 
@@ -53,6 +57,10 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
         }
 
         this.refreshProfile(false);
+        boolean boilerChanged = this.refreshBoilerEfficiency();
+        if (boilerChanged && !this.runtimeState.hasHeat()) {
+            this.synchronizeGasSource();
+        }
         this.reportFlightSystemStatus();
         if (this.runtimeState.isInfinite()
                 || !this.runtimeState.hasHeat()
@@ -68,7 +76,11 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
 
         this.setChanged();
         if (consumption.depleted()) {
-            this.removeFromBalloon();
+            if (this.isUsingBoilerSteam()) {
+                this.tickBalloonLogic();
+            } else {
+                this.removeFromBalloon();
+            }
             AirshipBurnerWorldEffects.playDepleted(this);
             AirshipBurnerWorldEffects.publish(this, true);
             return;
@@ -118,17 +130,28 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
         }
 
         AirshipBurnerProfile profile = this.runtimeState.profile();
+        boolean boilerSteam = this.isUsingBoilerSteam();
         double aeronauticsSelectedOutput = super.getGasOutput() / linearThrottle;
         return aeronauticsSelectedOutput
                 * profile.throttleForSignal(this.effectiveSignalStrength())
-                * profile.outputMultiplier(this.runtimeState.activeGrade().isSuperheated());
+                * profile.outputMultiplier(
+                        !boilerSteam && this.runtimeState.activeGrade().isSuperheated()
+                )
+                * (boilerSteam ? this.boilerEfficiency : 1.0D);
+    }
+
+    @Override
+    public LiftingGasType getLiftingGasType() {
+        return this.isUsingBoilerSteam()
+                ? AeroLiftingGasTypes.STEAM.get()
+                : super.getLiftingGasType();
     }
 
     @Override
     public boolean canOutputGas() {
         boolean profileAvailable = this.isVirtual() || this.runtimeState.profileAllowsOperation();
         return this.effectiveSignalStrength() > 0
-                && this.runtimeState.hasHeat()
+                && (this.runtimeState.hasHeat() || this.boilerEfficiency > 0.0D)
                 && profileAvailable
                 && !this.isRemoved();
     }
@@ -208,6 +231,13 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
         );
     }
 
+    public void configurePonderBoilerPreview(int signal, double efficiency) {
+        this.markVirtual();
+        this.setSignalStrength(Math.clamp(signal, 0, 15));
+        this.powered = signal > 0;
+        this.boilerEfficiency = Math.clamp(efficiency, 0.0D, 1.0D);
+    }
+
     public AirshipBurnerProfile getActiveProfile() {
         return this.runtimeState.profile();
     }
@@ -218,6 +248,14 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
 
     public double getFuelRatio() {
         return this.runtimeState.fuelRatio();
+    }
+
+    public boolean isUsingBoilerSteam() {
+        return !this.runtimeState.hasHeat() && this.boilerEfficiency > 0.0D;
+    }
+
+    public double getBoilerEfficiency() {
+        return this.boilerEfficiency;
     }
 
     public AirshipHeatSnapshot getHeatSnapshot() {
@@ -295,6 +333,9 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
                 ? BalloonHeatAggregate.from(this.getBalloon())
                 : BalloonHeatAggregate.EMPTY;
         this.runtimeState.write(tag, registries, clientPacket, network);
+        if (clientPacket) {
+            tag.putDouble("BoilerEfficiency", this.boilerEfficiency);
+        }
         super.write(tag, registries, clientPacket);
     }
 
@@ -305,6 +346,9 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
             boolean clientPacket
     ) {
         this.runtimeState.read(tag, registries, clientPacket);
+        if (clientPacket) {
+            this.boilerEfficiency = Math.clamp(tag.getDouble("BoilerEfficiency"), 0.0D, 1.0D);
+        }
         super.read(tag, registries, clientPacket);
     }
 
@@ -317,6 +361,29 @@ public final class AirshipBurnerBlockEntity extends HotAirBurnerBlockEntity impl
                 this.getGasOutput(),
                 aggregate
         );
+    }
+
+    private boolean refreshBoilerEfficiency() {
+        if (this.level == null || this.level.isClientSide || this.isVirtual()) {
+            return false;
+        }
+        double nextEfficiency = AirshipBurnerBoilerSource.efficiency(this.level, this.worldPosition);
+        if (Math.abs(nextEfficiency - this.boilerEfficiency) < 0.0001D) {
+            return false;
+        }
+        this.boilerEfficiency = nextEfficiency;
+        return true;
+    }
+
+    private void synchronizeGasSource() {
+        if (this.canOutputGas()) {
+            if (!this.isVirtual()) {
+                this.tickBalloonLogic();
+            }
+        } else {
+            this.removeFromBalloon();
+        }
+        AirshipBurnerWorldEffects.publish(this, true);
     }
 
     private void refreshProfile(boolean forceSync) {

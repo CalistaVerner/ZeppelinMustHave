@@ -168,6 +168,20 @@ public final class AirshipBurnerBlock extends HotAirBurnerBlock {
     }
 
     @Override
+    public void onPlace(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            BlockState oldState,
+            boolean movedByPiston
+    ) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (!state.is(oldState.getBlock())) {
+            AirshipBurnerBoilerSource.notifyBoiler(level, pos, state);
+        }
+    }
+
+    @Override
     public void onRemove(
             BlockState state,
             Level level,
@@ -175,13 +189,17 @@ public final class AirshipBurnerBlock extends HotAirBurnerBlock {
             BlockState newState,
             boolean movedByPiston
     ) {
-        if (!state.is(newState.getBlock())
+        boolean replaced = !state.is(newState.getBlock());
+        if (replaced
                 && !level.isClientSide
                 && level.getBlockEntity(pos) instanceof AirshipBurnerBlockEntity burner) {
             burner.extractAllUpgrades()
                     .forEach(stack -> Block.popResource(level, pos, stack));
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
+        if (replaced) {
+            AirshipBurnerBoilerSource.notifyBoiler(level, pos, state);
+        }
     }
 
     @Override

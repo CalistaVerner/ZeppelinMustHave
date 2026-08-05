@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "us.kayla.zeppelinmusthave.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BoilerDataMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

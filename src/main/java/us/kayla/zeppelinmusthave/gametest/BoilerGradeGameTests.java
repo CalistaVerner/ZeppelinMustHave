@@ -3,6 +3,7 @@ package us.kayla.zeppelinmusthave.gametest;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
+import dev.eriksonn.aeronautics.index.AeroLiftingGasTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -12,6 +13,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import us.kayla.zeppelinmusthave.ZeppelinMustHave;
 import us.kayla.zeppelinmusthave.content.boiler.BoilerGradeBlockEntity;
+import us.kayla.zeppelinmusthave.content.burner.AirshipBurnerBlockEntity;
 import us.kayla.zeppelinmusthave.registry.ZmhBlocks;
 
 @GameTestHolder(ZeppelinMustHave.MOD_ID)
@@ -105,6 +107,60 @@ public final class BoilerGradeGameTests {
 
             assertInt(helper, "Grade I kindled heat", 2, copper.boiler.activeHeat);
             assertInt(helper, "Grade III superheated heat", 8, industrial.boiler.activeHeat);
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = TEMPLATE, setupTicks = 1L, timeoutTicks = 40)
+    public static void airshipBurnerFallsBackToBoilerSteam(GameTestHelper helper) {
+        BlockPos controllerPos = new BlockPos(2, 2, 2);
+        for (int xOffset = 0; xOffset < 2; xOffset++) {
+            for (int zOffset = 0; zOffset < 2; zOffset++) {
+                BlockPos tankPos = controllerPos.offset(xOffset, 0, zOffset);
+                helper.setBlock(tankPos.below(), Blocks.MAGMA_BLOCK);
+                helper.setBlock(tankPos, ZmhBlocks.COPPER_BOILER_BASE.get());
+            }
+        }
+
+        BlockPos burnerPos = controllerPos.above();
+        helper.setBlock(burnerPos, ZmhBlocks.AIRSHIP_BURNER.get());
+        helper.setBlock(burnerPos.east(), Blocks.REDSTONE_BLOCK);
+
+        helper.runAfterDelay(8, () -> {
+            BoilerGradeBlockEntity tank = helper.getBlockEntity(controllerPos);
+            FluidTankBlockEntity boiler = tank.getControllerBE();
+            AirshipBurnerBlockEntity burner = helper.getBlockEntity(burnerPos);
+            if (boiler == null) {
+                helper.fail("Copper boiler controller was not resolved");
+                return;
+            }
+
+            assertInt(helper, "boiler tank size", 4, boiler.getTotalTankSize());
+            boiler.boiler.evaluate(boiler);
+            // This test targets burner/boiler integration rather than Create's
+            // time-windowed water and passive-heat sampling.
+            boiler.boiler.passiveHeat = true;
+            boiler.boiler.waterSupply = 10.0F;
+            burner.updateSignal();
+            burner.tick();
+
+            assertInt(helper, "boiler steam-consumer load", 1, boiler.boiler.attachedEngines);
+            if (boiler.boiler.getEngineEfficiency(boiler.getTotalTankSize()) <= 0.0F) {
+                helper.fail("Test boiler did not reach positive steam efficiency");
+                return;
+            }
+            if (!burner.isUsingBoilerSteam()) {
+                helper.fail("Fuel-empty Airship Burner did not select boiler steam");
+                return;
+            }
+            if (burner.getLiftingGasType() != AeroLiftingGasTypes.STEAM.get()) {
+                helper.fail("Boiler-powered Airship Burner did not emit Aeronautics steam");
+                return;
+            }
+            if (!burner.canOutputGas() || burner.getGasOutput() <= 0.0D) {
+                helper.fail("Boiler-powered Airship Burner produced no lifting gas");
+                return;
+            }
             helper.succeed();
         });
     }

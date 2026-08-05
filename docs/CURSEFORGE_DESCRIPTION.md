@@ -10,7 +10,7 @@ The mod is built for players and servers that want airships to feel like enginee
 
 ## Zeppelin Parts — Complete Coverage
 
-Version `0.16.0` catalogues every public block and item as a Zeppelin Part: **33 functional block parts and 3 upgrade items**.
+Version `0.16.0` catalogues every public block and item as a Zeppelin Part: **35 functional block parts and 3 upgrade items**.
 
 The Zeppelin Parts catalog provides:
 
@@ -79,6 +79,7 @@ Burners support:
 - Create regular Blaze Burner fuels;
 - Create superheated fuels;
 - Creative Blaze Cake for infinite preview/creative operation;
+- automatic boiler-steam fallback when mounted directly on an active Create boiler;
 - mixed regular and superheated heat reserves;
 - redstone-controlled throttling;
 - multiple burners connected to one native Aeronautics balloon;
@@ -86,6 +87,8 @@ Burners support:
 - detailed Engineer's Goggles diagnostics.
 
 Superheated heat is consumed first. When it runs out, the burner automatically falls back to the regular reserve.
+
+With no internal fuel remaining, a burner mounted directly above a working boiler can use that boiler's steam instead. Boiler steam uses native Aeronautics steam lift and consumes real boiler capacity rather than providing free output.
 
 ---
 
@@ -100,6 +103,17 @@ Each burner provides three persistent upgrade sockets:
 Upgrade modules are installed directly on the burner. Sneak-use the Create Wrench to remove the most recently occupied socket. Breaking a burner drops all installed modules.
 
 Upgrade slots, conflicts, supported targets, and numerical effects are loaded from data packs rather than hardcoded into the item classes.
+
+---
+
+### Airship Brass and Bronze Casings
+
+Two complete Create-compatible casing families are included:
+
+- **Airship Brass Casing** for bright precision machinery;
+- **Airship Bronze Casing** for darker boiler-room and deck machinery.
+
+Use either casing directly on Create Shafts, Cogwheels, Large Cogwheels, and Fluid Pipes. The resulting blocks preserve kinetic axes, pipe connections, fluid flow, connected textures, and Flywheel animation. The Create Wrench removes the casing and restores the original component.
 
 ---
 

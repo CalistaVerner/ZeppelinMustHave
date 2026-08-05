@@ -2,6 +2,16 @@
   "replace": false,
   "values": [
     "zeppelin_must_have:reinforced_envelope",
-    "zeppelin_must_have:industrial_envelope"
+    "zeppelin_must_have:industrial_envelope",
+    "zeppelin_must_have:airship_brass_casing",
+    "zeppelin_must_have:airship_bronze_casing",
+    "zeppelin_must_have:airship_brass_encased_shaft",
+    "zeppelin_must_have:airship_brass_encased_cogwheel",
+    "zeppelin_must_have:airship_brass_encased_large_cogwheel",
+    "zeppelin_must_have:airship_brass_encased_fluid_pipe",
+    "zeppelin_must_have:airship_bronze_encased_shaft",
+    "zeppelin_must_have:airship_bronze_encased_cogwheel",
+    "zeppelin_must_have:airship_bronze_encased_large_cogwheel",
+    "zeppelin_must_have:airship_bronze_encased_fluid_pipe"
   ]
 }

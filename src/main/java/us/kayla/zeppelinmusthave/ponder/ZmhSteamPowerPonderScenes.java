@@ -9,6 +9,7 @@ final class ZmhSteamPowerPonderScenes {
     }
 
     static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
+        ZmhCasingPonderScenes.register(helper);
         ZmhBoilerPonderScenes.register(helper);
         ZmhSteamEnginePonderScenes.register(helper);
     }

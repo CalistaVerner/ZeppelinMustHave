@@ -43,6 +43,33 @@ final class ZmhBlockProperties {
                 .noOcclusion();
     }
 
+    static BlockBehaviour.Properties brassCasing() {
+        return casing(MapColor.TERRACOTTA_YELLOW);
+    }
+
+    static BlockBehaviour.Properties bronzeCasing() {
+        return casing(MapColor.COLOR_ORANGE);
+    }
+
+    static BlockBehaviour.Properties brassEncasedMechanism() {
+        return encasedMechanism(MapColor.TERRACOTTA_YELLOW);
+    }
+
+    static BlockBehaviour.Properties bronzeEncasedMechanism() {
+        return encasedMechanism(MapColor.COLOR_ORANGE);
+    }
+
+    private static BlockBehaviour.Properties casing(MapColor mapColor) {
+        return BlockBehaviour.Properties.of()
+                .mapColor(mapColor)
+                .strength(3.0F, 8.0F)
+                .sound(SoundType.WOOD);
+    }
+
+    private static BlockBehaviour.Properties encasedMechanism(MapColor mapColor) {
+        return casing(mapColor).noOcclusion();
+    }
+
     static BlockBehaviour.Properties burner() {
         return metal()
                 .lightLevel(AirshipBurnerBlock::getLightPower)
