@@ -39,6 +39,9 @@ run/
 repo/
 !**/src/**/repo/
 
+### Workspace edit backups (NorthStar Suite) ###
+*.bak-[0-9]*
+
 ### Runtime diagnostics ###
 run-gametest/
 hs_err_pid*.log

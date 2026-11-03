@@ -66,7 +66,7 @@ final class FlightControlSystemsRegistry {
     private void prune(long gameTime) {
         Iterator<TimedSystemStatus> iterator = this.systems.values().iterator();
         while (iterator.hasNext()) {
-            if (gameTime - iterator.next().gameTime() > FlightControlNetworkTiming.SYSTEM_TIMEOUT_TICKS) {
+            if (FlightControlNetworkTiming.isExpired(gameTime, iterator.next().gameTime(), FlightControlNetworkTiming.SYSTEM_TIMEOUT_TICKS)) {
                 iterator.remove();
             }
         }

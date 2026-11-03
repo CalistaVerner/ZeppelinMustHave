@@ -306,13 +306,13 @@ Zeppelin Must Have is an add-on, not a standalone mod. Install every required de
 |---|---:|
 | Minecraft | `1.21.1` |
 | Java | `21` |
-| NeoForge | `21.1.235` or newer compatible 21.1 build |
+| NeoForge | `21.1.265` or newer compatible 21.1 build |
 | Create | `6.0.10` to `< 6.1.0` |
-| Sable | `2.0.0` to `< 3.0.0` |
-| Create Simulated | `1.3.0` to `< 2.0.0` |
-| Create Aeronautics | `1.3.0` to `< 2.0.0` |
+| Sable | `2.0.6` to `< 3.0.0` |
+| Create Simulated | `1.3.2` to `< 2.0.0` |
+| Create Aeronautics | `1.3.2` to `< 2.0.0` |
 
-The current Zeppelin Must Have release is **0.16.0**.
+The upcoming Zeppelin Must Have version is **0.17.1** (release validation pending).
 
 ---
 

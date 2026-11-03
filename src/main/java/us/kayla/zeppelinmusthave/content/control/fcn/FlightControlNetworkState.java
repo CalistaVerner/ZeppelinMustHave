@@ -75,7 +75,7 @@ final class FlightControlNetworkState {
         long primary = this.primaryComputer();
         return primary != Long.MIN_VALUE
                 && this.outputComputer == primary
-                && gameTime - this.outputGameTime <= FlightControlNetworkTiming.OUTPUT_TIMEOUT_TICKS;
+                && !FlightControlNetworkTiming.isExpired(gameTime, this.outputGameTime, FlightControlNetworkTiming.OUTPUT_TIMEOUT_TICKS);
     }
 
     void publishOutput(long source, FlightControlFrame frame, long gameTime) {
@@ -98,7 +98,7 @@ final class FlightControlNetworkState {
         this.pruneInputs(gameTime);
         this.pruneComputers(gameTime);
         boolean outputExpired = this.outputComputer == Long.MIN_VALUE
-                || gameTime - this.outputGameTime > FlightControlNetworkTiming.OUTPUT_TIMEOUT_TICKS;
+                || FlightControlNetworkTiming.isExpired(gameTime, this.outputGameTime, FlightControlNetworkTiming.OUTPUT_TIMEOUT_TICKS);
         return this.inputs.isEmpty() && this.computers.isEmpty() && outputExpired;
     }
 
@@ -118,7 +118,7 @@ final class FlightControlNetworkState {
         while (channels.hasNext()) {
             Map<Long, SignalState> sources = channels.next().getValue();
             sources.values().removeIf(
-                    signal -> gameTime - signal.gameTime() > FlightControlNetworkTiming.INPUT_TIMEOUT_TICKS
+                    signal -> FlightControlNetworkTiming.isExpired(gameTime, signal.gameTime(), FlightControlNetworkTiming.INPUT_TIMEOUT_TICKS)
             );
             if (sources.isEmpty()) {
                 channels.remove();
@@ -128,7 +128,7 @@ final class FlightControlNetworkState {
 
     private void pruneComputers(long gameTime) {
         this.computers.values().removeIf(
-                heartbeat -> gameTime - heartbeat > FlightControlNetworkTiming.COMPUTER_TIMEOUT_TICKS
+                heartbeat -> FlightControlNetworkTiming.isExpired(gameTime, heartbeat, FlightControlNetworkTiming.COMPUTER_TIMEOUT_TICKS)
         );
     }
 

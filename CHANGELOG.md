@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.17.1 — 2026-11-03 (validation pending)
+
+### Updated
+
+- Refreshed the NeoForge 1.21.1 development baseline, ModDevGradle, Sable,
+  Create Simulated, Create Aeronautics, and Curios API dependencies.
+- Raised minimum supported runtime dependencies to the tested target family.
+- Added automated JUnit control-timing regression cases and strengthened
+  GitHub Actions build/artifact validation.
+
+### Fixed
+
+- Centralized Flight Control Network timeout decisions and prevented
+  old control frames, heartbeats, and telemetry from surviving a
+  backward jump in the game clock.
+- Restored network and vessel cache maintenance immediately after clock reset.
+- Deduplicated Sable native-cleanup Gradle tasks.
+
+### Release status
+
+- **0.17.1 is built locally and client-smoke-tested**, but is not
+  dedicated-server-verified and has not been published.
+- Created a checksum-verified, optional development dependency cache from
+  the official Create 6.0.10 Modrinth release while upstream Maven TLS
+  remains expired. No insecure HTTPS workaround is enabled.
+- Gradle `build`, all three JUnit tests, and JAR packaging passed.
+- Client NeoForge launched, initialized Zeppelin Must Have's profiles,
+  started an integrated world, and admitted the `Dev` player.
+- Dedicated GameTests remain blocked by a Create Simulated 1.3.2
+  `Screen` class loading failure on `DEDICATED_SERVER`.
+
+
 ## 0.17.0 — 2026-08-05
 
 ### Added

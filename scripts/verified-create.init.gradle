@@ -1,0 +1,25 @@
+// Optional, verified fallback while the upstream Create Maven TLS certificate is expired.
+// Local files are derived from the official Create Modrinth release, with SHA-512 checked.
+// They are never shipped as part of the Zeppelin Must Have JAR.
+gradle.beforeProject { project ->
+    def localMaven = new File(project.rootDir, '.gradle/zeppelin-verified-create/repository')
+    if (!localMaven.isDirectory()) {
+        throw new GradleException('Run scripts/prepare-verified-create.ps1 first.')
+    }
+    project.repositories {
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'verifiedCreateBundle'
+                    url = localMaven.toURI()
+                }
+            }
+            filter {
+                includeGroup 'com.simibubi.create'
+                includeGroup 'net.createmod.ponder'
+                includeGroup 'dev.engine-room.flywheel'
+                includeGroup 'com.tterrag.registrate'
+            }
+        }
+    }
+}

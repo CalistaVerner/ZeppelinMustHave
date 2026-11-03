@@ -288,8 +288,8 @@ public final class FlightControlNetworkManager {
     }
 
     private void pruneVesselsIfDue(long gameTime, UUID activeVessel) {
-        if (this.lastVesselPruneTime != Long.MIN_VALUE
-                && gameTime - this.lastVesselPruneTime < FlightControlNetworkTiming.VESSEL_PRUNE_INTERVAL_TICKS) {
+        if (!FlightControlNetworkTiming.isPruneDue(
+                gameTime, this.lastVesselPruneTime, FlightControlNetworkTiming.VESSEL_PRUNE_INTERVAL_TICKS)) {
             return;
         }
         Iterator<Map.Entry<UUID, FlightControlVesselState>> iterator = this.vessels.entrySet().iterator();

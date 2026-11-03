@@ -69,8 +69,8 @@ final class FlightControlVesselState {
     }
 
     private void pruneNetworksIfDue(long gameTime) {
-        if (this.lastNetworkPruneTime != Long.MIN_VALUE
-                && gameTime - this.lastNetworkPruneTime < FlightControlNetworkTiming.NETWORK_PRUNE_INTERVAL_TICKS) {
+        if (!FlightControlNetworkTiming.isPruneDue(
+                gameTime, this.lastNetworkPruneTime, FlightControlNetworkTiming.NETWORK_PRUNE_INTERVAL_TICKS)) {
             return;
         }
         this.pruneNetworks(gameTime);

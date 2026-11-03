@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.148'
     id 'idea'
 }
 
@@ -28,20 +28,19 @@ sourceSets.main.resources {
 }
 
 
-// Sable 2.0.0 extracts Rapier into a fixed relative path and always replaces
+// Sable 2.x extracts Rapier into a fixed relative path and can replace
 // the DLL. Windows cannot replace a native library left behind by a previous
 // dev client, so clear the extraction directory before physics-capable runs.
-var cleanSableNatives = tasks.register('cleanSableNatives', Delete) {
-    group = 'mod development'
-    description = 'Removes stale Sable Rapier natives before a client or server development run.'
-    delete(layout.projectDirectory.dir('run/.sable/natives'))
+// Keep client/server and GameTest native cleanup behavior in one task factory.
+def registerSableNativeCleanup = { String taskName, String runDirectory ->
+    tasks.register(taskName, Delete) {
+        group = 'mod development'
+        description = "Removes stale Sable Rapier natives from ${runDirectory} before a development run."
+        delete(layout.projectDirectory.dir("${runDirectory}/.sable/natives"))
+    }
 }
-
-var cleanSableGameTestNatives = tasks.register('cleanSableGameTestNatives', Delete) {
-    group = 'mod development'
-    description = 'Removes stale Sable Rapier natives from the isolated GameTest directory.'
-    delete(layout.projectDirectory.dir('run-gametest/.sable/natives'))
-}
+var cleanSableNatives = registerSableNativeCleanup('cleanSableNatives', 'run')
+var cleanSableGameTestNatives = registerSableNativeCleanup('cleanSableGameTestNatives', 'run-gametest')
 
 repositories {
     mavenCentral()
@@ -140,6 +139,11 @@ configurations {
 }
 
 dependencies {
+    // Isolated JUnit tests for control policies that do not need a game runtime.
+    testImplementation(platform('org.junit:junit-bom:5.13.4'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+
     // Base Create API and renderer stack.
     implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") {
         transitive = false
@@ -204,6 +208,10 @@ publishing {
             url = layout.buildDirectory.dir('repo')
         }
     }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile).configureEach {

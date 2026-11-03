@@ -11,4 +11,21 @@ final class FlightControlNetworkTiming {
 
     private FlightControlNetworkTiming() {
     }
+
+    /**
+     * Treat timestamps from a future clock (or an uninitialized state) as
+     * expired. This prevents stale control frames surviving a time reset.
+     */
+    static boolean isExpired(long now, long lastSeen, long timeoutTicks) {
+        return lastSeen == Long.MIN_VALUE
+                || now < lastSeen
+                || now - lastSeen > timeoutTicks;
+    }
+
+    /** Maintenance must run again after a clock rollback, not be postponed. */
+    static boolean isPruneDue(long now, long lastPruned, long intervalTicks) {
+        return lastPruned == Long.MIN_VALUE
+                || now < lastPruned
+                || now - lastPruned >= intervalTicks;
+    }
 }

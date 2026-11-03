@@ -1,16 +1,17 @@
-name: Build
+name: Build and test
 
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
 
       - name: Setup JDK 21
         uses: actions/setup-java@v4
@@ -21,5 +22,32 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Compile, run unit tests and package
+        run: ./gradlew build --no-daemon --stacktrace
+
+      - name: Run NeoForge GameTests
+        run: ./gradlew runGameTestServer --no-daemon --stacktrace
+
+      # NeoForge can return exit code 0 even if Minecraft fails during mod construction.
+      - name: Reject GameTest startup crashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s run-gametest/logs/latest.log
+          if grep -Eiq 'Failed to start the minecraft server|Mod loading failures have occurred|ModLoadingException|ModLoadingCrashException' run-gametest/logs/latest.log; then
+            echo "Minecraft crashed before GameTests completed"
+            exit 1
+          fi
+          if ! grep -Eiq 'game.?tests? (complete|finished|passed)|all tests passed|[1-9][0-9]* (tests|gametests) passed' run-gametest/logs/latest.log; then
+            echo "No successful GameTest result found"
+            exit 1
+          fi
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zeppelin-must-have-jars
+          path: build/libs/*.jar
+          if-no-files-found: error
+          retention-days: 14

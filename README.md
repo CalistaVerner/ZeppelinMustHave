@@ -1,9 +1,9 @@
 # Zeppelin Must Have
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-3C8527?style=flat-square)](https://www.minecraft.net/)
-[![NeoForge](https://img.shields.io/badge/NeoForge-21.1.235-EF7B22?style=flat-square)](https://neoforged.net/)
+[![NeoForge](https://img.shields.io/badge/NeoForge-21.1.265-EF7B22?style=flat-square)](https://neoforged.net/)
 [![Create](https://img.shields.io/badge/Create-6.0.10-5C8D89?style=flat-square)](https://github.com/Creators-of-Create/Create)
-[![Aeronautics](https://img.shields.io/badge/Create_Aeronautics-1.3.0-7696D2?style=flat-square)](https://modrinth.com/mod/create-aeronautics)
+[![Aeronautics](https://img.shields.io/badge/Create_Aeronautics-1.3.2-7696D2?style=flat-square)](https://modrinth.com/mod/create-aeronautics)
 [![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square)](https://adoptium.net/)
 [![Build](https://img.shields.io/github/actions/workflow/status/CalistaVerner/ZeppelinMustHave/build.yml?branch=main&style=flat-square&label=build)](https://github.com/CalistaVerner/ZeppelinMustHave/actions)
 
@@ -14,22 +14,22 @@
 ## Platform
 
 ```text
-Minecraft 1.21.1 / NeoForge 21.1.235
+Minecraft 1.21.1 / NeoForge 21.1.265
         │
         ▼
 Create 6.0.10
         │
         ▼
-Sable 2.0.0
+Sable 2.0.6
         │
         ▼
-Create Simulated 1.3.0
+Create Simulated 1.3.2
         │
         ▼
-Create Aeronautics 1.3.0
+Create Aeronautics 1.3.2
         │
         ▼
-Zeppelin Must Have 0.16.0
+Zeppelin Must Have 0.17.1 (release validation pending)
 ```
 
 All upstream mods are mandatory compile-time and runtime dependencies.
@@ -434,15 +434,15 @@ The Ballast Tank, Mooring Winch, Vertical Thruster, and Altitude Gauge are fully
 |---|---:|
 | Minecraft | `1.21.1` |
 | Java | `21` |
-| NeoForge | `21.1.235` |
+| NeoForge | `21.1.265` |
 | Create | `6.0.10` / Maven build `6.0.10-280` |
-| Sable | `2.0.0` |
-| Create Simulated | `1.3.0` |
-| Create Aeronautics | `1.3.0` |
+| Sable | `2.0.6` |
+| Create Simulated | `1.3.2` |
+| Create Aeronautics | `1.3.2` |
 | Ponder | `1.0.82` |
 | Flywheel | `1.0.6` |
 | Registrate | `MC1.21-1.3.0+67` |
-| Zeppelin Must Have | `0.16.0` |
+| Zeppelin Must Have | `0.17.1` (pending release verification) |
 
 ## Internal code organization
 
@@ -468,6 +468,24 @@ See [`docs/REFACTORING.md`](docs/REFACTORING.md) for the complete internal modul
 # Automated NeoForge GameTests
 ./gradlew.bat runGameTestServer
 ```
+
+For Windows builds using official Create release artifacts validated by
+Modrinth SHA-512, run:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\scripts\verify-release.ps1 -Stage build -UseVerifiedCreateBundle
+```
+
+The script also supports `-Stage build`, `-Stage gametest`, `-Stage server`,
+and `-Stage client`. The last two start interactive development runtimes;
+server EULA acceptance is a separate user action. No TLS validation is
+disabled by this process-scoped script execution setting.
+
+**0.17.1 builds and starts on the development client.** On 2026-11-03 the official
+`maven.createmod.net` HTTPS certificate expired. Build now uses an opt-in
+verified Modrinth release cache; GameTests remain blocked by a Create Simulated
+1.3.2 dedicated-server classloading error. See
+[`docs/MAINTENANCE_2026-11-03.md`](docs/MAINTENANCE_2026-11-03.md).
 
 Linux and macOS use `./gradlew`.
 
